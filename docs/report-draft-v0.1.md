@@ -163,5 +163,5 @@ Como evolución futura, la prioridad recomendada es incorporar persistencia loca
 ## Pendientes para convertir este borrador en entrega
 
 1. Recuperar entre tres y cinco prompts representativos.
-2. Ajustar extensión y maquetar el PDF final en Arial o Calibri 11, interlineado 1.5.
+2. Revisar contenido, selección de capturas y extensión antes de retirar la marca de borrador.
 3. Reconfirmar la fecha contra cualquier aviso docente posterior.
