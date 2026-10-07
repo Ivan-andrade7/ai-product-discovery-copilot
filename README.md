@@ -4,6 +4,8 @@ Trabajo Final Integrador individual de la Diplomatura en IA Aplicada a Entornos 
 
 Repositorio público: https://github.com/Ivan-andrade7/ai-product-discovery-copilot
 
+Demo navegable: https://ivan-andrade7.github.io/ai-product-discovery-copilot/
+
 ## Qué busca demostrar
 
 Una plataforma asistida por IA puede ayudar a transformar una solicitud incompleta en propuestas revisables y trazables sin ocultar las fuentes, los supuestos ni las decisiones humanas.
@@ -61,6 +63,8 @@ La prueba manual confirmó el recorrido completo entre Projects, Overview, Work,
 
 Los detalles técnicos y comandos de verificación están en [`app/README.md`](app/README.md). El registro académico de prompts está en [`docs/prompt-log.md`](docs/prompt-log.md).
 
+Como alternativa, la demo pública permite realizar el mismo recorrido sin instalación. Es la misma maqueta de Nivel 2: la publicación estática no agrega backend ni IA real.
+
 ## Base técnica
 
 - React 19.3.0 para construir la interfaz mediante componentes reutilizables.
@@ -96,4 +100,4 @@ Está implementado el recorrido base completo: Projects, New Project, Overview, 
 
 La revisión interna cubrió estructura semántica, estados seleccionados, foco visible, objetivos táctiles y reflow móvil. Es una inspección técnica acotada: no demuestra conformidad integral de accesibilidad ni sustituye una prueba de usabilidad.
 
-Hay persistencia local en el navegador, pero no existe backend, autenticación, base de datos remota, IA ejecutándose, integraciones, leads reales, despliegue ni validación con usuarios.
+Hay persistencia local en el navegador y despliegue estático en GitHub Pages, pero no existe backend, autenticación, base de datos remota, IA ejecutándose, integraciones, leads reales ni validación con usuarios.
