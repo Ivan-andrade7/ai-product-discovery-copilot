@@ -12,9 +12,9 @@ Este inventario distingue uso verificado, función en el proceso y datos todaví
 | --- | --- | --- | --- |
 | Notion | Documentación del planteo y de la consigna transcripta; registro de aclaraciones | Páginas del TP y de la consigna | No corresponde como modelo; Notion documenta, no ejecuta el producto |
 | Figma Design | Consolidación de arquitectura, pantallas y estados del recorrido | Archivo “AI Product Discovery Copilot — Wireframes consolidados” | No aplica a la edición manual; cualquier función de IA usada debe declararse por separado |
-| Figma Make | Generación exploratoria de una versión visual a partir de un prompt | Proyecto compartido por Iván | Modelo exacto no recuperado |
-| UXPilot | Exploración de variantes visuales | Capturas aportadas por Iván | Modelo exacto no recuperado |
-| Abacus.AI | Exploración de otra versión generada | Conversación enlazada por Iván | Modelo/agente exacto no recuperado |
+| Figma Make | Generación exploratoria de una versión visual a partir de un prompt | Proyecto compartido por Iván | Iván no tuvo acceso a un nombre de modelo identificable |
+| UXPilot | Exploración de variantes visuales | Capturas aportadas por Iván | Iván no tuvo acceso a un nombre de modelo identificable |
+| Abacus.AI | Exploración de otra versión generada | Conversación enlazada por Iván | Modalidad gratuita; modelo/agente exacto no identificado |
 | Codex | Lectura de fuentes, implementación React, revisión, correcciones, documentación y Git | Aplicación local, documentación y commits | Identificador exacto del modelo pendiente de registrar desde la interfaz o metadatos disponibles |
 | React 19.3.0 | Construcción de la interfaz por componentes | Aplicación navegable | No es IA |
 | Vite 8.3.3 | Entorno de desarrollo y build local | Build verificado | No es IA |
@@ -60,6 +60,5 @@ Estado: secuencia verificable por archivos, pruebas y commits; falta exportar o 
 ## Pendientes mínimos
 
 1. Confirmar el modelo usado por Codex en las sesiones principales.
-2. Confirmar modelos o modos usados por Figma Make, UXPilot y Abacus.AI, si las interfaces lo muestran.
-3. Recuperar el prompt extenso de exploración visual si sigue disponible en alguna conversación.
-4. Elegir entre tres y cinco prompts o intercambios representativos para el informe; no es necesario transcribir toda la conversación.
+2. Recuperar el prompt extenso de exploración visual si sigue disponible en alguna conversación.
+3. Elegir entre tres y cinco prompts o intercambios representativos para el informe; no es necesario transcribir toda la conversación.

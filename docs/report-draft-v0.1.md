@@ -8,7 +8,7 @@ Estado: borrador documental v0.1. No es todavía el PDF final.
 
 ### Justificación
 
-> Propuesta de redacción pendiente de confirmación personal de Iván: “Elegí este tema porque quiero aprender a conducir proyectos de producto de manera más ordenada y, al mismo tiempo, trabajar con mayor agilidad al transformar solicitudes incompletas en decisiones y entregables de diseño.”
+> “Elegí este tema porque quiero aprender a conducir proyectos de producto de manera más ordenada y, al mismo tiempo, trabajar con mayor agilidad al transformar solicitudes incompletas en decisiones y entregables de diseño.”
 
 La idea surgió mientras revisaba mi propio proceso de UX/UI y Product Design. Todavía no contaba con una forma de trabajo end-to-end consolidada y necesitaba comprender mejor qué información hace falta, qué puede descubrirse durante el proceso y cómo conservar las decisiones tomadas. A esa necesidad de aprendizaje se sumó un feedback recibido durante una experiencia en NoCountry: debía ganar agilidad, especialmente en UI, prototipado y preparación de propuestas.
 
@@ -40,7 +40,7 @@ La trazabilidad permite reconstruir qué entrada originó una propuesta, qué ex
 
 Se utilizaron herramientas de exploración visual y de implementación asistida. Figma y Figma Make se usaron para trabajar estructura y variantes visuales; UXPilot y Abacus.AI aportaron alternativas exploratorias; Codex asistió la construcción de la maqueta React, las pruebas, las correcciones y la documentación. React, Vite, ESLint y Git sostienen la implementación y su verificación, pero no son modelos de IA.
 
-Pendiente antes del cierre: confirmar el nombre o versión de los modelos utilizados en cada herramienta cuando esa información esté disponible.
+Figma Make y UXPilot no mostraron para Iván un modelo identificable. Abacus.AI se utilizó en su modalidad gratuita, sin que quedara registrado el modelo subyacente. Estas limitaciones se declaran en lugar de atribuir nombres no verificados.
 
 ## c. Metodología
 
@@ -158,9 +158,7 @@ Como evolución futura, la prioridad recomendada es incorporar persistencia loca
 
 ## Pendientes para convertir este borrador en entrega
 
-1. Iván debe confirmar o reescribir la frase “Elegí este tema porque…”.
-2. Confirmar modelos y versiones utilizadas.
-3. Recuperar entre tres y cinco prompts representativos.
-4. Crear y enlazar el repositorio de GitHub.
-5. Ajustar extensión y maquetar el PDF final en Arial o Calibri 11, interlineado 1.5.
-6. Reconfirmar la fecha contra cualquier aviso docente posterior.
+1. Recuperar entre tres y cinco prompts representativos.
+2. Crear y enlazar el repositorio de GitHub.
+3. Ajustar extensión y maquetar el PDF final en Arial o Calibri 11, interlineado 1.5.
+4. Reconfirmar la fecha contra cualquier aviso docente posterior.
