@@ -13,6 +13,7 @@
 - Se realizaron ensayos técnicos internos con Iván; no constituyen validación con usuarios.
 - No hay research primario acreditado.
 - El repositorio público está disponible en `https://github.com/Ivan-andrade7/ai-product-discovery-copilot`.
+- La demo estática está publicada y verificada en `https://ivan-andrade7.github.io/ai-product-discovery-copilot/`.
 - Los commits publicados usan el correo anónimo `Ivan-andrade7@users.noreply.github.com`.
 - La base React + Vite fue inicializada dentro de `app/`; lint y build pasaron correctamente.
 - El recorrido funcional base está completo: Projects → New Project → Overview → Work → Sources / Decisions / Deliverables / AI Activity.
@@ -74,6 +75,7 @@ Estabilizar la entrega: ejecutar un repaso integral de contenido y navegación, 
 - Accesibilidad inspeccionada: navegación semántica, `aria-current`, selección mediante `aria-pressed`, foco visible y objetivos mínimos de 44 px. No constituye conformidad integral.
 - Consola del navegador: sin errores ni advertencias durante la prueba.
 - Persistencia local: implementada mediante `localStorage`; no transmite información fuera del navegador.
+- Despliegue estático en GitHub Pages: PASS; build y deploy del workflow completados correctamente después de habilitar Pages con GitHub Actions.
 - Backend, persistencia remota, IA real y servicios externos: no implementados.
 
 ## Autoridades y localizadores

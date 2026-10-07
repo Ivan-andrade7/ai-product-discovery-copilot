@@ -24,7 +24,7 @@ Fecha de corte: 7 de octubre de 2026.
 | Informe PDF con introducción | Cumplido en borrador | Incluye tema, justificación y objetivo. |
 | Informe PDF con marco conceptual | Cumplido en borrador | Describe IA como asistencia, control humano, trazabilidad y herramientas utilizadas. |
 | Informe PDF con metodología | Parcial avanzado | Explica proceso, ajustes, decisiones, fallos y correcciones. Falta integrar una selección breve del registro de prompts. |
-| Informe PDF con resultados | Cumplido en borrador | Presenta la solución, cinco capturas y enlace al repositorio. |
+| Informe PDF con resultados | Cumplido en borrador | Presenta la solución, cinco capturas, enlace al repositorio y demo estática verificada. |
 | Informe PDF con análisis crítico y AIBPS | Cumplido en borrador | Evalúa fortalezas, limitaciones y las cuatro dimensiones sin atribuir métricas inexistentes. |
 | Informe PDF con conclusiones | Cumplido en borrador | Incluye aprendizajes y recomendaciones futuras. |
 | Máximo recomendado de 10 páginas, Arial o Calibri 11, interlineado 1.5 | Cumplido en borrador | PDF de 9 páginas, Calibri 11 e interlineado 1,5, revisado visualmente. |

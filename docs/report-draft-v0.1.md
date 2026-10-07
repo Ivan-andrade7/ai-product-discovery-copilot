@@ -48,7 +48,7 @@ Figma Make y UXPilot no mostraron para Iván un modelo identificable. Abacus.AI 
 
 El proyecto comenzó recuperando la consigna, las notas existentes y el contexto de una idea inicialmente muy amplia: asistir las etapas E1–E18 del proceso UX/Product de punta a punta. Esa visión incluía investigación, definición, wireframes, prototipos y posibles usos futuros con clientes.
 
-Para evitar construir una plataforma demasiado grande para el TP, se separó una base académica de las extensiones futuras. La base quedó definida como una maqueta navegable con datos ficticios y control humano. Se dejaron fuera autenticación, base de datos, multiusuario, leads, CRM, automatizaciones, integraciones, despliegue e IA real.
+Para evitar construir una plataforma demasiado grande para el TP, se separó una base académica de las extensiones futuras. La base quedó definida como una maqueta navegable con datos ficticios y control humano. Se dejaron fuera autenticación, base de datos remota, multiusuario, leads, CRM, automatizaciones de negocio, integraciones e IA real. La publicación estática se incorporó al final para facilitar la evaluación, sin convertir la maqueta en una aplicación funcional con backend.
 
 ### 2. Exploración visual
 
@@ -85,6 +85,7 @@ Durante las pruebas se detectaron y corrigieron problemas concretos:
 - el historial registraba dos veces una acción debido a un efecto secundario dentro de una actualización de estado de React;
 - algunos textos no concordaban en singular y plural;
 - los estados seleccionados necesitaban información semántica además del cambio visual.
+- el primer despliegue falló porque GitHub Pages todavía no estaba habilitado para GitHub Actions; se corrigió la configuración y el segundo intento completó build y publicación.
 
 La revisión final incluyó `lint`, build de producción, consola del navegador y una inspección responsive a 390 × 844 píxeles.
 
@@ -107,6 +108,10 @@ El resultado es una maqueta HTML navegable que permite:
 El código, la documentación y la evolución del proyecto están disponibles en:
 
 https://github.com/Ivan-andrade7/ai-product-discovery-copilot
+
+La misma maqueta puede recorrerse sin instalación en:
+
+https://ivan-andrade7.github.io/ai-product-discovery-copilot/
 
 ### Evidencia visual seleccionada
 

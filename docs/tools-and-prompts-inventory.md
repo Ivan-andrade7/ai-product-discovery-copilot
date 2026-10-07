@@ -20,6 +20,7 @@ Este inventario distingue uso verificado, función en el proceso y datos todaví
 | Vite 8.3.3 | Entorno de desarrollo y build local | Build verificado | No es IA |
 | ESLint 10.12.0 | Revisión estática | Verificaciones PASS | No es IA |
 | Git | Historial local de versiones | Commits `5087f25` y `daff923` al corte inicial | No es IA |
+| GitHub Actions y Pages | Build y publicación estática para facilitar la evaluación | Workflow y demo pública | No son IA |
 | Navegador local | Pruebas funcionales y visuales | Recorridos y estados inspeccionados | No es IA |
 
 ## Herramientas mencionadas, sin uso acreditado en el producto
