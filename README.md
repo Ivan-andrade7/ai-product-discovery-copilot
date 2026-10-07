@@ -2,6 +2,8 @@
 
 Trabajo Final Integrador individual de la Diplomatura en IA Aplicada a Entornos Digitales de Gestión.
 
+Repositorio público: https://github.com/Ivan-andrade7/ai-product-discovery-copilot
+
 ## Qué busca demostrar
 
 Una plataforma asistida por IA puede ayudar a transformar una solicitud incompleta en propuestas revisables y trazables sin ocultar las fuentes, los supuestos ni las decisiones humanas.
@@ -73,6 +75,7 @@ Comandos disponibles dentro de `app/`:
 - Síntesis durable: Notion, página “Consigna oficial — Trabajo Final Integrador · Cohorte 2026”.
 - Planteo del producto: Notion, página “TP Final Integrador — AI Product Discovery Copilot”.
 - Diseño vigente: Figma, archivo “AI Product Discovery Copilot — Wireframes consolidados”.
+- Código y documentación: GitHub, repositorio `Ivan-andrade7/ai-product-discovery-copilot`.
 
 ## Límites actuales
 

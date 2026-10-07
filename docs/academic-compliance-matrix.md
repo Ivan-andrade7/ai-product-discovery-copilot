@@ -15,9 +15,9 @@ Fecha de corte: 7 de octubre de 2026.
 | --- | --- | --- |
 | Solución o contenido original con IA generativa o Vibe Coding | En progreso sólido | Prototipo local navegable AI Product Discovery Copilot. Falta cerrar el informe y la entrega externa. |
 | Tema fundamentado y frase “Elegí este tema porque…” | Pendiente de redacción final | El problema y la justificación están documentados, pero la frase requerida todavía no está cerrada en el informe. |
-| Repositorio de GitHub | Pendiente | Existe repositorio Git local con commit verificable; todavía no existe remoto de GitHub. |
+| Repositorio de GitHub | Cumplido | Repositorio público: `https://github.com/Ivan-andrade7/ai-product-discovery-copilot`. |
 | README claro sobre qué hace, para qué sirve y cómo se usa | Parcialmente cumplido | `README.md` explica propósito, recorrido, tecnología y límites. Conviene añadir instrucciones de uso orientadas al evaluador antes de publicar. |
-| Mostrar evolución del proyecto | Cumplido localmente | Primer commit local `5087f25`. La evolución sólo será visible al evaluador cuando exista el repositorio remoto. |
+| Mostrar evolución del proyecto | Cumplido | Historial público con incrementos de implementación, documentación, evidencia y correcciones. |
 | Nivel de entrega válido | Cumplido localmente como Nivel 2 | Maqueta HTML navegable. No necesita backend ni despliegue funcional para ser un nivel aceptado por la consigna. |
 | Contenido textual, gráfico, audiovisual o interactivo | Cumplido localmente | Interfaz interactiva y documentación textual. |
 | Identificar modelos y herramientas usadas en cada parte | Pendiente de inventario final | Herramientas observadas: Codex, Figma/Figma Make, UXPilot y Abacus. Faltan confirmar modelos/versiones y asignar cada uso sin inferencias. |
@@ -45,8 +45,7 @@ Estas actividades pueden mejorar el proyecto si aportan a una decisión y hay ti
 
 ## Riesgos y próximos cierres
 
-1. Falta publicar el repositorio en GitHub; el requisito no está cumplido externamente.
-2. Falta confirmar modelos/versiones y construir el inventario de herramientas por etapa.
-3. Falta producir el informe PDF y sus capturas.
-4. La fecha debe contrastarse con cualquier aviso docente posterior al PDF.
-5. El prototipo usa datos ficticios y estado en memoria; debe declararse en resultados y limitaciones.
+1. Algunos proveedores no muestran un modelo identificable; esa limitación debe declararse en el informe.
+2. Falta producir y revisar el informe PDF final; las capturas ya están preparadas.
+3. La fecha debe contrastarse con cualquier aviso docente posterior al PDF.
+4. El prototipo usa datos ficticios y estado en memoria; debe declararse en resultados y limitaciones.

@@ -11,7 +11,9 @@
 - La fecha del 8 de noviembre de 2026 a las 23:59 aparece en esa copia; debe reconfirmarse si existe un aviso docente posterior.
 - Existe un archivo Figma con wireframes consolidados y recorrido navegable.
 - Se realizaron ensayos técnicos internos con Iván; no constituyen validación con usuarios.
-- No hay research primario acreditado ni repositorio remoto.
+- No hay research primario acreditado.
+- El repositorio público está disponible en `https://github.com/Ivan-andrade7/ai-product-discovery-copilot`.
+- Los commits publicados usan el correo anónimo `Ivan-andrade7@users.noreply.github.com`.
 - La base React + Vite fue inicializada dentro de `app/`; lint y build pasaron correctamente.
 - El recorrido funcional base está completo: Projects → New Project → Overview → Work → Sources / Decisions / Deliverables / AI Activity.
 - La creación conserva literalmente la solicitud original y funciona con estado local en memoria.
@@ -78,4 +80,5 @@ Estabilizar la entrega: ejecutar un repaso integral de contenido y navegación, 
 - Notion TP: https://app.notion.com/p/3e3fd0da0de5810597f7c8340688197e
 - Notion consigna: https://app.notion.com/p/3eafd0da0de5812fa931d85f4cf7f8b1
 - Figma: https://www.figma.com/design/zX5zJeg5WeE1q4E3zDkQv2/AI-Product-Discovery-Copilot-%E2%80%94-Wireframes-consolidados
+- GitHub: https://github.com/Ivan-andrade7/ai-product-discovery-copilot
 - PDF original local: `C:\Users\ivana\Downloads\Trabajo Final Integrador.pdf`

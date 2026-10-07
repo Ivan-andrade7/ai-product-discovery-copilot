@@ -98,6 +98,10 @@ El resultado es una maqueta HTML navegable que permite:
 - distinguir fuentes originales, interpretaciones, marcos y requisitos;
 - consultar actividad observable sin afirmar que existe una IA ejecutándose.
 
+El código, la documentación y la evolución del proyecto están disponibles en:
+
+https://github.com/Ivan-andrade7/ai-product-discovery-copilot
+
 ### Evidencia visual seleccionada
 
 ![Figura 1. Overview con solicitud original y estado inicial.](../evidencia/screenshots/02-overview.png)
@@ -122,7 +126,7 @@ El resultado es una maqueta HTML navegable que permite:
 
 La aplicación funciona únicamente en memoria. Al recargar se reinician el proyecto creado, las decisiones y el historial. Esta limitación es intencional para mantener la entrega en el alcance de una maqueta navegable.
 
-Pendiente para la versión final: seleccionar cuáles de estas capturas entrarán en el límite recomendado del informe y agregar el enlace al repositorio de GitHub.
+Pendiente para la versión final: seleccionar cuáles de estas capturas entrarán en el límite recomendado del informe.
 
 ## e. Análisis crítico
 
@@ -159,6 +163,5 @@ Como evolución futura, la prioridad recomendada es incorporar persistencia loca
 ## Pendientes para convertir este borrador en entrega
 
 1. Recuperar entre tres y cinco prompts representativos.
-2. Crear y enlazar el repositorio de GitHub.
-3. Ajustar extensión y maquetar el PDF final en Arial o Calibri 11, interlineado 1.5.
-4. Reconfirmar la fecha contra cualquier aviso docente posterior.
+2. Ajustar extensión y maquetar el PDF final en Arial o Calibri 11, interlineado 1.5.
+3. Reconfirmar la fecha contra cualquier aviso docente posterior.
