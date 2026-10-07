@@ -98,9 +98,31 @@ El resultado es una maqueta HTML navegable que permite:
 - distinguir fuentes originales, interpretaciones, marcos y requisitos;
 - consultar actividad observable sin afirmar que existe una IA ejecutándose.
 
+### Evidencia visual seleccionada
+
+![Figura 1. Overview con solicitud original y estado inicial.](../evidencia/screenshots/02-overview.png)
+
+**Figura 1.** Overview conserva la entrada original y separa el estado verificable de la ruta sugerida.
+
+![Figura 2. Propuesta editada y aceptada en Work.](../evidencia/screenshots/04-work-editada-aceptada.png)
+
+**Figura 2.** Work mantiene visible el contexto de la propuesta y registra que la versión fue editada y aceptada.
+
+![Figura 3. Historial después de reabrir una decisión.](../evidencia/screenshots/09-decisions-reabierta.png)
+
+**Figura 3.** Decisions conserva la aceptación anterior y agrega la reapertura como una nueva acción.
+
+![Figura 4. Entregable derivado de una decisión aceptada.](../evidencia/screenshots/06-deliverable-derivado.png)
+
+**Figura 4.** Deliverables incorpora únicamente el contenido aceptado y muestra su origen.
+
+![Figura 5. Reflow móvil de Work a 390 píxeles.](../evidencia/screenshots/10-work-mobile-390.png)
+
+**Figura 5.** La vista móvil reorganiza la cola y las acciones en una sola columna.
+
 La aplicación funciona únicamente en memoria. Al recargar se reinician el proyecto creado, las decisiones y el historial. Esta limitación es intencional para mantener la entrega en el alcance de una maqueta navegable.
 
-Pendiente para la versión final: insertar capturas numeradas y el enlace al repositorio de GitHub.
+Pendiente para la versión final: seleccionar cuáles de estas capturas entrarán en el límite recomendado del informe y agregar el enlace al repositorio de GitHub.
 
 ## e. Análisis crítico
 
@@ -139,7 +161,6 @@ Como evolución futura, la prioridad recomendada es incorporar persistencia loca
 1. Iván debe confirmar o reescribir la frase “Elegí este tema porque…”.
 2. Confirmar modelos y versiones utilizadas.
 3. Recuperar entre tres y cinco prompts representativos.
-4. Insertar capturas y pies de figura.
-5. Crear y enlazar el repositorio de GitHub.
-6. Ajustar extensión y maquetar el PDF final en Arial o Calibri 11, interlineado 1.5.
-7. Reconfirmar la fecha contra cualquier aviso docente posterior.
+4. Crear y enlazar el repositorio de GitHub.
+5. Ajustar extensión y maquetar el PDF final en Arial o Calibri 11, interlineado 1.5.
+6. Reconfirmar la fecha contra cualquier aviso docente posterior.
