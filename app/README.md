@@ -1,16 +1,68 @@
-# React + Vite
+# AI Product Discovery Copilot — maqueta navegable
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Prototipo del Trabajo Final Integrador de la Diplomatura en IA Aplicada a Entornos Digitales de Gestión.
 
-Currently, two official plugins are available:
+## Qué demuestra
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+La interfaz representa un flujo asistido por IA donde:
 
-## React Compiler
+1. se conserva una solicitud original;
+2. la IA presenta propuestas simuladas con contexto y razonamiento;
+3. una persona acepta, edita, rechaza o mantiene pendiente cada propuesta;
+4. las acciones quedan registradas sin borrar el historial;
+5. sólo las decisiones aceptadas alimentan el entregable.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Principio del producto:
 
-## Expanding the ESLint configuration
+> La IA propone, la persona decide y la evidencia permanece visible.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Cómo ejecutar
+
+Requisitos: Node.js y pnpm.
+
+Desde esta carpeta:
+
+```bash
+pnpm install
+pnpm dev
+```
+
+Abrir la dirección local informada por Vite, normalmente `http://localhost:5173/`.
+
+## Recorrido recomendado
+
+1. Abrir `Discovery v0.1` desde Projects.
+2. Revisar la solicitud original en Overview.
+3. Entrar a Work.
+4. Aceptar o editar una propuesta.
+5. Consultar el registro en Decisions.
+6. Ver el bloque incorporado en Deliverables.
+7. Volver a Work y reabrir la decisión.
+8. Comprobar que Decisions conserva ambas acciones y Deliverables retira el bloque.
+9. Consultar Sources y AI Activity para revisar contexto y límites.
+
+## Verificaciones técnicas
+
+```bash
+pnpm lint
+pnpm build
+pnpm preview
+```
+
+## Alcance y límites
+
+- Nivel 2: maqueta HTML navegable.
+- Datos locales ficticios.
+- Propuestas de IA simuladas y claramente identificadas.
+- Estado únicamente en memoria; recargar reinicia la sesión.
+- Sin backend, autenticación, base de datos, IA real, integraciones ni despliegue.
+- La inspección interna no constituye validación con usuarios ni conformidad integral de accesibilidad.
+
+## Tecnología
+
+- React.
+- Vite.
+- ESLint.
+- CSS propio sin biblioteca visual externa.
+
+La documentación académica y del proceso se encuentra en la carpeta `docs/` del repositorio principal.
