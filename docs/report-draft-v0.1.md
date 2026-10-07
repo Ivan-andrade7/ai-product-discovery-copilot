@@ -56,6 +56,12 @@ Se generaron variantes en Figma Make, UXPilot y Abacus.AI a partir de instruccio
 
 Las variantes fueron exploratorias. No se interpretaron como validación ni como evidencia de que una estructura funcionaría para usuarios reales.
 
+#### Prompts e intervenciones representativas
+
+El registro completo se conserva en `docs/prompt-log.md`. El ejemplo principal fue el **Prompt maestro de exploración visual v0.1**, que fijó el principio “AI proposes → Human decides → Evidence remains visible”, las pantallas mínimas, los límites de alcance y los estados que debían representarse.
+
+Durante la prueba, Iván también dirigió correcciones mediante intervenciones concretas. Al observar “3 pendientes”, señaló que la tarjeta actual debía seguir contando mientras no tuviera una acción; esto corrigió el contador. Luego preguntó si una decisión aceptada podía volver a editarse; a partir de esa revisión se incorporó la reapertura con conservación del historial y retiro del contenido del entregable. Estas decisiones humanas modificaron el comportamiento propuesto por las herramientas.
+
 ### 3. Construcción por porciones verticales
 
 La aplicación se implementó con React y Vite en incrementos verificables:
@@ -124,7 +130,7 @@ https://github.com/Ivan-andrade7/ai-product-discovery-copilot
 
 **Figura 5.** La vista móvil reorganiza la cola y las acciones en una sola columna.
 
-La aplicación funciona únicamente en memoria. Al recargar se reinician el proyecto creado, las decisiones y el historial. Esta limitación es intencional para mantener la entrega en el alcance de una maqueta navegable.
+La aplicación conserva el proyecto, las propuestas y el historial mediante almacenamiento local del navegador. No existe sincronización remota: cada navegador mantiene su propia copia y borrar sus datos reinicia la demo.
 
 Pendiente para la versión final: seleccionar cuáles de estas capturas entrarán en el límite recomendado del informe.
 
@@ -138,7 +144,7 @@ La maqueta también mantiene proporcionalidad: representa el recorrido necesario
 
 ### Limitaciones
 
-Las propuestas están preparadas localmente y no provienen de un modelo conectado. No existe persistencia, autenticación, colaboración, protección de datos de clientes ni integración con servicios externos. Tampoco se realizaron entrevistas o pruebas con usuarios, por lo que no puede afirmarse que la solución mejore productividad, comprensión o calidad de las decisiones.
+Las propuestas están preparadas localmente y no provienen de un modelo conectado. La persistencia sólo existe en el navegador; no hay autenticación, colaboración, protección de datos de clientes ni integración con servicios externos. Tampoco se realizaron entrevistas o pruebas con usuarios, por lo que no puede afirmarse que la solución mejore productividad, comprensión o calidad de las decisiones.
 
 La revisión accesible fue una inspección técnica limitada. Se revisaron reflow, jerarquía, foco y estados semánticos, pero no se ejecutó una auditoría WCAG completa ni pruebas con tecnologías de asistencia.
 
@@ -158,10 +164,10 @@ El trabajo permitió transformar una visión amplia en un producto demostrable y
 
 También resultó valioso trabajar mediante incrementos pequeños y verificables. Las pruebas revelaron errores que no eran visibles en el diseño estático, como la duplicación del historial y la relación entre reapertura y entregable. Esto mostró la diferencia entre imaginar un flujo y comprobar su comportamiento.
 
-Como evolución futura, la prioridad recomendada es incorporar persistencia local o una operación real y acotada de IA manteniendo la misma trazabilidad. La captación de leads, el portal de clientes y las integraciones deberían considerarse después, cuando el flujo central esté probado y existan reglas de privacidad y permisos.
+Como evolución futura, la prioridad recomendada es incorporar una operación real y acotada de IA manteniendo la misma trazabilidad. La captación de leads, el portal de clientes y las integraciones deberían considerarse después, cuando el flujo central esté probado y existan reglas de privacidad y permisos.
 
 ## Pendientes para convertir este borrador en entrega
 
-1. Recuperar entre tres y cinco prompts representativos.
-2. Revisar contenido, selección de capturas y extensión antes de retirar la marca de borrador.
-3. Reconfirmar la fecha contra cualquier aviso docente posterior.
+1. Revisar contenido, selección de capturas y extensión antes de retirar la marca de borrador.
+2. Reconfirmar la fecha contra cualquier aviso docente posterior.
+3. Registrar el modelo exacto de Codex si puede recuperarse; de lo contrario, mantener la limitación declarada.

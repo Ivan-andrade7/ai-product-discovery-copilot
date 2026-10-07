@@ -14,20 +14,20 @@ Fecha de corte: 7 de octubre de 2026.
 | Requisito | Estado al corte | Evidencia o pendiente |
 | --- | --- | --- |
 | Solución o contenido original con IA generativa o Vibe Coding | En progreso sólido | Prototipo local navegable AI Product Discovery Copilot. Falta cerrar el informe y la entrega externa. |
-| Tema fundamentado y frase “Elegí este tema porque…” | Pendiente de redacción final | El problema y la justificación están documentados, pero la frase requerida todavía no está cerrada en el informe. |
+| Tema fundamentado y frase “Elegí este tema porque…” | Cumplido en borrador | La introducción abre su justificación con la frase requerida y explica el valor de la IA. |
 | Repositorio de GitHub | Cumplido | Repositorio público: `https://github.com/Ivan-andrade7/ai-product-discovery-copilot`. |
-| README claro sobre qué hace, para qué sirve y cómo se usa | Parcialmente cumplido | `README.md` explica propósito, recorrido, tecnología y límites. Conviene añadir instrucciones de uso orientadas al evaluador antes de publicar. |
+| README claro sobre qué hace, para qué sirve y cómo se usa | Cumplido | El README principal y `app/README.md` explican propósito, alcance, ejecución y recorrido recomendado para evaluación. |
 | Mostrar evolución del proyecto | Cumplido | Historial público con incrementos de implementación, documentación, evidencia y correcciones. |
 | Nivel de entrega válido | Cumplido localmente como Nivel 2 | Maqueta HTML navegable. No necesita backend ni despliegue funcional para ser un nivel aceptado por la consigna. |
 | Contenido textual, gráfico, audiovisual o interactivo | Cumplido localmente | Interfaz interactiva y documentación textual. |
-| Identificar modelos y herramientas usadas en cada parte | Pendiente de inventario final | Herramientas observadas: Codex, Figma/Figma Make, UXPilot y Abacus. Faltan confirmar modelos/versiones y asignar cada uso sin inferencias. |
-| Informe PDF con introducción | Pendiente | Esqueleto preparado; falta redacción y evidencia final. |
-| Informe PDF con marco conceptual | Pendiente | Debe describir brevemente las herramientas de IA realmente utilizadas. |
-| Informe PDF con metodología | Parcial | Hay decisiones, prompts, correcciones y verificación documentados; falta sintetizarlos para el informe. |
-| Informe PDF con resultados | Parcial | El prototipo y el registro de verificación existen; faltan capturas seleccionadas y redacción. |
-| Informe PDF con análisis crítico y AIBPS | Pendiente | Hay límites explícitos en producto y documentación, pero falta la evaluación estructurada ágil / fluida / protegida / bajo control humano. |
-| Informe PDF con conclusiones | Pendiente | Debe escribirse después de cerrar resultados y análisis crítico. |
-| Máximo recomendado de 10 páginas, Arial o Calibri 11, interlineado 1.5 | Pendiente | Aplicar al generar el PDF final. Es recomendación de formato, no prueba de contenido. |
+| Identificar modelos y herramientas usadas en cada parte | Cumplido con limitación declarada | El inventario asigna cada herramienta a su uso. Figma Make, UXPilot y Abacus.AI no mostraron un modelo identificable; el modelo exacto de Codex continúa pendiente de recuperación. |
+| Informe PDF con introducción | Cumplido en borrador | Incluye tema, justificación y objetivo. |
+| Informe PDF con marco conceptual | Cumplido en borrador | Describe IA como asistencia, control humano, trazabilidad y herramientas utilizadas. |
+| Informe PDF con metodología | Parcial avanzado | Explica proceso, ajustes, decisiones, fallos y correcciones. Falta integrar una selección breve del registro de prompts. |
+| Informe PDF con resultados | Cumplido en borrador | Presenta la solución, cinco capturas y enlace al repositorio. |
+| Informe PDF con análisis crítico y AIBPS | Cumplido en borrador | Evalúa fortalezas, limitaciones y las cuatro dimensiones sin atribuir métricas inexistentes. |
+| Informe PDF con conclusiones | Cumplido en borrador | Incluye aprendizajes y recomendaciones futuras. |
+| Máximo recomendado de 10 páginas, Arial o Calibri 11, interlineado 1.5 | Cumplido en borrador | PDF de 9 páginas, Calibri 11 e interlineado 1,5, revisado visualmente. |
 | Link al repositorio y PDF enviados por correo | Pendiente externo | No crear, publicar ni enviar sin autorización específica en la etapa de entrega. |
 | Correo y asunto según la consigna | Pendiente externo | Usar correo institucional; asunto `TP usuario@campus.economicas.uba.ar`. Confirmar dirección exacta al momento de enviar. |
 
@@ -46,6 +46,6 @@ Estas actividades pueden mejorar el proyecto si aportan a una decisión y hay ti
 ## Riesgos y próximos cierres
 
 1. Algunos proveedores no muestran un modelo identificable; esa limitación debe declararse en el informe.
-2. Falta producir y revisar el informe PDF final; las capturas ya están preparadas.
+2. Falta integrar los prompts seleccionados, revisar el contenido y retirar la marca de borrador antes de generar el PDF final.
 3. La fecha debe contrastarse con cualquier aviso docente posterior al PDF.
 4. El prototipo usa datos ficticios y estado en memoria; debe declararse en resultados y limitaciones.

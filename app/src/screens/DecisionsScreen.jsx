@@ -47,13 +47,13 @@ export function DecisionsScreen({ project, proposals, decisions, onHome, onNavig
             <section className="empty-state">
               <span className="tag">Sin decisiones todavía</span>
               <h2>La historia comenzará cuando revises una propuesta</h2>
-              <p>Aceptar, editar, rechazar o reabrir en Work creará una entrada verificable en esta sesión.</p>
+              <p>Aceptar, editar, rechazar o reabrir en Work creará una entrada verificable en el historial local.</p>
               <button className="button primary" type="button" onClick={() => onNavigate('work')}>Ir a Work</button>
             </section>
           ) : (
             <div className="decisions-grid">
               <section className="decision-log" aria-label="Historial de decisiones">
-                <h2>Actividad de esta sesión</h2>
+                <h2>Historial local</h2>
                 {latestFirst.map((decision) => (
                   <button
                     aria-pressed={selected?.id === decision.id}
@@ -95,7 +95,7 @@ export function DecisionsScreen({ project, proposals, decisions, onHome, onNavig
                     ? 'La decisión anterior se conserva en el historial y la propuesta vuelve a la cola.'
                     : 'Esta acción modifica el estado vigente sin borrar la propuesta original.'}</p>
                 </article>
-                <p className="session-note">Secuencia local de la sesión actual · sin fecha inventada ni persistencia.</p>
+                <p className="session-note">Secuencia local persistente en este navegador · sin fecha inventada.</p>
               </section>
             </div>
           )}

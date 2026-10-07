@@ -32,9 +32,9 @@ Este inventario distingue uso verificado, función en el proceso y datos todaví
 
 ### Exploración visual
 
-Iván pidió un prompt extenso para producir wireframes en distintas herramientas y comparar alternativas. Se verificó el uso de versiones en Figma Make, UXPilot y Abacus.AI, pero el texto exacto del prompt no está archivado en las fuentes locales revisadas.
+El **Prompt maestro de exploración visual v0.1** fue recuperado de la página Notion del proyecto y quedó conservado en `docs/prompt-log.md`. Se verificó su uso como base para producir alternativas en Figma Make, UXPilot y Abacus.AI.
 
-Estado: uso verificable; texto exacto pendiente de recuperar.
+Estado: uso y texto verificables. Las salidas fueron exploratorias; no prueban validación ni selección automática.
 
 ### Implementación asistida
 
@@ -47,7 +47,7 @@ La implementación se realizó de manera iterativa, no mediante un único prompt
 5. probar estados y corregir errores;
 6. revisar responsive y accesibilidad de forma acotada.
 
-Estado: secuencia verificable por archivos, pruebas y commits; falta exportar o seleccionar mensajes representativos si el informe exige ejemplos literales.
+Estado: secuencia verificable por archivos, pruebas y commits. `docs/prompt-log.md` conserva intervenciones literales sobre contador, reapertura, navegación y recorte de alcance.
 
 ## Correcciones útiles para la metodología
 
@@ -59,6 +59,5 @@ Estado: secuencia verificable por archivos, pruebas y commits; falta exportar o 
 
 ## Pendientes mínimos
 
-1. Confirmar el modelo usado por Codex en las sesiones principales.
-2. Recuperar el prompt extenso de exploración visual si sigue disponible en alguna conversación.
-3. Elegir entre tres y cinco prompts o intercambios representativos para el informe; no es necesario transcribir toda la conversación.
+1. Confirmar el modelo usado por Codex en las sesiones principales si la interfaz permite recuperarlo; de lo contrario, declarar la limitación.
+2. Seleccionar tres ejemplos breves del registro para el PDF final y mantener el prompt extenso en el repositorio.

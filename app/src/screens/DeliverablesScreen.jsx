@@ -62,7 +62,7 @@ export function DeliverablesScreen({ project, proposals, onHome, onNavigate }) {
                     <small>Origen: {proposal.source}</small>
                   </section>
                 ))}
-                <footer>Contenido demo derivado de decisiones de esta sesión. No acredita validación.</footer>
+                <footer>Contenido demo derivado del estado local de decisiones. No acredita validación.</footer>
               </article>
             </div>
           )}

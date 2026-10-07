@@ -15,6 +15,8 @@ Build local de la maqueta HTML navegable del AI Product Discovery Copilot. Cober
 - AI Activity: datos demo y acciones humanas identificados sin afirmar llamadas a un modelo, PASS.
 - Consola del navegador: sin errores ni advertencias en el recorrido probado.
 - ESLint y build de Vite: PASS.
+- Persistencia local: una propuesta aceptada, su entrada de historial y el bloque derivado permanecieron después de recargar y reabrir el proyecto, PASS.
+- Revisión de contenido posterior a persistencia: se reemplazaron referencias obsoletas a “sin persistencia” y “sesión actual”, PASS.
 
 ## Responsive y accesibilidad
 
@@ -28,10 +30,10 @@ Build local de la maqueta HTML navegable del AI Product Discovery Copilot. Cober
 
 - Inspección interna, no prueba con usuarios.
 - Sin lector de pantalla, checker automatizado ni matriz completa de WCAG.
-- Sin persistencia: recargar reinicia el estado.
+- Persistencia limitada a `localStorage`: no sincroniza dispositivos, no ofrece cuentas y puede borrarse junto con los datos del navegador.
 - Sin backend, autenticación, IA real, servicios externos ni despliegue.
 - Datos y propuestas ficticios, identificados como demo.
 
 ## Próximo retest
 
-Repetir el recorrido después de cualquier cambio de persistencia, IA o estructura de navegación. Si se prepara publicación, ampliar la cobertura accesible y probar teclado completo y tecnologías de asistencia antes del handoff.
+Repetir el recorrido después de cualquier cambio de IA o estructura de navegación. Si se prepara publicación, ampliar la cobertura accesible y probar teclado completo y tecnologías de asistencia antes del handoff.

@@ -24,7 +24,7 @@ export function ActivityScreen({ project, proposals, decisions, onHome, onNaviga
         <ProjectSidebar active="AI Activity" onNavigate={onNavigate} />
         <main className="activity-page">
           <header className="work-heading">
-            <div><h1>AI Activity</h1><p>Eventos observables de la sesión; no representa una IA ejecutándose.</p></div>
+            <div><h1>AI Activity</h1><p>Eventos observables del estado local; no representa una IA ejecutándose.</p></div>
             <div className="review-count"><strong>{activitySummary}</strong><span>Sin fechas inventadas</span></div>
           </header>
           <section className="activity-notice"><strong>Límite de la demo</strong><p>Las propuestas provienen de datos locales preparados. Esta vista registra carga y decisiones, no llamadas a un modelo.</p></section>

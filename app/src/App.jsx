@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { defaultProject, initialProposals, initialSources } from './data/demoData'
 import { NewProjectScreen } from './screens/NewProjectScreen'
 import { OverviewScreen } from './screens/OverviewScreen'
@@ -10,11 +10,37 @@ import { DeliverablesScreen } from './screens/DeliverablesScreen'
 import { SourcesScreen } from './screens/SourcesScreen'
 import './App.css'
 
+const STORAGE_KEY = 'ai-product-discovery-copilot:v0.1'
+
+function loadWorkspace() {
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY)
+    if (!stored) return null
+
+    const workspace = JSON.parse(stored)
+    if (!workspace?.project || !Array.isArray(workspace.proposals) || !Array.isArray(workspace.decisions)) {
+      return null
+    }
+
+    return workspace
+  } catch {
+    return null
+  }
+}
+
 function App() {
+  const savedWorkspace = loadWorkspace()
   const [screen, setScreen] = useState('projects')
-  const [currentProject, setCurrentProject] = useState(defaultProject)
-  const [proposals, setProposals] = useState(initialProposals)
-  const [decisions, setDecisions] = useState([])
+  const [currentProject, setCurrentProject] = useState(savedWorkspace?.project ?? defaultProject)
+  const [proposals, setProposals] = useState(savedWorkspace?.proposals ?? initialProposals)
+  const [decisions, setDecisions] = useState(savedWorkspace?.decisions ?? [])
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({ project: currentProject, proposals, decisions }),
+    )
+  }, [currentProject, proposals, decisions])
 
   function openProjects() {
     setScreen('projects')
@@ -131,9 +157,6 @@ function App() {
     <ProjectsScreen
       onNewProject={() => setScreen('new-project')}
       onOpenProject={() => {
-        setCurrentProject(defaultProject)
-        setProposals(initialProposals)
-        setDecisions([])
         setScreen('overview')
       }}
     />

@@ -39,7 +39,8 @@ Abrir la dirección local informada por Vite, normalmente `http://localhost:5173
 6. Ver el bloque incorporado en Deliverables.
 7. Volver a Work y reabrir la decisión.
 8. Comprobar que Decisions conserva ambas acciones y Deliverables retira el bloque.
-9. Consultar Sources y AI Activity para revisar contexto y límites.
+9. Recargar el navegador y verificar que el proyecto, las propuestas y el historial continúan disponibles.
+10. Consultar Sources y AI Activity para revisar contexto y límites.
 
 ## Verificaciones técnicas
 
@@ -54,7 +55,7 @@ pnpm preview
 - Nivel 2: maqueta HTML navegable.
 - Datos locales ficticios.
 - Propuestas de IA simuladas y claramente identificadas.
-- Estado únicamente en memoria; recargar reinicia la sesión.
+- Persistencia local mediante `localStorage`; los datos permanecen sólo en ese navegador.
 - Sin backend, autenticación, base de datos, IA real, integraciones ni despliegue.
 - La inspección interna no constituye validación con usuarios ni conformidad integral de accesibilidad.
 

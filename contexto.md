@@ -16,7 +16,7 @@
 - Los commits publicados usan el correo anónimo `Ivan-andrade7@users.noreply.github.com`.
 - La base React + Vite fue inicializada dentro de `app/`; lint y build pasaron correctamente.
 - El recorrido funcional base está completo: Projects → New Project → Overview → Work → Sources / Decisions / Deliverables / AI Activity.
-- La creación conserva literalmente la solicitud original y funciona con estado local en memoria.
+- La creación conserva literalmente la solicitud original y guarda el estado localmente en el navegador.
 - Work permite revisar propuestas simuladas con fuente, evidencia y razonamiento visibles.
 - Aceptar, editar, rechazar y reabrir actualizan el estado; mantener pendiente conserva el elemento en la cola.
 - Decisions registra cada acción una sola vez, conserva entradas previas y compara propuesta original con versión resultante.
@@ -73,7 +73,8 @@ Estabilizar la entrega: ejecutar un repaso integral de contenido y navegación, 
 - Responsive 390 × 844 px: PASS de inspección visual para reflow y acceso a controles.
 - Accesibilidad inspeccionada: navegación semántica, `aria-current`, selección mediante `aria-pressed`, foco visible y objetivos mínimos de 44 px. No constituye conformidad integral.
 - Consola del navegador: sin errores ni advertencias durante la prueba.
-- Backend, persistencia, IA real y servicios externos: no implementados.
+- Persistencia local: implementada mediante `localStorage`; no transmite información fuera del navegador.
+- Backend, persistencia remota, IA real y servicios externos: no implementados.
 
 ## Autoridades y localizadores
 

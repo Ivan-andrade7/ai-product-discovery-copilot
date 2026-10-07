@@ -26,7 +26,7 @@ Maqueta HTML navegable de Nivel 2 con datos demo locales. El recorrido central s
 
 ## Estado
 
-El repositorio y la base técnica React + Vite están inicializados. La instalación de dependencias, el lint y el build pasaron correctamente el 7 de octubre de 2026.
+El repositorio contiene una maqueta React + Vite navegable. La instalación de dependencias, el lint y el build pasaron correctamente el 7 de octubre de 2026.
 
 La primera porción vertical del producto ya está implementada con datos locales:
 
@@ -46,7 +46,20 @@ La primera porción vertical del producto ya está implementada con datos locale
 14. contadores del Overview sincronizados con las decisiones;
 15. estados verificables y límites explícitos de la simulación.
 
-La prueba manual confirmó el recorrido completo entre Projects, Overview, Work, Sources, Decisions, Deliverables y AI Activity. Cada acción produce una sola entrada; reabrir conserva la historia y retira el contenido del entregable. La prueba responsive a 390 × 844 px mostró reflow sin controles fuera de pantalla. No aparecieron errores ni advertencias en la consola del navegador. El proyecto, las decisiones y el historial viven sólo en memoria y se pierden al recargar.
+La prueba manual confirmó el recorrido completo entre Projects, Overview, Work, Sources, Decisions, Deliverables y AI Activity. Cada acción produce una sola entrada; reabrir conserva la historia y retira el contenido del entregable. La prueba responsive a 390 × 844 px mostró reflow sin controles fuera de pantalla. No aparecieron errores ni advertencias en la consola del navegador. El proyecto, las decisiones y el historial se conservan localmente en el navegador; no se transmiten a un servidor.
+
+## Cómo probar la solución
+
+1. Entrar en `app/` e instalar dependencias con `pnpm install`.
+2. Ejecutar `pnpm dev` y abrir la dirección informada por Vite.
+3. Abrir `Discovery v0.1`.
+4. Revisar la solicitud original en Overview y entrar a Work.
+5. Aceptar o editar una propuesta y consultar Decisions y Deliverables.
+6. Reabrir la decisión desde Work y comprobar que el historial se conserva y el bloque sale del entregable.
+7. Recargar el navegador para comprobar la persistencia local.
+8. Consultar Sources y AI Activity para entender la procedencia y los límites de la demo.
+
+Los detalles técnicos y comandos de verificación están en [`app/README.md`](app/README.md). El registro académico de prompts está en [`docs/prompt-log.md`](docs/prompt-log.md).
 
 ## Base técnica
 
@@ -83,4 +96,4 @@ Está implementado el recorrido base completo: Projects, New Project, Overview, 
 
 La revisión interna cubrió estructura semántica, estados seleccionados, foco visible, objetivos táctiles y reflow móvil. Es una inspección técnica acotada: no demuestra conformidad integral de accesibilidad ni sustituye una prueba de usabilidad.
 
-No hay persistencia, backend, autenticación, base de datos, IA ejecutándose, integraciones, leads reales, despliegue ni validación con usuarios.
+Hay persistencia local en el navegador, pero no existe backend, autenticación, base de datos remota, IA ejecutándose, integraciones, leads reales, despliegue ni validación con usuarios.
