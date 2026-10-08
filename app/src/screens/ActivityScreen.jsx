@@ -21,7 +21,7 @@ export function ActivityScreen({ project, proposals, decisions, onHome, onNaviga
         <span className="tag">Actividad verificable</span>
       </TopBar>
       <div className="project-layout">
-        <ProjectSidebar active="AI Activity" onNavigate={onNavigate} />
+        <ProjectSidebar active="AI Activity" onNavigate={onNavigate} projectName={project.name} />
         <main className="activity-page">
           <header className="work-heading">
             <div><h1>AI Activity</h1><p>Eventos observables del estado local; no representa una IA ejecutándose.</p></div>

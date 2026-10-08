@@ -13,7 +13,7 @@ export function SourcesScreen({ project, proposals, sources, onHome, onNavigate 
         <span className="tag">Contexto visible</span>
       </TopBar>
       <div className="project-layout">
-        <ProjectSidebar active="Sources" onNavigate={onNavigate} />
+        <ProjectSidebar active="Sources" onNavigate={onNavigate} projectName={project.name} />
         <main className="sources-page">
           <header className="work-heading">
             <div>

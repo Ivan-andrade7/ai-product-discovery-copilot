@@ -11,7 +11,7 @@ export function DeliverablesScreen({ project, proposals, onHome, onNavigate }) {
         <span className="tag">Borrador derivado</span>
       </TopBar>
       <div className="project-layout">
-        <ProjectSidebar active="Deliverables" onNavigate={onNavigate} />
+        <ProjectSidebar active="Deliverables" onNavigate={onNavigate} projectName={project.name} />
         <main className="deliverables-page">
           <header className="work-heading">
             <div>

@@ -14,7 +14,7 @@ Principio rector:
 
 > AI proposes → Human decides → Evidence remains visible.
 
-## Entrega base aprobada
+## Entrega base vigente
 
 Maqueta HTML navegable de Nivel 2 con datos demo locales. El recorrido central será:
 
@@ -28,11 +28,11 @@ Maqueta HTML navegable de Nivel 2 con datos demo locales. El recorrido central s
 
 ## Estado
 
-El repositorio contiene una maqueta React + Vite navegable. La instalación de dependencias, el lint y el build pasaron correctamente el 7 de octubre de 2026.
+El repositorio contiene una maqueta React + Vite navegable. El estado vigente está implementado localmente y todavía no fue versionado ni publicado. La URL de GitHub Pages conserva la versión pública anterior.
 
 La primera porción vertical del producto ya está implementada con datos locales:
 
-1. listado de proyectos;
+1. listado real de múltiples proyectos locales;
 2. formulario para crear un proyecto;
 3. preservación literal de la solicitud original;
 4. acceso al Overview del proyecto creado o del proyecto demo;
@@ -46,15 +46,18 @@ La primera porción vertical del producto ya está implementada con datos locale
 12. inventario de fuentes que diferencia entrada, interpretación, método y requisito;
 13. actividad verificable de la sesión sin simular llamadas a IA;
 14. contadores del Overview sincronizados con las decisiones;
-15. estados verificables y límites explícitos de la simulación.
+15. estados verificables y límites explícitos de la simulación;
+16. almacenamiento local versionado como `v0.2`, con migración conservadora desde la clave `v0.1` sin sobrescribirla;
+17. fuentes aportadas visibles como “Aportada · sin revisar” y propuestas demo explícitamente no derivadas de esas fuentes;
+18. detección de cambios entre pestañas, recuperación ante datos incompatibles o fallos de guardado y exportación de respaldo.
 
-La prueba manual confirmó el recorrido completo entre Projects, Overview, Work, Sources, Decisions, Deliverables y AI Activity. Cada acción produce una sola entrada; reabrir conserva la historia y retira el contenido del entregable. La prueba responsive a 390 × 844 px mostró reflow sin controles fuera de pantalla. No aparecieron errores ni advertencias en la consola del navegador. El proyecto, las decisiones y el historial se conservan localmente en el navegador; no se transmiten a un servidor.
+El retest local confirmó el recorrido entre Projects, Overview, Work, Sources, Decisions, Deliverables y AI Activity con datos ficticios. También verificó independencia entre proyectos, activaciones repetidas y conflicto entre dos pestañas. La salida convertida desde `v0.1` ahora se valida antes de persistirse: entradas malformadas, JSON inválido o estructuras incompletas quedan en recuperación sin crear `v0.2`, y la clave original permanece intacta. Los rótulos de pendientes y decisiones flexionan cero, uno y varios. `lint` y build finalizaron correctamente. Esto no equivale a seguridad integral, auditoría completa de accesibilidad ni prueba con usuarios.
 
 ## Cómo probar la solución
 
-1. Entrar en `app/` e instalar dependencias con `pnpm install`.
-2. Ejecutar `pnpm dev` y abrir la dirección informada por Vite.
-3. Abrir `Discovery v0.1`.
+1. Entrar en `app/` e instalar las dependencias respetando el archivo de bloqueo existente.
+2. Ejecutar el script `dev` del proyecto y abrir la dirección informada por Vite.
+3. Abrir `Discovery v0.1` o crear un segundo proyecto ficticio.
 4. Revisar la solicitud original en Overview y entrar a Work.
 5. Aceptar o editar una propuesta y consultar Decisions y Deliverables.
 6. Reabrir la decisión desde Work y comprobar que el historial se conserva y el bloque sale del entregable.
@@ -63,20 +66,20 @@ La prueba manual confirmó el recorrido completo entre Projects, Overview, Work,
 
 Los detalles técnicos y comandos de verificación están en [`app/README.md`](app/README.md). El registro académico de prompts está en [`docs/prompt-log.md`](docs/prompt-log.md).
 
-Como alternativa, la demo pública permite realizar el mismo recorrido sin instalación. Es la misma maqueta de Nivel 2: la publicación estática no agrega backend ni IA real.
+La demo pública de GitHub Pages corresponde a la versión publicada anterior: todavía no incluye el lote local multiproyecto. Vercel continúa como alojamiento preferido para una publicación posterior, pero no hay despliegue vigente de esta mejora.
 
 ## Base técnica
 
-- React 19.3.0 para construir la interfaz mediante componentes reutilizables.
-- Vite 8.3.3 para desarrollo local y generación de la versión distribuible.
-- ESLint 10.12.0 para detectar errores y prácticas problemáticas.
-- pnpm para instalar dependencias y ejecutar los comandos del proyecto.
+- React para construir la interfaz mediante componentes reutilizables.
+- Vite para desarrollo local y generación de la versión distribuible.
+- ESLint para revisión estática.
+- `localStorage` para persistencia local versionada.
 
-Comandos disponibles dentro de `app/`:
+Scripts disponibles dentro de `app/`:
 
-- `pnpm dev`: inicia una vista local de desarrollo.
-- `pnpm lint`: revisa el código.
-- `pnpm build`: genera y verifica la versión distribuible en `app/dist/`.
+- `dev`: inicia una vista local de desarrollo.
+- `lint`: revisa el código.
+- `build`: genera la versión distribuible en `app/dist/`.
 
 ## Navegación del repositorio
 
@@ -100,4 +103,6 @@ Está implementado el recorrido base completo: Projects, New Project, Overview, 
 
 La revisión interna cubrió estructura semántica, estados seleccionados, foco visible, objetivos táctiles y reflow móvil. Es una inspección técnica acotada: no demuestra conformidad integral de accesibilidad ni sustituye una prueba de usabilidad.
 
-Hay persistencia local en el navegador y despliegue estático en GitHub Pages, pero no existe backend, autenticación, base de datos remota, IA ejecutándose, integraciones, leads reales ni validación con usuarios.
+Cada navegador conserva sus proyectos en `localStorage`. La clave nueva usa el formato `v0.2`; una entrada `v0.1` válida se migra sin modificarla. La salida convertida se valida íntegramente antes de escribir: si no es compatible, no se crea `v0.2` y la interfaz permite exportar la copia en memoria o rescatar el contenido original. El respaldo se puede exportar y su recuperación fue comprobada programáticamente; todavía no existe importación desde la interfaz.
+
+La detección entre pestañas bloquea una copia desactualizada y permite cargar la versión externa, pero no es un sistema transaccional: queda un riesgo residual ante escrituras realmente simultáneas. No existe backend, autenticación, sincronización remota, IA real, integraciones, leads reales ni validación con usuarios.

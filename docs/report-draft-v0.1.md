@@ -48,7 +48,7 @@ Figma Make y UXPilot no mostraron para Iván un modelo identificable. Abacus.AI 
 
 El proyecto comenzó recuperando la consigna, las notas existentes y el contexto de una idea inicialmente muy amplia: asistir las etapas E1–E18 del proceso UX/Product de punta a punta. Esa visión incluía investigación, definición, wireframes, prototipos y posibles usos futuros con clientes.
 
-Para evitar construir una plataforma demasiado grande para el TP, se separó una base académica de las extensiones futuras. La base quedó definida como una maqueta navegable con datos ficticios y control humano. Se dejaron fuera autenticación, base de datos remota, multiusuario, leads, CRM, automatizaciones de negocio, integraciones e IA real. La publicación estática se incorporó al final para facilitar la evaluación, sin convertir la maqueta en una aplicación funcional con backend.
+Para evitar construir una plataforma demasiado grande para el TP, se separó una base académica de las extensiones futuras. La base quedó definida como una maqueta navegable con datos ficticios y control humano. Se dejaron fuera autenticación, base de datos remota, multiusuario, leads, CRM, automatizaciones de negocio, integraciones e IA real. La publicación estática anterior se incorporó para facilitar la evaluación, sin convertir la maqueta en una aplicación funcional con backend. El lote local más reciente todavía no fue versionado ni publicado.
 
 ### 2. Exploración visual
 
@@ -71,6 +71,7 @@ La aplicación se implementó con React y Vite en incrementos verificables:
 3. Decisions e historial.
 4. Deliverables, Sources y AI Activity.
 5. Revisión responsive y accesibilidad acotada.
+6. Corrección del modelo local para conservar múltiples proyectos, validar el almacenamiento y representar fallos y conflictos sin pérdida silenciosa.
 
 Esta estrategia permitió comprobar cada relación antes de ampliar el alcance. Por ejemplo, primero se verificó que una solicitud pudiera conservarse literalmente; después se añadió una propuesta y recién entonces el registro y el entregable derivado.
 
@@ -83,17 +84,19 @@ Durante las pruebas se detectaron y corrigieron problemas concretos:
 - el contador debía incluir la tarjeta actual mientras siguiera pendiente;
 - una decisión aceptada debía poder reabrirse;
 - el historial registraba dos veces una acción debido a un efecto secundario dentro de una actualización de estado de React;
-- algunos textos no concordaban en singular y plural;
+- los rótulos de pendientes y decisiones debían flexionar correctamente en singular y plural; la corrección se verificó con cero, uno y varios;
 - los estados seleccionados necesitaban información semántica además del cambio visual.
 - el primer despliegue falló porque GitHub Pages todavía no estaba habilitado para GitHub Actions; se corrigió la configuración y el segundo intento completó build y publicación.
 
 La revisión final incluyó `lint`, build de producción, consola del navegador y una inspección responsive a 390 × 844 píxeles.
 
+En el lote multiproyecto se diferenciaron tres clases de comprobación. En navegador local se probaron proyectos independientes, fuentes aportadas, acciones humanas, activaciones repetidas, dos pestañas, responsive amplio y estrecho y un recorrido acotado con teclado. La revisión estática contrastó el esquema y las rutas de error con el código. Un almacenamiento simulado y aislado comprobó preservación de `v0.1`, migración válida única, escritura obsoleta, fallo de guardado, `v0.2` incompatible y recuperación programática del respaldo. Una entrada heredada malformada reveló una brecha; el lote correctivo incorporó validación completa antes de persistir y el retest confirmó que JSON inválido, propuestas malformadas y estructuras incompletas no crean `v0.2`. La auditoría accesible integral, las tecnologías de asistencia y la URL pública no se repitieron.
+
 ## d. Resultados
 
 El resultado es una maqueta HTML navegable que permite:
 
-- crear o abrir un proyecto local;
+- crear, listar y abrir múltiples proyectos locales sin reemplazar los anteriores;
 - conservar la solicitud original sin reescritura;
 - revisar tres propuestas ficticias claramente identificadas;
 - consultar fuente, evidencia y explicación;
@@ -103,17 +106,25 @@ El resultado es una maqueta HTML navegable que permite:
 - construir un borrador sólo con decisiones aceptadas;
 - retirar automáticamente un bloque cuando su decisión se reabre;
 - distinguir fuentes originales, interpretaciones, marcos y requisitos;
-- consultar actividad observable sin afirmar que existe una IA ejecutándose.
+- consultar actividad observable sin afirmar que existe una IA ejecutándose;
+- registrar una fuente aportada como “Aportada · sin revisar”, sin atribuirle las propuestas ficticias del proyecto;
+- exportar un respaldo y detener escrituras cuando se detectan datos `v0.2` incompatibles o una pestaña desactualizada.
+
+El candidato local corrigió la validación de la migración heredada y los dos rótulos en singular. El retest focalizado y el recorrido multiproyecto resultaron satisfactorios; la versión pública anterior permanece separada.
 
 El código, la documentación y la evolución del proyecto están disponibles en:
 
 https://github.com/Ivan-andrade7/ai-product-discovery-copilot
 
-La misma maqueta puede recorrerse sin instalación en:
+La versión publicada anterior puede recorrerse sin instalación en:
 
 https://ivan-andrade7.github.io/ai-product-discovery-copilot/
 
+GitHub Pages todavía no contiene el lote multiproyecto descrito aquí. Vercel continúa siendo el alojamiento preferido para la próxima publicación; está preparado, pero el despliegue y su verificación siguen pendientes.
+
 ### Evidencia visual seleccionada
+
+Las figuras 1–5 documentan la versión histórica publicada. Las figuras 6–8 corresponden al candidato local no publicado y usan exclusivamente datos ficticios.
 
 ![Figura 1. Overview con solicitud original y estado inicial.](../evidencia/screenshots/02-overview.png)
 
@@ -135,7 +146,21 @@ https://ivan-andrade7.github.io/ai-product-discovery-copilot/
 
 **Figura 5.** La vista móvil reorganiza la cola y las acciones en una sola columna.
 
-La aplicación conserva el proyecto, las propuestas y el historial mediante almacenamiento local del navegador. No existe sincronización remota: cada navegador mantiene su propia copia y borrar sus datos reinicia la demo.
+![Figura 6. Lista real de proyectos en el candidato local.](../evidencia/screenshots/11-projects-multiproyecto-local.png)
+
+**Figura 6.** Projects muestra dos proyectos locales independientes y su estado derivado.
+
+![Figura 7. Fuente aportada sin revisar en el candidato local.](../evidencia/screenshots/13-sources-aportada-local.png)
+
+**Figura 7.** Sources distingue la fuente aportada y no le atribuye propuestas demo.
+
+![Figura 8. Vista amplia con textos ficticios extensos.](../evidencia/screenshots/12-overview-amplio-texto-largo-local.png)
+
+**Figura 8.** El contexto amplio conserva jerarquía y legibilidad en el escenario inspeccionado; no constituye una prueba integral de responsive.
+
+La aplicación conserva varios proyectos, sus fuentes, propuestas, decisiones y entregables mediante el formato local `v0.2`. Si encuentra una clave compatible `v0.1`, crea el estado nuevo sin modificar la clave anterior. Una fuente ingresada se mantiene “sin revisar” y las propuestas demo de un proyecto nuevo indican que no derivan de ella.
+
+Los datos `v0.2` incompatibles se preservan para rescate y un fallo de guardado mantiene la copia en memoria exportable. La exportación existe y el respaldo pudo recuperarse programáticamente; todavía no hay importación desde la interfaz. La salida heredada se valida antes de guardar: un `v0.1` malformado queda intacto, muestra recuperación y no crea `v0.2`. Cada navegador mantiene su propia copia y no existe sincronización remota.
 
 Pendiente para la versión final: seleccionar cuáles de estas capturas entrarán en el límite recomendado del informe.
 
@@ -149,7 +174,11 @@ La maqueta también mantiene proporcionalidad: representa el recorrido necesario
 
 ### Limitaciones
 
-Las propuestas están preparadas localmente y no provienen de un modelo conectado. La persistencia sólo existe en el navegador; no hay autenticación, colaboración, protección de datos de clientes ni integración con servicios externos. Tampoco se realizaron entrevistas o pruebas con usuarios, por lo que no puede afirmarse que la solución mejore productividad, comprensión o calidad de las decisiones.
+Las propuestas están preparadas localmente y no provienen de un modelo conectado. La persistencia sólo existe en el navegador; no hay backend, autenticación, colaboración remota, IA real, protección de datos de clientes ni integración con servicios externos. Tampoco se realizaron entrevistas o pruebas con usuarios, por lo que no puede afirmarse que la solución mejore productividad, comprensión o calidad de las decisiones.
+
+La aplicación detecta cambios observados entre pestañas y bloquea la copia desactualizada, pero `localStorage` no ofrece una transacción entre lectura y escritura. Por eso persiste un riesgo de carrera ante escrituras estrictamente simultáneas y no se afirma protección completa de concurrencia.
+
+La migración conservadora funcionó para el ejemplo válido y rechazó sin escritura los casos malformado, inválido e incompleto probados. Esto no garantiza compatibilidad con cualquier dato heredado imaginable; los originales continúan disponibles para rescate.
 
 La revisión accesible fue una inspección técnica limitada. Se revisaron reflow, jerarquía, foco y estados semánticos, pero no se ejecutó una auditoría WCAG completa ni pruebas con tecnologías de asistencia.
 
@@ -159,7 +188,7 @@ La revisión accesible fue una inspección técnica limitada. Se revisaron reflo
 
 **Fluida.** La navegación mantiene continuidad entre Overview, Work, Decisions y Deliverables. En móvil las columnas se reorganizan y las acciones se apilan. La fluidez observada es técnica e interna; falta validarla con otras personas.
 
-**Protegida.** La demo usa datos ficticios, no transmite información a servicios externos y no almacena datos personales. Sin embargo, una versión futura con clientes necesitaría autenticación, permisos, privacidad, tratamiento de fuentes y políticas de retención.
+**Protegida.** La demo probada usa datos ficticios, no transmite información a servicios externos y no incorporó datos personales al repositorio. La validación de esquema, la recuperación y el aviso de conflicto reducen pérdidas accidentales en el escenario local probado, pero no demuestran seguridad integral. Una versión futura con clientes necesitaría autenticación, permisos, privacidad, tratamiento de fuentes y políticas de retención.
 
 **Bajo control humano.** Es la dimensión más desarrollada: ninguna propuesta entra al entregable sin aceptar o editar y aceptar; rechazar o mantener pendiente no la incorpora; reabrir la retira; el historial conserva la acción anterior. Aun así, controlar una propuesta no equivale a validarla con evidencia externa.
 
@@ -176,3 +205,5 @@ Como evolución futura, la prioridad recomendada es incorporar una operación re
 1. Revisar contenido, selección de capturas y extensión antes de retirar la marca de borrador.
 2. Reconfirmar la fecha contra cualquier aviso docente posterior.
 3. Registrar el modelo exacto de Codex si puede recuperarse; de lo contrario, mantener la limitación declarada.
+4. Decidir si se versiona el candidato local que superó el retest correctivo. Un push a `main` activa actualmente GitHub Pages, por lo que también requerirá autorización de publicación.
+5. Desplegar en Vercel sólo con autorización y verificar que la publicación corresponda al commit elegido.

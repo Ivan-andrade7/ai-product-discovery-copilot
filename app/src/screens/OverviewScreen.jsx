@@ -7,7 +7,7 @@ export function OverviewScreen({ project, proposals, onHome, onNavigate }) {
   const decidedCount = proposals.filter((proposal) => ['accepted', 'edited', 'rejected'].includes(proposal.status)).length
   const decisionSummary = `${decidedCount} ${decidedCount === 1 ? 'resuelta' : 'resueltas'} · ${pendingCount} ${pendingCount === 1 ? 'pendiente' : 'pendientes'}`
   const statusCards = [
-    ['Fuentes', '4 registradas'],
+    ['Fuentes', `${project.sources.length} registradas`],
     ['Decisiones', decisionSummary],
     ['Entregables', acceptedCount ? 'Problem framing · actualizado' : 'Problem framing · borrador'],
     ['Validación', 'No realizada'],
@@ -18,7 +18,7 @@ export function OverviewScreen({ project, proposals, onHome, onNavigate }) {
         <span className="tag">Estado del proyecto</span>
       </TopBar>
       <div className="project-layout">
-        <ProjectSidebar onNavigate={onNavigate} />
+        <ProjectSidebar onNavigate={onNavigate} projectName={project.name} />
         <main className="overview-page">
           <section>
             <h1>Overview</h1>

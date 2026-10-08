@@ -3,6 +3,30 @@
   background: var(--color-surface);
 }
 
+.storage-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-subtle);
+  color: var(--color-ink);
+  font-size: 12px;
+}
+
+.storage-banner.conflict,
+.storage-banner.recovery-required,
+.storage-banner.write-error {
+  background: var(--color-danger-bg);
+}
+
+.storage-banner > div {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
 .topbar {
   min-height: 62px;
   display: grid;
@@ -184,6 +208,11 @@ textarea:focus-visible {
 .project-card.interactive:hover {
   border-color: var(--color-action);
   box-shadow: 0 8px 28px rgba(20, 184, 166, 0.12);
+}
+
+.project-card:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
 }
 
 .projects-page > .method-warning {
@@ -1003,6 +1032,10 @@ blockquote {
 }
 
 @media (max-width: 640px) {
+  .storage-banner {
+    align-items: stretch;
+    flex-direction: column;
+  }
   .page-padding,
   .overview-page,
   .work-page,

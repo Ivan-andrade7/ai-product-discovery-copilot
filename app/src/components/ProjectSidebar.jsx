@@ -7,11 +7,11 @@ const items = [
   { label: 'AI Activity', screen: 'activity' },
 ]
 
-export function ProjectSidebar({ active = 'Overview', onNavigate }) {
+export function ProjectSidebar({ active = 'Overview', onNavigate, projectName }) {
   return (
     <aside className="project-sidebar" aria-label="Navegación del proyecto">
       <p className="eyebrow">PROYECTO</p>
-      <p className="project-name">Discovery v0.1</p>
+      <p className="project-name">{projectName}</p>
       <nav className="project-nav">
         {items.map((item) => (
           <button

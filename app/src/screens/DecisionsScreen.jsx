@@ -30,7 +30,7 @@ export function DecisionsScreen({ project, proposals, decisions, onHome, onNavig
         <span className="tag">Historial trazable</span>
       </TopBar>
       <div className="project-layout">
-        <ProjectSidebar active="Decisions" onNavigate={onNavigate} />
+        <ProjectSidebar active="Decisions" onNavigate={onNavigate} projectName={project.name} />
         <main className="decisions-page">
           <header className="work-heading">
             <div>

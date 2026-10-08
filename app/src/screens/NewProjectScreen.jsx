@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { TopBar } from '../components/TopBar'
 
-export function NewProjectScreen({ onCancel, onCreate }) {
+export function NewProjectScreen({ onCancel, onCreate, disabled }) {
   const [name, setName] = useState('')
   const [objective, setObjective] = useState('')
   const [sources, setSources] = useState('')
@@ -11,8 +11,7 @@ export function NewProjectScreen({ onCancel, onCreate }) {
     onCreate({
       name: name.trim() || 'Proyecto sin título',
       objective: objective.trim() || 'Objetivo todavía no definido.',
-      sources: sources.trim() || 'Sin fuentes agregadas.',
-      originalRequest: objective.trim() || 'Objetivo todavía no definido.',
+      sources: sources.trim(),
     })
   }
 
@@ -62,7 +61,7 @@ export function NewProjectScreen({ onCancel, onCreate }) {
             <button className="button secondary" type="button" onClick={onCancel}>
               Cancelar
             </button>
-            <button className="button primary" type="submit">
+            <button className="button primary" type="submit" disabled={disabled}>
               Crear y continuar
             </button>
           </div>

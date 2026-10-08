@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ProjectSidebar } from '../components/ProjectSidebar'
 import { TopBar } from '../components/TopBar'
 
@@ -9,33 +9,48 @@ const decisionLabels = {
   pending: 'Pendiente',
 }
 
-export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdateProposal }) {
+export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdateProposal, readOnly }) {
   const firstPending = Math.max(0, proposals.findIndex((proposal) => proposal.status === 'pending'))
   const [selectedIndex, setSelectedIndex] = useState(firstPending)
   const [isEditing, setIsEditing] = useState(false)
   const [draft, setDraft] = useState('')
+  const actionLock = useRef(false)
   const selected = proposals[selectedIndex]
   const pendingCount = proposals.filter((proposal) => proposal.status === 'pending').length
   const reviewedCount = proposals.length - pendingCount
 
-  const nextPendingIndex = useMemo(() => {
+  useEffect(() => {
+    actionLock.current = false
+  }, [selected.id, selected.status])
+
+  function nextPendingIndex() {
     for (let step = 1; step <= proposals.length; step += 1) {
       const index = (selectedIndex + step) % proposals.length
       if (proposals[index].status === 'pending') return index
     }
     return selectedIndex
-  }, [proposals, selectedIndex])
+  }
 
   function selectProposal(index) {
+    actionLock.current = false
     setSelectedIndex(index)
     setIsEditing(false)
   }
 
   function resolve(status, content) {
+    if (readOnly || actionLock.current || selected.status !== 'pending') return
+    actionLock.current = true
     const action = status === 'edited' ? 'edited-and-accepted' : status
-    onUpdateProposal(selected.id, { status, ...(content ? { content } : {}) }, action)
+    const saved = onUpdateProposal(selected.id, { status, ...(content ? { content } : {}) }, action, 'pending')
+    if (!saved) actionLock.current = false
     setIsEditing(false)
-    if (nextPendingIndex !== selectedIndex) setSelectedIndex(nextPendingIndex)
+  }
+
+  function reopen() {
+    if (readOnly || actionLock.current || selected.status === 'pending') return
+    actionLock.current = true
+    const saved = onUpdateProposal(selected.id, { status: 'pending' }, 'reopened', selected.status)
+    if (!saved) actionLock.current = false
   }
 
   function beginEdit() {
@@ -49,7 +64,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
         <span className="tag">Revisión humana</span>
       </TopBar>
       <div className="project-layout">
-        <ProjectSidebar active="Work" onNavigate={onNavigate} />
+        <ProjectSidebar active="Work" onNavigate={onNavigate} projectName={project.name} />
         <main className="work-page">
           <header className="work-heading">
             <div>
@@ -57,7 +72,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
               <p>Revisá cada propuesta. La IA no decide por vos.</p>
             </div>
             <div className="review-count" aria-live="polite">
-              <strong>{pendingCount} pendientes</strong>
+              <strong>{pendingCount} {pendingCount === 1 ? 'pendiente' : 'pendientes'}</strong>
               <span>{reviewedCount} de {proposals.length} revisadas</span>
             </div>
           </header>
@@ -111,24 +126,24 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
                 <div className="decision-actions">
                   {isEditing ? (
                     <>
-                      <button className="button primary" type="button" onClick={() => resolve('edited', draft.trim())} disabled={!draft.trim()}>
+                      <button className="button primary" type="button" onClick={() => resolve('edited', draft.trim())} disabled={!draft.trim() || readOnly}>
                         Guardar y aceptar
                       </button>
                       <button className="button" type="button" onClick={() => setIsEditing(false)}>Cancelar edición</button>
                     </>
                   ) : (
                     <>
-                      <button className="button primary" type="button" onClick={() => resolve('accepted')}>Aceptar</button>
-                      <button className="button" type="button" onClick={beginEdit}>Editar</button>
-                      <button className="button" type="button" onClick={() => resolve('rejected')}>Rechazar</button>
-                      <button className="button subtle-action" type="button" onClick={() => setSelectedIndex(nextPendingIndex)}>Mantener pendiente</button>
+                      <button className="button primary" type="button" onClick={() => resolve('accepted')} disabled={readOnly}>Aceptar</button>
+                      <button className="button" type="button" onClick={beginEdit} disabled={readOnly}>Editar</button>
+                      <button className="button" type="button" onClick={() => resolve('rejected')} disabled={readOnly}>Rechazar</button>
+                      <button className="button subtle-action" type="button" onClick={() => selectProposal(nextPendingIndex())}>Mantener pendiente</button>
                     </>
                   )}
                 </div>
               ) : (
                 <div className="resolved-panel">
                   <span>Esta decisión queda registrada en el estado local de la demo.</span>
-                  <button className="button" type="button" onClick={() => onUpdateProposal(selected.id, { status: 'pending' }, 'reopened')}>
+                  <button className="button" type="button" onClick={reopen} disabled={readOnly}>
                     Reabrir decisión
                   </button>
                 </div>
