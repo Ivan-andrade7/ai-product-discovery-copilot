@@ -6,31 +6,40 @@ Construir y documentar el Trabajo Final Integrador individual de la Diplomatura 
 
 ## Alcance vigente
 
-- Entrega base: maqueta HTML navegable de Nivel 2.
-- Recorrido central: solicitud original → propuesta asistida por IA → revisión humana → decisión → resultado versionado.
+- Versión objetivo: producto con IA integrada real obligatoria por decisión explícita de Iván. La admisión académica de una maqueta Nivel 2 no vuelve opcional este requisito del producto ni demuestra que sea exigencia docente.
+- Recorrido central: solicitud original y fuentes autorizadas → análisis real de IA → propuestas contextualizadas → revisión humana → decisiones → entregable trazable.
 - Usuario inicial: Iván, trabajando individualmente.
-- Datos de demostración locales y claramente ficticios.
-- La IA del recorrido base puede estar simulada, siempre que se identifique como tal.
+- Simulación limitada a un proyecto demo separado e identificado; los proyectos nuevos empiezan sin propuestas genéricas precargadas.
+- Preservar la base multiproyecto, la persistencia vigente `v0.3` y sus antecedentes `v0.1`/`v0.2`, además de la corrección responsive.
+- El candidato local `7ffb151` prepara contrato, transporte y controles para IA real, pero mantiene las generaciones deshabilitadas. La versión pública es anterior a este candidato.
+
+El estado detallado y sus límites se mantienen en `contexto.md` y `docs/verification-2026-10-07.md`; no duplicarlos aquí.
 
 ## Extensiones posteriores
 
-Sólo después de estabilizar la entrega base:
+Desarrollo incremental, con pruebas y capacidad utilizable antes de avanzar:
 
-1. una operación real y acotada de IA;
-2. mayor cobertura del proceso UX/Product;
-3. entrada simple de leads;
-4. gestión inicial de leads;
-5. área de cliente e integraciones, si todavía existe tiempo.
+1. IA real obligatoria y recorrido completo;
+2. recuperación/importación, persistencia y acceso adecuados al uso;
+3. captación y gestión inicial de leads;
+4. portal de clientes e integraciones justificadas;
+5. monetización sólo con oferta y controles definidos.
+
+Reservar tiempo para pruebas, documentación y entrega académica. Las ampliaciones no autorizan costos, infraestructura ni publicación automáticamente.
 
 ## Exclusiones de la base
 
-- autenticación, base de datos y multiusuario;
+- multiusuario y servicios adicionales sin un incremento aprobado; el acceso protegido y almacenamiento mínimo necesarios para la IA se especifican antes de exponer su endpoint;
 - datos reales de clientes;
 - contacto automático, correos y publicación de formularios;
 - CRM, presupuestos, contratos y facturación;
 - integraciones con Notion, Figma, OneDrive u otros servicios;
 - automatización completa de E1–E18;
 - despliegue o publicación sin autorización explícita.
+
+## Próximo paso
+
+Resolver la conversión oficial de créditos, reconciliar el consumo de la consulta de catálogo y calcular conservadoramente el lote dentro del presupuesto autorizado. Sólo después podrá autorizarse y ejecutarse la prueba real de IA. Configurar secretos, consumir APIs, activar Metering, publicar o desplegar requieren autorización específica.
 
 ## Autoridades
 
@@ -64,4 +73,3 @@ No convertir una copia, un chat o una interpretación en autoridad superior a es
 3. Implementar y verificar un recorrido completo antes de sumar funcionalidades.
 4. Conservar evidencia suficiente para README e informe académico.
 5. Declarar con precisión qué es real, simulado, pendiente o fuera de alcance.
-
