@@ -34,8 +34,8 @@
 - La salida convertida desde formatos anteriores se valida antes de persistirse. Propuestas malformadas, JSON inválido y estructuras incompletas activan recuperación sin reemplazar el original.
 - Los rótulos de pendientes y decisiones flexionan correctamente cero, uno y varios en los escenarios comprobados.
 - La recuperación de un respaldo fue comprobada programáticamente. Todavía no existe una acción de importación desde la interfaz.
-- El candidato vigente existe sólo en el árbol de trabajo local: no tiene commit, push ni publicación.
-- El commit `cd1f8b71211604cddd7ccc2cccb4c78bb957866a` fue publicado anteriormente en GitHub Pages y Vercel. Los lotes locales posteriores no están presentes allí y producción no fue retesteada en esta fase.
+- Iván autorizó publicar la adaptación local el 10/10/2026. El commit de implementación `d758512658138cbe86b6e59c9fef1bb42975deb8` fue enviado a main junto con los dos commits anteriores pendientes, incluyendo preparación de IA con generaciones deshabilitadas.
+- GitHub Pages y `https://ai-product-discovery-copilot.vercel.app/` respondieron HTTP 200 y cargaron los mismos assets JS/CSS del build local con la paleta vigente. Se verificaron Projects y Work con datos ficticios. Build PASS; 63 pruebas aprobadas y una opcional omitida; lint pendiente por archivos faltantes de Zod en las dependencias locales.
 - Los proyectos nuevos empiezan sin propuestas; el contenido simulado permanece en un proyecto demo separado.
 - El contrato incluye la solicitud vigente y sólo las fuentes seleccionadas. El adaptador separa instrucciones del sistema, solicitud y fuentes tratadas como contenido no confiable.
 - Un cambio de solicitud o de una fuente seleccionada vuelve obsoleto el resultado en curso e impide incorporarlo silenciosamente.
@@ -47,7 +47,7 @@
 
 Por decisión explícita de Iván, la IA integrada real es obligatoria para la versión que quiere entregar y utilizar. La compatibilidad académica con Nivel 2 no sustituye este requisito del producto ni permite atribuirlo a la consigna docente.
 
-Continuidad comprobada en esta fase: HEAD y la referencia local `origin/main` seguían en `cd1f8b71211604cddd7ccc2cccb4c78bb957866a` al último control registrado. La corrección responsive, la preparación de IA y la transmisión de la solicitud permanecen posteriores a ese commit. No se volvió a verificar producción en esta fase.
+Continuidad comprobada el 10/10/2026: main recibió el commit de implementación `d758512`, y se comprobó la paleta publicada en ambos alojamientos. Los detalles y límites del retest están en `docs/verification-2026-10-07.md`. La publicación estática no habilita IA real ni cambia el gate económico.
 
 Si existe tiempo adicional, la expansión seguirá este orden:
 

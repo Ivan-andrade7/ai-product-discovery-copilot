@@ -60,7 +60,7 @@ pnpm preview
 - Aviso y bloqueo de una pestaña desactualizada, con una ventana residual de carrera porque `localStorage` no ofrece transacciones.
 - Servicio auxiliar local limitado a loopback, sin backend remoto de producto, autenticación, base de datos remota ni sincronización entre dispositivos.
 - Contrato, transporte reemplazable y registro duradero de consumo preparados, pero generaciones reales deshabilitadas.
-- El candidato local vigente no fue publicado. GitHub Pages y Vercel conservan el commit público anterior.
+- Adaptación oscura publicada con autorización de Iván el 10/10/2026 en GitHub Pages y Vercel, commit de implementación `d758512`. Build PASS; 63 pruebas aprobadas y una opcional omitida. Lint bloqueado por dependencias locales incompletas de Zod. El servicio auxiliar no se publica ni se habilitan generaciones.
 - La inspección interna no constituye validación con usuarios, seguridad integral ni conformidad completa de accesibilidad.
 
 ## Estado del candidato

@@ -28,7 +28,7 @@ La versión pública demuestra una maqueta HTML navegable de Nivel 2 con datos f
 
 ## Estado
 
-El repositorio contiene una maqueta React + Vite navegable. El commit `cd1f8b71211604cddd7ccc2cccb4c78bb957866a` fue publicado anteriormente en GitHub Pages y Vercel. El candidato local vigente es posterior: incluye la corrección responsive, persistencia `v0.3` y la preparación de IA descrita aquí, pero todavía no fue versionado ni publicado. Esos despliegues públicos no fueron retesteados durante los lotes locales más recientes.
+El repositorio contiene una maqueta React + Vite navegable. La adaptación de marca del commit `d758512658138cbe86b6e59c9fef1bb42975deb8` fue publicada con autorización de Iván el 10/10/2026 en GitHub Pages y Vercel. Incluye la corrección responsive, persistencia `v0.3` y preparación de IA, con generaciones deshabilitadas. Ambos sitios respondieron HTTP 200 y cargaron los mismos assets del build local; Projects y Work se revisaron con datos ficticios. Build PASS y 63 pruebas aprobadas, una opcional omitida; lint permanece bloqueado por archivos faltantes de Zod en el entorno local.
 
 La primera porción vertical del producto ya está implementada con datos locales:
 
@@ -68,7 +68,7 @@ La preparación local se verificó sin credenciales ni llamadas externas. El com
 
 Los detalles técnicos y comandos de verificación están en [`app/README.md`](app/README.md). El registro académico de prompts está en [`docs/prompt-log.md`](docs/prompt-log.md). El corpus preliminar, todavía no ejecutado, está en [`docs/ai-evaluation-corpus.md`](docs/ai-evaluation-corpus.md).
 
-La demo pública de GitHub Pages y el despliegue previo de Vercel corresponden al commit publicado anterior. Ninguno contiene el candidato local vigente.
+La demo pública de GitHub Pages y `https://ai-product-discovery-copilot.vercel.app/` contienen la adaptación oscura vigente. El despliegue es estático: no publica el servicio auxiliar ni habilita llamadas de IA.
 
 ## Base técnica
 

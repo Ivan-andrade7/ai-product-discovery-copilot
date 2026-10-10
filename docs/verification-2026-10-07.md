@@ -4,6 +4,12 @@ Este archivo es la autoridad detallada de verificación. Conserva la verificaci�
 
 ## Revisión vigente de la adaptación local — 10 de octubre de 2026
 
+### Publicación autorizada posteriormente
+
+Iván autorizó publicar después de revisar el resultado local. Commit de implementación: `d758512658138cbe86b6e59c9fef1bb42975deb8`; push a main completado junto con los commits pendientes `7ffb151` y `dd59478`. Retest previo al push: build PASS; 63 pruebas aprobadas y una opcional omitida. Lint volvió a fallar antes del análisis por un archivo faltante de Zod (`json-schema.cjs`), sin cambios de código para eludirlo.
+
+Ambos sitios públicos respondieron HTTP 200 y cargaron `index-CwYs6X6k.css` e `index-D3Mgy49q.js`, iguales al build local. Fondo calculado #10191C y acción #93DEC9. Se recorrieron Projects y Work con datos ficticios en navegador aislado. URLs: `https://ivan-andrade7.github.io/ai-product-discovery-copilot/` y `https://ai-product-discovery-copilot.vercel.app/`. El registro local siguiente conserva la detención anterior para revisión como antecedente, ya superada por esta autorización. No se publicó el servicio auxiliar ni se habilitaron generaciones, credenciales, Metering o cambios económicos.
+
 Al comenzar esta revisión ya existían cambios locales en ambos CSS, el registro visual siguiente y tres capturas. Se conservaron y se completó la adaptación consultando directamente las dos autoridades compartidas de Portfolio, sin copiarlas ni modificarlas. Este retest describe el árbol vigente; los PASS de lint del registro anterior no acreditan el entorno actual.
 
 Correspondencia verificada: `--color-surface` es el fondo de página y cabecera; `--color-panel` corresponde al panel lateral; `--color-surface-elevated` a tarjetas, revisión, documentos y campos; `--color-subtle` a fondos suaves de marca. Navegación activa usa marca suave y conserva `aria-current`; selección conserva `aria-pressed` y la barra lateral de énfasis. Se corrigió el texto heredado de los botones de Sources. Los bordes de separación siguen en #3C5352; campos y botones secundarios usan el terciario #A7B9B4 como borde funcional (6,26:1 contra su superficie), porque el separador no alcanza 3:1. Éxito y error mantienen sus pares semánticos y sus rótulos textuales.
