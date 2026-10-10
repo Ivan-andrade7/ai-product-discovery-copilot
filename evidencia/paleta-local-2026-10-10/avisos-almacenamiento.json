@@ -1,0 +1,65 @@
+[
+  {
+    "scenario": "read-error",
+    "width": 320,
+    "scroll": 320,
+    "pass": true,
+    "message": "No se pudo leer o convertir el almacenamiento. No se escribió ni eliminó ningún dato. Podés rescatar el original disponible y reintentar la lectura.Reintentar lectura (exportá antes)"
+  },
+  {
+    "scenario": "read-error",
+    "width": 390,
+    "scroll": 390,
+    "pass": true,
+    "message": "No se pudo leer o convertir el almacenamiento. No se escribió ni eliminó ningún dato. Podés rescatar el original disponible y reintentar la lectura.Reintentar lectura (exportá antes)"
+  },
+  {
+    "scenario": "read-error",
+    "width": 1280,
+    "scroll": 1280,
+    "pass": true,
+    "message": "No se pudo leer o convertir el almacenamiento. No se escribió ni eliminó ningún dato. Podés rescatar el original disponible y reintentar la lectura.Reintentar lectura (exportá antes)"
+  },
+  {
+    "scenario": "write-error",
+    "width": 320,
+    "scroll": 320,
+    "pass": true,
+    "message": "No se pudo crear el nuevo almacenamiento. La copia en memoria sigue disponible.Exportar respaldo"
+  },
+  {
+    "scenario": "write-error",
+    "width": 390,
+    "scroll": 390,
+    "pass": true,
+    "message": "No se pudo crear el nuevo almacenamiento. La copia en memoria sigue disponible.Exportar respaldo"
+  },
+  {
+    "scenario": "write-error",
+    "width": 1280,
+    "scroll": 1280,
+    "pass": true,
+    "message": "No se pudo crear el nuevo almacenamiento. La copia en memoria sigue disponible.Exportar respaldo"
+  },
+  {
+    "scenario": "conflict",
+    "width": 320,
+    "scroll": 320,
+    "pass": true,
+    "message": "Hay cambios de otra pestaña. Esta copia quedó bloqueada para evitar sobrescrituras.Exportar respaldoCargar cambios externosRescatar original"
+  },
+  {
+    "scenario": "conflict",
+    "width": 390,
+    "scroll": 390,
+    "pass": true,
+    "message": "Hay cambios de otra pestaña. Esta copia quedó bloqueada para evitar sobrescrituras.Exportar respaldoCargar cambios externosRescatar original"
+  },
+  {
+    "scenario": "conflict",
+    "width": 1280,
+    "scroll": 1280,
+    "pass": true,
+    "message": "Hay cambios de otra pestaña. Esta copia quedó bloqueada para evitar sobrescrituras.Exportar respaldoCargar cambios externosRescatar original"
+  }
+]

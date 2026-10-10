@@ -1,0 +1,310 @@
+{
+  "contrasts": [
+    {
+      "label": "ink",
+      "bg": "page",
+      "ratio": 15.76
+    },
+    {
+      "label": "ink",
+      "bg": "panel",
+      "ratio": 13.58
+    },
+    {
+      "label": "ink",
+      "bg": "elevated",
+      "ratio": 11.34
+    },
+    {
+      "label": "ink",
+      "bg": "soft",
+      "ratio": 10.13
+    },
+    {
+      "label": "muted",
+      "bg": "page",
+      "ratio": 11.27
+    },
+    {
+      "label": "muted",
+      "bg": "panel",
+      "ratio": 9.72
+    },
+    {
+      "label": "muted",
+      "bg": "elevated",
+      "ratio": 8.11
+    },
+    {
+      "label": "muted",
+      "bg": "soft",
+      "ratio": 7.25
+    },
+    {
+      "label": "tertiary",
+      "bg": "page",
+      "ratio": 8.7
+    },
+    {
+      "label": "tertiary",
+      "bg": "panel",
+      "ratio": 7.5
+    },
+    {
+      "label": "tertiary",
+      "bg": "elevated",
+      "ratio": 6.26
+    },
+    {
+      "label": "tertiary",
+      "bg": "soft",
+      "ratio": 5.59
+    },
+    {
+      "label": "action",
+      "bg": "page",
+      "ratio": 11.49
+    },
+    {
+      "label": "action",
+      "bg": "panel",
+      "ratio": 9.9
+    },
+    {
+      "label": "action",
+      "bg": "elevated",
+      "ratio": 8.27
+    },
+    {
+      "label": "action",
+      "bg": "soft",
+      "ratio": 7.39
+    },
+    {
+      "label": "focus",
+      "bg": "page",
+      "ratio": 13.89
+    },
+    {
+      "label": "focus",
+      "bg": "panel",
+      "ratio": 11.97
+    },
+    {
+      "label": "focus",
+      "bg": "elevated",
+      "ratio": 10
+    },
+    {
+      "label": "focus",
+      "bg": "soft",
+      "ratio": 8.93
+    },
+    {
+      "label": "success",
+      "ratio": 9.94
+    },
+    {
+      "label": "danger",
+      "ratio": 8.27
+    },
+    {
+      "label": "banner ink/danger",
+      "ratio": 13.82
+    }
+  ],
+  "focusPersonal": [
+    {
+      "tag": "BUTTON",
+      "text": "Overview",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Work",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Sources",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Decisions",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Deliverables",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "AI Activity",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "INPUT",
+      "text": "",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "INPUT",
+      "text": "",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "SUMMARY",
+      "text": "Solicitud original preservada · ver",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Comprobar servicio local",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "BODY",
+      "text": "\n    IAAI Discovery Copilotpor Ivan",
+      "outline": "rgb(242, 241, 235)",
+      "visible": false
+    },
+    {
+      "tag": "BUTTON",
+      "text": "IAAI Discovery Copilotpor Ivan Andr",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Overview",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Work",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Sources",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    },
+    {
+      "tag": "BUTTON",
+      "text": "Decisions",
+      "outline": "rgb(185, 238, 223)",
+      "visible": true
+    }
+  ],
+  "checkboxSelected": false,
+  "disclosureOpen": "",
+  "samples": [
+    {
+      "label": "Revisión humana",
+      "fg": "rgb(197, 208, 205)",
+      "bg": "rgb(32, 63, 57)",
+      "opacity": "1",
+      "ratio": 7.25
+    },
+    {
+      "label": "Overview",
+      "fg": "rgb(197, 208, 205)",
+      "bg": "rgb(25, 39, 43)",
+      "disabled": false,
+      "opacity": "1",
+      "ratio": 9.72
+    },
+    {
+      "label": "Work",
+      "fg": "rgb(242, 241, 235)",
+      "bg": "rgb(32, 63, 57)",
+      "disabled": false,
+      "opacity": "1",
+      "ratio": 10.13
+    },
+    {
+      "label": "Sources",
+      "fg": "rgb(197, 208, 205)",
+      "bg": "rgb(25, 39, 43)",
+      "disabled": false,
+      "opacity": "1",
+      "ratio": 9.72
+    },
+    {
+      "label": "Decisions",
+      "fg": "rgb(197, 208, 205)",
+      "bg": "rgb(25, 39, 43)",
+      "disabled": false,
+      "opacity": "1",
+      "ratio": 9.72
+    },
+    {
+      "label": "Deliverables",
+      "fg": "rgb(197, 208, 205)",
+      "bg": "rgb(25, 39, 43)",
+      "disabled": false,
+      "opacity": "1",
+      "ratio": 9.72
+    },
+    {
+      "label": "AI Activity",
+      "fg": "rgb(197, 208, 205)",
+      "bg": "rgb(25, 39, 43)",
+      "disabled": false,
+      "opacity": "1",
+      "ratio": 9.72
+    },
+    {
+      "label": "Análisis del proyectoAnálisis no disponible. La conexión ext",
+      "fg": "rgb(197, 208, 205)",
+      "bg": "rgb(34, 53, 57)",
+      "opacity": "1",
+      "ratio": 8.11
+    },
+    {
+      "label": "Solicitud original preservada",
+      "fg": "rgb(197, 208, 205)",
+      "bg": "rgb(34, 53, 57)",
+      "opacity": "1",
+      "ratio": 8.11
+    },
+    {
+      "label": "Fuente de prueba",
+      "fg": "rgb(197, 208, 205)",
+      "bg": "rgb(34, 53, 57)",
+      "opacity": "1",
+      "ratio": 8.11
+    },
+    {
+      "label": "Comprobar servicio local",
+      "fg": "rgb(242, 241, 235)",
+      "bg": "rgb(34, 53, 57)",
+      "disabled": false,
+      "opacity": "1",
+      "ratio": 11.34
+    },
+    {
+      "label": "Analizar contenido seleccionado",
+      "fg": "rgb(167, 185, 180)",
+      "bg": "rgb(25, 39, 43)",
+      "disabled": true,
+      "opacity": "1",
+      "ratio": 7.5
+    }
+  ]
+}

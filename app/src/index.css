@@ -1,15 +1,18 @@
 :root {
-  --color-ink: #f8fafc;
-  --color-muted: #94a3b8;
-  --color-border: #334155;
-  --color-surface: #020617;
-  --color-surface-elevated: #0f172a;
-  --color-subtle: #0f172a;
-  --color-action: #14b8a6;
-  --color-action-hover: #2dd4bf;
-  --color-action-ink: #020617;
-  --color-accent: #2dd4bf;
-  --color-focus: rgba(20, 184, 166, 0.3);
+  --color-ink: #f2f1eb;
+  --color-muted: #c5d0cd;
+  --color-tertiary: #a7b9b4;
+  --color-border: #3c5352;
+  --color-control-border: #a7b9b4;
+  --color-surface: #10191c;
+  --color-panel: #19272b;
+  --color-surface-elevated: #223539;
+  --color-subtle: #203f39;
+  --color-action: #93dec9;
+  --color-action-hover: #b9eedf;
+  --color-action-ink: #10191c;
+  --color-accent: #93dec9;
+  --color-focus: #b9eedf;
   --color-success-bg: #022c22;
   --color-success-text: #6ee7b7;
   --color-danger-bg: #4c0519;
@@ -45,8 +48,8 @@ textarea {
   font: inherit;
 }
 
-button:disabled {
-  opacity: 0.72;
+input[type="checkbox"] {
+  accent-color: var(--color-action);
 }
 
 #root {

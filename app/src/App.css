@@ -17,6 +17,8 @@
 
 .storage-banner.conflict,
 .storage-banner.recovery-required,
+.storage-banner.read-error,
+.storage-banner.validation-error,
 .storage-banner.write-error {
   background: var(--color-danger-bg);
 }
@@ -135,7 +137,7 @@ h2 {
 .button {
   min-height: 40px;
   padding: 8px 14px;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-control-border);
   border-radius: 8px;
   background: var(--color-surface-elevated);
   color: var(--color-ink);
@@ -151,9 +153,24 @@ h2 {
   color: var(--color-action-ink);
 }
 
-.button.primary:hover {
+.button.primary:not(:disabled):hover {
   border-color: var(--color-action-hover);
   background: var(--color-action-hover);
+}
+
+.button:not(.primary):not(:disabled):hover,
+.nav-item:not(:disabled):hover,
+.linked-proposals button:not(:disabled):hover {
+  border-color: var(--color-action);
+  background: var(--color-subtle);
+}
+
+a {
+  color: var(--color-action);
+}
+
+a:hover {
+  color: var(--color-action-hover);
 }
 
 .button.compact {
@@ -164,13 +181,15 @@ h2 {
 .button:disabled,
 .nav-item:disabled {
   cursor: not-allowed;
+  opacity: 1;
+  background: var(--color-panel);
+  border-color: var(--color-border);
+  color: var(--color-tertiary);
 }
 
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
+:focus-visible {
   outline: 3px solid var(--color-focus);
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 .project-grid {
@@ -207,7 +226,7 @@ textarea:focus-visible {
 
 .project-card.interactive:hover {
   border-color: var(--color-action);
-  box-shadow: 0 8px 28px rgba(20, 184, 166, 0.12);
+  box-shadow: 0 8px 28px rgba(147, 222, 201, 0.18);
 }
 
 .project-card:disabled {
@@ -243,7 +262,7 @@ input,
 textarea {
   width: 100%;
   box-sizing: border-box;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-control-border);
   border-radius: 8px;
   background: var(--color-surface-elevated);
   color: var(--color-ink);
@@ -264,7 +283,7 @@ textarea {
 
 input::placeholder,
 textarea::placeholder {
-  color: var(--color-muted);
+  color: var(--color-tertiary);
 }
 
 .form-actions {
@@ -282,7 +301,7 @@ textarea::placeholder {
 .project-sidebar {
   padding: 22px 12px;
   border-right: 1px solid var(--color-border);
-  background: var(--color-surface-elevated);
+  background: var(--color-panel);
 }
 
 .eyebrow {
@@ -318,7 +337,7 @@ textarea::placeholder {
 
 .nav-item.active {
   border-color: var(--color-action);
-  background: var(--color-success-bg);
+  background: var(--color-subtle);
   color: var(--color-ink);
   font-weight: 600;
 }
@@ -533,6 +552,11 @@ blockquote {
 .status-pill.rejected {
   background: var(--color-danger-bg);
   color: var(--color-danger-text);
+}
+
+.project-card .status-pill.accepted {
+  background: var(--color-subtle);
+  color: var(--color-action);
 }
 
 .proposal-review {
@@ -846,6 +870,7 @@ blockquote {
   border: 1px solid var(--color-border);
   border-radius: 12px;
   background: var(--color-surface-elevated);
+  color: var(--color-ink);
   text-align: left;
   cursor: pointer;
 }
@@ -1152,10 +1177,4 @@ blockquote {
 .activity-notice summary {
   cursor: pointer;
   padding: 12px 0;
-}
-
-.activity-notice summary:focus-visible,
-.analysis-source input:focus-visible {
-  outline: 3px solid var(--color-primary, #7636eb);
-  outline-offset: 3px;
 }

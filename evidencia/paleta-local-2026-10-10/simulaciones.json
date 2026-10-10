@@ -1,0 +1,403 @@
+{
+  "simulations": [
+    {
+      "code": "disconnected",
+      "message": "Análisis no disponible. La conexión externa está deshabilitada en este lote."
+    },
+    {
+      "code": "cost_pending",
+      "message": "Análisis no disponible. Falta confirmar el costo en créditos; las generaciones siguen deshabilitadas."
+    },
+    {
+      "code": "budget_blocked",
+      "message": "Prueba detenida por presupuesto, límite de solicitudes o registro de consumo incompleto."
+    },
+    {
+      "code": "reconciliation_pending",
+      "message": "Generación bloqueada hasta reconciliar el consumo de la solicitud anterior."
+    },
+    {
+      "code": "busy",
+      "message": "Ya hay una solicitud en curso. La prueba sólo admite solicitudes secuenciales."
+    },
+    {
+      "code": "checking",
+      "message": "Comprobando únicamente el servicio local."
+    },
+    {
+      "code": "ready",
+      "message": "Conexión disponible. Revisá el contenido antes de enviarlo."
+    },
+    {
+      "code": "analyzing",
+      "message": "Análisis en curso. Esperando una respuesta completa y válida."
+    },
+    {
+      "code": "complete",
+      "message": "Respuesta completa incorporada a la cola. Requiere revisión humana."
+    },
+    {
+      "code": "quota",
+      "message": "Cuota agotada según la respuesta recibida. No se reintentará ni se comprará saldo."
+    },
+    {
+      "code": "rate_limit",
+      "message": "Límite de solicitudes. No se reintentará automáticamente."
+    },
+    {
+      "code": "permission",
+      "message": "Acceso no autorizado. No se modificaron las fuentes."
+    },
+    {
+      "code": "error",
+      "message": "No se pudo completar el análisis. Conservamos las entradas; el reintento es manual."
+    },
+    {
+      "code": "incomplete",
+      "message": "Respuesta incompleta. No se incorporó a propuestas ni entregables."
+    },
+    {
+      "code": "invalid",
+      "message": "Respuesta o referencias inválidas. No se incorporó contenido."
+    },
+    {
+      "code": "stale",
+      "message": "El contexto cambió o existe un conflicto. El resultado no se aplicó."
+    },
+    {
+      "code": "cancelled",
+      "message": "Operación cancelada. No se incorporó una respuesta."
+    },
+    {
+      "code": "interrupted",
+      "message": "La sesión terminó antes de completar la operación. No se reanudó automáticamente."
+    }
+  ],
+  "checks": [
+    {
+      "label": "disconnected",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "disconnected",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "disconnected",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "cost_pending",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "cost_pending",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "cost_pending",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "budget_blocked",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "budget_blocked",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "budget_blocked",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "reconciliation_pending",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "reconciliation_pending",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "reconciliation_pending",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "busy",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "busy",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "busy",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "checking",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "checking",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "checking",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "ready",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "ready",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "ready",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "analyzing",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "analyzing",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "analyzing",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "complete",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "complete",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "complete",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "quota",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "quota",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "quota",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "rate_limit",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "rate_limit",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "rate_limit",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "permission",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "permission",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "permission",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "error",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "error",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "error",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "incomplete",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "incomplete",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "incomplete",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "invalid",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "invalid",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "invalid",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "stale",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "stale",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "stale",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "cancelled",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "cancelled",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "cancelled",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    },
+    {
+      "label": "interrupted",
+      "width": 320,
+      "scroll": 320,
+      "pass": true
+    },
+    {
+      "label": "interrupted",
+      "width": 390,
+      "scroll": 390,
+      "pass": true
+    },
+    {
+      "label": "interrupted",
+      "width": 1280,
+      "scroll": 1280,
+      "pass": true
+    }
+  ],
+  "externalRequests": []
+}

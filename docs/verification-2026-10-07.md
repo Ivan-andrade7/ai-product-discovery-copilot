@@ -2,6 +2,51 @@
 
 Este archivo es la autoridad detallada de verificación. Conserva la verificación histórica del 7 de octubre y los retests posteriores del candidato todavía no publicado. Un resultado histórico no demuestra por sí solo el comportamiento del árbol local vigente.
 
+## Revisión vigente de la adaptación local — 10 de octubre de 2026
+
+Al comenzar esta revisión ya existían cambios locales en ambos CSS, el registro visual siguiente y tres capturas. Se conservaron y se completó la adaptación consultando directamente las dos autoridades compartidas de Portfolio, sin copiarlas ni modificarlas. Este retest describe el árbol vigente; los PASS de lint del registro anterior no acreditan el entorno actual.
+
+Correspondencia verificada: `--color-surface` es el fondo de página y cabecera; `--color-panel` corresponde al panel lateral; `--color-surface-elevated` a tarjetas, revisión, documentos y campos; `--color-subtle` a fondos suaves de marca. Navegación activa usa marca suave y conserva `aria-current`; selección conserva `aria-pressed` y la barra lateral de énfasis. Se corrigió el texto heredado de los botones de Sources. Los bordes de separación siguen en #3C5352; campos y botones secundarios usan el terciario #A7B9B4 como borde funcional (6,26:1 contra su superficie), porque el separador no alcanza 3:1. Éxito y error mantienen sus pares semánticos y sus rótulos textuales.
+
+Se unificó `:focus-visible` para botones, campos, checkbox, summary y enlaces: #B9EEDF, 3 px y offset 3 px. Se eliminó la regla con `--color-primary` y fallback violeta. Los controles deshabilitados conservan su atributo funcional y muestran texto terciario sobre panel, sin atenuación del texto ni hover de acción. Checkbox usa el acento de marca. Se conservaron tipografía, geometría, contenido, responsive, navegación y lógica; sólo se editaron los dos CSS y este registro.
+
+Verificación ejecutada en Chrome local con contextos de navegador aislados y datos ficticios:
+
+- Projects, New Project, Overview, Work, Sources, Decisions, Deliverables y AI Activity: comprobación de ancho de página a 320, 390 y 1280 px, sin desbordamiento. La navegación móvil conserva su scroll horizontal interno previsto.
+- Decisions y Deliverables con contenido aceptado, y Work en edición: los tres anchos sin desbordamiento. Aceptar, rechazar, reabrir y mantener pendiente se ejercitaron sobre el demo ficticio.
+- Los 18 mensajes de `analysisMessages` se representaron usando el componente Work existente y props simuladas, sin invocar análisis, proveedor ni servicio económico. Cada mensaje se comprobó a los tres anchos. Son simulaciones de presentación, no ejecuciones de IA ni de sus controles económicos.
+- Recuperación por JSON incompatible, lectura fallida, guardado fallido y conflicto entre pestañas: avisos reales del frontend provocados con almacenamiento aislado o eventos ficticios; los tres anchos sin desbordamiento. `validation-error` comparte el estilo crítico, pero su disparador funcional no se ejercitó en este retest.
+- Tab en Work recorrió navegación, cola y acciones con foco menta visible; Enter activó Mantener pendiente, Space cambió el checkbox y Enter abrió un detalle. Los deshabilitados quedaron fuera de la secuencia. Inspección acotada, sin lector de pantalla.
+- Contraste sRGB: texto principal/superficie elevada 11,34:1; secundario/elevada 8,11:1; placeholder y borde funcional/elevada 6,26:1; secundario/fondo suave 7,25:1; texto oscuro/acción 11,49:1; foco/elevada 10,00:1 y foco/fondo suave 8,93:1; deshabilitado/panel 7,50:1; éxito 9,94:1; error 8,27:1; texto del aviso crítico 13,82:1. Foco separado por offset sobre el entorno oscuro de los botones de acción. Se revisaron reglas de enlaces y selección; no hay enlaces visibles en el recorrido actual para probarlos por teclado.
+- Build final: PASS. Lint: **PENDIENTE / BLOQUEADO POR ENTORNO**, dos intentos terminaron antes de analizar código con `UNKNOWN: unknown error, read` al cargar `zod/v4/locales/index.cjs:52` (dependencias locales sincronizadas). El arranque había requerido restaurar enlaces locales faltantes y dos metadatos CommonJS dentro de `node_modules`; no se descargaron paquetes ni se cambiaron manifiesto, lockfile o versiones. La instalación offline por sí sola no había reparado los enlaces.
+- Tráfico externo bloqueado en navegador; cero solicitudes externas observadas. No se inició el servicio auxiliar, no se habilitaron generaciones ni se modificaron credenciales, Metering, presupuesto o registro económico.
+
+Evidencia nueva en `evidencia/paleta-local-2026-10-10/`: Projects 1280, Work 1280 y 390, Work personal ficticio, recuperación requerida 1280 y aviso de presupuesto simulado 1280; JSON de contrastes, teclado, avisos y comprobaciones con contenido. Se inspeccionaron visualmente Projects, Work desktop/móvil y recuperación. La etiqueta Proyecto activo usa marca suave y acento (7,39:1), reservando el verde semántico para las decisiones aceptadas. Vista previa local en `http://127.0.0.1:5173/`, pendiente de revisión visual de Iván. No hubo staging, commit, push, publicación ni cambios en Figma/Notion.
+
+Pendientes: resolver la lectura de dependencias para repetir lint, revisión visual humana, zoom, lector de pantalla, otros motores y auditoría integral de accesibilidad. Los resultados no declaran conformidad integral. Las verificaciones previas se conservan abajo como antecedentes, no como sustituto de este retest.
+
+## Registro visual anterior conservado — 10 de octubre de 2026
+
+Se aplicó la paleta oscura vigente definida por `../Portfolio/SISTEMA-VISUAL-MARCA.md` y `../Portfolio/SISTEMA-VISUAL-TOKENS.json`, sin copiar ni modificar esas autoridades. El cambio se limitó a tokens y reglas de color: fondo petróleo, panel estructural, superficies elevadas, textos, acento, hover, fondo suave, bordes, placeholders, foco y la sombra turquesa escrita directamente. Se conservaron estructura, tipografía, tamaños, contenido y comportamiento.
+
+Comprobaciones realizadas:
+
+- contraste calculado sobre pares planos reales: texto principal/página 15,76:1; secundario/página 11,27:1; terciario/página 8,70:1; secundario/superficie elevada 8,11:1; terciario/superficie elevada 6,26:1; acción/página 11,49:1; texto oscuro/acción 11,49:1; foco/superficie elevada 10,00:1;
+- éxito y error conservaron sus colores semánticos: 9,94:1 y 8,27:1 respectivamente;
+- recorrido aislado de navegador: 21/21 PASS, 90 comprobaciones de layout, anchos 320, 360, 390, 430 y 1280 px, siete respuestas simuladas, cero solicitudes externas y cero errores o advertencias de consola;
+- navegación por teclado y foco visible: PASS en el recorrido acotado existente;
+- comando estándar: 63 pruebas aprobadas y una opcional omitida; lint y build: PASS.
+
+Un primer intento del recorrido quedó invalidado porque el servicio auxiliar local no estaba iniciado y registró `ERR_CONNECTION_REFUSED`. Se repitió con el servicio limitado a `127.0.0.1`, sin credenciales y con salida externa deshabilitada; sólo este segundo resultado se considera válido.
+
+Capturas locales con datos ficticios, no producción:
+
+- `evidencia/screenshots/14-projects-marca-local.png` — Projects, 1280 px;
+- `evidencia/screenshots/15-work-marca-mobile-local.png` — Work, 390 px;
+- `evidencia/screenshots/16-recuperacion-marca-local.png` — aviso crítico de recuperación, 1280 px.
+
+La verificación combina inspección visual, cálculo de contraste, navegador controlado y comprobaciones automatizadas. No incluye lector de pantalla, zoom, otros motores de navegador, todos los estados perceptuales posibles ni una auditoría integral de accesibilidad.
+
 ## Resumen vigente — 10 de octubre de 2026
 
 - Comando estándar: **63 pruebas aprobadas y una prueba opcional omitida**. La omisión corresponde a una ruta que requiere habilitación explícita y no representa una llamada real ejecutada.

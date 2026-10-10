@@ -1,0 +1,32 @@
+[
+  {
+    "screen": "Decisions con contenido",
+    "width": 320,
+    "pass": true
+  },
+  {
+    "screen": "Decisions con contenido",
+    "width": 390,
+    "pass": true
+  },
+  {
+    "screen": "Decisions con contenido",
+    "width": 1280,
+    "pass": true
+  },
+  {
+    "screen": "Deliverables con contenido",
+    "width": 320,
+    "pass": true
+  },
+  {
+    "screen": "Deliverables con contenido",
+    "width": 390,
+    "pass": true
+  },
+  {
+    "screen": "Deliverables con contenido",
+    "width": 1280,
+    "pass": true
+  }
+]
