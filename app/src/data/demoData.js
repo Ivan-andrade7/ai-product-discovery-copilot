@@ -21,7 +21,10 @@ export const initialSources = [
 const clone = (value) => JSON.parse(JSON.stringify(value))
 
 export function createDefaultWorkspace() {
-  return { schemaVersion: 2, revision: 0, writerId: 'unpersisted', activeProjectId: defaultProject.id, projects: [{ ...defaultProject, sources: clone(initialSources), proposals: clone(initialProposals), decisions: [] }] }
+  return { schemaVersion: 3, revision: 0, writerId: 'unpersisted', activeProjectId: defaultProject.id,
+    predecessors: { 'ai-product-discovery-copilot:v0.1': null, 'ai-product-discovery-copilot:v0.2': null },
+    projects: [{ ...defaultProject, mode: 'demo', runs: [], sources: clone(initialSources).map((s) => ({ ...s, content: s.id === 'original-request' ? defaultProject.originalRequest : '', reference: '', selected: false })),
+      proposals: clone(initialProposals).map((p) => ({ ...p, origin: 'demo', originalContent: p.content, sourceRefs: [] })), decisions: [] }] }
 }
 
 export function migrateLegacyWorkspace(legacy) {
@@ -43,9 +46,7 @@ export function migrateLegacyWorkspace(legacy) {
 
 export function createLocalProject(input) {
   const id = `project-${crypto.randomUUID()}`
-  const sources = [{ id: `original-${id}`, name: 'Solicitud original preservada', kind: 'Entrada original', status: 'Disponible', detail: 'Objetivo ingresado al crear el proyecto, conservado sin reescritura.' }]
-  if (input.sources.trim()) sources.push({ id: `contributed-${id}`, name: 'Fuente aportada al crear el proyecto', kind: 'Fuente aportada', status: 'Aportada · sin revisar', detail: input.sources.trim() })
-  sources.push({ id: `demo-${id}`, name: 'Contenido simulado del producto', kind: 'Contenido demo', status: 'No validado', detail: 'Material ficticio incluido sólo para demostrar el flujo de revisión.' })
-  const proposals = clone(initialProposals).map((proposal) => ({ ...proposal, source: 'Contenido simulado del producto', evidence: 'Contenido ficticio para probar la interacción. No deriva de las fuentes aportadas a este proyecto.' }))
-  return { id, name: input.name, objective: input.objective, originalRequest: input.objective, sources, proposals, decisions: [] }
+  const sources = [{ id: `original-${id}`, name: 'Solicitud original preservada', kind: 'Entrada original', status: 'Aportada · sin revisar', detail: 'Texto original conservado sin reescritura.', content: input.objective, reference: '', selected: true }]
+  if (input.sources?.trim() || input.reference?.trim()) sources.push({ id: `contributed-${id}`, name: input.sourceName?.trim() || 'Fuente aportada al crear el proyecto', kind: 'Fuente aportada', status: 'Aportada · sin revisar', detail: 'Sólo el texto seleccionado puede enviarse; la referencia no se consulta.', content: input.sources ?? '', reference: input.reference ?? '', selected: false })
+  return { id, name: input.name, objective: input.objective, originalRequest: input.objective, mode: 'personal', runs: [], sources, proposals: [], decisions: [] }
 }

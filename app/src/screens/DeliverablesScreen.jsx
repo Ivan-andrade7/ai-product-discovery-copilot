@@ -1,5 +1,6 @@
 import { ProjectSidebar } from '../components/ProjectSidebar'
 import { TopBar } from '../components/TopBar'
+import { originLabel } from '../ai/contracts'
 
 export function DeliverablesScreen({ project, proposals, onHome, onNavigate }) {
   const included = proposals.filter((proposal) => ['accepted', 'edited'].includes(proposal.status))
@@ -20,7 +21,7 @@ export function DeliverablesScreen({ project, proposals, onHome, onNavigate }) {
             </div>
             <div className="review-count">
               <strong>{includedSummary}</strong>
-              <span>Versión local v0.1</span>
+              <span>Derivado del estado local</span>
             </div>
           </header>
 
@@ -37,7 +38,7 @@ export function DeliverablesScreen({ project, proposals, onHome, onNavigate }) {
                 <h2>Criterio de inclusión</h2>
                 <p>Aceptada o editada y aceptada.</p>
                 <p>Si una decisión se reabre, el bloque sale de esta versión.</p>
-                <span className="tag">Demo · no exportada</span>
+                <span className="tag">Borrador · no publicado</span>
               </aside>
               <article className="deliverable-document">
                 <div className="document-heading">
@@ -45,7 +46,7 @@ export function DeliverablesScreen({ project, proposals, onHome, onNavigate }) {
                     <span>AI Product Discovery Copilot</span>
                     <h2>Problem framing · borrador</h2>
                   </div>
-                  <span className="tag">v0.1 local</span>
+                  <span className="tag">Borrador local</span>
                 </div>
                 <section className="document-original">
                   <strong>Solicitud original</strong>
@@ -60,9 +61,11 @@ export function DeliverablesScreen({ project, proposals, onHome, onNavigate }) {
                     <h3>{proposal.title}</h3>
                     <p>{proposal.content}</p>
                     <small>Origen: {proposal.source}</small>
+                    <p>{originLabel(proposal.origin)}</p>
+                    {proposal.sourceRefs.map((ref, index) => <blockquote key={index}>{project.sources.find((s) => s.id === ref.sourceId)?.name ?? ref.sourceId}: “{ref.quote}”</blockquote>)}
                   </section>
                 ))}
-                <footer>Contenido demo derivado del estado local de decisiones. No acredita validación.</footer>
+                <footer>Derivado de decisiones humanas. La aceptación no acredita validación; la procedencia de cada bloque se conserva.</footer>
               </article>
             </div>
           )}

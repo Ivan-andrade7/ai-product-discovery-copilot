@@ -1,6 +1,6 @@
 # Matriz de cumplimiento académico
 
-Fecha de corte: 7 de octubre de 2026.
+Fecha de corte: 10 de octubre de 2026.
 
 ## Autoridad y límites
 
@@ -13,10 +13,10 @@ Fecha de corte: 7 de octubre de 2026.
 
 | Requisito | Estado al corte | Evidencia o pendiente |
 | --- | --- | --- |
-| Solución o contenido original con IA generativa o Vibe Coding | Compatible en estado local, pendiente de versionado | Prototipo local navegable AI Product Discovery Copilot. El lote correctivo de migración y textos superó el retest; todavía no tiene commit ni publicación. |
+| Solución o contenido original con IA generativa o Vibe Coding | Compatible en estado local, pendiente de cierre | Prototipo navegable construido con asistencia de IA. El candidato local prepara una conexión real, todavía deshabilitada y no ejecutada. |
 | Tema fundamentado y frase “Elegí este tema porque…” | Cumplido en borrador | La introducción abre su justificación con la frase requerida y explica el valor de la IA. |
-| Repositorio de GitHub | Cumplido para la versión anterior; lote vigente pendiente | Repositorio público existente. Los cambios multiproyecto permanecen sólo en el árbol local. |
-| README claro sobre qué hace, para qué sirve y cómo se usa | Cumplido localmente, pendiente de versionar | El README principal y `app/README.md` distinguen el lote local, la versión pública anterior y el bloqueo detectado. |
+| Repositorio de GitHub | Cumplido para el commit público; candidato vigente pendiente | Repositorio público existente. El commit `cd1f8b7…` fue publicado; las correcciones y la preparación de IA posteriores permanecen locales. |
+| README claro sobre qué hace, para qué sirve y cómo se usa | Cumplido en el candidato local, pendiente de versionar | El README principal y `app/README.md` distinguen versión pública, candidato local, simulación y prueba real pendiente. |
 | Mostrar evolución del proyecto | Parcial vigente | El historial público demuestra la evolución anterior. El lote multiproyecto todavía no forma parte de Git. |
 | Nivel de entrega válido | Compatible localmente con Nivel 2 | La maqueta navegable sigue siendo compatible con un nivel admitido, pero esta matriz no declara cumplimiento académico definitivo ni sustituye la revisión final contra la fuente original. |
 | Contenido textual, gráfico, audiovisual o interactivo | Cumplido localmente | Interfaz interactiva y documentación textual. |
@@ -24,7 +24,7 @@ Fecha de corte: 7 de octubre de 2026.
 | Informe PDF con introducción | Cumplido en borrador | Incluye tema, justificación y objetivo. |
 | Informe PDF con marco conceptual | Cumplido en borrador | Describe IA como asistencia, control humano, trazabilidad y herramientas utilizadas. |
 | Informe PDF con metodología | Parcial avanzado | Explica proceso, ajustes, decisiones, fallos y correcciones. Falta integrar una selección breve del registro de prompts. |
-| Informe PDF con resultados | Parcial avanzado | El borrador diferencia capturas históricas publicadas y capturas nuevas del candidato local, e incorpora el fallo bloqueante. Falta selección final y maquetación PDF. |
+| Informe PDF con resultados | Parcial avanzado | El borrador diferencia capturas históricas publicadas, candidato local y preparación de IA no ejecutada. Falta selección final y maquetación PDF. |
 | Informe PDF con análisis crítico y AIBPS | Cumplido en borrador | Evalúa fortalezas, limitaciones y las cuatro dimensiones sin atribuir métricas inexistentes. |
 | Informe PDF con conclusiones | Cumplido en borrador | Incluye aprendizajes y recomendaciones futuras. |
 | Máximo recomendado de 10 páginas, Arial o Calibri 11, interlineado 1.5 | Pendiente de reconfirmación final | El PDF final no fue modificado ni vuelto a contrastar en este lote. No se reafirma extensión ni formato actuales sin revisar el artefacto final. |
@@ -48,7 +48,8 @@ Estas actividades pueden mejorar el proyecto si aportan a una decisión y hay ti
 1. Algunos proveedores no muestran un modelo identificable; esa limitación debe declararse en el informe.
 2. Falta integrar los prompts seleccionados, revisar el contenido y retirar la marca de borrador antes de generar el PDF final.
 3. La fecha debe contrastarse con cualquier aviso docente posterior al PDF.
-4. El prototipo usa datos ficticios y almacenamiento local versionado; no tiene backend, autenticación, IA real ni sincronización.
-5. GitHub Pages representa la versión anterior. Las capturas nuevas están rotuladas como evidencia local no publicada.
-6. Vercel es el alojamiento preferido y existe preparación previa, pero el despliegue permanece pendiente.
-7. El bloqueo funcional de migración fue corregido y retestado. El candidato queda listo para decidir su versionado; esto no equivale a cumplimiento académico definitivo ni autoriza publicación.
+4. El candidato usa `localStorage` v0.3. Tiene un servicio auxiliar local y transporte preparado, pero no una generación real ejecutada, backend remoto, autenticación ni sincronización.
+5. GitHub Pages y Vercel conservan el commit público anterior. Las capturas nuevas están rotuladas como evidencia local no publicada.
+6. La simulación sólo prueba contrato e interfaz; no demuestra calidad, resistencia real a instrucciones adversariales ni costo.
+7. Antes de la prueba real deben resolverse la conversión oficial, la reconciliación del catálogo y el cálculo conservador dentro de 140 créditos. El contador permanece en 1/5.
+8. Login, aislamiento multiusuario, PDF/imágenes, leads, portal y monetización son alcance futuro, no requisitos implementados ni exigencias académicas.

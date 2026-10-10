@@ -1,8 +1,72 @@
 # Registro de verificación interna
 
-Este archivo conserva la verificación histórica del 7 de octubre y agrega el retest del lote multiproyecto todavía no publicado. Un resultado histórico no demuestra por sí solo el comportamiento del árbol local vigente.
+Este archivo es la autoridad detallada de verificación. Conserva la verificación histórica del 7 de octubre y los retests posteriores del candidato todavía no publicado. Un resultado histórico no demuestra por sí solo el comportamiento del árbol local vigente.
 
-## Retest final del candidato local — corrección verificada
+## Resumen vigente — 10 de octubre de 2026
+
+- Comando estándar: **63 pruebas aprobadas y una prueba opcional omitida**. La omisión corresponde a una ruta que requiere habilitación explícita y no representa una llamada real ejecutada.
+- Recorrido separado de navegador: **21/21 comprobaciones funcionales** y **90 comprobaciones de layout**, con transporte simulado y salida externa bloqueada.
+- Estas cifras pertenecen a capas diferentes y no se suman como si fueran pruebas equivalentes.
+- Generaciones reales: deshabilitadas. Corpus: cuatro casos preparados, ninguno ejecutado.
+- Contador económico real: 1/5 solicitudes por la consulta de catálogo. Su consumo es desconocido y pendiente de reconciliación; el presupuesto de 140 créditos sigue condicionado a conversión oficial y cálculo conservador.
+- Persistencia local vigente: `v0.3`. Las menciones a `v0.2` en secciones posteriores describen el estado histórico de esos lotes, no el esquema actual.
+- El candidato local incluye transmisión de solicitud, separación de fuentes no confiables y bloqueo de resultados obsoletos. No prueba calidad de modelo, resistencia real a prompt injection ni costo máximo.
+
+## Transmisión local de la solicitud — 9 de octubre de 2026
+
+Se corrigió el recorrido preparado para IA sin habilitar generaciones ni usar credenciales. La causa era que la solicitud original formaba parte de la huella de contexto, pero no del objeto enviado por el adaptador al proveedor.
+
+El contrato local ahora incluye `userRequest`, comprueba que coincida con la solicitud contenida en la versión del contexto y cuenta sus caracteres junto con las fuentes seleccionadas. El adaptador prepara tres mensajes separados: instrucciones del sistema, solicitud del usuario y fuentes seleccionadas. Las fuentes están declaradas como contenido no confiable; esta separación no demuestra que un modelo real resista instrucciones adversariales.
+
+Verificación focalizada con transporte simulado y bloqueo de salida externa:
+
+- solicitud presente en su mensaje de usuario: PASS;
+- fuentes no seleccionadas ausentes: PASS;
+- solicitud y fuentes separadas de las instrucciones del sistema: PASS;
+- instrucción adversarial ficticia conservada únicamente dentro del mensaje de fuentes: PASS de preparación, no de resistencia del modelo;
+- cambio de solicitud o contenido seleccionado antes de incorporar la respuesta: resultado `stale`, sin propuestas incorporadas;
+- máximo de diez fuentes y límites de entrada activos;
+- bloqueos por costo, reconciliación, presupuesto de 140 créditos y cinco solicitudes conservados;
+- admisión económica limitada a tamaños numéricos; solicitud y contenido de fuentes ausentes del registro duradero;
+- ejecuciones v0.3 anteriores sin `userRequest` normalizadas desde su huella existente, sin escribir al leer ni perder el historial;
+- 43 pruebas focalizadas aprobadas; cero intentos de red externa observados por los bloqueos de prueba.
+
+El recorrido aislado de navegador se repitió con Vite y el servicio local cerrado a consumo iniciados en `127.0.0.1`. Verificó desde el formulario que `userRequest`, las fuentes seleccionadas y la huella del contexto llegaran juntos al endpoint local; el proveedor permaneció interceptado. Resultado final válido: 21/21 pruebas, 90 comprobaciones de layout, siete respuestas simuladas, cero solicitudes externas y cero errores o advertencias de consola. Una ejecución previa del mismo recorrido quedó invalidada porque el servicio local no estaba iniciado y produjo `ERR_CONNECTION_REFUSED`; no constituye un fallo del producto ni evidencia de proveedor.
+
+Las generaciones continúan deshabilitadas. El contador real permanece en 1/5 y el consumo de catálogo sigue pendiente de reconciliación. Estas comprobaciones no ejecutaron el corpus, no evaluaron un modelo real y no acreditan calidad, resistencia a prompt injection ni un costo máximo en créditos.
+
+## Corrección responsive local — 8 de octubre de 2026
+
+Esta sección es el estado vigente del árbol local para el hallazgo responsive. No reemplaza ni borra los resultados anteriores: distingue el PASS histórico, el fallo observado después de publicar el commit `cd1f8b71211604cddd7ccc2cccb4c78bb957866a` y el retest de la corrección todavía no versionada ni publicada.
+
+### Secuencia de evidencia
+
+1. **PASS local anterior, de alcance insuficiente.** El lote multiproyecto se inspeccionó en un contexto estrecho de 666 × 668 px. La captura histórica a 390 × 844 px correspondía a una versión anterior. La inspección fue visual y no registró la relación entre `documentElement.scrollWidth` y el ancho del viewport.
+2. **Fallo público observado.** Después de publicar el commit autorizado, GitHub Pages y Vercel mostraron desbordamiento horizontal alrededor de 390 px. La medición posterior confirmó que el documento llegaba aproximadamente a 577 px en un viewport útil de 375 px.
+3. **Reproducción local focalizada.** Antes de corregir, la automatización aislada reprodujo anchos de documento de 579–580 px entre 320 y 430 px en las vistas internas. La navegación horizontal medía aproximadamente 540 px y, por el mínimo intrínseco de la columna grid, ensanchaba la sidebar, el contenido principal y la página completa.
+4. **Corrección local.** La columna responsive pasó a `minmax(0, 1fr)`; la sidebar puede contraerse con `min-width: 0`; la navegación queda limitada al ancho disponible y conserva su desplazamiento horizontal interno; los textos potencialmente largos pueden cortar cadenas sin recortar contenido. No se aplicó `overflow-x: hidden` global.
+
+### Retest responsive del árbol local corregido
+
+| Ancho | Projects | Nuevo proyecto y textos largos | Overview | Work | Sources | Decisions | Deliverables | AI Activity | Avisos de conflicto, recuperación y guardado |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 320 px | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+| 360 px | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+| 390 px | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+| 430 px | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+| 1280 px | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS | PASS |
+
+En cada caso, el ancho medido del documento fue igual al viewport. Los campos de una sola línea conservan su desplazamiento de texto interno propio y la navegación del proyecto conserva desplazamiento horizontal dentro de `.project-nav`; ninguno amplió la página.
+
+### Interacción y acceso comprobados
+
+- Las seis opciones de navegación se recorrieron con Tab a 390 px; el navegador desplazó el contenedor para mantener cada control enfocado dentro del área visible. El foco generado por teclado conservó contorno sólido de 3 px.
+- A 390 px se aceptó una propuesta ficticia y se abrió la entrada creada en Decisions: una decisión registrada y ancho del documento conservado en 390 px.
+- La prueba automatizada recorrió todas las vistas principales, formulario con nombre, objetivo y URL ficticios extensos, y representaciones de los tres avisos de almacenamiento.
+- Esta cobertura combina navegador real controlado y mediciones del DOM. No incluye lector de pantalla, zoom, orientación, todos los motores de navegador ni una auditoría integral de accesibilidad.
+- GitHub Pages y Vercel continúan mostrando el commit publicado anterior hasta que exista una autorización separada de versionado y publicación.
+
+## Retest histórico del candidato `v0.2` — corrección verificada
 
 El retest se ejecutó sobre el árbol local exacto previo a versionar, con datos ficticios y sin instalar dependencias. Los dos fallos del lote correctivo quedaron resueltos en los escenarios definidos; el candidato queda listo para decidir su versionado, no su publicación.
 
@@ -59,7 +123,7 @@ El archivo de rescate descargado para el `v0.2` inválido contenía exactamente 
 - El workflow `.github/workflows/deploy-pages.yml` se activa con un push a `main` y despliega GitHub Pages. Un push a esa rama también sería una publicación y requiere autorización expresa.
 - No se repitió ninguna prueba contra la URL pública: GitHub Pages conserva deliberadamente la versión anterior.
 
-## Lote multiproyecto local — verificación previa conservada
+## Lote multiproyecto `v0.2` — verificación previa conservada
 
 ### Navegador local con datos ficticios
 
@@ -149,6 +213,6 @@ Build local de la maqueta HTML navegable del AI Product Discovery Copilot. Cober
 - El despliegue es únicamente estático; no agrega backend, autenticación, IA real ni servicios de datos.
 - Datos y propuestas ficticios, identificados como demo.
 
-## Próximo retest
+## Próximo hito
 
-El retest focalizado y el recorrido multiproyecto finalizaron satisfactoriamente. El siguiente gate es decidir si corresponde versionar. Publicar en Vercel o empujar a `main` queda fuera de este cierre y requiere autorización separada; la cobertura accesible completa y las tecnologías de asistencia siguen pendientes.
+Resolver la conversión oficial de créditos, reconciliar la consulta de catálogo y calcular conservadoramente el lote frente al presupuesto condicionado de 140 créditos. Sólo después corresponde autorizar y ejecutar la prueba real de IA. Versionar o publicar el candidato local requiere una autorización separada; la cobertura accesible completa y las tecnologías de asistencia siguen pendientes.

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { ProjectSidebar } from '../components/ProjectSidebar'
 import { TopBar } from '../components/TopBar'
+import { originLabel } from '../ai/contracts'
 
 const actionLabels = {
   accepted: 'Aceptada',
@@ -79,8 +80,9 @@ export function DecisionsScreen({ project, proposals, decisions, onHome, onNavig
 
                 <div className="decision-comparison">
                   <article>
-                    <strong>Propuesta original de IA</strong>
-                    <p>{selected.originalContent}</p>
+                    <strong>Contenido original registrado</strong>
+                    <p>{selected.originalContent ?? 'Original no recuperable con certeza desde el historial disponible.'}</p>
+                    <small>{originLabel(selected.origin ?? proposals.find((p) => p.id === selected.proposalId)?.origin)}</small>
                   </article>
                   <article>
                     <strong>Versión después de esta acción</strong>

@@ -32,7 +32,7 @@ export function OverviewScreen({ project, proposals, onHome, onNavigate }) {
             </article>
             <article className="card pending-card">
               <strong>Pendientes</strong>
-              <span>{pendingCount} {pendingCount === 1 ? 'propuesta requiere' : 'propuestas requieren'} revisión humana</span>
+              <span>{proposals.length ? `${pendingCount} ${pendingCount === 1 ? 'propuesta requiere' : 'propuestas requieren'} revisión humana` : 'Sin propuestas. Análisis real todavía no disponible.'}</span>
               <button className="button primary compact" type="button" onClick={() => onNavigate('work')}>
                 Abrir Work
               </button>

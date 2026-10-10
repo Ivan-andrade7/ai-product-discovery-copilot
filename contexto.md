@@ -2,7 +2,7 @@
 
 ## Fecha de corte
 
-7 de octubre de 2026.
+10 de octubre de 2026.
 
 ## Estado observado
 
@@ -24,38 +24,53 @@
 - El historial usa una secuencia local explícita y no inventa fechas.
 - Deliverables incluye sólo propuestas aceptadas o editadas y aceptadas; reabrir retira el bloque automáticamente.
 - Sources diferencia entradas originales, interpretaciones, referencias metodológicas y requisitos académicos.
-- AI Activity muestra hechos de la sesión y aclara que no existen llamadas reales a un modelo.
+- AI Activity muestra hechos comprobables y no registra llamadas externas que no ocurrieron.
 - Todas las secciones del recorrido base están habilitadas.
 - El estado local vigente admite múltiples proyectos reales: crear uno no reemplaza los anteriores y cada proyecto conserva fuentes, propuestas, decisiones y entregables por separado.
-- El almacenamiento vigente usa el formato `v0.2`. La clave `v0.1` se conserva intacta y sólo se usa como origen de una migración conservadora cuando todavía no existe un estado `v0.2`.
+- El almacenamiento local vigente usa el formato `v0.3`. Las claves predecesoras se conservan y las migraciones se validan antes de persistir.
 - Las fuentes ingresadas por la persona se muestran como “Aportada · sin revisar”. Las propuestas preparadas para un proyecto nuevo se identifican como ficticias y no se atribuyen a esas fuentes.
 - La interfaz bloquea escrituras desde una pestaña desactualizada, permite cargar el estado externo y ofrece exportación de respaldo. Esta protección no elimina por completo la carrera posible entre escrituras estrictamente simultáneas.
-- Los datos `v0.2` incompatibles no se reinician silenciosamente. Se preservan para rescate; ante un fallo de guardado, la copia en memoria permanece exportable.
-- La salida convertida desde `v0.1` se valida antes de persistirse. Propuestas malformadas, JSON inválido y estructuras incompletas activan recuperación sin crear `v0.2`; la clave original permanece intacta.
+- Los datos incompatibles no se reinician silenciosamente. Se preservan para rescate; ante un fallo de guardado, la copia en memoria permanece exportable.
+- La salida convertida desde formatos anteriores se valida antes de persistirse. Propuestas malformadas, JSON inválido y estructuras incompletas activan recuperación sin reemplazar el original.
 - Los rótulos de pendientes y decisiones flexionan correctamente cero, uno y varios en los escenarios comprobados.
 - La recuperación de un respaldo fue comprobada programáticamente. Todavía no existe una acción de importación desde la interfaz.
-- Este lote existe sólo en el árbol de trabajo local: no tiene commit, push ni publicación. GitHub Pages conserva la versión pública anterior.
-- Vercel sigue siendo el alojamiento preferido y el repositorio tiene preparación previa, pero este lote no fue desplegado.
+- El candidato vigente existe sólo en el árbol de trabajo local: no tiene commit, push ni publicación.
+- El commit `cd1f8b71211604cddd7ccc2cccb4c78bb957866a` fue publicado anteriormente en GitHub Pages y Vercel. Los lotes locales posteriores no están presentes allí y producción no fue retesteada en esta fase.
+- Los proyectos nuevos empiezan sin propuestas; el contenido simulado permanece en un proyecto demo separado.
+- El contrato incluye la solicitud vigente y sólo las fuentes seleccionadas. El adaptador separa instrucciones del sistema, solicitud y fuentes tratadas como contenido no confiable.
+- Un cambio de solicitud o de una fuente seleccionada vuelve obsoleto el resultado en curso e impide incorporarlo silenciosamente.
+- El transporte reemplazable y el registro económico duradero están preparados, pero las generaciones siguen deshabilitadas.
+- El corpus de evaluación conserva cuatro casos ficticios no ejecutados. `inference` no existe como categoría estructurada del contrato vigente.
+- No están implementados login, aislamiento multiusuario, adjuntos PDF/imágenes, persistencia remota, leads, portal ni monetización operativa.
 
 ## Decisión vigente
 
-La entrega base será una maqueta HTML navegable de Nivel 2. Una extensión funcional con IA sólo se considerará después de estabilizar esa base.
+Por decisión explícita de Iván, la IA integrada real es obligatoria para la versión que quiere entregar y utilizar. La compatibilidad académica con Nivel 2 no sustituye este requisito del producto ni permite atribuirlo a la consigna docente.
+
+Continuidad comprobada en esta fase: HEAD y la referencia local `origin/main` seguían en `cd1f8b71211604cddd7ccc2cccb4c78bb957866a` al último control registrado. La corrección responsive, la preparación de IA y la transmisión de la solicitud permanecen posteriores a ese commit. No se volvió a verificar producción en esta fase.
 
 Si existe tiempo adicional, la expansión seguirá este orden:
 
-1. IA real acotada;
-2. mayor cobertura del proceso;
-3. entrada de leads separada del workspace interno;
-4. gestión inicial de leads;
-5. área del cliente e integraciones.
+1. IA real y recorrido completo (obligatorio);
+2. recuperación/importación, persistencia y acceso adecuados al uso;
+3. captación y gestión inicial de leads;
+4. portal de clientes e integraciones justificadas;
+5. monetización sólo con oferta y controles definidos.
+
+Las capacidades adicionales dependen de tiempo, pruebas y decisiones explícitas. Costos y publicación requieren autorizaciones independientes.
 
 ## Alcance base
 
-El producto demo permitirá conservar una solicitud original, revisar propuestas simuladas de IA, distinguir evidencia y supuestos, registrar decisiones, reabrir elementos resueltos y mostrar versiones y actividad.
+La versión objetivo conservará solicitud original y fuentes autorizadas por proyecto; realizará análisis real y generará propuestas contextualizadas. El contrato vigente distingue evidencia, hipótesis y pregunta; la inferencia puede expresarse semánticamente, pero todavía no posee una categoría estructurada propia. La revisión humana conserva aceptar, editar, rechazar, pendiente y reabrir, con entregable trazable.
+
+Los proyectos nuevos empezarán vacíos o pendientes de análisis. La simulación permanecerá exclusivamente en un proyecto demo separado. Una URL no equivale a contenido consultado; las referencias deberán apuntar a contenido realmente disponible. Los errores conservarán entradas y permitirán reintento o trabajo manual, nunca contenido demo automático. Cada operación registrará modelo, fuentes y versión del contexto; un resultado obsoleto no se aplicará silenciosamente.
+
+Se reutilizará la base `v0.3` sin perder estados anteriores; claves fuera del frontend/repositorio, endpoint protegido y límites de gasto antes de exposición pública. El transporte y esos controles están preparados localmente, pero no hubo generación real.
 
 ## Criterio de cierre
 
 - recorrido HTML completo y navegable;
+- recorrido real de IA comprobado con fuentes autorizadas, referencias válidas, recuperación y revisión humana;
 - estados críticos representados y sin callejones sin salida;
 - solicitud, propuesta, decisión y versión distinguibles;
 - README claro;
@@ -67,7 +82,7 @@ El producto demo permitirá conservar una solicitud original, revisar propuestas
 
 ## Próximo gate
 
-Decidir el versionado del candidato local corregido. Una publicación posterior requiere autorización separada: el workflow vigente despliega GitHub Pages ante un push a `main`, por lo que ese push también publicaría. IA real, autenticación, backend, sincronización, leads y servicios externos siguen fuera de este lote.
+Resolver la conversión oficial de créditos, reconciliar el consumo desconocido de la consulta de catálogo y calcular conservadoramente el lote completo frente al presupuesto condicionado de 140 créditos. El contador real permanece en 1/5 solicitudes. Sólo después corresponde una autorización separada para ejecutar la prueba real de IA. Un push a `main` puede actualizar ambos alojamientos y requiere autorización de publicación independiente.
 
 ## Verificación técnica histórica
 
@@ -88,14 +103,16 @@ Decidir el versionado del candidato local corregido. Una publicación posterior 
 - Despliegue estático en GitHub Pages: PASS; build y deploy del workflow completados correctamente después de habilitar Pages con GitHub Actions.
 - Backend, persistencia remota, IA real y servicios externos: no implementados.
 
-## Verificación vigente del lote multiproyecto local
+## Verificación vigente del candidato local
+
+La autoridad detallada es [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md). El comando estándar registró 63 pruebas aprobadas y una opcional omitida. En una capa separada, el recorrido de navegador registró 21/21 comprobaciones y 90 comprobaciones de layout. No se suman porque no representan unidades equivalentes. Las respuestas simuladas no acreditan calidad del modelo, resistencia real a instrucciones engañosas ni un costo máximo.
 
 - Navegador local con datos ficticios: PASS para crear dos proyectos, abrir cada tarjeta, conservar estados independientes, mostrar el nombre activo y representar una fuente aportada como “Aportada · sin revisar”.
 - Navegador local: PASS para aceptar, editar y aceptar, rechazar, mantener pendiente, reabrir, actualizar contadores, conservar historial, derivar entregables y registrar actividad.
 - Navegador local: PASS para doble clic y repetición por teclado sin resolver la propuesta siguiente.
 - Dos pestañas locales: PASS observado para un cambio casi simultáneo; una pestaña guardó y la otra quedó bloqueada hasta cargar los cambios externos. Esto demuestra detección en el escenario probado, no exclusión mutua completa.
-- Comprobación estática: el código valida el esquema `v0.2`, conserva la clave `v0.1` y separa contenido ficticio de fuentes aportadas.
-- Almacenamiento simulado y aislado: PASS para preservación literal de `v0.1`, migración válida única, rechazo de `v0.1` malformado/JSON inválido/incompleto sin crear `v0.2`, prioridad de un `v0.2` válido, preservación de `v0.2` incompatible, bloqueo de escritura obsoleta, fallo de escritura y recuperación programática del respaldo.
+- Comprobación estática: el código valida el esquema `v0.3`, conserva las claves predecesoras y separa contenido ficticio de fuentes aportadas.
+- Almacenamiento simulado y aislado: PASS para preservación de datos heredados, migración válida única, rechazo de entradas malformadas o incompatibles, bloqueo de escritura obsoleta, fallo de escritura y recuperación programática del respaldo.
 - Verificación técnica ejecutada en el lote: `lint` y build, PASS. No se instalaron dependencias nuevas.
 - Responsive: inspección visual local en 1536 × 695 y 666 × 668, con textos ficticios extensos, sin pérdida de contenido observada.
 - Teclado y foco: recorrido manual acotado con orden de controles, foco visible y acciones mediante Enter, PASS en el escenario probado. No hubo lector de pantalla ni auditoría WCAG integral.

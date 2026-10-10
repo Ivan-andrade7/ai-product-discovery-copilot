@@ -5,13 +5,17 @@ export function NewProjectScreen({ onCancel, onCreate, disabled }) {
   const [name, setName] = useState('')
   const [objective, setObjective] = useState('')
   const [sources, setSources] = useState('')
+  const [sourceName, setSourceName] = useState('')
+  const [reference, setReference] = useState('')
 
   function handleSubmit(event) {
     event.preventDefault()
     onCreate({
       name: name.trim() || 'Proyecto sin título',
-      objective: objective.trim() || 'Objetivo todavía no definido.',
-      sources: sources.trim(),
+      objective,
+      sources,
+      sourceName,
+      reference,
     })
   }
 
@@ -23,7 +27,7 @@ export function NewProjectScreen({ onCancel, onCreate, disabled }) {
           <div>
             <h1>Crear proyecto</h1>
             <p className="page-description">
-              Sólo lo necesario para empezar; se puede corregir luego.
+              Empezá con texto ficticio. No se generarán propuestas ni se enviará contenido al crear el proyecto.
             </p>
           </div>
 
@@ -37,8 +41,10 @@ export function NewProjectScreen({ onCancel, onCreate, disabled }) {
           </label>
 
           <label>
-            <span>Objetivo inicial</span>
+            <span>Solicitud original</span>
             <textarea
+              required
+              maxLength={12000}
               value={objective}
               onChange={(event) => setObjective(event.target.value)}
               placeholder="¿Qué decisión o entregable necesitás producir?"
@@ -47,13 +53,17 @@ export function NewProjectScreen({ onCancel, onCreate, disabled }) {
           </label>
 
           <label>
-            <span>Fuentes disponibles</span>
-            <input
+            <span>Texto de la fuente aportada (opcional)</span>
+            <textarea
+              maxLength={12000}
               value={sources}
               onChange={(event) => setSources(event.target.value)}
-              placeholder="Pegá enlaces o agregalas después"
+              placeholder="Pegá el contenido textual que querés poder seleccionar para el análisis"
             />
           </label>
+          <label><span>Nombre de la fuente</span><input maxLength={200} value={sourceName} onChange={(event) => setSourceName(event.target.value)} /></label>
+          <label><span>Referencia o URL (no se consulta automáticamente)</span><input maxLength={2000} value={reference} onChange={(event) => setReference(event.target.value)} /></label>
+          <p>PDFs e imágenes todavía no admitidos. La fuente quedará aportada y sin revisar; podés seleccionarla en Work o Sources.</p>
 
           <p className="method-warning">No hace falta elegir todas las etapas E1–E18.</p>
 

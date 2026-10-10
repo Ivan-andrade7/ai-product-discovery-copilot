@@ -7,11 +7,12 @@ Prototipo local del Trabajo Final Integrador de la Diplomatura en IA Aplicada a 
 La interfaz representa un flujo asistido por IA donde:
 
 1. se crean, listan y abren varios proyectos locales independientes;
-2. se conserva una solicitud original y las fuentes aportadas quedan como “Aportada · sin revisar”;
-3. las propuestas simuladas se distinguen de esas fuentes;
-4. una persona acepta, edita, rechaza, mantiene pendiente o reabre cada propuesta;
-5. las acciones quedan registradas sin borrar el historial;
-6. sólo las decisiones aceptadas alimentan el entregable.
+2. los proyectos nuevos empiezan vacíos y el proyecto demo permanece separado;
+3. se conserva la solicitud original y las fuentes aportadas quedan como “Aportada · sin revisar”;
+4. las propuestas simuladas del demo se distinguen de esas fuentes;
+5. una persona acepta, edita, rechaza, mantiene pendiente o reabre cada propuesta;
+6. las acciones quedan registradas sin borrar el historial;
+7. sólo las decisiones aceptadas alimentan el entregable.
 
 Principio del producto:
 
@@ -53,17 +54,20 @@ pnpm preview
 ## Alcance y límites vigentes
 
 - Nivel 2: maqueta HTML navegable.
-- Datos locales ficticios y propuestas de IA simuladas.
-- Persistencia en `localStorage` con formato `v0.2`; la clave `v0.1` se conserva durante la migración.
+- Datos ficticios en el demo; los proyectos nuevos no reciben propuestas genéricas.
+- Persistencia en `localStorage` con formato `v0.3`; las claves predecesoras se preservan durante las migraciones.
 - Exportación disponible; la recuperación fue probada programáticamente, pero no existe importación por interfaz.
 - Aviso y bloqueo de una pestaña desactualizada, con una ventana residual de carrera porque `localStorage` no ofrece transacciones.
-- Sin backend, autenticación, base de datos remota, IA real, integraciones ni sincronización entre dispositivos.
-- El lote multiproyecto permanece local y no fue publicado. GitHub Pages conserva una versión anterior.
+- Servicio auxiliar local limitado a loopback, sin backend remoto de producto, autenticación, base de datos remota ni sincronización entre dispositivos.
+- Contrato, transporte reemplazable y registro duradero de consumo preparados, pero generaciones reales deshabilitadas.
+- El candidato local vigente no fue publicado. GitHub Pages y Vercel conservan el commit público anterior.
 - La inspección interna no constituye validación con usuarios, seguridad integral ni conformidad completa de accesibilidad.
 
 ## Estado del candidato
 
-El lote correctivo valida el resultado completo de una migración antes de escribir `v0.2`. Un `v0.1` malformado, con JSON inválido o estructura incompleta queda en modo de recuperación, conserva el original y no crea datos nuevos inválidos. Los rótulos de pendientes y decisiones fueron comprobados con cero, uno y varios. El retest focalizado, el recorrido multiproyecto, `lint` y build finalizaron correctamente; el candidato local queda listo para decidir su versionado, no su publicación.
+El candidato local usa `v0.3`, transmite al adaptador la solicitud vigente junto con sólo las fuentes seleccionadas y mantiene separados sistema, solicitud y contenido no confiable. Si la solicitud o una fuente cambia durante el análisis, el resultado queda obsoleto y no se incorpora silenciosamente. Estas rutas se probaron con transporte simulado y salida externa bloqueada; no demuestran IA real ni calidad del modelo.
+
+La cobertura vigente se registra de forma canónica en [`../docs/verification-2026-10-07.md`](../docs/verification-2026-10-07.md): 63 pruebas aprobadas y una opcional omitida en el comando estándar; en un recorrido separado, 21/21 comprobaciones de navegador y 90 de layout. El corpus de cuatro casos permanece preparado y no ejecutado.
 
 ## Tecnología
 

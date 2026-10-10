@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
-import { createDefaultWorkspace, createLocalProject, initialProposals, migrateLegacyWorkspace } from './data/demoData'
+import { createDefaultWorkspace, createLocalProject, migrateLegacyWorkspace } from './data/demoData'
+import { analyze, checkConnection } from './ai/client'
+import { decideProposal, finishAnalysis, makeRequest, startAnalysis } from './ai/contracts'
 import { ActivityScreen } from './screens/ActivityScreen'
 import { DecisionsScreen } from './screens/DecisionsScreen'
 import { DeliverablesScreen } from './screens/DeliverablesScreen'
@@ -8,7 +10,7 @@ import { OverviewScreen } from './screens/OverviewScreen'
 import { ProjectsScreen } from './screens/ProjectsScreen'
 import { SourcesScreen } from './screens/SourcesScreen'
 import { WorkScreen } from './screens/WorkScreen'
-import { createBackup, LEGACY_STORAGE_KEY, loadWorkspace, parseWorkspace, persistWorkspace, STORAGE_KEY } from './storage'
+import { createBackup, LEGACY_STORAGE_KEY, PREVIOUS_STORAGE_KEY, loadWorkspace, parseWorkspace, persistWorkspace, STORAGE_KEY } from './storage'
 import './App.css'
 
 function downloadJson(filename, value) {
@@ -30,7 +32,9 @@ function App() {
   const storageStateRef = useRef(storageState)
   const writerIdRef = useRef(crypto.randomUUID())
   const initialPersistAttempted = useRef(false)
-  const legacyRawRef = useRef(initialLoad.legacyRaw ?? window.localStorage.getItem(LEGACY_STORAGE_KEY))
+  const [connection, setConnection] = useState({ available: false, code: 'disconnected' })
+  const [operation, setOperation] = useState(null)
+  const inFlight = useRef(null)
 
   useEffect(() => { storageStateRef.current = storageState }, [storageState])
 
@@ -50,16 +54,26 @@ function App() {
 
   useEffect(() => {
     function handleStorage(event) {
-      if (event.key !== STORAGE_KEY || event.newValue === null) return
+      if ([LEGACY_STORAGE_KEY, PREVIOUS_STORAGE_KEY].includes(event.key) || event.key === null) {
+        const next = { type: 'recovery-required', message: 'Cambió una versión anterior o se vació el almacenamiento. Exportá esta copia antes de reintentar la lectura.', external: null, raw: event.newValue }
+        storageStateRef.current = next
+        setStorageState(next)
+        return
+      }
+      if (event.key !== STORAGE_KEY) return
       const parsed = parseWorkspace(event.newValue)
       if (!parsed.ok) {
-        setStorageState({ type: 'recovery-required', message: 'Otra pestaña guardó datos incompatibles. No se sobrescribirán.', external: null, raw: event.newValue })
+        const next = { type: 'recovery-required', message: 'Otra pestaña eliminó o guardó datos incompatibles. No se sobrescribirán.', external: null, raw: event.newValue }
+        storageStateRef.current = next
+        setStorageState(next)
         return
       }
       const external = parsed.workspace
       const current = workspaceRef.current
       if (external.revision !== current.revision || external.writerId !== current.writerId) {
-        setStorageState({ type: 'conflict', message: 'Hay cambios de otra pestaña. Esta copia quedó bloqueada para evitar sobrescrituras.', external, raw: event.newValue })
+        const next = { type: 'conflict', message: 'Hay cambios de otra pestaña. Esta copia quedó bloqueada para evitar sobrescrituras.', external, raw: event.newValue }
+        storageStateRef.current = next
+        setStorageState(next)
       }
     }
     window.addEventListener('storage', handleStorage)
@@ -67,31 +81,45 @@ function App() {
   }, [])
 
   const project = workspace.projects.find((item) => item.id === workspace.activeProjectId) ?? workspace.projects[0]
-  const isReadOnly = storageState.type === 'conflict' || storageState.type === 'recovery-required'
+  const isReadOnly = ['conflict', 'recovery-required', 'read-error', 'validation-error'].includes(storageState.type)
 
   function commitWorkspace(update) {
-    if (storageStateRef.current.type === 'conflict' || storageStateRef.current.type === 'recovery-required') return false
+    if (['conflict', 'recovery-required', 'read-error', 'validation-error'].includes(storageStateRef.current.type)) return false
     const current = workspaceRef.current
     const candidate = update(current)
+    if (candidate === current) return false
     const result = persistWorkspace(candidate, current.revision, writerIdRef.current)
     if (result.ok) {
       workspaceRef.current = result.workspace
       setWorkspace(result.workspace)
-      setStorageState({ type: 'ready', external: null, raw: null })
+      storageStateRef.current = { type: 'ready', external: null, raw: null }
+      setStorageState(storageStateRef.current)
       return true
     }
     if (result.type === 'write-error') {
       workspaceRef.current = candidate
       setWorkspace(candidate)
-      setStorageState({ type: 'write-error', message: 'No se pudo guardar. Los cambios siguen en esta pestaña y podés exportarlos.', external: null, raw: null })
+      storageStateRef.current = { type: 'write-error', message: 'No se pudo guardar. Los cambios siguen en esta pestaña y podés exportarlos.', external: null, raw: null }
+      setStorageState(storageStateRef.current)
       return false
     }
-    setStorageState({ type: result.type, message: 'El almacenamiento cambió fuera de esta pestaña. No se sobrescribió.', external: result.workspace ?? null, raw: result.raw ?? null })
+    storageStateRef.current = { type: result.type, message: result.message ?? 'No se pudo validar o leer el almacenamiento. No se sobrescribió.', external: result.workspace ?? null, raw: result.raw ?? null }
+    setStorageState(storageStateRef.current)
     return false
   }
 
   function updateActiveProject(transform) {
-    return commitWorkspace((current) => ({ ...current, projects: current.projects.map((item) => item.id === current.activeProjectId ? transform(item) : item) }))
+    return updateProject(workspaceRef.current.activeProjectId, transform)
+  }
+
+  function updateProject(projectId, transform) {
+    return commitWorkspace((current) => {
+      const existing = current.projects.find((item) => item.id === projectId)
+      if (!existing) return current
+      const updated = transform(existing)
+      if (updated === existing) return current
+      return { ...current, projects: current.projects.map((item) => item.id === projectId ? updated : item) }
+    })
   }
 
   function createProject(input) {
@@ -109,47 +137,67 @@ function App() {
   }
 
   function updateProposal(id, changes, action, expectedStatus) {
-    return updateActiveProject((currentProject) => {
-      const previous = currentProject.proposals.find((proposal) => proposal.id === id)
-      if (!previous || previous.status !== expectedStatus) return currentProject
-      const updated = { ...previous, ...changes }
-      return {
-        ...currentProject,
-        proposals: currentProject.proposals.map((proposal) => proposal.id === id ? updated : proposal),
-        decisions: [...currentProject.decisions, {
-          id: `decision-${crypto.randomUUID()}`,
-          sequence: currentProject.decisions.length + 1,
-          proposalId: id,
-          proposalType: previous.type,
-          proposalTitle: previous.title,
-          action,
-          previousStatus: previous.status,
-          currentStatus: updated.status,
-          originalContent: initialProposals.find((proposal) => proposal.id === id)?.content ?? previous.content,
-          previousContent: previous.content,
-          currentContent: updated.content,
-        }],
-      }
-    })
+    return updateActiveProject((currentProject) => decideProposal(currentProject, id, changes, action, expectedStatus))
+  }
+
+  function selectSource(id, selected) {
+    updateActiveProject((current) => ({ ...current, sources: current.sources.map((source) => source.id === id ? { ...source, selected } : source) }))
+  }
+
+  async function inspectConnection() {
+    setConnection({ available: false, code: 'checking' })
+    setConnection(await checkConnection())
+  }
+
+  async function runAnalysis() {
+    if (inFlight.current || !connection.available || isReadOnly || storageState.type === 'write-error') return
+    const current = workspaceRef.current.projects.find((item) => item.id === workspaceRef.current.activeProjectId)
+    let request
+    try { request = makeRequest(current, connection.model) } catch { setOperation({ projectId: current.id, code: 'invalid' }); return }
+    const started = startAnalysis(current, request)
+    if (!started.ok) { setOperation({ projectId: current.id, code: 'stale' }); return }
+    const controller = new AbortController()
+    inFlight.current = { request, controller }
+    if (!updateProject(current.id, () => started.project)) { inFlight.current = null; return }
+    setOperation({ projectId: current.id, code: 'analyzing' })
+    const result = await analyze(request, connection, controller.signal)
+    const stale = inFlight.current?.invalidated || ['conflict', 'recovery-required', 'read-error', 'validation-error'].includes(storageStateRef.current.type)
+    const target = workspaceRef.current.projects.find((item) => item.id === request.projectId)
+    const finished = target && finishAnalysis(target, request, result, { stale })
+    let code = finished?.runs.find((run) => run.id === request.requestId)?.status ?? 'stale'
+    if (!stale && target) updateProject(request.projectId, () => finished)
+    if (['conflict', 'recovery-required', 'read-error', 'validation-error'].includes(storageStateRef.current.type)) code = 'stale'
+    setOperation({ projectId: request.projectId, code })
+    inFlight.current = null
+  }
+
+  function cancelAnalysis() {
+    inFlight.current?.controller.abort()
   }
 
   function exportCurrent() {
-    downloadJson(`discovery-copilot-backup-${new Date().toISOString().slice(0, 10)}.json`, createBackup(workspaceRef.current, legacyRawRef.current))
+    downloadJson(`discovery-copilot-backup-${new Date().toISOString().slice(0, 10)}.json`, createBackup(workspaceRef.current))
   }
 
   function loadExternal() {
     if (!storageState.external) return
+    if (inFlight.current) {
+      inFlight.current.invalidated = true
+      inFlight.current.controller.abort()
+    }
     workspaceRef.current = storageState.external
     setWorkspace(storageState.external)
-    setStorageState({ type: 'ready', external: null, raw: null })
+    storageStateRef.current = { type: 'ready', external: null, raw: null }
+    setStorageState(storageStateRef.current)
     setScreen('projects')
   }
 
   const banner = storageState.type !== 'ready' ? (
     <div className={`storage-banner ${storageState.type}`} role="status">
-      <span>{storageState.message ?? (storageState.type === 'migrated' ? 'Estado v0.1 migrado a v0.2. El original permanece intacto.' : 'Estado local preparado.')}</span>
+      <span>{storageState.message ?? (storageState.type === 'migrated' ? 'Estado migrado a v0.3. Las claves anteriores permanecen intactas.' : 'Estado local preparado.')}</span>
       <div>
-        <button className="button" type="button" onClick={exportCurrent}>Exportar respaldo</button>
+        {initialLoad.status !== 'recovery-required' && <button className="button" type="button" onClick={exportCurrent}>Exportar respaldo</button>}
+        {['recovery-required', 'read-error'].includes(storageState.type) && <button className="button" type="button" onClick={() => window.location.reload()}>Reintentar lectura (exportá antes)</button>}
         {storageState.type === 'conflict' && storageState.external && <button className="button primary" type="button" onClick={loadExternal}>Cargar cambios externos</button>}
         {storageState.raw && <button className="button" type="button" onClick={() => downloadJson('discovery-copilot-datos-originales.json', { raw: storageState.raw })}>Rescatar original</button>}
       </div>
@@ -160,14 +208,14 @@ function App() {
   let content
   if (screen === 'new-project') content = <NewProjectScreen onCancel={() => setScreen('projects')} onCreate={createProject} disabled={isReadOnly} />
   else if (screen === 'overview') content = <OverviewScreen {...shared} />
-  else if (screen === 'work') content = <WorkScreen {...shared} onUpdateProposal={updateProposal} readOnly={isReadOnly} />
+  else if (screen === 'work') content = <WorkScreen key={project.id} {...shared} onUpdateProposal={updateProposal} readOnly={isReadOnly} connection={connection} operation={operation?.projectId === project.id ? operation : null} onCheckConnection={inspectConnection} onAnalyze={runAnalysis} onCancelAnalysis={cancelAnalysis} onSelectSource={selectSource} canSave={storageState.type !== 'write-error'} />
   else if (screen === 'decisions') content = <DecisionsScreen {...shared} decisions={project.decisions} />
-  else if (screen === 'sources') content = <SourcesScreen {...shared} sources={project.sources} />
+  else if (screen === 'sources') content = <SourcesScreen key={project.id} {...shared} sources={project.sources} onSelectSource={selectSource} readOnly={isReadOnly} />
   else if (screen === 'deliverables') content = <DeliverablesScreen {...shared} />
   else if (screen === 'activity') content = <ActivityScreen {...shared} decisions={project.decisions} />
   else content = <ProjectsScreen projects={workspace.projects} activeProjectId={workspace.activeProjectId} onNewProject={() => setScreen('new-project')} onOpenProject={openProject} disabled={isReadOnly} />
 
-  return <>{banner}{content}</>
+  return <>{banner}{initialLoad.status === 'recovery-required' && storageState.type === 'recovery-required' ? <main className="form-page"><h1>Recuperación requerida</h1><p>Los datos originales no se reemplazaron por un demo. Rescatá el original disponible o reintentá la lectura. No hay importación por interfaz en este lote.</p></main> : content}</>
 }
 
 export default App
