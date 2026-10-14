@@ -28,7 +28,7 @@ La versión pública demuestra una maqueta navegable con datos ficticios y prepa
 
 ## Estado
 
-El repositorio contiene una aplicación React + Vite navegable. HEAD y última versión pública comprobada en ambos alojamientos: `73df887`, incluyendo `61704e7`, paleta `d758512`, v0.3, cabecera, Work y textos corregidos. En `fix/sources-responsive-hotfix`, el apilado de Sources/grillas equivalentes y la visibilidad completa del foco móvil están corregidos y retesteados, todavía sin commit ni publicación. La IA pública permanece deshabilitada. El fallo anterior de lint por Zod es histórico; no se declara accesibilidad integral. Resultados y límites: [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md).
+El repositorio contiene una aplicación React + Vite navegable. Versión funcional publicada y comprobada en GitHub Pages y Vercel: `08853c5`, integrada en main por fast-forward y push normal, incluyendo el hotfix de Sources/grillas y foco móvil. Main y origin/main quedaron sincronizados. El smoke test público pasó las ocho vistas, creación/apertura, persistencia, navegación, foco completo y Enter en la cobertura delimitada. La plataforma sigue siendo estática y la IA pública permanece deshabilitada. Los commits exclusivamente documentales posteriores no cambian esa versión funcional. El fallo anterior de lint por Zod es histórico; no se declara accesibilidad integral. Resultados, enlaces y límites: [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md).
 
 La primera porción vertical del producto ya está implementada con datos locales:
 
@@ -112,3 +112,5 @@ La revisión interna cubrió estructura semántica, estados seleccionados, foco 
 Cada navegador conserva sus proyectos en `localStorage` mediante el formato `v0.3`; no existen cuentas, aislamiento entre usuarios ni sincronización entre dispositivos. Las claves predecesoras se conservan y las migraciones se validan antes de persistir. El respaldo se puede exportar y su recuperación fue comprobada programáticamente; todavía no existe importación desde la interfaz.
 
 La detección entre pestañas bloquea una copia desactualizada y permite cargar la versión externa, pero no es un sistema transaccional: queda un riesgo residual ante escrituras realmente simultáneas. Existe un servicio auxiliar local restringido a loopback, pero no un backend remoto de producto. El transporte y el registro económico duradero están preparados; las generaciones continúan deshabilitadas. No están implementados login, aislamiento multiusuario, adjuntos PDF/imágenes, sincronización remota, leads, portal ni monetización operativa.
+
+Próximo gate: especificar, con alcance y autorización propios, un incremento protegido antes de exponer IA a Iván o clientes: autenticación, backend, secretos, persistencia y controles de uso/costo. No es una implementación aprobada; el responsive cerrado no vuelve a ser un pendiente. Estado y decisiones en contexto.md.

@@ -16,12 +16,12 @@ Este inventario distingue uso verificado, función en el proceso y datos todaví
 | UXPilot | Exploración de variantes visuales | Capturas aportadas por Iván | Iván no tuvo acceso a un nombre de modelo identificable |
 | Abacus.AI | Exploración de otra versión generada | Conversación enlazada por Iván | Modalidad gratuita; modelo/agente exacto no identificado |
 | Abacus API / Basic | Dos generaciones personales autorizadas: primera fallida, segunda válida en un caso ficticio mínimo | Recorrido real mínimo, decisión, entregable y persistencia; generaciones cerradas después | claude-sonnet-4-6 solicitado e informado; tokens no disponibles; no valida calidad general |
-| Codex | Lectura de fuentes, implementación React, revisión, correcciones y documentación | HEAD 73df887; hotfix posterior de Sources/grillas y foco móvil probado localmente, sin commit | Identificador exacto del modelo pendiente de recuperar desde una fuente verificable |
+| Codex | Lectura de fuentes, implementación React, revisión, correcciones y documentación | Hotfix funcional 08853c5 versionado/publicado; cierre documental separado y antecedentes conservados | Identificador exacto del modelo pendiente de recuperar desde una fuente verificable |
 | React | Construcción de la interfaz por componentes | Aplicación navegable | No es IA; versión declarada en el manifiesto, no reconfirmada aquí como versión instalada |
 | Vite | Entorno de desarrollo y build local | Build local verificado | No es IA; versión declarada en el manifiesto, no reconfirmada aquí como versión instalada |
 | ESLint | Revisión estática | Verificación local PASS | No es IA; versión declarada en el manifiesto, no reconfirmada aquí como versión instalada |
-| Git | Historial y comparación entre estado publicado y árbol local | HEAD y última publicación comprobada 73df887, incluyendo 61704e7; sólo el hotfix posterior y su documentación siguen sin commit | No es IA |
-| GitHub Actions y Pages / Vercel | Alojamiento estático existente | Última publicación comprobada 73df887; no reconsultada en el retest local | No son IA; el hotfix posterior no está publicado ni la IA pública habilitada |
+| Git | Historial y comparación entre estado publicado y árbol local | 08853c5 integrado por fast-forward; push normal y main y origin/main sincronizados; rama del hotfix conservada | No es IA |
+| GitHub Actions y Pages / Vercel | Alojamiento estático existente | 08853c5: workflow success, Vercel Ready/Current; assets coincidentes y smoke público satisfactorio | No son IA; IA pública deshabilitada, límites y enlaces en el registro canónico |
 | Navegador local | Pruebas funcionales y visuales | Recorridos y estados inspeccionados | No es IA |
 | Almacenamiento local simulado | Pruebas aisladas de migración, incompatibilidad, conflicto, fallo de escritura y recuperación | Resultado programático del lote local | No es IA ni prueba un backend real |
 
@@ -69,4 +69,4 @@ Estado: secuencia verificable por archivos, pruebas y commits. `docs/prompt-log.
 
 1. Confirmar el modelo usado por Codex en las sesiones principales si la interfaz permite recuperarlo; de lo contrario, declarar la limitación.
 2. Seleccionar tres ejemplos breves del registro para el PDF final y mantener el prompt extenso en el repositorio.
-3. Autorizar por separado el commit local del hotfix de grillas y foco móvil sobre 73df887. La publicación previa y este retest local son evidencias diferentes; un push posterior requiere autorización independiente.
+3. Responsive publicado y cerrado en su cobertura. Antes de exponer IA, definir un incremento protegido de autenticación, backend, secretos, persistencia y controles de uso/costo; cualquier implementación, infraestructura, consumo o publicación futura requiere autorización propia.

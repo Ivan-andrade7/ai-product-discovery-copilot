@@ -1,6 +1,41 @@
 # Registro de verificación interna
 
-## Estado vigente — hotfix de grillas y foco móvil, 14/10/2026
+## Estado vigente — publicación funcional y cierre documental, 14/10/2026
+
+Versión funcional publicada: 08853c5b2b3b51d4d94c9d070d8d2f8756f89889. Contiene exactamente los diez archivos auditados del hotfix y documentación; se integró fix/sources-responsive-hotfix en main mediante fast-forward, sin squash/rebase/amend ni nuevo commit de integración. Push normal; main, origin/main y la rama conservada quedaron en 08853c5, sin divergencia. El cierre exclusivamente documental posterior no cambia el código ni los assets funcionales y se distingue de esta versión.
+
+- [GitHub Actions 38651956942](https://github.com/Ivan-andrade7/ai-product-discovery-copilot/actions/runs/38651956942): completed/success y head_sha 08853c5.
+- [GitHub Pages](https://ivan-andrade7.github.io/ai-product-discovery-copilot/): HTTP 200, recursos correctos.
+- [Vercel](https://ai-product-discovery-copilot.vercel.app/): Production, Ready/Current; [despliegue 2Y6JkBYkXrQBeGUcT7ksZ5HTB34y](https://vercel.com/ivan-andrade/ai-product-discovery-copilot/2Y6JkBYkXrQBeGUcT7ksZ5HTB34y), commit y alias comprobados.
+
+Ambos sitios sirvieron index-AoXxgLD0.js (SHA256 d92e9e2250b716e96f1932a2c0c5fa8ecdac31cb43b7ca999904e1228381b606) e index-C2SOjp2r.css (SHA256 7fcbcb2db29043976d83909f8ea5ef1d5128f201385b21b2c6958ff1b43d2e9b), idénticos al build probado. Búsqueda específica de firmas de claves y rutas privadas en estos assets: sin hallazgos; no acredita seguridad integral.
+
+### Smoke público delimitado de 08853c5
+
+Edge headless, contextos nuevos y datos ficticios por origen. Esta evidencia pública es independiente del retest local y de las simulaciones. No se hicieron llamadas de IA ni se usaron credenciales o registro económico.
+
+| Comprobación por alojamiento | GitHub Pages | Vercel |
+| --- | --- | --- |
+| Projects, New Project, Overview, Work, Sources, Decisions, Deliverables, AI Activity | PASS | PASS |
+| Crear y abrir proyecto ficticio; propuestas demo separadas | PASS | PASS |
+| Proyecto nuevo sin propuestas genéricas ni ejecuciones | PASS | PASS |
+| Persistencia byte-equivalente tras recarga y recuperación de fuente ficticia | PASS | PASS |
+| IA pública deshabilitada antes/después de comprobar servicio | PASS | PASS |
+| 112 mediciones de layout: scrollWidth === clientWidth | PASS | PASS |
+| 96 comprobaciones de foco completo, Tab y Shift+Tab | PASS | PASS |
+| Enter y aria-current de los seis destinos | PASS | PASS |
+| Consola: cero errores/advertencias observados | PASS | PASS |
+| Solicitudes a destinos ajenos al alojamiento o servicio IA | Cero | Cero |
+
+Anchos: 320, 360, 390, 430, 901, 1024, 1025 y 1280 px. No se observó desbordamiento de página en demo con decisión/entregable y proyecto personal con nombres, URLs y textos ficticios largos. Scroll horizontal interno utilizable y contorno completo. Cada dominio conserva almacenamiento local independiente; no se transfirieron datos entre dominios.
+
+Un primer instrumento se descartó por consultar executions en lugar del campo real runs. Se corrigió sólo el script temporal; el recorrido posterior completo pasó. No fue un fallo acreditado del producto ni se modificó código para superar la prueba. No se suman layout/foco a las pruebas automatizadas ni al corpus de calidad.
+
+Responsive y foco: cerrados en esta cobertura; no pendiente de versionar/publicar. Límites: sin otros motores, zoom, lector de pantalla ni conformidad integral de accesibilidad o seguridad. El único recorrido real mínimo previo no demuestra calidad general. Corpus de cuatro casos sin ejecutar. Contador conocido 3/5, halted: true, permisos consumidos y sin autorización para nuevas generaciones; este cierre no accedió ni modificó su registro.
+
+Próximo gate: definir un incremento protegido antes de exponer IA a Iván o clientes, con autenticación, backend, secretos, persistencia y controles de uso/costo. La plataforma pública continúa estática y con IA deshabilitada; login, backend remoto, portal, leads y monetización no están implementados. Todo nuevo incremento, llamada de IA, infraestructura o publicación futura requiere alcance y autorización propios. Los antecedentes siguientes conservan los estados y gates al corte de cada lote, no el gate vigente.
+
+## Antecedente — hotfix local de grillas y foco móvil antes del commit, 14/10/2026
 
 Base y HEAD: 73df8870d366d08594dd91c8145e954e6b279497, rama fix/sources-responsive-hotfix. Inicio comprobado: sólo App.css modificado por Abacus, índice vacío y contexto-Ivan.md no seguido. Ese archivo no fue leído, modificado, agregado, movido ni eliminado. No hay commit nuevo del hotfix.
 

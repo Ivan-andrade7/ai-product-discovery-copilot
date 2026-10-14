@@ -35,7 +35,7 @@
 - Los rótulos de pendientes y decisiones flexionan correctamente cero, uno y varios en los escenarios comprobados.
 - La recuperación de un respaldo fue comprobada programáticamente. Todavía no existe una acción de importación desde la interfaz.
 - Iván autorizó publicar la adaptación local el 10/10/2026. El commit de implementación `d758512658138cbe86b6e59c9fef1bb42975deb8` fue enviado a main junto con los dos commits anteriores pendientes, incluyendo preparación de IA con generaciones deshabilitadas.
-- Antecedente: la auditoría prepublicación comprobó b56d9e6. Después se publicaron 61704e7 y 73df887; la última versión comprobada en ambos alojamientos es 73df887, también HEAD actual. Sólo el hotfix posterior de Sources/grillas, foco móvil y conciliación documental sigue sin commit. El fallo previo de lint es histórico; ver evidencia y límites en el registro canónico.
+- Antecedentes: b56d9e6, 61704e7 y 73df887. La versión funcional publicada y comprobada es 08853c5, integrada por fast-forward en main y push normal; main y origin/main quedaron sincronizados y la rama del hotfix permanece. Sources/grillas y foco móvil cerrados en la cobertura pública probada; fallos previos conservados en el registro. Los commits posteriores exclusivamente documentales no cambian esa versión funcional.
 - Los proyectos nuevos empiezan sin propuestas; el contenido simulado permanece en un proyecto demo separado.
 - El contrato incluye la solicitud vigente y sólo las fuentes seleccionadas. El adaptador separa instrucciones del sistema, solicitud y fuentes tratadas como contenido no confiable.
 - Un cambio de solicitud o de una fuente seleccionada vuelve obsoleto el resultado en curso e impide incorporarlo silenciosamente.
@@ -90,7 +90,7 @@ Se conserva la base v0.3 y los estados históricos. El único caso real mínimo 
 
 ## Próximo gate
 
-Autorizar por separado el commit local del hotfix de Sources/grillas, foco móvil y documentación conciliada, sobre 73df887 en fix/sources-responsive-hotfix. Retest satisfactorio en la cobertura registrada; no se hizo staging. Publicar requiere otra autorización y un push a main puede actualizar ambos alojamientos. Contador histórico 3/5, halted: true y ambos permisos consumidos se conservan sin acceder ni modificar el registro económico en este lote; no hay autorización para nuevas generaciones. Conversión oficial, reconciliación y presupuesto condicionado de 140 créditos siguen pendientes para futuras pruebas.
+El responsive y foco están publicados y cerrados en la cobertura probada; no volver a pedir su versionado como gate vigente. La plataforma pública sigue siendo estática, con IA pública deshabilitada. Antes de exponer IA a Iván o clientes debe definirse un incremento protegido con autenticación, backend, secretos, persistencia y controles de uso/costo; todavía no está implementado ni autorizado. El único recorrido real mínimo no demuestra calidad general. Contador conocido 3/5, halted: true y permisos consumidos, sin autorización para nuevas generaciones; sin acceso ni modificación del registro económico durante este cierre. Conversión oficial, reconciliación y presupuesto condicionado de 140 créditos siguen pendientes para futuras pruebas. Todo incremento funcional, llamada de IA, infraestructura o publicación futura requiere alcance y autorización propios.
 
 Antecedente: el retest de cabecera encontró después un desbordamiento distinto de Work a 901 px. El lote adicional lo corrigió mediante apilado hasta 1024 px; los 72 casos focalizados pasaron. Ambos fallos y sus retests se conservan en el registro; no son bloqueantes vigentes. No se extrapola a todos los entornos ni a accesibilidad integral.
 
@@ -113,11 +113,11 @@ Antecedente: el retest de cabecera encontró después un desbordamiento distinto
 - Despliegue estático en GitHub Pages: PASS; build y deploy del workflow completados correctamente después de habilitar Pages con GitHub Actions.
 - Backend, persistencia remota, IA real y servicios externos: no implementados.
 
-## Verificación vigente del candidato local
+## Verificación vigente y antecedentes locales
 
 La autoridad detallada es [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md). Distingue pruebas locales simuladas, navegador/layout y un caso real mínimo exitoso; las cifras históricas no se suman ni sustituyen el retest vigente. No acreditan calidad general, resistencia adversarial ni costo máximo.
 
-El retest vigente corresponde al hotfix de grillas y foco móvil sobre 73df887. Los puntos siguientes resumen comprobaciones de lotes anteriores; su cobertura histórica no sustituye ese retest ni demuestra todos los entornos actuales.
+La comprobación pública de 08853c5 pasó en ambos alojamientos con Edge headless y datos ficticios: ocho vistas, creación/apertura, persistencia, 112 mediciones de layout y 96 de foco por alojamiento, Enter, ruta activa y consola. Los puntos siguientes resumen lotes anteriores; no sustituyen el smoke test ni acreditan otros motores, lector de pantalla o accesibilidad integral.
 
 - Navegador local con datos ficticios: PASS para crear dos proyectos, abrir cada tarjeta, conservar estados independientes, mostrar el nombre activo y representar una fuente aportada como “Aportada · sin revisar”.
 - Navegador local: PASS para aceptar, editar y aceptar, rechazar, mantener pendiente, reabrir, actualizar contadores, conservar historial, derivar entregables y registrar actividad.
@@ -129,7 +129,7 @@ El retest vigente corresponde al hotfix de grillas y foco móvil sobre 73df887. 
 - Responsive: inspección visual local en 1536 × 695 y 666 × 668, con textos ficticios extensos, sin pérdida de contenido observada.
 - Teclado y foco: recorrido manual acotado con orden de controles, foco visible y acciones mediante Enter, PASS en el escenario probado. No hubo lector de pantalla ni auditoría WCAG integral.
 - Consola: no aparecieron fallos visibles durante el recorrido, pero la herramienta disponible no permitió capturar exhaustivamente el registro; la comprobación de consola queda limitada.
-- Las URLs públicas no se reconsultaron en este retest local: la última publicación comprobada es 73df887 y no contiene este hotfix. La comprobación pública anterior se detuvo al encontrar Sources desbordado a 901 px.
+- Antecedente: el retest local anterior no reconsultó los sitios; el primer smoke de 73df887 se detuvo por Sources a 901 px. Después, el smoke público completo de 08853c5 pasó en ambos alojamientos; evidencia separada en el registro canónico.
 
 ## Autoridades y localizadores
 

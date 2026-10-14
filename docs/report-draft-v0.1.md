@@ -126,7 +126,7 @@ La última versión publicada comprobada puede recorrerse sin instalación en:
 
 https://ivan-andrade7.github.io/ai-product-discovery-copilot/
 
-La auditoría previa confirmó b56d9e6; después se publicaron 61704e7 y 73df887 en ambos alojamientos. HEAD y última publicación comprobada: 73df887, con paleta d758512, v0.3, diagnósticos, tipos estrictos y correcciones de cabecera/Work/textos. El hotfix posterior de Sources/grillas y foco móvil está probado localmente, sin commit ni publicación. La IA pública no está operativa; detalles y cobertura en el registro canónico.
+La auditoría previa confirmó b56d9e6; después se publicaron 61704e7 y 73df887. La versión funcional publicada y comprobada es 08853c5, integrada por fast-forward en main y push normal, con el hotfix de Sources/grillas y foco móvil. Main y origin/main quedaron sincronizados; GitHub Actions finalizó correctamente y ambos alojamientos pasaron un smoke delimitado con assets coincidentes. La plataforma sigue siendo estática, con IA pública deshabilitada. Los commits exclusivamente documentales posteriores no cambian la versión funcional; enlaces y cobertura en el registro canónico.
 
 ### Evidencia visual seleccionada
 
@@ -192,7 +192,7 @@ La migración conservadora funcionó para el ejemplo válido y rechazó sin escr
 
 La revisión accesible fue una inspección técnica limitada. Se revisaron reflow, jerarquía, foco y estados semánticos, pero no se ejecutó una auditoría WCAG completa ni pruebas con tecnologías de asistencia.
 
-Después de 61704e7 se corrigieron cabecera y Work, incluidos en 73df887. La comprobación pública posterior encontró Sources desbordado a 901 px. El hotfix de Abacus extiende el apilado hasta 1024 px a las grillas equivalentes; un retest local encontró además foco móvil parcialmente recortado, reproducido en la base. La corrección localizada de navegación y el nuevo retest cerraron ambos hallazgos en la cobertura registrada, sin ocultar contenido ni reducir controles. Ese hotfix sigue sin commit ni publicación; se conservan fallos y retests, sin afirmar accesibilidad integral.
+Después de 61704e7 se corrigieron cabecera y Work, incluidos en 73df887. La comprobación pública posterior encontró Sources desbordado a 901 px. El hotfix de Abacus extendió el apilado hasta 1024 px a las grillas equivalentes; el retest detectó además foco móvil parcialmente recortado, reproducido en la base. Ambos se corrigieron y publicaron en 08853c5. El smoke de ocho vistas pasó en ambos alojamientos: 112 mediciones de layout y 96 de foco por sitio, anchos 320/360/390/430/901/1024/1025/1280, creación/apertura, Enter/ruta activa, persistencia y consola sin errores/advertencias observados. Edge headless, datos ficticios, sin llamadas de IA, credenciales ni acceso al registro económico. Cada dominio conserva almacenamiento independiente. No acredita accesibilidad integral, seguridad integral, lector de pantalla ni otros motores; se conservan antecedentes.
 
 ### Evaluación AIBPS
 
@@ -219,4 +219,4 @@ El recorrido real mínimo quedó demostrado, pero requiere evaluación adicional
 3. Registrar el modelo exacto de Codex si puede recuperarse; de lo contrario, mantener la limitación declarada.
 4. Resolver la conversión oficial, reconciliar el consumo desconocido de la consulta de catálogo y calcular conservadoramente el lote completo.
 5. Revisar el cierre local y decidir futuras evaluaciones mediante autorización separada; los cuatro casos del corpus continúan sin ejecutar.
-6. Versionar el hotfix local de Sources/grillas y foco móvil posterior a 73df887 y publicar sólo mediante autorizaciones separadas. Un push a main puede actualizar los alojamientos públicos.
+6. Responsive y foco publicados, cerrados en la cobertura probada. Antes de exponer IA a Iván o clientes, definir un incremento protegido con autenticación, backend, secretos, persistencia y controles de uso/costo. No está implementado; cualquier incremento, llamada, infraestructura o publicación futura requiere alcance y autorización propios.

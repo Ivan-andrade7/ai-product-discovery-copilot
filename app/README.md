@@ -60,16 +60,18 @@ pnpm preview
 - Aviso y bloqueo de una pestaña desactualizada, con una ventana residual de carrera porque `localStorage` no ofrece transacciones.
 - Servicio auxiliar local limitado a loopback, sin backend remoto de producto, autenticación, base de datos remota ni sincronización entre dispositivos.
 - Contrato, transporte reemplazable y registro duradero de consumo preparados, pero generaciones reales deshabilitadas.
-- Adaptación oscura `d758512` incluida en la última publicación comprobada `73df887`. El código de los controles posteriores está versionado; los ensayos y sus registros privados siguen siendo locales, y el servicio auxiliar no se publica. El bloqueo histórico de lint quedó superado en los retests posteriores.
+- Adaptación oscura `d758512` incluida en la versión funcional publicada `08853c5`, junto con el hotfix de grillas y foco móvil. Los ensayos y registros privados siguen siendo locales; el servicio auxiliar no se publica. El bloqueo histórico de lint quedó superado en los retests posteriores.
 - La inspección interna no constituye validación con usuarios, seguridad integral ni conformidad completa de accesibilidad.
 
-## Estado del candidato
+## Estado publicado y límites
 
-HEAD y última publicación comprobada: `73df887`, que incluye `61704e7` y las correcciones de cabecera, Work y textos. Sólo el hotfix posterior de Sources/grillas y foco móvil, junto con su conciliación documental, sigue sin commit en `fix/sources-responsive-hotfix`. Retest local satisfactorio en la cobertura registrada; versionado y publicación requieren autorizaciones separadas. IA pública deshabilitada; resultados y límites en el registro canónico.
+Versión funcional publicada: `08853c5`, integrada por fast-forward en main y verificada en ambos alojamientos. El hotfix de Sources/grillas y foco móvil está versionado y publicado; main y origin/main quedaron sincronizados y la rama del hotfix se conserva. Los commits exclusivamente documentales posteriores no cambian los assets funcionales. Smoke test delimitado satisfactorio; IA pública deshabilitada. Resultados y límites en el registro canónico.
 
 El candidato local usa `v0.3`, transmite solicitud y sólo fuentes seleccionadas en mensajes separados y bloquea resultados obsoletos. Un caso ficticio completó el recorrido con una respuesta real de `claude-sonnet-4-6`, decisión de prueba, entregable y persistencia. La calidad general y la resistencia adversarial no están validadas. Nuevas respuestas requieren type Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question; los tipos históricos se conservan literalmente.
 
 La cobertura y el consumo se registran en [`../docs/verification-2026-10-07.md`](../docs/verification-2026-10-07.md). Estado económico: 3/5, ambas autorizaciones consumidas, halted y generaciones deshabilitadas. El consumo agregado no permite atribución individual. El corpus de cuatro casos permanece sin ejecutar. Login, multiusuario, PDF/imágenes, leads, portal y monetización no están implementados.
+
+Antes de exponer IA a Iván o clientes se requiere definir un incremento protegido de autenticación, backend, secretos, persistencia y controles de uso/costo, con autorización propia. No se habilita ese incremento ni nuevas generaciones mediante este cierre documental.
 
 ## Tecnología
 
