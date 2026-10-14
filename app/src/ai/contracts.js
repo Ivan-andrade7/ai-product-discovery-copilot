@@ -1,5 +1,7 @@
 // Provider-independent text contract. URLs are references, never fetched.
+import { invalidResult, safeDiagnostic, safeFinishReason } from './diagnostics.js'
 export const LIMITS = Object.freeze({ sources: 10, inputChars: 24000, outputChars: 32000, proposals: 12 })
+export const PROPOSAL_TYPES = Object.freeze({ evidence: 'Afirmación', hypothesis: 'Hipótesis', question: 'Pregunta' })
 export const nonEmpty = (value) => typeof value === 'string' && value.trim().length > 0
 export const originLabel = (origin) => ({ demo: 'Simulación histórica · no es IA real', model: 'Propuesta de IA · requiere revisión', unknown: 'Procedencia histórica no comprobada' }[origin] ?? 'Procedencia no comprobada')
 export const analysisMessages = Object.freeze({
@@ -49,13 +51,22 @@ export function isAnalysisRequest(value) {
 }
 
 export function validateResult(value, request) {
-  if (!isAnalysisRequest(request) || !value || !Array.isArray(value.proposals) || value.proposals.length > LIMITS.proposals) return { ok: false, code: 'invalid' }
-  if (JSON.stringify(value).length > LIMITS.outputChars) return { ok: false, code: 'invalid' }
+  if (!isAnalysisRequest(request)) return invalidResult('control', 'invalid_request')
+  if (!value || !Array.isArray(value.proposals) || value.proposals.length > LIMITS.proposals) return invalidResult('structure', 'invalid_proposals')
+  try { if (JSON.stringify(value).length > LIMITS.outputChars) return invalidResult('structure', 'output_too_large') }
+  catch { return invalidResult('structure', 'not_serializable') }
   for (const proposal of value.proposals) {
-    if (!proposal || !['type', 'title', 'content', 'reasoning'].every((key) => nonEmpty(proposal[key]))) return { ok: false, code: 'invalid' }
-    if (!['evidence', 'hypothesis', 'question'].includes(proposal.certainty) || !Array.isArray(proposal.references)) return { ok: false, code: 'invalid' }
-    if (proposal.certainty === 'evidence' && !proposal.references.length) return { ok: false, code: 'invalid' }
-    if (!proposal.references.every((ref) => ref && nonEmpty(ref.sourceId) && nonEmpty(ref.quote) && request.sources.some((source) => source.id === ref.sourceId && source.content.includes(ref.quote)))) return { ok: false, code: 'invalid' }
+    if (!proposal || !['type', 'title', 'content', 'reasoning'].every((key) => nonEmpty(proposal[key]))) return invalidResult('structure', 'invalid_fields')
+    if (!['evidence', 'hypothesis', 'question'].includes(proposal.certainty)) return invalidResult('structure', 'invalid_certainty')
+    if (proposal.type !== PROPOSAL_TYPES[proposal.certainty]) return invalidResult('structure', 'invalid_type')
+    if (!Array.isArray(proposal.references)) return invalidResult('structure', 'invalid_reference_list')
+    if (proposal.certainty === 'evidence' && !proposal.references.length) return invalidResult('references', 'evidence_without_reference')
+    for (const ref of proposal.references) {
+      if (!ref || !nonEmpty(ref.sourceId) || !nonEmpty(ref.quote)) return invalidResult('references', 'invalid_reference')
+      const source = request.sources.find((item) => item.id === ref.sourceId)
+      if (!source) return invalidResult('references', 'unknown_source')
+      if (!source.content.includes(ref.quote)) return invalidResult('references', 'quote_not_found')
+    }
   }
   return { ok: true }
 }
@@ -86,6 +97,9 @@ export function finishAnalysis(project, request, result, { stale = false } = {})
     modelReported: typeof result.modelReported === 'string' ? result.modelReported : null,
     usage: result.usage ?? null,
     trialRequestNumber: result.trialRequestNumber ?? null,
+    ...(safeDiagnostic(result.diagnostic) ? { diagnostic: safeDiagnostic(result.diagnostic) } : {}),
+    ...(Number.isInteger(result.httpStatus) ? { httpStatus: result.httpStatus } : {}),
+    finishReason: safeFinishReason(result.finishReason),
   }) }
 }
 

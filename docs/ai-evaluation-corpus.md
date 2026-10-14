@@ -6,7 +6,7 @@ Este documento es la fuente canónica del corpus preliminar para evaluar la inte
 
 **Estado: preparado, no ejecutado.** Todos los datos son ficticios y no representan investigación realizada, respuestas del modelo, resultados observados ni validación del producto.
 
-- Contador autorizado vigente: **1 de 5 solicitudes utilizada** —una consulta de catálogo— y cuatro generaciones pendientes.
+- Contador vigente: **3/5** —catálogo, generación fallida y caso técnico independiente exitoso—. Ambas autorizaciones están consumidas y halted: true. No hay generaciones pendientes autorizadas; ninguno de los cuatro casos de este corpus fue ejecutado.
 - Presupuesto total de prueba: **140 créditos**, condicionado a obtener la conversión oficial, calcular un límite conservador y reconciliar el consumo de la consulta de catálogo.
 - Las generaciones permanecen deshabilitadas.
 - Este corpus no amplía ni sustituye la autorización de consumo existente.
@@ -31,10 +31,11 @@ La revisión es estática: no se ejecutó ningún caso ni se realizó una llamad
 | Elemento del corpus | Soporte actual | Consecuencia para la evaluación futura |
 | --- | --- | --- |
 | Fuentes seleccionadas con identificador, nombre y contenido | Sí | Son las únicas fuentes del caso enviadas al modelo y viajan separadas de la solicitud vigente. |
-| Solicitud original del caso | Sí, preparada y probada localmente | Se incluye como `userRequest`, participa en la versión del contexto y se serializa en un mensaje de usuario separado. No se ejecutó contra un modelo real. |
+| Solicitud original del caso | Sí | Se incluye como userRequest y mensaje separado. Un caso técnico independiente ejecutó el recorrido real; no acredita estos casos del corpus. |
+| Etiqueta type y certeza | Sí, estrictas para nuevas respuestas | Afirmación/evidence, Hipótesis/hypothesis y Pregunta/question; valores genéricos, ausentes, desconocidos o pares inconsistentes son rechazo estructural. Las respuestas históricas se conservan sin normalizar. |
 | Citas trazables | Sí, con alcance limitado | Cada referencia debe usar un identificador seleccionado y una cita que aparezca literalmente en esa fuente. Esto prueba procedencia textual, no que la interpretación esté lógicamente sustentada. |
 | Evidencia explícita | Parcial | `certainty: evidence` exige al menos una cita, pero el resultado sigue siendo una propuesta interpretativa. El contrato no representa un fragmento fuente como una categoría autónoma de salida. |
-| Inferencia basada en fuentes | No de forma inequívoca | Puede describirse mediante `type`, `content` y `reasoning`, pero no tiene un valor propio en `certainty`; esos campos de texto libre no garantizan una clasificación estable. |
+| Inferencia basada en fuentes | No de forma inequívoca | Puede describirse mediante content y reasoning, pero no tiene valor propio en certainty. type sólo refleja los tres pares válidos, sin categoría independiente. |
 | Hipótesis | Sí | `certainty: hypothesis` la distingue estructuralmente, aunque el contrato permite que no tenga referencias. Si afirma derivarse de una fuente y no la referencia, puede ser un defecto de calidad aun cuando la respuesta sea técnicamente válida. |
 | Pregunta abierta | Sí | `certainty: question` la distingue estructuralmente y también puede carecer de referencias. |
 | Contradicciones entre fuentes | Semántico, no estructurado | El modelo puede describirlas en una propuesta y citar ambas fuentes, pero no existe un tipo contractual obligatorio para contradicción. |
@@ -249,12 +250,12 @@ El contrato implementado admite tres valores de `certainty`: `evidence`, `hypoth
 La distinción de cuatro categorías solicitada no puede conservarse de forma inequívoca con los campos actuales:
 
 - **Evidencia explícita:** permanece en la fuente y en la cita literal de `references`. Una propuesta con `certainty: evidence` no es evidencia pura: es contenido generado que incluye una referencia textual.
-- **Inferencia basada en fuentes:** puede expresarse en `content`, describirse en `reasoning` o rotularse libremente en `type`, pero ninguno de esos campos establece una categoría contractual inequívoca.
+- **Inferencia basada en fuentes:** puede describirse en `content` y `reasoning`, pero no tiene categoría contractual propia. `type` ya no permite rótulos libres en nuevas respuestas.
 - `hypothesis` representa una afirmación todavía no confirmada;
 - `question` representa una pregunta abierta;
 - la interfaz traduce `evidence` como “evidencia citada · interpretación por revisar”, por lo que reconoce la mediación interpretativa, pero no distingue esa interpretación de una inferencia identificada.
 
-`type` no resuelve la brecha: acepta cualquier texto y no se valida contra `certainty`. `reasoning` tampoco la resuelve porque es una justificación libre, no una clasificación. Usar `hypothesis` para toda inferencia perdería la diferencia entre una deducción sustentada por fuentes y una posibilidad que necesita confirmación; usar `evidence` presentaría la deducción como evidencia textual.
+`type` no resuelve la brecha: ahora se valida estrictamente contra `certainty` como Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question, sin añadir una categoría. `reasoning` es una justificación libre, no una clasificación. Usar `hypothesis` para toda inferencia perdería la diferencia entre una deducción sustentada por fuentes y una posibilidad que necesita confirmación; usar `evidence` presentaría la deducción como evidencia textual. Esta limitación debe separarse de un fallo del modelo, sin rebajar fidelidad ni trazabilidad.
 
 ### Ejemplo concreto de la brecha
 
@@ -293,4 +294,4 @@ Queda preparado el corpus, la guía separada y la estructura de registro. La eje
 2. reconciliación del consumo de la consulta de catálogo ya registrada;
 3. cálculo conservador que mantenga el lote dentro de 140 créditos;
 4. confirmación de que no se requieren compras, recargas ni cargos adicionales;
-5. autorización aplicable antes de cada consumo previsto por el lote.
+5. nueva autorización explícita antes de cualquier consumo; el éxito del caso técnico no habilita este corpus ni elimina el bloqueo persistente.

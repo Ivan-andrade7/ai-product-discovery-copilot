@@ -2,8 +2,11 @@ import * as fs from 'node:fs'
 import path from 'node:path'
 import { randomUUID, createHash } from 'node:crypto'
 import { TRIAL_MODEL, safeUsage } from './providers/abacus-transport.mjs'
+import { safeDiagnostic, safeFinishReason } from '../src/ai/diagnostics.js'
 
 export const TRIAL_LIMITS = Object.freeze({ maximumTotal: 5, budgetCredits: 140 })
+export const ONE_SHOT_AUTHORIZATION = 'ivan-2026-10-13-one-generation-unknown-credits'
+export const SECOND_SHOT_AUTHORIZATION = 'ivan-2026-10-13-second-generation-unknown-credits'
 const credit = (n) => typeof n === 'number' && Number.isFinite(n) && n >= 0
 const identifier = (s) => typeof s === 'string' && /^[a-zA-Z0-9_-]{1,100}$/.test(s)
 const codes = new Set([null, 'cancelled', 'error', 'invalid', 'incomplete', 'permission', 'quota', 'rate_limit'])
@@ -12,6 +15,39 @@ const exact = (value, keys) => value && typeof value === 'object' && !Array.isAr
 const fail = () => { throw new Error('Trial accounting unavailable; consumption blocked') }
 
 function validate(value) {
+  if (Array.isArray(value?.attempts) && value.attempts.some((a) => Object.hasOwn(a ?? {}, 'responseMeta'))) {
+    for (const attempt of value.attempts) if (Object.hasOwn(attempt, 'responseMeta')) {
+      const meta = attempt.responseMeta
+      if (!exact(meta, ['finishReason', 'diagnostic']) || safeFinishReason(meta.finishReason) !== meta.finishReason || JSON.stringify(safeDiagnostic(meta.diagnostic)) !== JSON.stringify(meta.diagnostic)) fail()
+    }
+    validate({ ...value, attempts: value.attempts.map((a) => { const copy = { ...a }; delete copy.responseMeta; return copy }) })
+    return value
+  }
+  if (value?.secondShot !== undefined) {
+    const grant = value.secondShot
+    if (!exact(grant, ['authorization', 'consumed']) || grant.authorization !== SECOND_SHOT_AUTHORIZATION || typeof grant.consumed !== 'boolean' || value.halted !== true || value.oneShot?.consumed !== true || (grant.consumed ? value.attempts?.length !== 3 : value.attempts?.length !== 2)) fail()
+    const base = { ...value }; delete base.secondShot
+    if (!grant.consumed) { validate(base); return value }
+    if (base.attempts[2].maximumCredits !== null) fail()
+    validate({ ...base, attempts: base.attempts.slice(0, 2) })
+    delete base.oneShot
+    base.attempts = base.attempts.map((a, i) => i ? { ...a, maximumCredits: 0 } : a)
+    validate(base)
+    return value
+  }
+  const oneShot = value?.oneShot
+  if (oneShot !== undefined) {
+    if (!exact(oneShot, ['authorization', 'consumed']) || oneShot.authorization !== ONE_SHOT_AUTHORIZATION || typeof oneShot.consumed !== 'boolean' || (oneShot.consumed ? value.attempts?.length !== 2 || value.halted !== true : value.attempts?.length !== 1 || value.halted !== false)) fail()
+    const base = { ...value }; delete base.oneShot
+    if (oneShot.consumed) {
+      if (base.attempts[1].maximumCredits !== null) fail()
+      // Validate the remaining legacy shape without claiming or persisting a
+      // numeric cost bound. The real authorized maximum stays unknown (null).
+      base.attempts = base.attempts.map((a, i) => i === 1 ? { ...a, maximumCredits: 0 } : a)
+    }
+    validate(base)
+    return value
+  }
   if (!exact(value, ['version', 'trialId', 'revision', 'maximumTotal', 'budgetCredits', 'halted', 'attempts']) || value.version !== 1 || !identifier(value.trialId) || !Number.isSafeInteger(value.revision) || value.revision < 0 || value.maximumTotal !== 5 || value.budgetCredits !== 140 || typeof value.halted !== 'boolean' || !Array.isArray(value.attempts) || value.attempts.length < 1 || value.attempts.length > 5) fail()
   const ids = new Set()
   for (const [index, attempt] of value.attempts.entries()) {
@@ -82,6 +118,44 @@ export function createTrialLedger(file, { io = fs } = {}) {
       for (const a of value.attempts) { if (a.credits === null || ['reserved', 'http_completed'].includes(a.status)) break; through++ }
       return { trialId: value.trialId, ...TRIAL_LIMITS, requestCount: value.attempts.length, halted: value.halted, reconciledCredits, usedCredits: pending.length ? null : reconciledCredits, reconciled: pending.length === 0, reconciledThroughRequest: through, pending: pending.map((a) => ({ id: a.id, requestNumber: a.requestNumber, status: a.status, credits: a.credits })), attempts: structuredClone(value.attempts) }
     },
+    authorizeSecondShot(authorization) {
+      return mutate((value) => {
+        if (authorization !== SECOND_SHOT_AUTHORIZATION || !value.halted || value.attempts.length !== 2 || value.oneShot?.consumed !== true || value.attempts[1].status !== 'failed' || Object.hasOwn(value, 'secondShot')) fail()
+        value.secondShot = { authorization, consumed: false }
+      })
+    },
+    reserveSecondShot(authorization) {
+      return mutate((value) => {
+        if (authorization !== SECOND_SHOT_AUTHORIZATION || value.secondShot?.authorization !== authorization || value.secondShot.consumed || !value.halted || value.attempts.length !== 2) fail()
+        const attempt = { id: randomUUID(), requestNumber: 3, kind: 'generation', modelRequested: TRIAL_MODEL, status: 'reserved', maximumCredits: null, externalAttempted: null, httpStatus: null, code: null, usage: null, modelReported: null, credits: null, reconciliationRef: null }
+        value.attempts.push(attempt)
+        value.secondShot.consumed = true
+        return { id: attempt.id, requestNumber: 3 }
+      })
+    },
+    authorizeOneShot(authorization) {
+      return mutate((value) => {
+        if (authorization !== ONE_SHOT_AUTHORIZATION || value.halted || value.attempts.length !== 1 || Object.hasOwn(value, 'oneShot')) fail()
+        value.oneShot = { authorization, consumed: false }
+      })
+    },
+    oneShotState(authorization = ONE_SHOT_AUTHORIZATION) {
+      if (io.existsSync(lock)) fail()
+      const value = read()
+      if (authorization === SECOND_SHOT_AUTHORIZATION) return { available: value.secondShot?.authorization === authorization && !value.secondShot.consumed && value.halted && value.attempts.length === 2, consumed: value.secondShot?.consumed === true }
+      if (authorization !== ONE_SHOT_AUTHORIZATION) fail()
+      return { available: value.oneShot?.authorization === ONE_SHOT_AUTHORIZATION && !value.oneShot.consumed && !value.halted && value.attempts.length === 1, consumed: value.oneShot?.consumed === true }
+    },
+    reserveOneShot(authorization) {
+      return mutate((value) => {
+        if (authorization !== ONE_SHOT_AUTHORIZATION || value.oneShot?.authorization !== authorization || value.oneShot.consumed || value.halted || value.attempts.length !== 1) fail()
+        const attempt = { id: randomUUID(), requestNumber: 2, kind: 'generation', modelRequested: TRIAL_MODEL, status: 'reserved', maximumCredits: null, externalAttempted: null, httpStatus: null, code: null, usage: null, modelReported: null, credits: null, reconciliationRef: null }
+        value.attempts.push(attempt)
+        value.oneShot.consumed = true
+        value.halted = true
+        return { id: attempt.id, requestNumber: 2 }
+      })
+    },
     reserve({ expectedCount, maximumCredits, maximumTotal, budgetCredits }) {
       return mutate((value) => {
         const used = value.attempts.reduce((n, a) => n + (a.credits ?? 0), 0)
@@ -100,13 +174,14 @@ export function createTrialLedger(file, { io = fs } = {}) {
         if (failed) value.halted = true
       })
     },
-    finalize({ requestNumber, ok, code = null }) {
+    finalize({ requestNumber, ok, code = null, finishReason, diagnostic }) {
       return mutate((value) => {
         const attempt = value.attempts.find((a) => a.requestNumber === requestNumber)
         if (!attempt || !['http_completed', 'failed'].includes(attempt.status) || typeof ok !== 'boolean' || !codes.has(code)) fail()
         if (attempt.status === 'http_completed') attempt.status = ok ? 'completed' : 'failed'
         if (!ok && code !== null) attempt.code = code
         if (!ok) value.halted = true
+        if (finishReason !== undefined || diagnostic !== undefined) attempt.responseMeta = { finishReason: safeFinishReason(finishReason), diagnostic: safeDiagnostic(diagnostic) }
       })
     },
     // Offline runner operation only: no HTTP/browser endpoint. A verified

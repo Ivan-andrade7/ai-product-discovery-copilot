@@ -1,0 +1,22 @@
+# Local credentials (do not hide reusable source or example configuration)
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+
+# Private trial artifacts; never part of the product or public evidence
+trial-ledger.json
+trial-ledger.json.*
+catalog-attempt.json
+catalog-result.json
+provider-response.json
+provider-response-*.json
+project-backup*.json
+workspace-backup*.json
+.private/
+
+# Historical single-trial launchers: tied to the consumed personal experiment
+/app/server/one-shot-credentials.ps1
+/app/server/one-shot-runner.mjs

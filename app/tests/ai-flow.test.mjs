@@ -26,7 +26,7 @@ test.after(() => { net.Socket.prototype.connect = originalConnect; globalThis.fe
 function fixture() {
   const project = createLocalProject({ name: 'Proyecto ficticio', objective: 'Hay demoras en el proceso.', sources: 'Dato no seleccionado.' })
   const request = makeRequest(project, 'model-fixture-not-real', 'request-fixture')
-  const value = { proposals: [{ type: 'Problema supuesto', title: 'Demoras', content: 'Podría existir una demora.', reasoning: 'La solicitud menciona demoras; falta confirmar el impacto.', certainty: 'hypothesis', references: [{ sourceId: project.sources[0].id, quote: 'Hay demoras' }] }] }
+  const value = { proposals: [{ type: 'Hipótesis', title: 'Demoras', content: 'Podría existir una demora.', reasoning: 'La solicitud menciona demoras; falta confirmar el impacto.', certainty: 'hypothesis', references: [{ sourceId: project.sources[0].id, quote: 'Hay demoras' }] }] }
   return { project, request, value }
 }
 test('selection contract: unselected source never sent, URLs not fetched', () => {

@@ -2,7 +2,7 @@
 
 ## Fecha de corte
 
-10 de octubre de 2026.
+14 de octubre de 2026.
 
 ## Estado observado
 
@@ -28,18 +28,20 @@
 - Todas las secciones del recorrido base están habilitadas.
 - El estado local vigente admite múltiples proyectos reales: crear uno no reemplaza los anteriores y cada proyecto conserva fuentes, propuestas, decisiones y entregables por separado.
 - El almacenamiento local vigente usa el formato `v0.3`. Las claves predecesoras se conservan y las migraciones se validan antes de persistir.
-- Las fuentes ingresadas por la persona se muestran como “Aportada · sin revisar”. Las propuestas preparadas para un proyecto nuevo se identifican como ficticias y no se atribuyen a esas fuentes.
+- Las fuentes aportadas quedan sin revisar; proyectos nuevos vacíos y demo separado. Una ejecución real válida conserva citas hacia las fuentes seleccionadas, sin validarlas por aceptación.
 - La interfaz bloquea escrituras desde una pestaña desactualizada, permite cargar el estado externo y ofrece exportación de respaldo. Esta protección no elimina por completo la carrera posible entre escrituras estrictamente simultáneas.
 - Los datos incompatibles no se reinician silenciosamente. Se preservan para rescate; ante un fallo de guardado, la copia en memoria permanece exportable.
 - La salida convertida desde formatos anteriores se valida antes de persistirse. Propuestas malformadas, JSON inválido y estructuras incompletas activan recuperación sin reemplazar el original.
 - Los rótulos de pendientes y decisiones flexionan correctamente cero, uno y varios en los escenarios comprobados.
 - La recuperación de un respaldo fue comprobada programáticamente. Todavía no existe una acción de importación desde la interfaz.
 - Iván autorizó publicar la adaptación local el 10/10/2026. El commit de implementación `d758512658138cbe86b6e59c9fef1bb42975deb8` fue enviado a main junto con los dos commits anteriores pendientes, incluyendo preparación de IA con generaciones deshabilitadas.
-- GitHub Pages y `https://ai-product-discovery-copilot.vercel.app/` respondieron HTTP 200 y cargaron los mismos assets JS/CSS del build local con la paleta vigente. Se verificaron Projects y Work con datos ficticios. Build PASS; 63 pruebas aprobadas y una opcional omitida; lint pendiente por archivos faltantes de Zod en las dependencias locales.
+- La publicación del 10/10 en GitHub Pages y Vercel fue comprobada según el registro. Las correcciones de diagnósticos, intentos reales y tipos posteriores permanecen locales. Lint y build pasaron en el cierre actual; el fallo anterior de dependencias es histórico.
 - Los proyectos nuevos empiezan sin propuestas; el contenido simulado permanece en un proyecto demo separado.
 - El contrato incluye la solicitud vigente y sólo las fuentes seleccionadas. El adaptador separa instrucciones del sistema, solicitud y fuentes tratadas como contenido no confiable.
 - Un cambio de solicitud o de una fuente seleccionada vuelve obsoleto el resultado en curso e impide incorporarlo silenciosamente.
-- El transporte reemplazable y el registro económico duradero están preparados, pero las generaciones siguen deshabilitadas.
+- El segundo intento real completó el recorrido mínimo en un caso ficticio: HTTP 200, claude-sonnet-4-6, stop, cita literal e incertidumbre, aceptación de prueba por el asistente, decisión, entregable y persistencia. El primero permanece fallido. Generaciones nuevamente deshabilitadas.
+- Contador 3/5, ambas autorizaciones consumidas y halted: true; tokens no disponibles. Saldo 13.897 → 13.889 y 21,3 créditos API diarios del 13/10: observaciones agregadas, sin cargos individuales reconciliados.
+- Nuevas respuestas exigen type Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question. La respuesta histórica con string queda intacta y legible; no se normaliza ni migra.
 - El corpus de evaluación conserva cuatro casos ficticios no ejecutados. `inference` no existe como categoría estructurada del contrato vigente.
 - No están implementados login, aislamiento multiusuario, adjuntos PDF/imágenes, persistencia remota, leads, portal ni monetización operativa.
 
@@ -65,7 +67,7 @@ La versión objetivo conservará solicitud original y fuentes autorizadas por pr
 
 Los proyectos nuevos empezarán vacíos o pendientes de análisis. La simulación permanecerá exclusivamente en un proyecto demo separado. Una URL no equivale a contenido consultado; las referencias deberán apuntar a contenido realmente disponible. Los errores conservarán entradas y permitirán reintento o trabajo manual, nunca contenido demo automático. Cada operación registrará modelo, fuentes y versión del contexto; un resultado obsoleto no se aplicará silenciosamente.
 
-Se reutilizará la base `v0.3` sin perder estados anteriores; claves fuera del frontend/repositorio, endpoint protegido y límites de gasto antes de exposición pública. El transporte y esos controles están preparados localmente, pero no hubo generación real.
+Se conserva la base v0.3 y los estados históricos. La prueba real mínima exitosa no valida calidad general, seguridad integral, adjuntos ni los otros casos. Las claves de los servicios privados terminaron con sus procesos; el arranque normal sigue bloqueado.
 
 ## Criterio de cierre
 
@@ -82,7 +84,7 @@ Se reutilizará la base `v0.3` sin perder estados anteriores; claves fuera del f
 
 ## Próximo gate
 
-Resolver la conversión oficial de créditos, reconciliar el consumo desconocido de la consulta de catálogo y calcular conservadoramente el lote completo frente al presupuesto condicionado de 140 créditos. El contador real permanece en 1/5 solicitudes. Sólo después corresponde una autorización separada para ejecutar la prueba real de IA. Un push a `main` puede actualizar ambos alojamientos y requiere autorización de publicación independiente.
+Revisar el cierre local antes de decidir versionado. Reconciliación individual y conversión oficial siguen pendientes; 3/5 y halted permanecen intactos. No hay autorización para otra generación. Publicar o hacer push a main requiere autorización independiente y puede actualizar ambos alojamientos.
 
 ## Verificación técnica histórica
 
@@ -105,7 +107,7 @@ Resolver la conversión oficial de créditos, reconciliar el consumo desconocido
 
 ## Verificación vigente del candidato local
 
-La autoridad detallada es [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md). El comando estándar registró 63 pruebas aprobadas y una opcional omitida. En una capa separada, el recorrido de navegador registró 21/21 comprobaciones y 90 comprobaciones de layout. No se suman porque no representan unidades equivalentes. Las respuestas simuladas no acreditan calidad del modelo, resistencia real a instrucciones engañosas ni un costo máximo.
+La autoridad detallada es [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md). Distingue batería local simulada, recorridos históricos de navegador y un caso real exitoso. Sus cifras no se suman. Las simulaciones no acreditan calidad real ni costo máximo; una respuesta real tampoco acredita calidad general.
 
 - Navegador local con datos ficticios: PASS para crear dos proyectos, abrir cada tarjeta, conservar estados independientes, mostrar el nombre activo y representar una fuente aportada como “Aportada · sin revisar”.
 - Navegador local: PASS para aceptar, editar y aceptar, rechazar, mantener pendiente, reabrir, actualizar contadores, conservar historial, derivar entregables y registrar actividad.

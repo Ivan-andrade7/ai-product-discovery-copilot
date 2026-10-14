@@ -1,5 +1,100 @@
 # Registro de verificación interna
 
+## Cierre local de tipos y documentación — 14/10/2026
+
+El segundo intento real conservó `type: "string"`. La revisión comprobó que el prompt mostraba ese literal como ejemplo y el contrato aceptaba cualquier texto; el adaptador no lo normalizaba. El valor pertenece a la respuesta del proveedor, no a una sustitución local. No hay evidencia para determinar por qué el modelo eligió copiarlo: la influencia del ejemplo es una explicación plausible, no una causa interna comprobada.
+
+`type` se conserva como etiqueta semántica legible, coherente con `certainty`: Afirmación/evidence, Hipótesis/hypothesis y Pregunta/question. Se corrigió el mensaje preparado y se exige el par exacto en nuevas respuestas. Genéricos, desconocidos y pares inconsistentes se rechazan en estructura con `invalid_type`; campos ausentes o vacíos con `invalid_fields`. No hay reparación, referencias fabricadas ni llamada adicional. No se añade `inference`; evidence exige cita y revisión, no valida una deducción como hecho textual.
+
+No se migra almacenamiento ni se modifica la respuesta histórica. La lectura y exportación de estados anteriores siguen conservando literalmente `string` y originales; la aceptación histórica no se presenta como validación bajo el contrato nuevo. La compatibilidad de lectura no flexibiliza la entrada de respuestas nuevas.
+
+Pruebas locales del código corregido: comando estándar 101 casos, 100 aprobados, una prueba opcional de navegador omitida y cero fallos; lint y build PASS. El archivo `proposal-types.test.mjs` aporta 12 casos: pares válidos, genérico/ausente/desconocido/inconsistente, mensaje preparado y rechazo del adaptador, y lectura/exportación/decisión/guardado conservadores de un v0.3 ficticio histórico. Interceptores de red de esa batería comprobaron cero tráfico externo. No se repitió el recorrido real ni se ejecutó el corpus; las cifras históricas de navegador y layout no se suman a estos casos.
+
+Una lectura desde un proceso nuevo confirmó 3/5, halted: true, arranque budget_blocked y externalEnabled: false. El hash del registro económico antes/después de esa lectura fue idéntico. No se accedió a credenciales ni se modificó el registro. Ambas autorizaciones permanecen consumidas. El presupuesto original de 140 créditos sigue condicionado; las excepciones históricas no constituyen garantía económica ni habilitan futuros intentos.
+
+La evidencia real sigue siendo un único caso ficticio exitoso (HTTP 200, claude-sonnet-4-6, stop, tokens no disponibles), separado de las simulaciones. Saldo 13.897 → 13.889 y 21,3 créditos API diarios del 13/10 son agregados no atribuibles a una llamada. Calidad general, resistencia adversarial, seguridad integral, login, multiusuario, adjuntos, leads, portal y monetización no están validados/implementados. Permanecen rótulos heredados de UI sobre ausencia de llamadas, ya registrados como limitación; no se amplía este lote para corregirlos.
+
+Cambios de este cierre: contracts, diagnóstico, prompt Abacus, fixture ai-flow, pruebas proposal-types; README principal/app, contexto, matriz, borrador y corpus. Los demás cambios pendientes de transporte/control pertenecen a lotes anteriores y se preservan. Sin staging, commit, push ni publicación. La versión pública no cambia.
+
+## Cierre del segundo intento real — ejecución 13/10, comprobación final 14/10/2026
+
+Se realizó exactamente una generación adicional desde Work. Solicitud económica `d37b7e42-b53d-41d3-969a-905e9ce1474e`, número 3/5; ejecución del proyecto `8a288daf-6777-40b9-985e-3b71a9cfa4d6`. Modelo solicitado e informado: `claude-sonnet-4-6`; HTTP 200, finalización `stop`, sin diagnóstico de rechazo y uso de tokens no disponible. El permiso nuevo quedó consumido antes del envío; el catálogo y el primer intento fallido permanecen conservados. No hubo reintentos, catálogo adicional, reparación, router ni sustitución.
+
+La solicitud breve pidió una sola propuesta evidence; sólo se seleccionó “Registro ficticio breve”, de menos de 1.000 caracteres. La solicitud original quedó deseleccionada como fuente y viajó en su mensaje separado conforme al adaptador; salida máxima solicitada 500 tokens, sin streaming ni herramientas. La respuesta pasó JSON, estructura y referencias literales. Su afirmación conservó diez consultas y cuatro preguntas sobre recepción; la justificación señaló ausencia de tiempos y ventas. Esto demuestra fidelidad preliminar en este caso sencillo. El campo libre `type` devolvió el literal `string`: técnicamente válido, pero etiqueta poco útil; se registra como limitación de calidad/instrucción, sin editar el original ni modificar el contrato.
+
+Se revisó el contenido y el asistente ejecutó una aceptación de prueba autorizada. Decisions mostró una acción, original preservado y cambio pendiente → aceptada; Deliverables mostró un bloque con origen de modelo y cita de la fuente ficticia. No fue una evaluación independiente con participantes. El 14/10 se reabrió la interfaz local con el servicio privado cerrado: Projects conservó una decisión, Deliverables conservó el bloque y AI Activity conservó ejecución y aceptación. Persistencia comprobada en ese navegador/origen; no sincronización remota.
+
+Consumo: antes del segundo intento, saldo global 13.897 (103 usados); al cierre del 14/10, 13.889 (111 usados), diferencia global de 8 créditos. El panel diario muestra 21,3 créditos de RouteLLM API el 13/10; es un agregado de equipo/día sin identificador de solicitud. No se atribuye exclusivamente la diferencia de 8 al segundo intento ni el agregado a una solicitud concreta. Se conserva también la diferencia histórica de 14 del primer intento. Los cargos individuales de catálogo y ambas generaciones siguen `null`, sin reconciliación inventada ni conversión de tokens.
+
+Antes del envío se verificó Auto Refill desactivado y Metering ya activo, sin modificar facturación. El cierre verificó que no queda ningún proceso `one-shot-runner.mjs`; no se recuperó su clave, que desapareció al terminar el proceso. Desde un proceso nuevo, registro 3/5, `halted: true`, segunda excepción consumida/no disponible, arranque normal `budget_blocked` y `externalEnabled: false`. Ninguna nueva generación está autorizada o habilitada.
+
+Preparación local: 88 pruebas aprobadas, una opcional omitida; lint/build PASS (registro de preparación siguiente). Este cierre no repitió la batería ni ejecutó el corpus de cuatro casos. Alcance demostrado: conexión real, respuesta válida, incorporación, acción de revisión y entregable persistente en un caso ficticio mínimo. No demuestra calidad general, resistencia adversarial, seguridad integral ni plataforma multiusuario. Los rótulos fijos heredados sobre “sin llamadas” siguen siendo una contradicción conocida de UI, documentada sin corregir en este lote. Sólo se actualizó este registro durante el cierre; sin commit, push, despliegue ni Notion/Figma.
+
+## Preparación del segundo intento real — 13 de octubre de 2026
+
+Iván autorizó una única generación adicional con créditos exactos desconocidos, `claude-sonnet-4-6`, una fuente ficticia de hasta 1.000 caracteres y salida máxima solicitada de 500 tokens. Antes de ejecutar, el panel mostró 13.897 créditos (103 usados), Auto Refill desactivado y Metering ya activo. No se modificó facturación ni se consultó el catálogo.
+
+Se persistió una nueva autorización `ivan-2026-10-13-second-generation-unknown-credits`, sin reutilizar la anterior. Estado de preparación: 2/5, primer intento fallido intacto, primera excepción consumida, nueva autorización pendiente y `halted: true`. Se comprobó por comparación programática que ambos registros históricos quedaron idénticos. El inicio normal permanece bloqueado incluso con la autorización pendiente; sólo el runner privado puede reservar la solicitud 3 bajo ese permiso. La reserva consume el permiso antes del envío, conserva `halted: true` y bloquea generaciones posteriores.
+
+Se añadió conservación saneada de `finishReason` y diagnóstico por etapa en la ejecución y en los metadatos del nuevo intento, sin guardar texto del proveedor, claves ni fuentes en el registro económico. Pruebas locales: 88 aprobadas y una opcional de navegador omitida; lint y build PASS. Los casos ficticios de éxito y rechazo verificaron preservación histórica, 3/5, motivo de finalización, diagnóstico y cierre tras reapertura del registro. Todavía no se ejecutó este segundo intento: queda pendiente la introducción personal de la clave en el diálogo privado.
+
+## Diagnóstico local del rechazo real — 13 de octubre de 2026
+
+Se inspeccionaron exclusivamente el código del TP, el registro autorizado del intento y este documento. No se accedió a credenciales ni a registros ajenos, no se recuperó una respuesta desde servicios y no hubo llamadas externas.
+
+### Qué permite concluir la evidencia histórica
+
+Comprobado: el intento 2 recibió HTTP 200, conservó `claude-sonnet-4-6` como modelo informado y terminó `invalid`, sin uso de tokens disponible. El transporte pudo leer el JSON externo y su campo de modelo; por eso un JSON externo ilegible, una respuesta externa `null` y el límite de tamaño previo a ese parseo no explican este intento según el recorrido observado. El modelo informado coincide con el solicitado.
+
+La respuesta original y la etapa de rechazo no se conservaron. No puede determinarse cuál de estas alternativas ocurrió: contenido ausente/no textual/demasiado largo, JSON interno inválido, estructura inválida o referencias inválidas. Markdown alrededor del JSON y el literal `evidence|hypothesis|question` son posibilidades reproducidas con datos ficticios, no causas acreditadas de la respuesta real. El uso `null` no demuestra por sí solo si el proveedor omitió los tokens o si estaban en un formato no reconocido. No se reconstruyó ni reclasificó el intento histórico.
+
+### Defectos demostrados y corrección
+
+- Un JSON externo válido pero `null` hacía acceder a `parsed.model` sin validar el objeto; ahora se rechaza explícitamente en `provider_format / invalid_envelope`, conservando el estado HTTP.
+- El `catch` del adaptador perdía los metadatos conocidos ante una excepción posterior a recibir la respuesta. Ahora conserva intento, modelo, uso numérico permitido y HTTP, y distingue excepción de transporte de excepción interna del adaptador.
+- Los controles de modelo y finalización contable también conservan los metadatos disponibles cuando rechazan; el contenido se mantiene excluido del resultado fallido.
+- El diagnóstico distingue formato externo, extracción de contenido, parseo JSON interno, estructura, referencias y controles. Sólo admite códigos fijos de etapa/motivo; se conserva con la ejecución del proyecto sin escribir fuentes, claves ni respuestas completas en logs o en el registro económico.
+- Se aclaró la salida solicitada: un objeto JSON sin Markdown, campos requeridos no vacíos y un único valor permitido de certeza. El contrato sigue rechazando Markdown, campos faltantes, referencias desconocidas y citas inexistentes; no se reparan respuestas ni se eliminan campos para lograr aprobación.
+
+Archivos de este lote: `app/server/providers/abacus.mjs`, `app/server/providers/abacus-transport.mjs`, `app/server/trial.mjs`, `app/server/one-shot.mjs`, `app/src/ai/contracts.js`, nuevo `app/src/ai/diagnostics.js`, nuevo `app/tests/diagnostics.test.mjs` y este registro. Se preservaron los cambios locales previos del intento único; no se modificó su registro económico.
+
+### Comprobaciones y límites
+
+Comando estándar: 86 pruebas aprobadas, una opcional de navegador omitida (87 registradas); lint y build PASS. Se añadieron 19 pruebas con respuestas ficticias y bloqueo explícito de sockets/fetch externos: JSON externo inválido/nulo/array, ausencia de choices, contenido no textual, JSON interno inválido/con Markdown, estructura y certeza incorrectas, referencias sin respaldo, respuesta truncada, caso válido, diagnóstico saneado y excepción después de recibir metadatos. Se comprobó que los rechazos no incorporan propuestas y conservan uso/modelo/HTTP disponibles. No se volvió a ejecutar el recorrido de navegador ni una evaluación de calidad real.
+
+El archivo económico conservó exactamente su SHA256 antes/después: `07B2DB69F6D56A2BC2CCF234C51D18C74934C061BF8032F990D8279ECCFC2D30`. Sigue en 2/5, intento histórico fallido, excepción consumida, `halted: true`, cargos desconocidos y generaciones deshabilitadas. Se conserva la diferencia global observada de 14 créditos, sin atribución exclusiva ni reconciliación inventada. Los cuatro casos del corpus continúan no ejecutados. No hubo commit, push ni despliegue.
+
+## Intento real único autorizado — 13 de octubre de 2026
+
+Se ejecutó una sola generación real desde Work, sobre el candidato local derivado de `b56d9e6f46952c99755095d853a02052fe56e2b5`, con cambios locales de control. La autorización exceptuó exclusivamente el máximo económico previo de 140 créditos para este intento; no autorizó compras, recargas, upgrades ni generaciones adicionales.
+
+### Preparación y controles
+
+- Cuenta inspeccionada por su interfaz: Basic, Auto Refill desactivado y API Metering ya activado. No se modificaron esos ajustes.
+- Se preservó el catálogo como solicitud 1/5, con créditos y reconciliación desconocidos.
+- La excepción persistida identifica esta autorización y permite sólo la solicitud 2. La reserva consume la excepción y fija `halted: true` antes del envío; el máximo en créditos permanece `null`, sin conversión ni reconciliación inventada.
+- Modelo exacto solicitado: `claude-sonnet-4-6`; salida máxima solicitada: 500 tokens. Una fuente ficticia inferior a 1.000 caracteres y solicitud breve, sin streaming, herramientas, router, sustitución ni reintentos.
+- La interfaz seleccionó exclusivamente “Registro operativo ficticio”; “Solicitud original preservada” quedó deseleccionada como fuente. La solicitud se prepara en un mensaje propio y la fuente en otro, mediante el adaptador existente. Se inspeccionaron selección y originales en la interfaz; no se guardó una captura del tráfico HTTP ni contenido en el registro económico.
+- Credencial introducida personalmente en diálogo enmascarado y transferida por pipe local a memoria del servicio; no se guardó en archivos, navegador, argumentos o registros.
+- Pruebas locales previas: 67 aprobadas, una opcional omitida; lint y build PASS. Las cuatro pruebas nuevas usan transporte ficticio con red bloqueada y comprueban límites, preservación del catálogo, reserva 2/5 y bloqueo tras reapertura del registro.
+
+### Resultado observado
+
+- Solicitud económica: `5f155ab3-1f1f-4332-a950-8d93d8e71092`, número 2/5.
+- Ejecución de proyecto: `fe66c1be-a3d2-4221-8432-53f075353e67`.
+- HTTP 200; modelo informado `claude-sonnet-4-6`; resultado del adaptador `invalid`. Uso de tokens no disponible en los metadatos conservados.
+- No se incorporaron propuestas. No pudieron comprobarse fidelidad, revisión de una respuesta válida, decisión ni entregable derivado del modelo. No se repitió el intento.
+- Recargar conservó el proyecto ficticio, solicitud original, fuente y selección, y el evento de ejecución fallida; cero propuestas y cero decisiones nuevas.
+- El registro no conserva la respuesta original inválida ni una etapa detallada de rechazo. Por eso no permite establecer si falló el JSON, su estructura o las referencias. HTTP 200 acredita respuesta de conexión, no integración completa ni calidad del modelo.
+
+### Consumo y cierre
+
+El panel global mostró 13.911 créditos antes y 13.897 después (89 y 103 usados): diferencia observada de 14 créditos, sin atribución exclusiva a esta llamada. El registro de uso visible era diario y no mostraba aún una fila del 13 de octubre; advierte actualización de hasta una hora. Los créditos del catálogo y de la generación siguen desconocidos y pendientes de reconciliación. No se inventó un cargo ni se volvió a generar.
+
+El servicio privado fue detenido y la clave descartada con su proceso. Registro persistente final: 2/5, excepción consumida, `halted: true`; ambos cargos permanecen `null`. Reiniciar el servicio normal no habilita generaciones.
+
+Limitación de UI observada: textos fijos de Work/AI Activity todavía describen el lote anterior sin llamadas reales, aunque el evento muestra el modelo y el intento real. Después del fallo, Work conserva el estado de conexión en memoria hasta comprobar de nuevo el servicio; el control persistente bloquea otro envío. Queda pendiente ajustar esos textos y mejorar el diagnóstico por etapa bajo otro lote. Los cuatro casos del corpus de evaluación continúan no ejecutados; este intento técnico independiente no los sustituye.
+
 Este archivo es la autoridad detallada de verificación. Conserva la verificación histórica del 7 de octubre y los retests posteriores del candidato todavía no publicado. Un resultado histórico no demuestra por sí solo el comportamiento del árbol local vigente.
 
 ## Revisión vigente de la adaptación local — 10 de octubre de 2026

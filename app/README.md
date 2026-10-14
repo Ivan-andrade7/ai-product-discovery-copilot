@@ -60,14 +60,14 @@ pnpm preview
 - Aviso y bloqueo de una pestaña desactualizada, con una ventana residual de carrera porque `localStorage` no ofrece transacciones.
 - Servicio auxiliar local limitado a loopback, sin backend remoto de producto, autenticación, base de datos remota ni sincronización entre dispositivos.
 - Contrato, transporte reemplazable y registro duradero de consumo preparados, pero generaciones reales deshabilitadas.
-- Adaptación oscura publicada con autorización de Iván el 10/10/2026 en GitHub Pages y Vercel, commit de implementación `d758512`. Build PASS; 63 pruebas aprobadas y una opcional omitida. Lint bloqueado por dependencias locales incompletas de Zod. El servicio auxiliar no se publica ni se habilitan generaciones.
+- Adaptación oscura publicada el 10/10/2026 en GitHub Pages y Vercel, `d758512`. Los intentos reales y sus controles posteriores son locales; el servicio auxiliar no se publica. El bloqueo histórico de lint quedó superado en los retests locales posteriores.
 - La inspección interna no constituye validación con usuarios, seguridad integral ni conformidad completa de accesibilidad.
 
 ## Estado del candidato
 
-El candidato local usa `v0.3`, transmite al adaptador la solicitud vigente junto con sólo las fuentes seleccionadas y mantiene separados sistema, solicitud y contenido no confiable. Si la solicitud o una fuente cambia durante el análisis, el resultado queda obsoleto y no se incorpora silenciosamente. Estas rutas se probaron con transporte simulado y salida externa bloqueada; no demuestran IA real ni calidad del modelo.
+El candidato local usa `v0.3`, transmite solicitud y sólo fuentes seleccionadas en mensajes separados y bloquea resultados obsoletos. Un caso ficticio completó el recorrido con una respuesta real de `claude-sonnet-4-6`, decisión de prueba, entregable y persistencia. La calidad general y la resistencia adversarial no están validadas. Nuevas respuestas requieren type Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question; los tipos históricos se conservan literalmente.
 
-La cobertura vigente se registra de forma canónica en [`../docs/verification-2026-10-07.md`](../docs/verification-2026-10-07.md): 63 pruebas aprobadas y una opcional omitida en el comando estándar; en un recorrido separado, 21/21 comprobaciones de navegador y 90 de layout. El corpus de cuatro casos permanece preparado y no ejecutado.
+La cobertura y el consumo se registran en [`../docs/verification-2026-10-07.md`](../docs/verification-2026-10-07.md). Estado económico: 3/5, ambas autorizaciones consumidas, halted y generaciones deshabilitadas. El consumo agregado no permite atribución individual. El corpus de cuatro casos permanece sin ejecutar. Login, multiusuario, PDF/imágenes, leads, portal y monetización no están implementados.
 
 ## Tecnología
 

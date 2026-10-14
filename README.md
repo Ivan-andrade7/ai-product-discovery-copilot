@@ -16,7 +16,7 @@ Principio rector:
 
 ## Entrega base y evolución vigente
 
-La versión pública demuestra una maqueta HTML navegable de Nivel 2 con datos ficticios. El candidato local posterior conserva ese recorrido y prepara, sin habilitarla, una integración reemplazable con IA real.
+La versión pública demuestra una maqueta navegable con datos ficticios y preparación de IA cerrada a consumo. El candidato local posterior completó una ejecución real exitosa del recorrido mínimo con `claude-sonnet-4-6`, en un único caso ficticio controlado. Las generaciones vuelven a estar deshabilitadas.
 
 1. crear o abrir un proyecto demo;
 2. conservar la solicitud original;
@@ -28,7 +28,7 @@ La versión pública demuestra una maqueta HTML navegable de Nivel 2 con datos f
 
 ## Estado
 
-El repositorio contiene una maqueta React + Vite navegable. La adaptación de marca del commit `d758512658138cbe86b6e59c9fef1bb42975deb8` fue publicada con autorización de Iván el 10/10/2026 en GitHub Pages y Vercel. Incluye la corrección responsive, persistencia `v0.3` y preparación de IA, con generaciones deshabilitadas. Ambos sitios respondieron HTTP 200 y cargaron los mismos assets del build local; Projects y Work se revisaron con datos ficticios. Build PASS y 63 pruebas aprobadas, una opcional omitida; lint permanece bloqueado por archivos faltantes de Zod en el entorno local.
+El repositorio contiene una aplicación React + Vite navegable. La adaptación de marca `d758512` se publicó el 10/10/2026 en GitHub Pages y Vercel con persistencia v0.3 y preparación de IA cerrada. Los intentos reales, los diagnósticos y el cierre del contrato de tipos son posteriores y permanecen locales sin versionar. El bloqueo histórico de lint por Zod no es el estado vigente: el cierre local pasó lint y build; el detalle de pruebas se mantiene en el registro canónico.
 
 La primera porción vertical del producto ya está implementada con datos locales:
 
@@ -53,7 +53,11 @@ La primera porción vertical del producto ya está implementada con datos locale
 19. contrato y transporte local preparados para transmitir la solicitud vigente y sólo las fuentes seleccionadas, en mensajes separados;
 20. bloqueo de resultados obsoletos si cambia la solicitud o el contenido de una fuente seleccionada.
 
-La preparación local se verificó sin credenciales ni llamadas externas. El comando estándar registró 63 pruebas aprobadas y una prueba opcional omitida; por separado, el recorrido de navegador registró 21/21 comprobaciones funcionales y 90 comprobaciones de layout. Estas cifras corresponden a capas distintas y no deben sumarse. Las respuestas simuladas sólo prueban el contrato, el control del mensaje y la interfaz: no prueban calidad de un modelo, resistencia real a instrucciones engañosas ni costo máximo. El detalle y el historial están en [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md).
+Las pruebas locales con respuestas simuladas comprueban contrato, mensaje, almacenamiento y controles. Por separado, una respuesta real válida permitió revisar una cita literal e incertidumbre, aceptar la propuesta y comprobar decisión, entregable y persistencia; un intento anterior permanece fallido. La aceptación fue una acción de prueba del asistente tras revisar contenido ficticio, no un estudio con usuarios. Un caso no acredita calidad general ni seguridad integral. El detalle, las cifras de pruebas y el historial están en [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md).
+
+Para nuevas respuestas, `type` exige Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question. El valor histórico `string` se conserva sin normalización. No está implementada la categoría `inference`.
+
+Control económico vigente: 3/5, ambas autorizaciones consumidas y `halted: true`. Tokens no disponibles; saldo observado 13.897 → 13.889 y 21,3 créditos API agregados del 13/10, sin atribución individual ni reconciliación inventada. No hay permiso ni habilitación para otra generación.
 
 ## Cómo probar la solución
 

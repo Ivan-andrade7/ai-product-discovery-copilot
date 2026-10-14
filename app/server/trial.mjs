@@ -87,10 +87,10 @@ export function createAbacusTrial({ apiKey, ...setup } = {}) {
       const result = await adapter.analyze(request, { signal })
       if (result.externalAttempted && setup.accounting?.finalize) {
         try { setup.accounting.finalize({ requestNumber: result.trialRequestNumber, ok: result.ok && result.modelReported === TRIAL_MODEL, code: result.code ?? (result.modelReported !== TRIAL_MODEL ? 'invalid' : null) }) }
-        catch { admission.stop(); return { ok: false, code: 'budget_blocked', externalAttempted: true, trialRequestNumber: result.trialRequestNumber } }
+        catch { admission.stop(); return { ...result, ok: false, code: 'budget_blocked', value: undefined, diagnostic: { stage: 'control', reason: 'accounting_error' } } }
       }
       if (result.externalAttempted && (!result.ok || result.modelReported !== TRIAL_MODEL)) admission.stop()
-      if (result.ok && result.modelReported !== TRIAL_MODEL) return { ...result, ok: false, code: 'invalid', value: undefined }
+      if (result.ok && result.modelReported !== TRIAL_MODEL) return { ...result, ok: false, code: 'invalid', value: undefined, diagnostic: { stage: 'control', reason: 'model_mismatch' } }
       return result
     },
     reconcile: admission.reconcile,

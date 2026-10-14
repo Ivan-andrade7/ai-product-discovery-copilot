@@ -20,9 +20,9 @@ El objetivo del trabajo es demostrar, mediante una maqueta HTML navegable, cómo
 
 **solicitud original → propuesta demo → revisión humana → decisión → historial → entregable derivado**.
 
-El candidato local posterior prepara el recorrido con IA real: transmite la solicitud vigente y sólo las fuentes seleccionadas, separa instrucciones de contenido no confiable y rechaza resultados obsoletos. Las generaciones siguen deshabilitadas; por eso esta preparación no acredita todavía una respuesta real del proveedor.
+El candidato local posterior completó una respuesta real válida de claude-sonnet-4-6 sobre un único caso ficticio controlado: solicitud y fuente seleccionada → propuesta con cita e incertidumbre → revisión y aceptación de prueba por el asistente → decisión → entregable persistente. Un primer intento fue rechazado y permanece fallido. Las generaciones están nuevamente deshabilitadas; el caso no prueba calidad general ni evaluación independiente con usuarios.
 
-La entrega corresponde al Nivel 2 admitido por la consigna: una maqueta navegable que muestra el funcionamiento potencial aunque no exista todavía un backend o una integración real con un modelo.
+La maqueta sigue siendo compatible con el Nivel 2 admitido por la consigna. El candidato local incorpora además un recorrido real mínimo mediante un servicio privado local; no existe backend remoto ni integración habilitada para usuarios. La compatibilidad de nivel no acredita cumplimiento académico completo.
 
 ## b. Marco conceptual
 
@@ -42,7 +42,7 @@ La trazabilidad permite reconstruir qué entrada originó una propuesta, qué ex
 
 Se utilizaron herramientas de exploración visual y de implementación asistida. Figma y Figma Make se usaron para trabajar estructura y variantes visuales; UXPilot y Abacus.AI aportaron alternativas exploratorias; Codex asistió la construcción de la maqueta React, las pruebas, las correcciones y la documentación. React, Vite, ESLint y Git sostienen la implementación y su verificación, pero no son modelos de IA.
 
-Figma Make y UXPilot no mostraron para Iván un modelo identificable. Abacus.AI se utilizó en su modalidad gratuita, sin que quedara registrado el modelo subyacente. Estas limitaciones se declaran en lugar de atribuir nombres no verificados.
+Figma Make y UXPilot no mostraron para Iván un modelo identificable. La exploración inicial en Abacus.AI fue gratuita y no registró el modelo subyacente. Posteriormente, con Basic, los intentos API solicitaron e informaron claude-sonnet-4-6. Estas evidencias no identifican retroactivamente los modelos de la exploración.
 
 ## c. Metodología
 
@@ -50,7 +50,7 @@ Figma Make y UXPilot no mostraron para Iván un modelo identificable. Abacus.AI 
 
 El proyecto comenzó recuperando la consigna, las notas existentes y el contexto de una idea inicialmente muy amplia: asistir las etapas E1–E18 del proceso UX/Product de punta a punta. Esa visión incluía investigación, definición, wireframes, prototipos y posibles usos futuros con clientes.
 
-Para evitar construir una plataforma demasiado grande para el TP, se separó una base académica de las extensiones futuras. La base quedó definida como una maqueta navegable con datos ficticios y control humano. El candidato local incorporó el contrato, el transporte reemplazable y el registro de consumo necesarios para una futura prueba real, pero no ejecutó generaciones. Autenticación, persistencia remota, aislamiento multiusuario, adjuntos PDF/imágenes, leads, portal y monetización operativa continúan fuera del alcance implementado. La publicación estática anterior facilita la evaluación sin convertir la maqueta en una aplicación funcional con backend remoto.
+Se separó la base académica de las extensiones futuras. El contrato, transporte y registro local permitieron dos intentos reales autorizados individualmente: uno fallido y uno exitoso en un caso mínimo ficticio. Autenticación, persistencia remota, multiusuario, PDF/imágenes, leads, portal y monetización siguen fuera del candidato. La publicación estática no incluye el servicio privado ni los cambios locales posteriores.
 
 ### 2. Exploración visual
 
@@ -91,7 +91,7 @@ Durante las pruebas se detectaron y corrigieron problemas concretos:
 - los estados seleccionados necesitaban información semántica además del cambio visual.
 - el primer despliegue falló porque GitHub Pages todavía no estaba habilitado para GitHub Actions; se corrigió la configuración y el segundo intento completó build y publicación.
 
-La revisión vigente combinó pruebas automatizadas, recorrido controlado de navegador y comprobaciones de layout. El comando estándar registró 63 pruebas aprobadas y una opcional omitida. Por separado, el recorrido de navegador registró 21/21 comprobaciones y 90 comprobaciones de layout. No se suman porque representan capas diferentes.
+La verificación distingue pruebas automatizadas con respuestas ficticias, recorridos históricos de navegador/layout y el caso real mínimo exitoso. Las cifras y resultados se conservan en `docs/verification-2026-10-07.md`; no se suman como evidencias equivalentes.
 
 En el lote multiproyecto se diferenciaron tres clases de comprobación. En navegador local se probaron proyectos independientes, fuentes aportadas, acciones humanas, activaciones repetidas, dos pestañas, responsive amplio y estrecho y un recorrido acotado con teclado. La revisión estática contrastó el esquema y las rutas de error con el código. Un almacenamiento simulado y aislado comprobó preservación de `v0.1`, migración válida única, escritura obsoleta, fallo de guardado, `v0.2` incompatible y recuperación programática del respaldo. Una entrada heredada malformada reveló una brecha; el lote correctivo incorporó validación completa antes de persistir y el retest confirmó que JSON inválido, propuestas malformadas y estructuras incompletas no crean `v0.2`. La auditoría accesible integral, las tecnologías de asistencia y la URL pública no se repitieron.
 
@@ -116,7 +116,7 @@ El resultado es una maqueta HTML navegable que permite:
 - preparar un análisis con la solicitud vigente y sólo las fuentes seleccionadas, sin mezclar contenido de fuentes con instrucciones del sistema;
 - impedir que un resultado se incorpore silenciosamente cuando cambia la solicitud o una fuente seleccionada.
 
-El candidato local usa persistencia `v0.3`, conserva los formatos anteriores y mantiene las generaciones deshabilitadas. El transporte simulado permitió comprobar la preparación del mensaje y el manejo de resultados obsoletos, pero no ejecutó el corpus ni una respuesta de proveedor real.
+El candidato local usa v0.3, conserva formatos anteriores y mantiene las generaciones cerradas tras los intentos. El caso real exitoso preservó cita, incertidumbre, decisión y entregable al reabrir el navegador. El corpus de cuatro casos continúa sin ejecutar.
 
 El código, la documentación y la evolución del proyecto están disponibles en:
 
@@ -126,7 +126,7 @@ La versión publicada anterior puede recorrerse sin instalación en:
 
 https://ivan-andrade7.github.io/ai-product-discovery-copilot/
 
-GitHub Pages y Vercel contienen el commit público anterior `cd1f8b71211604cddd7ccc2cccb4c78bb957866a`. No contienen la corrección responsive, la persistencia `v0.3` ni la preparación de IA posteriores. Esos despliegues no se retestearon durante esta fase documental.
+GitHub Pages y Vercel publicaron la adaptación d758512 con responsive, v0.3 y preparación cerrada. Los diagnósticos, intentos y cierre de tipos posteriores siguen locales sin commit. No se retesteó producción en este lote.
 
 ### Evidencia visual seleccionada
 
@@ -180,7 +180,9 @@ La maqueta también mantiene proporcionalidad: representa el recorrido necesario
 
 ### Limitaciones
 
-Las respuestas usadas en las pruebas son simuladas y no provienen de un modelo conectado. Existe un servicio auxiliar local restringido a loopback y un transporte preparado, pero no una generación real ejecutada ni un backend remoto de producto. La persistencia de proyectos sólo existe en el navegador; no hay autenticación, aislamiento multiusuario, colaboración remota, adjuntos PDF/imágenes ni monetización operativa. Tampoco se realizaron entrevistas o pruebas con usuarios, por lo que no puede afirmarse que la solución mejore productividad, comprensión o calidad de las decisiones.
+Las pruebas simuladas comprueban contrato y controles; una respuesta real exitosa demuestra el recorrido técnico mínimo en un caso ficticio. No demuestra calidad general, seguridad integral ni resistencia adversarial. No hay login, aislamiento multiusuario, PDF/imágenes, leads, portal ni monetización; persistencia sólo local. No hubo investigación primaria ni pruebas con usuarios, ni métricas de productividad.
+
+La respuesta real devolvió type: string. El prompt ofrecía ese literal y el contrato aceptaba texto libre; el adaptador lo conservó sin normalización. Se corrigieron las nuevas respuestas para exigir Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question, sin añadir inference. La respuesta histórica conserva string y su aceptación: no se presenta como salida del contrato revisado ni se modifica retroactivamente.
 
 El contrato estructura `evidence`, `hypothesis` y `question`; `inference` no está implementada como categoría autónoma. El corpus conserva cuatro casos ficticios no ejecutados. La simulación no demuestra calidad del modelo, resistencia real a instrucciones engañosas ni costo máximo.
 
@@ -196,7 +198,7 @@ La revisión accesible fue una inspección técnica limitada. Se revisaron reflo
 
 **Fluida.** La navegación mantiene continuidad entre Overview, Work, Decisions y Deliverables. En móvil las columnas se reorganizan y las acciones se apilan. La fluidez observada es técnica e interna; falta validarla con otras personas.
 
-**Protegida.** La demo probada usa datos ficticios, no transmite información a servicios externos y no incorporó datos personales al repositorio. La validación de esquema, la recuperación y el aviso de conflicto reducen pérdidas accidentales en el escenario local probado, pero no demuestran seguridad integral. Una versión futura con clientes necesitaría autenticación, permisos, privacidad, tratamiento de fuentes y políticas de retención.
+**Protegida.** La demo y pruebas locales usan datos ficticios; los dos intentos autorizados enviaron sólo texto ficticio a Abacus mediante un servicio privado local. Claves fuera del repositorio y consumo cerrado después. Esto no acredita seguridad integral ni aislamiento entre usuarios. El uso con clientes requiere permisos, privacidad y tratamiento de fuentes todavía no implementados.
 
 **Bajo control humano.** Es la dimensión más desarrollada: ninguna propuesta entra al entregable sin aceptar o editar y aceptar; rechazar o mantener pendiente no la incorpora; reabrir la retira; el historial conserva la acción anterior. Aun así, controlar una propuesta no equivale a validarla con evidencia externa.
 
@@ -206,7 +208,7 @@ El trabajo permitió transformar una visión amplia en un producto demostrable y
 
 También resultó valioso trabajar mediante incrementos pequeños y verificables. Las pruebas revelaron errores que no eran visibles en el diseño estático, como la duplicación del historial y la relación entre reapertura y entregable. Esto mostró la diferencia entre imaginar un flujo y comprobar su comportamiento.
 
-Como evolución futura, la prioridad recomendada es ejecutar una operación real y acotada de IA manteniendo la misma trazabilidad. Antes deben resolverse la conversión oficial de créditos, la reconciliación de la consulta de catálogo y el cálculo conservador frente al presupuesto condicionado de 140 créditos. El contador real permanece en 1/5 solicitudes. La captación de leads, el portal de clientes y las integraciones deberían considerarse después, cuando el flujo central esté probado y existan reglas de privacidad y permisos.
+El recorrido real mínimo quedó demostrado, pero requiere evaluación adicional antes de uso general. Contador 3/5, permisos consumidos y halted: true. Tokens no disponibles; saldo 13.897 → 13.889 y panel con 21,3 créditos API diarios del 13/10 no permiten atribución individual. La reconciliación sigue pendiente; futuras llamadas requieren nueva autorización. Leads, portal y monetización siguen como visión futura.
 
 ## Pendientes para convertir este borrador en entrega
 
@@ -214,5 +216,5 @@ Como evolución futura, la prioridad recomendada es ejecutar una operación real
 2. Reconfirmar la fecha contra cualquier aviso docente posterior.
 3. Registrar el modelo exacto de Codex si puede recuperarse; de lo contrario, mantener la limitación declarada.
 4. Resolver la conversión oficial, reconciliar el consumo desconocido de la consulta de catálogo y calcular conservadoramente el lote completo.
-5. Autorizar por separado y ejecutar la prueba real de IA; los cuatro casos del corpus continúan sin ejecutar.
+5. Revisar el cierre local y decidir futuras evaluaciones mediante autorización separada; los cuatro casos del corpus continúan sin ejecutar.
 6. Versionar y publicar el candidato sólo mediante autorizaciones posteriores. Un push a `main` puede actualizar los alojamientos públicos.
