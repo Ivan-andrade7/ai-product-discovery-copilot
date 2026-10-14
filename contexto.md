@@ -35,17 +35,23 @@
 - Los rótulos de pendientes y decisiones flexionan correctamente cero, uno y varios en los escenarios comprobados.
 - La recuperación de un respaldo fue comprobada programáticamente. Todavía no existe una acción de importación desde la interfaz.
 - Iván autorizó publicar la adaptación local el 10/10/2026. El commit de implementación `d758512658138cbe86b6e59c9fef1bb42975deb8` fue enviado a main junto con los dos commits anteriores pendientes, incluyendo preparación de IA con generaciones deshabilitadas.
-- La publicación del 10/10 en GitHub Pages y Vercel fue comprobada según el registro. Las correcciones de diagnósticos, intentos reales y tipos posteriores permanecen locales. Lint y build pasaron en el cierre actual; el fallo anterior de dependencias es histórico.
+- La auditoría prepublicación comprobó b56d9e6 en ambos alojamientos. El último commit local existente es 61704e7, con cierre real y tipos estrictos, sin push. El fallo previo de lint es histórico. Cabecera, Work, textos y cierre documental posteriores están corregidos/retesteados, todavía sin commit; ver resultados en el registro canónico.
 - Los proyectos nuevos empiezan sin propuestas; el contenido simulado permanece en un proyecto demo separado.
 - El contrato incluye la solicitud vigente y sólo las fuentes seleccionadas. El adaptador separa instrucciones del sistema, solicitud y fuentes tratadas como contenido no confiable.
 - Un cambio de solicitud o de una fuente seleccionada vuelve obsoleto el resultado en curso e impide incorporarlo silenciosamente.
-- El segundo intento real completó el recorrido mínimo en un caso ficticio: HTTP 200, claude-sonnet-4-6, stop, cita literal e incertidumbre, aceptación de prueba por el asistente, decisión, entregable y persistencia. El primero permanece fallido. Generaciones nuevamente deshabilitadas.
-- Contador 3/5, ambas autorizaciones consumidas y halted: true; tokens no disponibles. Saldo 13.897 → 13.889 y 21,3 créditos API diarios del 13/10: observaciones agregadas, sin cargos individuales reconciliados.
-- Nuevas respuestas exigen type Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question. La respuesta histórica con string queda intacta y legible; no se normaliza ni migra.
+- El segundo intento real completó el recorrido mínimo en un caso ficticio: HTTP 200, claude-sonnet-4-6, stop, cita e incertidumbre, aceptación de prueba por el asistente, decisión, entregable y persistencia. El primero permanece fallido. Generaciones nuevamente deshabilitadas.
+- Contador 3/5, ambos permisos consumidos y halted: true. Tokens no disponibles; saldo 13.897 → 13.889 y 21,3 créditos API diarios son agregados sin atribución individual.
+- Nuevas respuestas exigen type Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question. La respuesta histórica con string permanece intacta, sin normalización.
 - El corpus de evaluación conserva cuatro casos ficticios no ejecutados. `inference` no existe como categoría estructurada del contrato vigente.
 - No están implementados login, aislamiento multiusuario, adjuntos PDF/imágenes, persistencia remota, leads, portal ni monetización operativa.
 
 ## Decisión vigente
+
+### Alcance integral confirmado por Iván — 14 de octubre de 2026
+
+El TP final se concibe como una plataforma integral para Iván y sus clientes. El alcance conceptual puede reunir, por fases, el brief, discovery asistido por IA, portal de cliente, hitos, cambios de alcance, aprobaciones, entregables y trazabilidad. Estos elementos no deben convertirse en productos o Projects separados: la implementación real de cada módulo sigue dependiendo de tiempo, fuentes, pruebas y autorización explícita. Esta decisión de alcance no demuestra que todos los módulos estén implementados.
+
+Las nuevas ideas de portfolio deben excluir cualquier producto que replique un portal de clientes, brief, gestor de cambios, flujo de aprobaciones o sistema de trabajo para proyectos web.
 
 Por decisión explícita de Iván, la IA integrada real es obligatoria para la versión que quiere entregar y utilizar. La compatibilidad académica con Nivel 2 no sustituye este requisito del producto ni permite atribuirlo a la consigna docente.
 
@@ -67,7 +73,7 @@ La versión objetivo conservará solicitud original y fuentes autorizadas por pr
 
 Los proyectos nuevos empezarán vacíos o pendientes de análisis. La simulación permanecerá exclusivamente en un proyecto demo separado. Una URL no equivale a contenido consultado; las referencias deberán apuntar a contenido realmente disponible. Los errores conservarán entradas y permitirán reintento o trabajo manual, nunca contenido demo automático. Cada operación registrará modelo, fuentes y versión del contexto; un resultado obsoleto no se aplicará silenciosamente.
 
-Se conserva la base v0.3 y los estados históricos. La prueba real mínima exitosa no valida calidad general, seguridad integral, adjuntos ni los otros casos. Las claves de los servicios privados terminaron con sus procesos; el arranque normal sigue bloqueado.
+Se conserva la base v0.3 y los estados históricos. El único caso real mínimo exitoso no valida calidad general ni seguridad integral; las generaciones siguen bloqueadas. La exposición pública de IA requiere otro alcance y autorización.
 
 ## Criterio de cierre
 
@@ -84,7 +90,9 @@ Se conserva la base v0.3 y los estados históricos. La prueba real mínima exito
 
 ## Próximo gate
 
-Revisar el cierre local antes de decidir versionado. Reconciliación individual y conversión oficial siguen pendientes; 3/5 y halted permanecen intactos. No hay autorización para otra generación. Publicar o hacer push a main requiere autorización independiente y puede actualizar ambos alojamientos.
+Autorizar por separado el commit local de cabecera, Work, textos y documentación posteriores a 61704e7. El candidato corregido y documentado está listo para ese commit; no se hizo staging. Publicar requiere otra autorización y un push a main puede actualizar ambos alojamientos. Contador 3/5, halted: true y ambos permisos consumidos permanecen; no hay autorización para nuevas generaciones. Conversión oficial, reconciliación y presupuesto condicionado de 140 créditos siguen pendientes para futuras pruebas.
+
+Antecedente: el retest de cabecera encontró después un desbordamiento distinto de Work a 901 px. El lote adicional lo corrigió mediante apilado hasta 1024 px; los 72 casos focalizados pasaron. Ambos fallos y sus retests se conservan en el registro; no son bloqueantes vigentes. No se extrapola a todos los entornos ni a accesibilidad integral.
 
 ## Verificación técnica histórica
 
@@ -107,7 +115,7 @@ Revisar el cierre local antes de decidir versionado. Reconciliación individual 
 
 ## Verificación vigente del candidato local
 
-La autoridad detallada es [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md). Distingue batería local simulada, recorridos históricos de navegador y un caso real exitoso. Sus cifras no se suman. Las simulaciones no acreditan calidad real ni costo máximo; una respuesta real tampoco acredita calidad general.
+La autoridad detallada es [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md). Distingue pruebas locales simuladas, navegador/layout y un caso real mínimo exitoso; las cifras históricas no se suman ni sustituyen el retest vigente. No acreditan calidad general, resistencia adversarial ni costo máximo.
 
 - Navegador local con datos ficticios: PASS para crear dos proyectos, abrir cada tarjeta, conservar estados independientes, mostrar el nombre activo y representar una fuente aportada como “Aportada · sin revisar”.
 - Navegador local: PASS para aceptar, editar y aceptar, rechazar, mantener pendiente, reabrir, actualizar contadores, conservar historial, derivar entregables y registrar actividad.

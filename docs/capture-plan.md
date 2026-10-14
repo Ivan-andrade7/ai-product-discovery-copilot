@@ -2,6 +2,8 @@
 
 Objetivo: demostrar el recorrido y la trazabilidad con pocas imágenes legibles. No usar capturas como prueba de validación de usuarios.
 
+Este plan se aplica al demo en un contexto aislado. Para estado vigente, distinguir el ensayo real mínimo anterior, la IA pública deshabilitada y las capturas históricas; consultar el registro de verificación. Los PDF v0.1/v0.2 generados el 7/10 son antecedentes, no el informe actualizado ni la entrega final.
+
 ## Capturas principales recomendadas
 
 1. **Projects** — punto de entrada y proyecto demo claramente identificado.
@@ -13,12 +15,12 @@ Objetivo: demostrar el recorrido y la trazabilidad con pocas imágenes legibles.
 ## Capturas secundarias
 
 6. **Sources** — diferencia entre entrada original, interpretación, marco y requisito académico.
-7. **AI Activity** — límite explícito: datos locales, sin llamadas reales a IA.
+7. **AI Activity** — procedencia de los eventos y generaciones actuales deshabilitadas; el demo no acredita IA real. Un historial de ensayo previo no habilita nuevas llamadas.
 8. **Vista móvil de Work** — reflow a 390 px con acciones apiladas.
 
 ## Secuencia para producir evidencia consistente
 
-1. Recargar la aplicación para iniciar sin decisiones.
+1. Abrir un contexto de navegador aislado con datos ficticios para iniciar sin decisiones. Recargar conserva el estado local; no borrar datos existentes para obtener una captura.
 2. Abrir `Discovery v0.1`.
 3. Capturar Overview.
 4. Entrar a Work y capturar la propuesta inicial.

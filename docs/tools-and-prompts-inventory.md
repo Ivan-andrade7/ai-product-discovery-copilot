@@ -1,6 +1,6 @@
 # Inventario de herramientas, modelos y prompts
 
-Fecha de revisión: 7 de octubre de 2026.
+Fecha de revisión vigente: 14 de octubre de 2026. El corte inicial del 7 de octubre se conserva como antecedente en los registros enlazados.
 
 ## Regla de lectura
 
@@ -15,20 +15,21 @@ Este inventario distingue uso verificado, función en el proceso y datos todaví
 | Figma Make | Generación exploratoria de una versión visual a partir de un prompt | Proyecto compartido por Iván | Iván no tuvo acceso a un nombre de modelo identificable |
 | UXPilot | Exploración de variantes visuales | Capturas aportadas por Iván | Iván no tuvo acceso a un nombre de modelo identificable |
 | Abacus.AI | Exploración de otra versión generada | Conversación enlazada por Iván | Modalidad gratuita; modelo/agente exacto no identificado |
-| Codex | Lectura de fuentes, implementación React, revisión, correcciones y documentación | Aplicación y documentos locales; el lote vigente aún no tiene commit | Identificador exacto del modelo pendiente de recuperar desde una fuente verificable |
+| Abacus API / Basic | Dos generaciones personales autorizadas: primera fallida, segunda válida en un caso ficticio mínimo | Recorrido real mínimo, decisión, entregable y persistencia; generaciones cerradas después | claude-sonnet-4-6 solicitado e informado; tokens no disponibles; no valida calidad general |
+| Codex | Lectura de fuentes, implementación React, revisión, correcciones y documentación | Último commit local 61704e7; cabecera, Work, textos y cierre documental posteriores sin commit | Identificador exacto del modelo pendiente de recuperar desde una fuente verificable |
 | React | Construcción de la interfaz por componentes | Aplicación navegable | No es IA; versión declarada en el manifiesto, no reconfirmada aquí como versión instalada |
 | Vite | Entorno de desarrollo y build local | Build local verificado | No es IA; versión declarada en el manifiesto, no reconfirmada aquí como versión instalada |
 | ESLint | Revisión estática | Verificación local PASS | No es IA; versión declarada en el manifiesto, no reconfirmada aquí como versión instalada |
-| Git | Historial y comparación entre estado publicado y árbol local | Último commit local identificado y cambios sin versionar | No es IA |
-| GitHub Actions y Pages | Publicación estática de una versión anterior | Workflow y demo pública históricos | No son IA; el lote multiproyecto no fue publicado |
+| Git | Historial y comparación entre estado publicado y árbol local | Público b56d9e6; último commit local 61704e7; sólo las correcciones posteriores siguen sin commit | No es IA |
+| GitHub Actions y Pages / Vercel | Alojamiento estático existente | Ambos sirven b56d9e6, incluyendo multiproyecto, v0.3 y paleta | No son IA; 61704e7 y correcciones posteriores no están publicados |
 | Navegador local | Pruebas funcionales y visuales | Recorridos y estados inspeccionados | No es IA |
 | Almacenamiento local simulado | Pruebas aisladas de migración, incompatibilidad, conflicto, fallo de escritura y recuperación | Resultado programático del lote local | No es IA ni prueba un backend real |
 
 ## Herramientas mencionadas, sin uso acreditado en el producto
 
 - Los videos de YouTube compartidos fueron inspiración; su contenido no está resumido ni atribuido como decisión técnica verificable.
-- Claude, Gemini, Google AI Studio, NotebookLM, n8n y otras herramientas aparecen en la consigna o en posibilidades previas, pero no deben declararse como usadas salvo evidencia adicional.
-- No hay backend, modelo conectado, API, autenticación, sincronización remota ni integración activa. GitHub Pages conserva una publicación anterior; Vercel está preparado como alojamiento preferido, pero el lote vigente no fue desplegado.
+- Gemini, Google AI Studio, NotebookLM, n8n y otras herramientas aparecen en la consigna o en posibilidades previas; no se declaran usadas sin evidencia. Claude Sonnet 4.6 sí figura en los dos intentos API registrados, no como validación de otros usos.
+- No hay backend remoto, autenticación ni sincronización. Hubo un ensayo real mínimo exitoso mediante servicio privado local, ahora bloqueado: 3/5, halted: true y ambos permisos consumidos, sin autorización para nuevas generaciones. La IA pública está deshabilitada. El consumo agregado de 21,3 créditos no permite atribución individual; detalle en el registro de verificación.
 
 ## Familias de prompts verificables
 
@@ -68,4 +69,4 @@ Estado: secuencia verificable por archivos, pruebas y commits. `docs/prompt-log.
 
 1. Confirmar el modelo usado por Codex en las sesiones principales si la interfaz permite recuperarlo; de lo contrario, declarar la limitación.
 2. Seleccionar tres ejemplos breves del registro para el PDF final y mantener el prompt extenso en el repositorio.
-3. Registrar el commit, la publicación y la URL de Vercel sólo después de ejecutarlos y verificarlos.
+3. Autorizar por separado el commit local del candidato cerrado. Las publicaciones existentes y sus URLs ya están verificadas; un push posterior requiere autorización independiente.

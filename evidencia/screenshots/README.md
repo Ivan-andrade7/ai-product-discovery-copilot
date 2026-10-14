@@ -25,5 +25,5 @@ Generadas el 7 de octubre de 2026 desde una sesión local limpia del build de de
 - Los contenidos son ficticios y locales.
 - Las imágenes no demuestran persistencia, backend ni IA real.
 - Las secuencias no incluyen fechas de eventos porque la demo no las registra.
-- Las capturas 01–10 corresponden a la verificación histórica; 11–14 corresponden al árbol local todavía bloqueado y no representan producción.
+- Las capturas 01–10 y 11–14 documentan estados históricos de sus respectivas sesiones locales, no producción ni el bloqueo vigente. Los fallos posteriores y sus correcciones están en el registro de verificación; las imágenes no se actualizan retroactivamente.
 - Las capturas no ocultan el fallo de migración detectado por simulación ni prueban importación, concurrencia transaccional, accesibilidad integral o seguridad global.

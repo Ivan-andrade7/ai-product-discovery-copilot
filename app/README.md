@@ -65,6 +65,8 @@ pnpm preview
 
 ## Estado del candidato
 
+Último commit local existente: `61704e7`, sin push; público comprobado: `b56d9e6`. Las correcciones posteriores de cabecera, Work, textos y documentación siguen sin commit. El retest resolvió ambos desbordamientos en la cobertura registrada: el candidato está listo para commit local con autorización separada, no publicado ni habilitado para IA pública. Resultados y límites en el registro canónico.
+
 El candidato local usa `v0.3`, transmite solicitud y sólo fuentes seleccionadas en mensajes separados y bloquea resultados obsoletos. Un caso ficticio completó el recorrido con una respuesta real de `claude-sonnet-4-6`, decisión de prueba, entregable y persistencia. La calidad general y la resistencia adversarial no están validadas. Nuevas respuestas requieren type Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question; los tipos históricos se conservan literalmente.
 
 La cobertura y el consumo se registran en [`../docs/verification-2026-10-07.md`](../docs/verification-2026-10-07.md). Estado económico: 3/5, ambas autorizaciones consumidas, halted y generaciones deshabilitadas. El consumo agregado no permite atribución individual. El corpus de cuatro casos permanece sin ejecutar. Login, multiusuario, PDF/imágenes, leads, portal y monetización no están implementados.

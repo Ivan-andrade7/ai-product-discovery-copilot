@@ -28,7 +28,7 @@ La versión pública demuestra una maqueta navegable con datos ficticios y prepa
 
 ## Estado
 
-El repositorio contiene una aplicación React + Vite navegable. La adaptación de marca `d758512` se publicó el 10/10/2026 en GitHub Pages y Vercel con persistencia v0.3 y preparación de IA cerrada. Los intentos reales, los diagnósticos y el cierre del contrato de tipos son posteriores y permanecen locales sin versionar. El bloqueo histórico de lint por Zod no es el estado vigente: el cierre local pasó lint y build; el detalle de pruebas se mantiene en el registro canónico.
+El repositorio contiene una aplicación React + Vite navegable. La versión pública comprobada en ambos alojamientos sigue en `b56d9e6`, con la paleta `d758512`, v0.3 y preparación de IA cerrada. El último commit local existente es `61704e7`, que conserva los intentos reales, diagnósticos y tipos estrictos, sin push. Cabecera, reflow de Work, textos y cierre documental posteriores están corregidos y retesteados localmente, todavía sin commit. No persisten los bloqueantes responsive identificados en la cobertura registrada; no se declara accesibilidad integral. El fallo anterior de lint por Zod es histórico. Resultados y límites: [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md).
 
 La primera porción vertical del producto ya está implementada con datos locales:
 

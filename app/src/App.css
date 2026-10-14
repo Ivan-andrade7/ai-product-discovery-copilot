@@ -85,6 +85,8 @@
 
 .topbar-title {
   font-weight: 600;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .topbar-center {
@@ -1017,9 +1019,15 @@ blockquote {
   margin: 16px 0 0;
 }
 
+@media (max-width: 1024px) {
+  .work-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 900px) {
   .topbar {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 6px 16px;
     padding: 12px 20px;
   }

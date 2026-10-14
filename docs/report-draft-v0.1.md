@@ -126,7 +126,7 @@ La versión publicada anterior puede recorrerse sin instalación en:
 
 https://ivan-andrade7.github.io/ai-product-discovery-copilot/
 
-GitHub Pages y Vercel publicaron la adaptación d758512 con responsive, v0.3 y preparación cerrada. Los diagnósticos, intentos y cierre de tipos posteriores siguen locales sin commit. No se retesteó producción en este lote.
+La auditoría prepublicación confirmó b56d9e6 en GitHub Pages y Vercel, con la paleta d758512, v0.3 y preparación cerrada. El último commit local existente es 61704e7, con diagnósticos, intentos y tipos estrictos, sin push. Las correcciones posteriores de cabecera, Work, textos y documentación siguen sin commit ni publicación. La IA pública no está operativa.
 
 ### Evidencia visual seleccionada
 
@@ -192,6 +192,8 @@ La migración conservadora funcionó para el ejemplo válido y rechazó sin escr
 
 La revisión accesible fue una inspección técnica limitada. Se revisaron reflow, jerarquía, foco y estados semánticos, pero no se ejecutó una auditoría WCAG completa ni pruebas con tecnologías de asistencia.
 
+Después de 61704e7 se corrigió la cabecera por nombres largos; el retest encontró otro desbordamiento de Work a 901 px. Un lote adicional corrigió esa grilla mediante apilado hasta 1024 px: los 72 casos focalizados pasaron. Los fallos anteriores se conservan como antecedentes en el registro. No persisten esos bloqueantes en la cobertura probada; el candidato está listo para commit local con autorización separada, sin afirmar accesibilidad integral ni publicación realizada.
+
 ### Evaluación AIBPS
 
 **Ágil.** El recorrido concentra propuesta, contexto y decisión en una misma zona de trabajo, y actualiza automáticamente el historial y el entregable. Esto demuestra una intención de reducir trabajo manual, pero no se midió ahorro de tiempo.
@@ -217,4 +219,4 @@ El recorrido real mínimo quedó demostrado, pero requiere evaluación adicional
 3. Registrar el modelo exacto de Codex si puede recuperarse; de lo contrario, mantener la limitación declarada.
 4. Resolver la conversión oficial, reconciliar el consumo desconocido de la consulta de catálogo y calcular conservadoramente el lote completo.
 5. Revisar el cierre local y decidir futuras evaluaciones mediante autorización separada; los cuatro casos del corpus continúan sin ejecutar.
-6. Versionar y publicar el candidato sólo mediante autorizaciones posteriores. Un push a `main` puede actualizar los alojamientos públicos.
+6. Versionar las correcciones posteriores a 61704e7 y publicar sólo mediante autorizaciones separadas. Un push a main puede actualizar los alojamientos públicos.

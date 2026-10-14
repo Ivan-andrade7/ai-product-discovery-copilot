@@ -1,5 +1,60 @@
 # Registro de verificación interna
 
+## Estado vigente del cierre documental — 14/10/2026
+
+Último commit local existente: 61704e7. Cabecera, Work, textos y cierre documental posteriores están corregidos, probados y todavía sin commit; el candidato está listo para commit local con autorización separada. Los dos bloqueantes responsive identificados están resueltos en los retests registrados, no se declara cobertura universal. Público comprobado: b56d9e6 en ambos alojamientos mientras no haya push; IA pública deshabilitada.
+
+Existe un único caso ficticio real exitoso del recorrido mínimo, independiente de las simulaciones; primer intento fallido conservado, respuesta histórica type string intacta, cuatro casos del corpus sin ejecutar. No valida calidad general, seguridad integral ni accesibilidad completa. Contador 3/5, halted: true, ambos permisos consumidos, tokens no disponibles y créditos agregados sin atribución individual; no se autorizan nuevas generaciones.
+
+Próximo gate: autorización específica de commit local; push y publicación requieren otra autorización. Se conciliaron las frases de bloqueo de otros documentos sin cambiar código ni repetir pruebas en este lote documental. Las secciones fechadas siguientes son registros al corte de cada lote: sus fallos, pendientes y dictámenes históricos no describen automáticamente el estado actual.
+
+## Reflow mínimo de Work alrededor de 901 px — 14/10/2026
+
+Se conserva el FAIL anterior: Work medía 936 px en un viewport de 901 px. Causa comprobada: work-grid exigía un mínimo conjunto de 240 + 420 + 24 px dentro de una columna principal que a 901 px sólo dispone de 617 px. El mínimo de 420 px pertenece a la segunda columna, que contiene proposal-review; no era un fallo de la cabecera.
+
+Corrección exclusivamente en App.css: media query max-width: 1024px para apilar work-grid en minmax(0, 1fr). La regla móvil previa continúa aplicándose hasta 900 px y las dos columnas se conservan desde 1025 px. No se modificaron la cabecera ya corregida, tipografía, paleta, contenido, contratos, almacenamiento, IA ni historiales. Sin recorte ni overflow-x: hidden.
+
+Prueba focalizada sobre el build estático en Edge headless, contexto aislado y sin servicio privado: seis escenarios por doce anchos, 72 comprobaciones. Estados: demo pendiente, aceptado, edición larga, editado/aceptado, rechazado, y fixture ficticio con título, propuesta, justificación, cita literal y fuente extensa sin espacios. En todos los casos document.documentElement.scrollWidth igualó innerWidth y el panel de revisión no desbordó su contenedor.
+
+| Viewport | Documento | Resultado en los seis escenarios |
+| --- | --- | --- |
+| 320 | 320 | PASS |
+| 360 | 360 | PASS |
+| 390 | 390 | PASS |
+| 430 | 430 | PASS |
+| 880 | 880 | PASS |
+| 899 | 899 | PASS |
+| 900 | 900 | PASS |
+| 901 | 901 | PASS |
+| 902 | 902 | PASS |
+| 1024 | 1024 | PASS |
+| 1025 | 1025 | PASS, dos columnas |
+| 1280 | 1280 | PASS, dos columnas |
+
+Aceptar, editar/aceptar, rechazar, mantener pendiente y reabrir mediante Enter: PASS. Persistencia byte-equivalente tras recarga y entregable con el texto editado: PASS. Se comprobaron 23 pasos de Tab sobre controles con foco visible de 3 px y en pantalla; incluyen repetición al ciclar, no 23 controles únicos. El paso por BODY se separó de los controles. Comprobar servicio en el build público equivalente mantuvo el análisis deshabilitado. Cero solicitudes externas y cero errores/advertencias de consola en el recorrido. El fixture es sólo evidencia local de layout, no respuesta real ni evaluación de modelo.
+
+Suite completa: 100 aprobadas y una opcional de navegador omitida; lint y build PASS, con interceptores que bloquearon red externa y registraron cero intentos. El recorrido focalizado es evidencia separada de esa suite. git diff --check PASS. Registro económico leído sólo para comparación: misma huella antes/después; proceso nuevo mantiene 3/5, ambas autorizaciones consumidas, halted y externalEnabled: false.
+
+Sólo App.css y este registro se modificaron en el lote adicional. Se conservaron los cambios locales anteriores. Archivo ajeno no seguido: contexto-Ivan.md, intacto y expresamente excluido de cualquier futuro commit del candidato; su huella permaneció igual. Sin staging, commit, push ni publicación.
+
+Dictamen actualizado: bloqueante responsive de Work resuelto en la cobertura probada; candidato técnico apto para revisión/versionado local. Las frases de bloqueo del lote anterior en otros documentos quedan como pendientes de conciliación, sin editarlas bajo esta autorización limitada al registro. Publicación sigue requiriendo autorización separada y cierre documental coherente. No se declara accesibilidad integral, seguridad global ni calidad general del modelo.
+
+## Corrección local de cabecera, textos y referencias — 14/10/2026
+
+Base 61704e7, sin cambios en consumo ni almacenamiento. La auditoría previa confirmó b56d9e6 en ambos alojamientos y encontró desbordamiento por nombres largos: 458 px de página a 390 px con un nombre de 49 caracteres. Se conserva ese FAIL como antecedente; los PASS previos no cubrían este extremo.
+
+Corrección mínima: topbar-title con min-width: 0 y overflow-wrap: anywhere; columna móvil minmax(0, 1fr). Sin ocultamiento global, recorte, reducción tipográfica ni cambio de paleta. Work distingue el servicio público ausente del arranque local bloqueado; Activity diferencia esos estados de los ensayos anteriores registrados. No se alteraron eventos, originales, propuestas ni el contrato estricto. Se actualizaron referencias a 61704e7 local y b56d9e6 público; la decisión integral concurrente de contexto se preservó, junto con contexto-Ivan.md sin intervenir.
+
+Pruebas automatizadas locales: 100 aprobadas, una opcional omitida; lint y build PASS. Red externa bloqueada por interceptores: cero intentos. La prueba opcional omitida no sustituye el recorrido separado siguiente.
+
+Build estático en Edge headless, contexto aislado, sin clave ni servicio privado: 37 escenarios / 222 comprobaciones de layout a 320, 360, 390, 430, 900 y 1280 px, sin desbordamiento en esos escenarios. Projects, formulario, Overview, Work, Sources, Decisions, Deliverables y Activity; nombres de 49, 183 y 1040 caracteres; texto fuente/solicitud sin espacios, edición, decisiones/entregable poblados, conflicto con nombre largo, JSON inválido, errores de lectura y guardado. El título completo no desborda su contenedor. Aceptar, editar, rechazar, pendiente y reabrir mediante Enter y persistencia tras recarga: PASS. Tab en controles del aviso de conflicto mantuvo foco visible de 3 px. Análisis deshabilitado antes/después de comprobar servicio. Cero solicitudes externas y cero errores/advertencias de consola en este recorrido.
+
+Textos históricos: fixture completamente ficticio con una ejecución rechazada y otra válida conservó type string y la procedencia indicada, sin frases absolutas sobre ausencia de llamadas anteriores. Es una simulación de presentación de historial, no una generación ni evaluación real del modelo. El único caso real previo sigue como evidencia independiente.
+
+Límite nuevo comprobado: a 901 px, Work con el demo normal mide 936 px de página. La causa es su grilla con minmax(240px, 300px) + minmax(420px, 780px) + gap, no la cabecera. Esa regla ya existe en 61704e7 y permanece intacta. Se detuvo la extrapolación de PASS a ese ancho; no se cambió la grilla por ampliar el lote de cabecera. Dictamen: cabecera corregida en cobertura probada, pero candidato todavía no listo para publicar por este desbordamiento distinto.
+
+No se declara accesibilidad integral, calidad general de IA ni cumplimiento académico definitivo. No se repitió una generación real ni el corpus de cuatro casos. Contador 3/5, permisos consumidos y halted permanecen; la reconciliación individual sigue pendiente. Sin staging, commit, push ni publicación; este lote no modifica la versión pública.
+
 ## Cierre local de tipos y documentación — 14/10/2026
 
 El segundo intento real conservó `type: "string"`. La revisión comprobó que el prompt mostraba ese literal como ejemplo y el contrato aceptaba cualquier texto; el adaptador no lo normalizaba. El valor pertenece a la respuesta del proveedor, no a una sustitución local. No hay evidencia para determinar por qué el modelo eligió copiarlo: la influencia del ejemplo es una explicación plausible, no una causa interna comprobada.
@@ -97,7 +152,7 @@ Limitación de UI observada: textos fijos de Work/AI Activity todavía describen
 
 Este archivo es la autoridad detallada de verificación. Conserva la verificación histórica del 7 de octubre y los retests posteriores del candidato todavía no publicado. Un resultado histórico no demuestra por sí solo el comportamiento del árbol local vigente.
 
-## Revisión vigente de la adaptación local — 10 de octubre de 2026
+## Revisión histórica de la adaptación local — 10 de octubre de 2026
 
 ### Publicación autorizada posteriormente
 
@@ -148,7 +203,7 @@ Capturas locales con datos ficticios, no producción:
 
 La verificación combina inspección visual, cálculo de contraste, navegador controlado y comprobaciones automatizadas. No incluye lector de pantalla, zoom, otros motores de navegador, todos los estados perceptuales posibles ni una auditoría integral de accesibilidad.
 
-## Resumen vigente — 10 de octubre de 2026
+## Resumen histórico — 10 de octubre de 2026
 
 - Comando estándar: **63 pruebas aprobadas y una prueba opcional omitida**. La omisión corresponde a una ruta que requiere habilitación explícita y no representa una llamada real ejecutada.
 - Recorrido separado de navegador: **21/21 comprobaciones funcionales** y **90 comprobaciones de layout**, con transporte simulado y salida externa bloqueada.
@@ -311,7 +366,7 @@ El archivo de rescate descargado para el `v0.2` inválido contenía exactamente 
 - Comprobación de formato del diff: PASS; sólo se informaron avisos de normalización futura de finales de línea.
 - No se instalaron dependencias nuevas.
 
-### Límites del resultado vigente
+### Límites del resultado al corte del lote histórico
 
 - La detección entre pestañas no es una transacción ni garantiza exclusión mutua completa. Persiste una ventana de carrera entre lectura y escritura ante simultaneidad extrema.
 - La exportación existe y la recuperación fue comprobada programáticamente; no hay importación desde la interfaz.
@@ -359,6 +414,8 @@ Build local de la maqueta HTML navegable del AI Product Discovery Copilot. Cober
 - El despliegue es únicamente estático; no agrega backend, autenticación, IA real ni servicios de datos.
 - Datos y propuestas ficticios, identificados como demo.
 
-## Próximo hito
+## Próximo hito de preparación — antecedente superado
+
+Este gate pertenece a la preparación anterior a los intentos reales del 13/10. Se conserva como antecedente; el gate vigente está al inicio de este registro.
 
 Resolver la conversión oficial de créditos, reconciliar la consulta de catálogo y calcular conservadoramente el lote frente al presupuesto condicionado de 140 créditos. Sólo después corresponde autorizar y ejecutar la prueba real de IA. Versionar o publicar el candidato local requiere una autorización separada; la cobertura accesible completa y las tecnologías de asistencia siguen pendientes.

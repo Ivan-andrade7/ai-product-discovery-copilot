@@ -15,9 +15,9 @@ Fecha de corte: 14 de octubre de 2026.
 | --- | --- | --- |
 | Solución o contenido original con IA generativa o Vibe Coding | Compatible en estado local, cierre académico pendiente | Una ejecución real exitosa del recorrido mínimo con Claude Sonnet 4.6, en un único caso ficticio; generaciones cerradas después. No valida calidad general. |
 | Tema fundamentado y frase “Elegí este tema porque…” | Cumplido en borrador | La introducción abre su justificación con la frase requerida y explica el valor de la IA. |
-| Repositorio de GitHub | Público existente; candidato posterior pendiente | La adaptación y preparación d758512 fue publicada. Diagnósticos, intentos reales y tipos actuales siguen locales sin versionar. |
-| README claro sobre qué hace, para qué sirve y cómo se usa | Cumplido en el candidato local, pendiente de versionar | El README principal y `app/README.md` distinguen versión pública, candidato local, simulación y recorrido real mínimo exitoso. La evaluación general permanece pendiente. |
-| Mostrar evolución del proyecto | Parcial vigente | El historial público incluye multiproyecto/preparación. El cierre técnico real posterior aún no tiene commit. |
+| Repositorio de GitHub | Público existente; candidato posterior local | Público b56d9e6; último commit local 61704e7, sin push. Cabecera, Work, textos y cierre documental posteriores todavía sin commit. |
+| README claro sobre qué hace, para qué sirve y cómo se usa | Cumplido en el candidato local; publicación pendiente | Los README distinguen público, candidato local, simulación y recorrido real mínimo exitoso. La evaluación general permanece pendiente. |
+| Mostrar evolución del proyecto | Parcial vigente | El historial local incluye 61704e7; el público conserva b56d9e6. Las correcciones posteriores aún no están versionadas. |
 | Nivel de entrega válido | Compatible localmente con Nivel 2 | La maqueta navegable sigue siendo compatible con un nivel admitido, pero esta matriz no declara cumplimiento académico definitivo ni sustituye la revisión final contra la fuente original. |
 | Contenido textual, gráfico, audiovisual o interactivo | Cumplido localmente | Interfaz interactiva y documentación textual. |
 | Identificar modelos y herramientas usadas en cada parte | Cumplido con limitación declarada | Figma Make, UXPilot y Abacus exploratorio no dejaron un modelo identificable. En los intentos API se solicitó e informó claude-sonnet-4-6. El modelo exacto de Codex continúa pendiente de recuperación. |
@@ -53,3 +53,4 @@ Estas actividades pueden mejorar el proyecto si aportan a una decisión y hay ti
 6. La simulación sólo prueba contrato e interfaz; no demuestra calidad, resistencia real a instrucciones adversariales ni costo.
 7. Contador 3/5, permisos consumidos, halted y generaciones deshabilitadas. Tokens no disponibles; saldo 13.897 → 13.889 y 21,3 créditos API diarios no permiten reconciliar una llamada individual. La excepción autorizada para esos intentos no habilita consumos futuros.
 8. Login, aislamiento multiusuario, PDF/imágenes, leads, portal y monetización son alcance futuro, no requisitos implementados ni exigencias académicas.
+9. Los desbordamientos de cabecera y Work se corrigieron y retestearon después de 61704e7; no son bloqueantes vigentes en la cobertura registrada. El candidato está listo para commit local autorizado por separado; no implica publicación ni cumplimiento académico definitivo.

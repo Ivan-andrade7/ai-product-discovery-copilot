@@ -83,10 +83,10 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
           <section className="activity-notice" aria-label="Preparación del análisis">
             <h2>{project.mode === 'personal' ? 'Análisis del proyecto' : 'Proyecto demo o histórico preservado'}</h2>
             <p role="status" aria-live="polite">{analysisMessages[analysisStatus] ?? analysisMessages.disconnected}</p>
-            <p>Abacus opcional · modelo pendiente · sin credenciales ni salida externa. No se envían documentos al comprobar el servicio local.</p>
+            <p>La versión pública no tiene un servicio de IA. El arranque local normal mantiene las generaciones deshabilitadas; habilitar un ensayo requiere autorización separada. Comprobar el servicio local no envía fuentes. Los resultados anteriores conservan su procedencia.</p>
             {project.mode === 'personal' ? <>
               <fieldset>
-                <legend>Contenido seleccionado para un futuro análisis</legend>
+                <legend>Contenido seleccionado para el análisis</legend>
                 {project.sources.map((source) => <label key={source.id} className="analysis-source">
                   <input type="checkbox" checked={source.selected} disabled={readOnly || !source.content.trim() || analysisStatus === 'analyzing'} onChange={(event) => onSelectSource(source.id, event.target.checked)} />
                   <span>{source.name}{!source.content.trim() ? ' · sin texto disponible' : ''}</span>
@@ -102,7 +102,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
             </> : <p>Este contenido no se enviará a un proveedor ni se reclasificará como IA real. Para preparar un análisis, creá un proyecto nuevo.</p>}
           </section>
 
-          {!selected ? <section className="empty-state"><h2>Sin propuestas todavía</h2><p>Este proyecto no contiene propuestas precargadas. El análisis requiere una conexión real habilitada en un lote posterior.</p></section> :
+          {!selected ? <section className="empty-state"><h2>Sin propuestas todavía</h2><p>Este proyecto no contiene propuestas precargadas. Para analizarlo se necesita una conexión real habilitada con autorización; sin conexión no se generan propuestas ficticias.</p></section> :
           <div className="work-grid">
             <section className="proposal-queue" aria-label="Cola de propuestas">
               <h2>Cola de revisión</h2>

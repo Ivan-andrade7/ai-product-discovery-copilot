@@ -2,6 +2,8 @@
 
 Este archivo organiza el informe solicitado. No es todavía una entrega ni contiene resultados inventados.
 
+Antecedente histórico: esquema del 7 de octubre de 2026 (commit abd6a37), anterior a v0.3 y al ensayo real. Sus objetivos, pendientes y limitaciones describen ese corte, no el candidato vigente. El texto actual es `report-draft-v0.1.md`; herramientas y comprobaciones tienen sus autoridades enlazadas allí.
+
 ## a. Introducción
 
 ### Frase obligatoria de apertura
@@ -51,7 +53,7 @@ Pendiente: seleccionar prompts representativos y registrar qué decidió Iván, 
 
 ## d. Resultados
 
-Resultado actual verificable:
+Resultado verificable al corte inicial:
 
 - maqueta React + Vite navegable;
 - creación local de proyectos;
@@ -75,7 +77,7 @@ Pendiente: seleccionar capturas, agregar enlace de GitHub y describir cómo ejec
 - Conserva el historial al reabrir.
 - Evita presentar datos ficticios como research validado.
 
-### Limitaciones observables
+### Limitaciones observables al corte inicial
 
 - Estado sólo en memoria.
 - Propuestas preparadas localmente, sin IA ejecutándose.

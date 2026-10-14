@@ -29,7 +29,7 @@ export function ActivityScreen({ project, proposals, decisions, onHome, onNaviga
             <div><h1>AI Activity</h1><p>Operaciones registradas y decisiones humanas de este proyecto.</p></div>
             <div className="review-count"><strong>{activitySummary}</strong><span>Sin fechas inventadas</span></div>
           </header>
-          <section className="activity-notice"><strong>Conexión externa deshabilitada</strong><p>Este lote no realiza llamadas a modelos. Comprobar el servicio local no se registra como análisis de IA. La procedencia histórica se conserva sin atribuir ejecuciones no acreditadas.</p></section>
+          <section className="activity-notice"><strong>Estado actual y antecedentes</strong><p>Las generaciones están deshabilitadas en la versión pública y en el arranque local normal. El historial puede conservar ensayos reales anteriores y operaciones locales: cada evento indica su procedencia. Comprobar el servicio local no se registra como análisis de IA; un ensayo anterior no habilita nuevas llamadas.</p></section>
           {!activity.length && <p>No hay operaciones ni decisiones registradas.</p>}
           <ol className="activity-list">
             {activity.map((item, index) => (
