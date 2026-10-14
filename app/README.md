@@ -60,12 +60,12 @@ pnpm preview
 - Aviso y bloqueo de una pestaña desactualizada, con una ventana residual de carrera porque `localStorage` no ofrece transacciones.
 - Servicio auxiliar local limitado a loopback, sin backend remoto de producto, autenticación, base de datos remota ni sincronización entre dispositivos.
 - Contrato, transporte reemplazable y registro duradero de consumo preparados, pero generaciones reales deshabilitadas.
-- Adaptación oscura publicada el 10/10/2026 en GitHub Pages y Vercel, `d758512`. Los intentos reales y sus controles posteriores son locales; el servicio auxiliar no se publica. El bloqueo histórico de lint quedó superado en los retests locales posteriores.
+- Adaptación oscura `d758512` incluida en la última publicación comprobada `73df887`. El código de los controles posteriores está versionado; los ensayos y sus registros privados siguen siendo locales, y el servicio auxiliar no se publica. El bloqueo histórico de lint quedó superado en los retests posteriores.
 - La inspección interna no constituye validación con usuarios, seguridad integral ni conformidad completa de accesibilidad.
 
 ## Estado del candidato
 
-Último commit local existente: `61704e7`, sin push; público comprobado: `b56d9e6`. Las correcciones posteriores de cabecera, Work, textos y documentación siguen sin commit. El retest resolvió ambos desbordamientos en la cobertura registrada: el candidato está listo para commit local con autorización separada, no publicado ni habilitado para IA pública. Resultados y límites en el registro canónico.
+HEAD y última publicación comprobada: `73df887`, que incluye `61704e7` y las correcciones de cabecera, Work y textos. Sólo el hotfix posterior de Sources/grillas y foco móvil, junto con su conciliación documental, sigue sin commit en `fix/sources-responsive-hotfix`. Retest local satisfactorio en la cobertura registrada; versionado y publicación requieren autorizaciones separadas. IA pública deshabilitada; resultados y límites en el registro canónico.
 
 El candidato local usa `v0.3`, transmite solicitud y sólo fuentes seleccionadas en mensajes separados y bloquea resultados obsoletos. Un caso ficticio completó el recorrido con una respuesta real de `claude-sonnet-4-6`, decisión de prueba, entregable y persistencia. La calidad general y la resistencia adversarial no están validadas. Nuevas respuestas requieren type Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question; los tipos históricos se conservan literalmente.
 

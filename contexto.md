@@ -35,7 +35,7 @@
 - Los rótulos de pendientes y decisiones flexionan correctamente cero, uno y varios en los escenarios comprobados.
 - La recuperación de un respaldo fue comprobada programáticamente. Todavía no existe una acción de importación desde la interfaz.
 - Iván autorizó publicar la adaptación local el 10/10/2026. El commit de implementación `d758512658138cbe86b6e59c9fef1bb42975deb8` fue enviado a main junto con los dos commits anteriores pendientes, incluyendo preparación de IA con generaciones deshabilitadas.
-- La auditoría prepublicación comprobó b56d9e6 en ambos alojamientos. El último commit local existente es 61704e7, con cierre real y tipos estrictos, sin push. El fallo previo de lint es histórico. Cabecera, Work, textos y cierre documental posteriores están corregidos/retesteados, todavía sin commit; ver resultados en el registro canónico.
+- Antecedente: la auditoría prepublicación comprobó b56d9e6. Después se publicaron 61704e7 y 73df887; la última versión comprobada en ambos alojamientos es 73df887, también HEAD actual. Sólo el hotfix posterior de Sources/grillas, foco móvil y conciliación documental sigue sin commit. El fallo previo de lint es histórico; ver evidencia y límites en el registro canónico.
 - Los proyectos nuevos empiezan sin propuestas; el contenido simulado permanece en un proyecto demo separado.
 - El contrato incluye la solicitud vigente y sólo las fuentes seleccionadas. El adaptador separa instrucciones del sistema, solicitud y fuentes tratadas como contenido no confiable.
 - Un cambio de solicitud o de una fuente seleccionada vuelve obsoleto el resultado en curso e impide incorporarlo silenciosamente.
@@ -90,7 +90,7 @@ Se conserva la base v0.3 y los estados históricos. El único caso real mínimo 
 
 ## Próximo gate
 
-Autorizar por separado el commit local de cabecera, Work, textos y documentación posteriores a 61704e7. El candidato corregido y documentado está listo para ese commit; no se hizo staging. Publicar requiere otra autorización y un push a main puede actualizar ambos alojamientos. Contador 3/5, halted: true y ambos permisos consumidos permanecen; no hay autorización para nuevas generaciones. Conversión oficial, reconciliación y presupuesto condicionado de 140 créditos siguen pendientes para futuras pruebas.
+Autorizar por separado el commit local del hotfix de Sources/grillas, foco móvil y documentación conciliada, sobre 73df887 en fix/sources-responsive-hotfix. Retest satisfactorio en la cobertura registrada; no se hizo staging. Publicar requiere otra autorización y un push a main puede actualizar ambos alojamientos. Contador histórico 3/5, halted: true y ambos permisos consumidos se conservan sin acceder ni modificar el registro económico en este lote; no hay autorización para nuevas generaciones. Conversión oficial, reconciliación y presupuesto condicionado de 140 créditos siguen pendientes para futuras pruebas.
 
 Antecedente: el retest de cabecera encontró después un desbordamiento distinto de Work a 901 px. El lote adicional lo corrigió mediante apilado hasta 1024 px; los 72 casos focalizados pasaron. Ambos fallos y sus retests se conservan en el registro; no son bloqueantes vigentes. No se extrapola a todos los entornos ni a accesibilidad integral.
 
@@ -117,6 +117,8 @@ Antecedente: el retest de cabecera encontró después un desbordamiento distinto
 
 La autoridad detallada es [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md). Distingue pruebas locales simuladas, navegador/layout y un caso real mínimo exitoso; las cifras históricas no se suman ni sustituyen el retest vigente. No acreditan calidad general, resistencia adversarial ni costo máximo.
 
+El retest vigente corresponde al hotfix de grillas y foco móvil sobre 73df887. Los puntos siguientes resumen comprobaciones de lotes anteriores; su cobertura histórica no sustituye ese retest ni demuestra todos los entornos actuales.
+
 - Navegador local con datos ficticios: PASS para crear dos proyectos, abrir cada tarjeta, conservar estados independientes, mostrar el nombre activo y representar una fuente aportada como “Aportada · sin revisar”.
 - Navegador local: PASS para aceptar, editar y aceptar, rechazar, mantener pendiente, reabrir, actualizar contadores, conservar historial, derivar entregables y registrar actividad.
 - Navegador local: PASS para doble clic y repetición por teclado sin resolver la propuesta siguiente.
@@ -127,7 +129,7 @@ La autoridad detallada es [`docs/verification-2026-10-07.md`](docs/verification-
 - Responsive: inspección visual local en 1536 × 695 y 666 × 668, con textos ficticios extensos, sin pérdida de contenido observada.
 - Teclado y foco: recorrido manual acotado con orden de controles, foco visible y acciones mediante Enter, PASS en el escenario probado. No hubo lector de pantalla ni auditoría WCAG integral.
 - Consola: no aparecieron fallos visibles durante el recorrido, pero la herramienta disponible no permitió capturar exhaustivamente el registro; la comprobación de consola queda limitada.
-- La URL pública no se retesteó porque corresponde deliberadamente a la versión anterior.
+- Las URLs públicas no se reconsultaron en este retest local: la última publicación comprobada es 73df887 y no contiene este hotfix. La comprobación pública anterior se detuvo al encontrar Sources desbordado a 901 px.
 
 ## Autoridades y localizadores
 

@@ -1020,7 +1020,12 @@ blockquote {
 }
 
 @media (max-width: 1024px) {
-  .work-grid {
+  .overview-feature-grid,
+  .overview-content-grid,
+  .work-grid,
+  .decisions-grid,
+  .deliverable-layout,
+  .sources-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 }
@@ -1062,6 +1067,8 @@ blockquote {
     display: flex;
     max-width: 100%;
     overflow-x: auto;
+    padding: 6px;
+    scroll-padding-inline: 6px;
   }
 
   .nav-item {

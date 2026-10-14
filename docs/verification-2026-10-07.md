@@ -1,6 +1,52 @@
 # Registro de verificación interna
 
-## Estado vigente del cierre documental — 14/10/2026
+## Estado vigente — hotfix de grillas y foco móvil, 14/10/2026
+
+Base y HEAD: 73df8870d366d08594dd91c8145e954e6b279497, rama fix/sources-responsive-hotfix. Inicio comprobado: sólo App.css modificado por Abacus, índice vacío y contexto-Ivan.md no seguido. Ese archivo no fue leído, modificado, agregado, movido ni eliminado. No hay commit nuevo del hotfix.
+
+Última publicación comprobada en la sesión previa: 73df887 en GitHub Pages (workflow 38633344247, success) y Vercel (producción 5t6K4SpaQozf951TdiHx4QFFGVPt, Ready/Current). No se reconsultaron los alojamientos en este lote local. La comprobación pública previa se detuvo al encontrar Sources de 936 px en viewport de 901 px; no acredita un recorrido completo en ambos alojamientos. 61704e7 ya está incluido/publicado; b56d9e6 es antecedente. IA pública deshabilitada.
+
+Se conserva el hotfix exacto de Abacus: en max-width: 1024px, overview-feature-grid, overview-content-grid, work-grid, decisions-grid, deliverable-layout y sources-grid se apilan en minmax(0, 1fr). Sources imponía mínimos de 240 + 420 + 24 px incompatibles con los 617 px disponibles a 901 px. Sin cambios de cabecera, paleta, tipografía, contratos, persistencia o IA; sin overflow-x: hidden.
+
+### Antecedente de foco y corrección localizada
+
+El primer retest del hotfix pasó 728 mediciones y 78 posteriores al teclado, pero encontró navegación parcialmente recortada: Decisions a 320/360 px y Deliverables a 430 px. A 320 px se midió Decisions entre x=276,27 y 364,50, con borde del contenedor en x=300 y scrollLeft=0; el contorno de 3 px era visible sólo parcialmente. Enter funcionaba. La misma geometría fue reproducida con el CSS base 73df887; no era regresión del hotfix.
+
+Causa comprobable: el scroll automático de foco dejaba un botón parcialmente visible y el scroller no reservaba el espacio del outline de 3 px más su offset de 3 px. No se atribuye una causa interna adicional al motor del navegador. Corrección: padding y scroll-padding-inline de 6 px únicamente en navegación móvil; ProjectSidebar desplaza sólo ese contenedor cuando el control enfocado o activo queda fuera de sus límites útiles. Desplazamiento instantáneo, sin mover otros contenedores ni cambiar destinos. Se conservan scroll horizontal interno, controles de 44 px, indicador de 3 px, ruta activa y paleta.
+
+### Retest del código corregido
+
+- Automatizadas: 101 casos, 100 aprobados, una opcional de navegador omitida, cero fallos. Lint y build PASS; interceptores bloquearon salida externa y registraron cero intentos. Sin instalaciones.
+- Layout real del build estático en Edge headless, origen loopback, contextos aislados: 56 escenarios por 13 anchos, 728 mediciones. En todos, document.documentElement.scrollWidth === document.documentElement.clientWidth. Las cifras del retest anterior se conservan separadas, no se usan para acreditar este código.
+- Vistas: Projects, New Project, Overview, Work, Sources, Decisions, Deliverables y AI Activity. Demo, nuevos proyectos vacíos, nombres de 49/183/1040 caracteres, cadenas continuas, URLs, fuentes seleccionadas y aportadas, citas, títulos/contenido/justificación largos, edición, decisiones y entregables poblados, actividad y formularios. Recuperación por JSON inválido, errores de lectura/guardado y conflicto entre pestañas provocados exclusivamente en almacenamiento aislado.
+
+| Ancho/clientWidth | scrollWidth en los 56 escenarios | Resultado |
+| --- | --- | --- |
+| 320 | 320 | PASS |
+| 360 | 360 | PASS |
+| 390 | 390 | PASS |
+| 430 | 430 | PASS |
+| 768 | 768 | PASS |
+| 880 | 880 | PASS |
+| 899 | 899 | PASS |
+| 900 | 900 | PASS |
+| 901 | 901 | PASS |
+| 902 | 902 | PASS |
+| 1024 | 1024 | PASS |
+| 1025 | 1025 | PASS |
+| 1280 | 1280 | PASS |
+
+- Teclado/foco: recorrido real de las seis opciones con Tab y Shift+Tab a 320, 360, 390, 430, 901, 1024, 1025 y 1280 px: 96 comprobaciones del control y contorno completo. En móvil se midieron los cuatro bordes incluyendo outline/offset contra el scrollport; en escritorio, donde la navegación no recorta overflow, contra el viewport. Foco de 3 px y :focus-visible PASS. Las 48 activaciones individuales de destinos mediante Enter conservaron el encabezado correcto y aria-current=page.
+- Dos ejecuciones preliminares del instrumento se descartaron: una comenzó con foco programático sin modalidad de teclado, otra trató equivocadamente la caja de navegación de escritorio como área de recorte. No son fallos adicionales del producto ni resultados usados como PASS.
+- Aceptar, editar/aceptar, rechazar, mantener pendiente y reabrir mediante Enter: PASS. Decisions y Deliverables poblados; persistencia byte-equivalente tras recarga y contenido editado recuperado: PASS. El registro de actividad y originales se conservaron en los fixtures.
+- Consola: cero errores/advertencias y cero solicitudes externas en los recorridos. Sin servicio de IA, claves ni análisis real; comprobar servicio mantuvo el análisis deshabilitado, sin contenido ficticio de fallback.
+- Inspección visual: contorno completo de Decisions en captura local ficticia a 320 px; Sources había sido inspeccionado en capturas del retest anterior a 901/1024/1025 px. No se presenta esa inspección anterior como captura del nuevo build. Los fixtures de ejecuciones/propuestas son simulaciones sólo de prueba, no respuestas nuevas ni evaluación de calidad.
+
+Se conciliaron AGENTS, README principal/app, contexto, matriz, inventario y borrador; no se generó PDF ni se modificaron Notion/Figma. Se mantienen un único registro de verificación y los antecedentes fechados. Contador histórico 3/5, ambos permisos consumidos, halted: true, tokens no disponibles y 21,3 créditos diarios sin atribución individual: no se accedió ni modificó el registro económico en este lote. Ninguna nueva generación está autorizada.
+
+Dictamen: hotfix local de grillas y foco satisfactorio en la cobertura probada, listo para revisión y autorización de commit local; sin staging, commit, push ni publicación. Próximo gate: versionado local autorizado por separado. Límites: Edge headless, sin lector de pantalla, zoom ni otros motores; no conformidad WCAG integral, seguridad global ni calidad general del modelo. Corpus de cuatro casos no ejecutado.
+
+## Antecedente del cierre documental previo a publicación — 14/10/2026
 
 Último commit local existente: 61704e7. Cabecera, Work, textos y cierre documental posteriores están corregidos, probados y todavía sin commit; el candidato está listo para commit local con autorización separada. Los dos bloqueantes responsive identificados están resueltos en los retests registrados, no se declara cobertura universal. Público comprobado: b56d9e6 en ambos alojamientos mientras no haya push; IA pública deshabilitada.
 
@@ -238,7 +284,7 @@ Las generaciones continúan deshabilitadas. El contador real permanece en 1/5 y 
 
 ## Corrección responsive local — 8 de octubre de 2026
 
-Esta sección es el estado vigente del árbol local para el hallazgo responsive. No reemplaza ni borra los resultados anteriores: distingue el PASS histórico, el fallo observado después de publicar el commit `cd1f8b71211604cddd7ccc2cccb4c78bb957866a` y el retest de la corrección todavía no versionada ni publicada.
+Esta sección conserva el corte local del 8/10 para el hallazgo responsive, no el estado vigente. No reemplaza ni borra los resultados anteriores: distingue el PASS histórico, el fallo observado después de publicar el commit `cd1f8b71211604cddd7ccc2cccb4c78bb957866a` y el retest de la corrección todavía no versionada ni publicada en aquel corte.
 
 ### Secuencia de evidencia
 

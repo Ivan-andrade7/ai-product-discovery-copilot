@@ -16,7 +16,7 @@ Principio rector:
 
 ## Entrega base y evolución vigente
 
-La versión pública demuestra una maqueta navegable con datos ficticios y preparación de IA cerrada a consumo. El candidato local posterior completó una ejecución real exitosa del recorrido mínimo con `claude-sonnet-4-6`, en un único caso ficticio controlado. Las generaciones vuelven a estar deshabilitadas.
+La versión pública demuestra una maqueta navegable con datos ficticios y preparación de IA cerrada a consumo. Su código incluye el cierre de un ensayo privado local exitoso del recorrido mínimo con `claude-sonnet-4-6`, en un único caso ficticio controlado; ese ensayo no habilita IA pública ni publica sus datos privados. Las generaciones están deshabilitadas.
 
 1. crear o abrir un proyecto demo;
 2. conservar la solicitud original;
@@ -28,7 +28,7 @@ La versión pública demuestra una maqueta navegable con datos ficticios y prepa
 
 ## Estado
 
-El repositorio contiene una aplicación React + Vite navegable. La versión pública comprobada en ambos alojamientos sigue en `b56d9e6`, con la paleta `d758512`, v0.3 y preparación de IA cerrada. El último commit local existente es `61704e7`, que conserva los intentos reales, diagnósticos y tipos estrictos, sin push. Cabecera, reflow de Work, textos y cierre documental posteriores están corregidos y retesteados localmente, todavía sin commit. No persisten los bloqueantes responsive identificados en la cobertura registrada; no se declara accesibilidad integral. El fallo anterior de lint por Zod es histórico. Resultados y límites: [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md).
+El repositorio contiene una aplicación React + Vite navegable. HEAD y última versión pública comprobada en ambos alojamientos: `73df887`, incluyendo `61704e7`, paleta `d758512`, v0.3, cabecera, Work y textos corregidos. En `fix/sources-responsive-hotfix`, el apilado de Sources/grillas equivalentes y la visibilidad completa del foco móvil están corregidos y retesteados, todavía sin commit ni publicación. La IA pública permanece deshabilitada. El fallo anterior de lint por Zod es histórico; no se declara accesibilidad integral. Resultados y límites: [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md).
 
 La primera porción vertical del producto ya está implementada con datos locales:
 

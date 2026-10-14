@@ -20,7 +20,7 @@ El objetivo del trabajo es demostrar, mediante una maqueta HTML navegable, cómo
 
 **solicitud original → propuesta demo → revisión humana → decisión → historial → entregable derivado**.
 
-El candidato local posterior completó una respuesta real válida de claude-sonnet-4-6 sobre un único caso ficticio controlado: solicitud y fuente seleccionada → propuesta con cita e incertidumbre → revisión y aceptación de prueba por el asistente → decisión → entregable persistente. Un primer intento fue rechazado y permanece fallido. Las generaciones están nuevamente deshabilitadas; el caso no prueba calidad general ni evaluación independiente con usuarios.
+El ensayo privado local completó una respuesta real válida de claude-sonnet-4-6 sobre un único caso ficticio controlado: solicitud y fuente seleccionada → propuesta con cita e incertidumbre → revisión y aceptación de prueba por el asistente → decisión → entregable persistente. Su cierre técnico está versionado; la publicación estática no expone el servicio ni los datos privados del ensayo. Un primer intento permanece fallido. Generaciones deshabilitadas; el caso no prueba calidad general ni evaluación independiente con usuarios.
 
 La maqueta sigue siendo compatible con el Nivel 2 admitido por la consigna. El candidato local incorpora además un recorrido real mínimo mediante un servicio privado local; no existe backend remoto ni integración habilitada para usuarios. La compatibilidad de nivel no acredita cumplimiento académico completo.
 
@@ -122,15 +122,15 @@ El código, la documentación y la evolución del proyecto están disponibles en
 
 https://github.com/Ivan-andrade7/ai-product-discovery-copilot
 
-La versión publicada anterior puede recorrerse sin instalación en:
+La última versión publicada comprobada puede recorrerse sin instalación en:
 
 https://ivan-andrade7.github.io/ai-product-discovery-copilot/
 
-La auditoría prepublicación confirmó b56d9e6 en GitHub Pages y Vercel, con la paleta d758512, v0.3 y preparación cerrada. El último commit local existente es 61704e7, con diagnósticos, intentos y tipos estrictos, sin push. Las correcciones posteriores de cabecera, Work, textos y documentación siguen sin commit ni publicación. La IA pública no está operativa.
+La auditoría previa confirmó b56d9e6; después se publicaron 61704e7 y 73df887 en ambos alojamientos. HEAD y última publicación comprobada: 73df887, con paleta d758512, v0.3, diagnósticos, tipos estrictos y correcciones de cabecera/Work/textos. El hotfix posterior de Sources/grillas y foco móvil está probado localmente, sin commit ni publicación. La IA pública no está operativa; detalles y cobertura en el registro canónico.
 
 ### Evidencia visual seleccionada
 
-Las figuras 1–5 documentan la versión histórica publicada. Las figuras 6–8 corresponden al candidato local no publicado y usan exclusivamente datos ficticios.
+Las figuras 1–5 documentan una versión histórica publicada. Las figuras 6–8 fueron tomadas localmente durante el lote multiproyecto; no muestran el hotfix actual ni acreditan el estado de producción. Todas usan datos ficticios.
 
 ![Figura 1. Overview con solicitud original y estado inicial.](../evidencia/screenshots/02-overview.png)
 
@@ -192,7 +192,7 @@ La migración conservadora funcionó para el ejemplo válido y rechazó sin escr
 
 La revisión accesible fue una inspección técnica limitada. Se revisaron reflow, jerarquía, foco y estados semánticos, pero no se ejecutó una auditoría WCAG completa ni pruebas con tecnologías de asistencia.
 
-Después de 61704e7 se corrigió la cabecera por nombres largos; el retest encontró otro desbordamiento de Work a 901 px. Un lote adicional corrigió esa grilla mediante apilado hasta 1024 px: los 72 casos focalizados pasaron. Los fallos anteriores se conservan como antecedentes en el registro. No persisten esos bloqueantes en la cobertura probada; el candidato está listo para commit local con autorización separada, sin afirmar accesibilidad integral ni publicación realizada.
+Después de 61704e7 se corrigieron cabecera y Work, incluidos en 73df887. La comprobación pública posterior encontró Sources desbordado a 901 px. El hotfix de Abacus extiende el apilado hasta 1024 px a las grillas equivalentes; un retest local encontró además foco móvil parcialmente recortado, reproducido en la base. La corrección localizada de navegación y el nuevo retest cerraron ambos hallazgos en la cobertura registrada, sin ocultar contenido ni reducir controles. Ese hotfix sigue sin commit ni publicación; se conservan fallos y retests, sin afirmar accesibilidad integral.
 
 ### Evaluación AIBPS
 
@@ -219,4 +219,4 @@ El recorrido real mínimo quedó demostrado, pero requiere evaluación adicional
 3. Registrar el modelo exacto de Codex si puede recuperarse; de lo contrario, mantener la limitación declarada.
 4. Resolver la conversión oficial, reconciliar el consumo desconocido de la consulta de catálogo y calcular conservadoramente el lote completo.
 5. Revisar el cierre local y decidir futuras evaluaciones mediante autorización separada; los cuatro casos del corpus continúan sin ejecutar.
-6. Versionar las correcciones posteriores a 61704e7 y publicar sólo mediante autorizaciones separadas. Un push a main puede actualizar los alojamientos públicos.
+6. Versionar el hotfix local de Sources/grillas y foco móvil posterior a 73df887 y publicar sólo mediante autorizaciones separadas. Un push a main puede actualizar los alojamientos públicos.
