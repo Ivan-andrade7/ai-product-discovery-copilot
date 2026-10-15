@@ -1,6 +1,57 @@
 # Registro de verificación interna
 
-## Estado vigente local — Lote 1 UX: control e integridad, 15/10/2026
+## Estado vigente — Lote 1 publicado y cierre documental, 15/10/2026
+
+Versión funcional publicada: `e2befd6a9d1e7046a5af73d7b80d6427e05aa841`. Este cierre sólo concilia documentación; no cambia código, estilos, pruebas, configuración ni assets y no repite el smoke funcional. Los apartados siguientes distinguen la auditoría, implementación local, commit, publicación, smoke y límites; los estados locales anteriores quedan como antecedentes, no pendientes vigentes.
+
+### Auditoría e implementación
+
+La auditoría UX read-only previa constató pérdida de edición al desmontar Work (F02), duplicación en memoria al reintentar creación tras fallo de escritura (F03), navegación desde Sources sin seleccionar la propuesta pulsada (F09) y admisión de solicitudes sólo en blanco (F08 mínimo). No fue un estudio con participantes. Las causas, correcciones y retest local se conservan íntegros en el antecedente de implementación inmediatamente inferior; `app/tests/workflow-integrity.test.mjs` y `app/tests/workflow-browser.test.mjs` conservan las pruebas del contrato.
+
+### Commit e integración publicados
+
+Commit único de diez archivos: `e2befd6`, mensaje `fix: protect workflow drafts and creation retries`, desde la base `c4efe0a`. Se integró `fix/workflow-integrity` en main mediante fast-forward y push normal, sin commit adicional, rebase, squash, amend ni force push. Main y origin/main quedaron en e2befd6 al publicar el lote; la rama se conservó. `contexto-Ivan.md` quedó no seguido, excluido y sin leer/modificar. Los cierres documentales posteriores no cambian la versión funcional.
+
+- [GitHub Actions 38676903164](https://github.com/Ivan-andrade7/ai-product-discovery-copilot/actions/runs/38676903164): completed/success, head_sha e2befd6.
+- [GitHub Pages](https://ivan-andrade7.github.io/ai-product-discovery-copilot/): HTTP 200 y recursos correctos.
+- [Vercel](https://ai-product-discovery-copilot.vercel.app/): despliegue Production completado; [despliegue 8g9FuR5d9VQ5RoUjrcaguFx2BBMm](https://vercel.com/ivan-andrade/ai-product-discovery-copilot/8g9FuR5d9VQ5RoUjrcaguFx2BBMm), asociado al mismo commit. Alias público comprobado mediante coincidencia de assets.
+
+Ambos sirvieron `index-Cpo93JQh.js` (SHA256 `76d6f41f9a4ba21fe3a5d1afa52ecb9874e559de1de90a052fecff85c49ca10c`) e `index-C2SOjp2r.css` (SHA256 `7fcbcb2db29043976d83909f8ea5ef1d5128f201385b21b2c6958ff1b43d2e9b`), idénticos al build local probado. Búsqueda específica en assets: sin firmas de secretos ni rutas privadas; no acredita seguridad integral.
+
+### Smoke público delimitado de e2befd6
+
+Edge headless, contextos descartables y datos ficticios por origen. Pruebas públicas independientes de las locales; sin almacenamiento personal. No se hicieron llamadas de IA ni se usaron credenciales o registro económico. Las consultas de metadatos de publicación son lecturas separadas del tráfico de la aplicación.
+
+| Comprobación por alojamiento | GitHub Pages | Vercel |
+| --- | --- | --- |
+| F02: borrador literal entre secciones, separación por proyecto/propuesta, descarte individual y confirmación única | PASS | PASS |
+| F02: advertencia al salir con cambios reales; ninguna sin cambios | PASS | PASS |
+| F03: creación única, escritura fallida aislada, candidato único, reintento mismo ID, guardado posterior y nueva creación distinta | PASS | PASS |
+| F03: doble clic y Enter repetido; respaldo de la copia en memoria | PASS | PASS |
+| F09: primera/segunda propuesta, pendiente/resuelta, regreso y nueva selección, proyecto vacío | PASS | PASS |
+| F09: identificador inexistente o de otro proyecto, recuperación sin sustitución silenciosa | PASS | PASS |
+| F08 mínimo: vacío/espacios/tabs/saltos rechazados; texto breve/no ASCII y extremos literales conservados | PASS | PASS |
+| Projects, New Project, Overview, Work, Sources, Decisions, Deliverables y AI Activity; acciones de revisión | PASS | PASS |
+| Estado confirmado persistente; demo separado; nuevos proyectos sin propuestas genéricas | PASS | PASS |
+| IA pública deshabilitada antes/después de comprobar servicio | PASS | PASS |
+| 60 mediciones de layout: scrollWidth === clientWidth | PASS | PASS |
+| 36 comprobaciones de foco y activación de navegación | PASS | PASS |
+| Consola: errores/advertencias observados | Cero | Cero |
+| Solicitudes ajenas al alojamiento en recorridos monitorizados | Cero | Cero |
+
+Anchos focalizados: 320, 390, 901, 1024, 1025 y 1280 px. Diez estados: borrador largo sin espacios, salida, conflicto con borrador, validación, reintento, actividad, recuperación, lectura fallida y dos destinos inválidos. Sin desbordamiento; contorno completo en el scroller/viewport, Tab/Shift+Tab y Enter. No se repitió la auditoría responsive integral. Los destinos inválidos se indujeron mediante el callback publicado de Sources en contextos aislados, no por una ruta pública inexistente ni alterando el producto. Fallos de lectura/escritura y fixtures son instrumentación ficticia, no fallos sobre datos reales ni respuestas de proveedores.
+
+Recarga: un diálogo beforeunload observado por alojamiento; borrador perdido y raw confirmado intacto. Prueba adicional de respaldo/cierre por alojamiento: evento storage sintético aislado para habilitar el respaldo existente; descarga sin el borrador y con workspace confirmado idéntico. Se cerró la pestaña sin ejecutar beforeunload y se abrió otra en el mismo contexto: borrador ausente y estado confirmado conservado. Los borradores son sólo memoria de sesión, fuera de v0.3, decisiones, actividad y respaldos; no se promete recuperarlos tras recarga/cierre ni garantizar la advertencia nativa en toda terminación. No hay importación por interfaz.
+
+Se comprobó además un conflicto real entre dos pestañas ficticias: cargar cambios externos con borrador pidió confirmación; continuar conservó texto y bloqueo, descartar permitió cargar. Esto no elimina la carrera residual de localStorage. Cada dominio mantiene almacenamiento independiente; no se transfirieron datos entre ellos.
+
+### Límites y próximo gate
+
+IA pública deshabilitada; sin nuevas generaciones, credenciales ni acceso al registro económico. Estado conocido histórico: 3/5, halted y permisos consumidos, sin modificación/reconciliación en estos lotes. Un único recorrido real mínimo previo no demuestra calidad general; corpus de cuatro casos sin ejecutar. Sin login, multiusuario, adjuntos, portal ni monetización operativa. Persisten los límites de almacenamiento local, concurrencia, navegador único, falta de lector de pantalla/zoom y ausencia de conformidad integral de accesibilidad o seguridad.
+
+Próximo gate: **Lote 2 — orientación y accesibilidad básica** (F01 regreso explícito a Projects, F11 idioma/título y F12 orientación del foco), no implementado y con autorización separada. Primero auditar el comportamiento y después implementar, respetando la protección de borradores publicada. No incluye microcopy integral, ayuda, espaciado general ni rediseño y no declara accesibilidad integral. El incremento protegido de IA sigue siendo otro objetivo posterior, no iniciado.
+
+## Antecedente — implementación local del Lote 1 antes de versionar, 15/10/2026
 
 Base comprobada: main y origin/main en c4efe0ac91a36b8130ca5625cbb5eea51b421282, archivos seguidos limpios e índice vacío. Se creó únicamente la rama local fix/workflow-integrity. Este lote está sin commit y no publicado. La referencia pública previa sigue siendo c4efe0a (cierre documental sobre la versión funcional 08853c5); no se reconsultaron los alojamientos. contexto-Ivan.md continúa ajeno y no seguido; no fue leído ni modificado.
 

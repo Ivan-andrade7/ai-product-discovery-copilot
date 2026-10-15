@@ -11,7 +11,7 @@ Construir y documentar el Trabajo Final Integrador individual de la Diplomatura 
 - Usuario inicial: Iván, trabajando individualmente.
 - Simulación limitada a un proyecto demo separado e identificado; los proyectos nuevos empiezan sin propuestas genéricas precargadas.
 - Preservar la base multiproyecto, la persistencia vigente `v0.3` y sus antecedentes `v0.1`/`v0.2`, además de la corrección responsive.
-- Versión funcional publicada y comprobada: `08853c5`, integrada por fast-forward en main; hotfix de Sources/grillas y foco móvil cerrado en la cobertura probada. Los commits posteriores exclusivamente documentales no representan otra versión funcional. IA pública deshabilitada; rama del hotfix conservada.
+- Versión funcional publicada y comprobada: `e2befd6`, Lote 1 de control e integridad integrado por fast-forward en main. Conserva el hotfix responsive/foco `08853c5` como antecedente; ramas conservadas. Un cierre exclusivamente documental no representa otra versión funcional. IA pública deshabilitada.
 
 El estado detallado y sus límites se mantienen en `contexto.md` y `docs/verification-2026-10-07.md`; no duplicarlos aquí.
 
@@ -39,7 +39,7 @@ Reservar tiempo para pruebas, documentación y entrega académica. Las ampliacio
 
 ## Próximo paso
 
-Responsive cerrado en la cobertura registrada; no reabrirlo como gate pendiente. Antes de exponer IA a Iván o clientes, definir un incremento protegido con autenticación, backend, secretos, persistencia y controles de uso/costo; no está implementado. El único ensayo real mínimo no valida calidad general. Contador conocido 3/5, halted y permisos consumidos, sin autorización para nuevas generaciones. Todo incremento, infraestructura, consumo o publicación futura requiere alcance y autorización propios; detalles en contexto y registro canónico.
+Lote 2 — orientación y accesibilidad básica: F01 (regreso explícito a Projects), F11 (idioma/título) y F12 (orientación del foco). Requiere autorización separada: primero auditar el comportamiento y después implementar, respetando la protección de borradores publicada. No incluye microcopy integral, ayuda, espaciado general ni rediseño; no está implementado ni declara accesibilidad integral. Responsive previo cerrado en su cobertura. El incremento protegido de IA sigue como objetivo posterior separado; contador conocido 3/5, halted y permisos consumidos, sin nuevas generaciones autorizadas. Detalles y límites en contexto y registro canónico.
 
 ## Autoridades
 

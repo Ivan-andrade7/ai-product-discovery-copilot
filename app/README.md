@@ -45,14 +45,14 @@ Abrir la dirección local informada por Vite, normalmente `http://localhost:5173
 
 ## Verificaciones técnicas
 
-### Lote 1 UX — sólo candidato local, sin publicar
+### Lote 1 UX — publicado en e2befd6
 
 - Editar en Work conserva un borrador por proyecto y propuesta al cambiar de sección. No es una decisión hasta confirmar; puede descartarse individualmente. Salir del proyecto con cambios pendientes exige elegir continuar o descartar.
 - Los borradores viven sólo durante la sesión: no están en `v0.3` ni en el respaldo. Recargar o cerrar los pierde; se solicita la advertencia nativa, sin garantizar su presentación en todos los cierres.
 - Tras un fallo de creación, **Reintentar guardado** conserva el mismo candidato y los campos originales bloqueados. La exportación existente rescata la copia en memoria; recargar sin guardar/exportar la pierde. No hay importación por interfaz. Cancelar y comenzar otra creación es una intención nueva, no un reintento.
 - Sources abre la propuesta vinculada exacta; un destino inválido se explica sin seleccionar otra automáticamente. Solicitudes sólo de espacios/tabs/saltos se rechazan sin reescribir las válidas.
 
-Detalle de cobertura y antecedentes: [`../docs/verification-2026-10-07.md`](../docs/verification-2026-10-07.md). La versión pública descrita más abajo no incluye este lote.
+El lote fue versionado, integrado por fast-forward y publicado en ambos alojamientos. F02, F03, F09 y F08 mínimo pasaron el smoke público delimitado. Detalle de cobertura y antecedentes: [`../docs/verification-2026-10-07.md`](../docs/verification-2026-10-07.md).
 
 ```bash
 pnpm lint
@@ -69,18 +69,20 @@ pnpm preview
 - Aviso y bloqueo de una pestaña desactualizada, con una ventana residual de carrera porque `localStorage` no ofrece transacciones.
 - Servicio auxiliar local limitado a loopback, sin backend remoto de producto, autenticación, base de datos remota ni sincronización entre dispositivos.
 - Contrato, transporte reemplazable y registro duradero de consumo preparados, pero generaciones reales deshabilitadas.
-- Adaptación oscura `d758512` incluida en la versión funcional publicada `08853c5`, junto con el hotfix de grillas y foco móvil. Los ensayos y registros privados siguen siendo locales; el servicio auxiliar no se publica. El bloqueo histórico de lint quedó superado en los retests posteriores.
+- Adaptación oscura `d758512` y hotfix de grillas/foco `08853c5` conservados en la versión funcional publicada `e2befd6`. Los ensayos y registros privados siguen siendo locales; el servicio auxiliar no se publica. El bloqueo histórico de lint quedó superado en los retests posteriores.
 - La inspección interna no constituye validación con usuarios, seguridad integral ni conformidad completa de accesibilidad.
 
 ## Estado publicado y límites
 
-Versión funcional publicada: `08853c5`, integrada por fast-forward en main y verificada en ambos alojamientos. El hotfix de Sources/grillas y foco móvil está versionado y publicado; main y origin/main quedaron sincronizados y la rama del hotfix se conserva. Los commits exclusivamente documentales posteriores no cambian los assets funcionales. Smoke test delimitado satisfactorio; IA pública deshabilitada. Resultados y límites en el registro canónico.
+Versión funcional publicada: `e2befd6`, Lote 1 integrado por fast-forward en main y verificado en ambos alojamientos. Main y origin/main quedaron sincronizados al publicarlo; las ramas del lote y del hotfix se conservan. Los cierres exclusivamente documentales no cambian los assets funcionales. Smoke público delimitado satisfactorio; IA pública deshabilitada. Resultados y límites en el registro canónico.
 
-El candidato local usa `v0.3`, transmite solicitud y sólo fuentes seleccionadas en mensajes separados y bloquea resultados obsoletos. Un caso ficticio completó el recorrido con una respuesta real de `claude-sonnet-4-6`, decisión de prueba, entregable y persistencia. La calidad general y la resistencia adversarial no están validadas. Nuevas respuestas requieren type Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question; los tipos históricos se conservan literalmente.
+El código publicado usa `v0.3` y conserva la preparación que transmite solicitud y sólo fuentes seleccionadas en mensajes separados y bloquea resultados obsoletos; no habilita IA pública. Un caso ficticio privado previo completó el recorrido con una respuesta real de `claude-sonnet-4-6`, decisión de prueba, entregable y persistencia. La calidad general y la resistencia adversarial no están validadas. Nuevas respuestas requieren type Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question; los tipos históricos se conservan literalmente.
 
 La cobertura y el consumo se registran en [`../docs/verification-2026-10-07.md`](../docs/verification-2026-10-07.md). Estado económico: 3/5, ambas autorizaciones consumidas, halted y generaciones deshabilitadas. El consumo agregado no permite atribución individual. El corpus de cuatro casos permanece sin ejecutar. Login, multiusuario, PDF/imágenes, leads, portal y monetización no están implementados.
 
 Antes de exponer IA a Iván o clientes se requiere definir un incremento protegido de autenticación, backend, secretos, persistencia y controles de uso/costo, con autorización propia. No se habilita ese incremento ni nuevas generaciones mediante este cierre documental.
+
+Próximo gate: Lote 2 — orientación y accesibilidad básica (F01/F11/F12), no implementado y con autorización separada. Primero auditar, después implementar; conservar la protección de borradores. No incluye microcopy integral, ayuda, espaciado general ni rediseño y no declara accesibilidad integral. Alcance en [`../contexto.md`](../contexto.md).
 
 ## Tecnología
 

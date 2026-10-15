@@ -1,6 +1,6 @@
 # Matriz de cumplimiento académico
 
-Fecha de corte: 14 de octubre de 2026.
+Fecha de corte: 15 de octubre de 2026.
 
 ## Autoridad y límites
 
@@ -15,9 +15,9 @@ Fecha de corte: 14 de octubre de 2026.
 | --- | --- | --- |
 | Solución o contenido original con IA generativa o Vibe Coding | Compatible en estado local, cierre académico pendiente | Una ejecución real exitosa del recorrido mínimo con Claude Sonnet 4.6, en un único caso ficticio; generaciones cerradas después. No valida calidad general. |
 | Tema fundamentado y frase “Elegí este tema porque…” | Cumplido en borrador | La introducción abre su justificación con la frase requerida y explica el valor de la IA. |
-| Repositorio de GitHub | Público existente; hotfix publicado | 08853c5 integrado por fast-forward y publicado en ambos alojamientos; main y origin/main sincronizados al cierre. |
-| README claro sobre qué hace, para qué sirve y cómo se usa | Disponible; cierre documental postpublicación | Distingue versión funcional publicada 08853c5, IA pública deshabilitada, simulación y único recorrido real mínimo; no declara calidad general. |
-| Mostrar evolución del proyecto | Historial publicado | Conserva 61704e7, 73df887 y 08853c5, junto con los fallos y retests; cierre documental separado del cambio funcional. |
+| Repositorio de GitHub | Público existente; Lote 1 publicado | e2befd6 integrado por fast-forward y publicado en ambos alojamientos; main y origin/main sincronizados al publicar el lote. |
+| README claro sobre qué hace, para qué sirve y cómo se usa | Disponible; cierre documental postpublicación | Distingue versión funcional publicada e2befd6, IA pública deshabilitada, simulación y único recorrido real mínimo; no declara calidad general. |
+| Mostrar evolución del proyecto | Historial publicado | Conserva 61704e7, 73df887, hotfix 08853c5 y Lote 1 e2befd6, con fallos y retests; cierres documentales separados del cambio funcional. |
 | Nivel de entrega válido | Compatible localmente con Nivel 2 | La maqueta navegable sigue siendo compatible con un nivel admitido, pero esta matriz no declara cumplimiento académico definitivo ni sustituye la revisión final contra la fuente original. |
 | Contenido textual, gráfico, audiovisual o interactivo | Cumplido localmente | Interfaz interactiva y documentación textual. |
 | Identificar modelos y herramientas usadas en cada parte | Cumplido con limitación declarada | Figma Make, UXPilot y Abacus exploratorio no dejaron un modelo identificable. En los intentos API se solicitó e informó claude-sonnet-4-6. El modelo exacto de Codex continúa pendiente de recuperación. |
@@ -48,9 +48,10 @@ Estas actividades pueden mejorar el proyecto si aportan a una decisión y hay ti
 1. Algunos proveedores no muestran un modelo identificable; esa limitación debe declararse en el informe.
 2. Falta integrar los prompts seleccionados, revisar el contenido y retirar la marca de borrador antes de generar el PDF final.
 3. La fecha debe contrastarse con cualquier aviso docente posterior al PDF.
-4. El candidato usa localStorage v0.3 y completó un caso real mínimo. No implementa backend remoto, login, multiusuario, PDF/imágenes, leads, portal ni monetización.
-5. Versión funcional pública comprobada: 08853c5 en ambos alojamientos, con este hotfix. Las capturas anteriores siguen identificadas por su origen y corte histórico, no como capturas de producción vigente.
+4. La versión publicada usa localStorage v0.3; un ensayo privado previo completó un caso real mínimo, sin habilitar IA pública. No implementa backend remoto, login, multiusuario, PDF/imágenes, leads, portal ni monetización.
+5. Versión funcional pública comprobada: e2befd6 en ambos alojamientos. F02/F03/F09/F08 mínimo pasaron el smoke público; detalle y límites en [`verification-2026-10-07.md`](verification-2026-10-07.md). No se deduce cumplimiento académico definitivo. Las capturas anteriores siguen identificadas por su origen y corte histórico, no como capturas de producción vigente.
 6. La simulación sólo prueba contrato e interfaz; no demuestra calidad, resistencia real a instrucciones adversariales ni costo.
 7. Contador 3/5, permisos consumidos, halted y generaciones deshabilitadas. Tokens no disponibles; saldo 13.897 → 13.889 y 21,3 créditos API diarios no permiten reconciliar una llamada individual. La excepción autorizada para esos intentos no habilita consumos futuros.
 8. Login, aislamiento multiusuario, PDF/imágenes, leads, portal y monetización son alcance futuro, no requisitos implementados ni exigencias académicas.
 9. Cabecera y Work se corrigieron en 73df887; Sources/grillas y foco móvil en 08853c5, publicado y con smoke satisfactorio. El responsive está cerrado en esa cobertura, no el cumplimiento académico definitivo. Antes de exponer IA se debe definir y autorizar un incremento protegido de autenticación, backend, secretos, persistencia y controles de uso/costo.
+10. Próximo gate de producto: Lote 2 — orientación y accesibilidad básica (F01/F11/F12), primero auditoría y después implementación con autorización separada, respetando borradores. No implementado; no incluye microcopy integral, ayuda, espaciado general ni rediseño, ni declara accesibilidad integral. No es una exigencia académica adicional; alcance en [`../contexto.md`](../contexto.md).

@@ -22,7 +22,7 @@ El objetivo del trabajo es demostrar, mediante una maqueta HTML navegable, cómo
 
 El ensayo privado local completó una respuesta real válida de claude-sonnet-4-6 sobre un único caso ficticio controlado: solicitud y fuente seleccionada → propuesta con cita e incertidumbre → revisión y aceptación de prueba por el asistente → decisión → entregable persistente. Su cierre técnico está versionado; la publicación estática no expone el servicio ni los datos privados del ensayo. Un primer intento permanece fallido. Generaciones deshabilitadas; el caso no prueba calidad general ni evaluación independiente con usuarios.
 
-La maqueta sigue siendo compatible con el Nivel 2 admitido por la consigna. El candidato local incorpora además un recorrido real mínimo mediante un servicio privado local; no existe backend remoto ni integración habilitada para usuarios. La compatibilidad de nivel no acredita cumplimiento académico completo.
+La maqueta sigue siendo compatible con el Nivel 2 admitido por la consigna. El código publicado conserva la preparación y cierre del recorrido real mínimo mediante un servicio privado local; no existe backend remoto ni integración de IA habilitada para usuarios. La compatibilidad de nivel no acredita cumplimiento académico completo.
 
 ## b. Marco conceptual
 
@@ -50,7 +50,7 @@ Figma Make y UXPilot no mostraron para Iván un modelo identificable. La explora
 
 El proyecto comenzó recuperando la consigna, las notas existentes y el contexto de una idea inicialmente muy amplia: asistir las etapas E1–E18 del proceso UX/Product de punta a punta. Esa visión incluía investigación, definición, wireframes, prototipos y posibles usos futuros con clientes.
 
-Se separó la base académica de las extensiones futuras. El contrato, transporte y registro local permitieron dos intentos reales autorizados individualmente: uno fallido y uno exitoso en un caso mínimo ficticio. Autenticación, persistencia remota, multiusuario, PDF/imágenes, leads, portal y monetización siguen fuera del candidato. La publicación estática no incluye el servicio privado ni los cambios locales posteriores.
+Se separó la base académica de las extensiones futuras. El contrato, transporte y registro local permitieron dos intentos reales autorizados individualmente: uno fallido y uno exitoso en un caso mínimo ficticio. Autenticación, persistencia remota, multiusuario, PDF/imágenes, leads, portal y monetización siguen fuera de la versión actual. La publicación estática no incluye el servicio privado ni sus datos; el Lote 1 e2befd6 sí está publicado.
 
 ### 2. Exploración visual
 
@@ -80,7 +80,7 @@ Esta estrategia permitió comprobar cada relación antes de ampliar el alcance. 
 
 ### 4. Pruebas y ajustes
 
-Las pruebas fueron recorridos manuales internos en navegador. No constituyen pruebas con usuarios. Se verificaron creación, navegación, edición, aceptación, rechazo, mantenimiento en cola, reapertura, sincronización de contadores e inclusión o retiro del entregable.
+Las pruebas combinaron recorridos internos de navegador y comprobaciones automatizadas. No constituyen pruebas con usuarios. Se verificaron creación, navegación, edición, aceptación, rechazo, mantenimiento en cola, reapertura, sincronización de contadores e inclusión o retiro del entregable.
 
 Durante las pruebas se detectaron y corrigieron problemas concretos:
 
@@ -92,6 +92,8 @@ Durante las pruebas se detectaron y corrigieron problemas concretos:
 - el primer despliegue falló porque GitHub Pages todavía no estaba habilitado para GitHub Actions; se corrigió la configuración y el segundo intento completó build y publicación.
 
 La verificación distingue pruebas automatizadas con respuestas ficticias, recorridos históricos de navegador/layout y el caso real mínimo exitoso. Las cifras y resultados se conservan en `docs/verification-2026-10-07.md`; no se suman como evidencias equivalentes.
+
+Una auditoría UX read-only posterior detectó pérdida de borradores, duplicación al reintentar una creación fallida, destino incorrecto desde Sources y admisión de solicitudes sólo en blanco. El Lote 1 corrigió estos cuatro puntos, se verificó localmente, se versionó en e2befd6 y se publicó tras fast-forward y push normal. F02, F03, F09 y F08 mínimo pasaron en ambos alojamientos con datos ficticios aislados; resultados, instrumentación y límites en [`verification-2026-10-07.md`](verification-2026-10-07.md). No fue validación con participantes ni se hicieron llamadas de IA.
 
 En el lote multiproyecto se diferenciaron tres clases de comprobación. En navegador local se probaron proyectos independientes, fuentes aportadas, acciones humanas, activaciones repetidas, dos pestañas, responsive amplio y estrecho y un recorrido acotado con teclado. La revisión estática contrastó el esquema y las rutas de error con el código. Un almacenamiento simulado y aislado comprobó preservación de `v0.1`, migración válida única, escritura obsoleta, fallo de guardado, `v0.2` incompatible y recuperación programática del respaldo. Una entrada heredada malformada reveló una brecha; el lote correctivo incorporó validación completa antes de persistir y el retest confirmó que JSON inválido, propuestas malformadas y estructuras incompletas no crean `v0.2`. La auditoría accesible integral, las tecnologías de asistencia y la URL pública no se repitieron.
 
@@ -116,7 +118,9 @@ El resultado es una maqueta HTML navegable que permite:
 - preparar un análisis con la solicitud vigente y sólo las fuentes seleccionadas, sin mezclar contenido de fuentes con instrucciones del sistema;
 - impedir que un resultado se incorpore silenciosamente cuando cambia la solicitud o una fuente seleccionada.
 
-El candidato local usa v0.3, conserva formatos anteriores y mantiene las generaciones cerradas tras los intentos. El caso real exitoso preservó cita, incertidumbre, decisión y entregable al reabrir el navegador. El corpus de cuatro casos continúa sin ejecutar.
+La versión publicada usa v0.3, conserva formatos anteriores y mantiene las generaciones cerradas tras los intentos. El caso real privado exitoso preservó cita, incertidumbre, decisión y entregable al reabrir el navegador. El corpus de cuatro casos continúa sin ejecutar.
+
+El Lote 1 conserva borradores por proyecto/propuesta durante la navegación interna de la sesión. Confirmar los convierte en decisión; descartar y salir son explícitos cuando hay cambios reales. No sobreviven a recarga/cierre ni forman parte de v0.3, decisiones o respaldos. Reintentar creación reutiliza un candidato con identidad estable, sin duplicarlo; Sources abre la propuesta exacta o explica la recuperación; la validación rechaza solicitudes sólo en blanco y conserva literalmente las válidas. No hay persistencia durable de borradores ni importación por interfaz.
 
 El código, la documentación y la evolución del proyecto están disponibles en:
 
@@ -126,7 +130,7 @@ La última versión publicada comprobada puede recorrerse sin instalación en:
 
 https://ivan-andrade7.github.io/ai-product-discovery-copilot/
 
-La auditoría previa confirmó b56d9e6; después se publicaron 61704e7 y 73df887. La versión funcional publicada y comprobada es 08853c5, integrada por fast-forward en main y push normal, con el hotfix de Sources/grillas y foco móvil. Main y origin/main quedaron sincronizados; GitHub Actions finalizó correctamente y ambos alojamientos pasaron un smoke delimitado con assets coincidentes. La plataforma sigue siendo estática, con IA pública deshabilitada. Los commits exclusivamente documentales posteriores no cambian la versión funcional; enlaces y cobertura en el registro canónico.
+Antecedentes publicados: b56d9e6, 61704e7, 73df887 y el hotfix responsive/foco 08853c5. La versión funcional vigente es e2befd6, Lote 1 integrado por fast-forward en main y push normal. Main y origin/main quedaron sincronizados al publicar el lote; GitHub Actions finalizó correctamente y ambos alojamientos pasaron el smoke delimitado con los mismos assets verificados. La plataforma sigue estática y con IA pública deshabilitada. Los cierres exclusivamente documentales no cambian esa versión funcional; enlaces y cobertura en el registro canónico.
 
 ### Evidencia visual seleccionada
 
@@ -218,5 +222,5 @@ El recorrido real mínimo quedó demostrado, pero requiere evaluación adicional
 2. Reconfirmar la fecha contra cualquier aviso docente posterior.
 3. Registrar el modelo exacto de Codex si puede recuperarse; de lo contrario, mantener la limitación declarada.
 4. Resolver la conversión oficial, reconciliar el consumo desconocido de la consulta de catálogo y calcular conservadoramente el lote completo.
-5. Revisar el cierre local y decidir futuras evaluaciones mediante autorización separada; los cuatro casos del corpus continúan sin ejecutar.
-6. Responsive y foco publicados, cerrados en la cobertura probada. Antes de exponer IA a Iván o clientes, definir un incremento protegido con autenticación, backend, secretos, persistencia y controles de uso/costo. No está implementado; cualquier incremento, llamada, infraestructura o publicación futura requiere alcance y autorización propios.
+5. Decidir futuras evaluaciones de IA mediante autorización separada; los cuatro casos del corpus continúan sin ejecutar. No confundirlas con el Lote 1 ya publicado.
+6. Próximo gate de producto: Lote 2 — orientación y accesibilidad básica (F01 regreso explícito a Projects, F11 idioma/título, F12 orientación del foco), todavía no implementado y con autorización separada. Primero auditar el comportamiento y después implementar, respetando la protección de borradores. Excluye microcopy integral, ayuda, espaciado general y rediseño; no declara accesibilidad integral. El incremento protegido de IA sigue como objetivo posterior independiente, sin habilitar nuevas llamadas.
