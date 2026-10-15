@@ -45,7 +45,11 @@ Abrir la dirección local informada por Vite, normalmente `http://localhost:5173
 
 ## Verificaciones técnicas
 
-### Lote 1 UX — publicado en e2befd6
+### Lote 2 UX — versión funcional publicada
+
+Versión funcional vigente: `3835117bf6abd9a5d247b3cdc26dbbc5c26dc096`, publicada y comprobada en GitHub Pages y Vercel. F01 (regreso a Projects), F11 (idioma/título) y F12 (foco por intención) están implementados y verificados en la cobertura registrada. Se conservan la protección de borradores y los recorridos del Lote 1. El registro separa pruebas directas, instrumentación ficticia de recuperación/conflicto/guardado e intentos inválidos del arnés, que no se cuentan como PASS. IA pública deshabilitada; cero generaciones durante el lote. Sin lector de pantalla ni declaración de accesibilidad integral. Enlaces, assets y resultados por alojamiento: [`../docs/verification-2026-10-07.md`](../docs/verification-2026-10-07.md).
+
+### Antecedente — Lote 1 UX, publicado en e2befd6
 
 - Editar en Work conserva un borrador por proyecto y propuesta al cambiar de sección. No es una decisión hasta confirmar; puede descartarse individualmente. Salir del proyecto con cambios pendientes exige elegir continuar o descartar.
 - Los borradores viven sólo durante la sesión: no están en `v0.3` ni en el respaldo. Recargar o cerrar los pierde; se solicita la advertencia nativa, sin garantizar su presentación en todos los cierres.
@@ -69,12 +73,12 @@ pnpm preview
 - Aviso y bloqueo de una pestaña desactualizada, con una ventana residual de carrera porque `localStorage` no ofrece transacciones.
 - Servicio auxiliar local limitado a loopback, sin backend remoto de producto, autenticación, base de datos remota ni sincronización entre dispositivos.
 - Contrato, transporte reemplazable y registro duradero de consumo preparados, pero generaciones reales deshabilitadas.
-- Adaptación oscura `d758512` y hotfix de grillas/foco `08853c5` conservados en la versión funcional publicada `e2befd6`. Los ensayos y registros privados siguen siendo locales; el servicio auxiliar no se publica. El bloqueo histórico de lint quedó superado en los retests posteriores.
+- Adaptación oscura `d758512`, hotfix de grillas/foco `08853c5` y Lote 1 `e2befd6` conservados como antecedentes de la versión funcional publicada `3835117`. Los ensayos y registros privados siguen siendo locales; el servicio auxiliar no se publica. El bloqueo histórico de lint quedó superado en los retests posteriores.
 - La inspección interna no constituye validación con usuarios, seguridad integral ni conformidad completa de accesibilidad.
 
 ## Estado publicado y límites
 
-Versión funcional publicada: `e2befd6`, Lote 1 integrado por fast-forward en main y verificado en ambos alojamientos. Main y origin/main quedaron sincronizados al publicarlo; las ramas del lote y del hotfix se conservan. Los cierres exclusivamente documentales no cambian los assets funcionales. Smoke público delimitado satisfactorio; IA pública deshabilitada. Resultados y límites en el registro canónico.
+Versión funcional publicada: `3835117bf6abd9a5d247b3cdc26dbbc5c26dc096`, Lote 2 verificado en ambos alojamientos. Lote 1 `e2befd6` y el hotfix permanecen como antecedentes; sus ramas se conservan. El cierre exclusivamente documental posterior no cambia los assets ni constituye otra versión funcional. Smoke público delimitado satisfactorio; IA pública deshabilitada. Resultados y límites en el registro canónico.
 
 El código publicado usa `v0.3` y conserva la preparación que transmite solicitud y sólo fuentes seleccionadas en mensajes separados y bloquea resultados obsoletos; no habilita IA pública. Un caso ficticio privado previo completó el recorrido con una respuesta real de `claude-sonnet-4-6`, decisión de prueba, entregable y persistencia. La calidad general y la resistencia adversarial no están validadas. Nuevas respuestas requieren type Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question; los tipos históricos se conservan literalmente.
 
@@ -82,7 +86,7 @@ La cobertura y el consumo se registran en [`../docs/verification-2026-10-07.md`]
 
 Antes de exponer IA a Iván o clientes se requiere definir un incremento protegido de autenticación, backend, secretos, persistencia y controles de uso/costo, con autorización propia. No se habilita ese incremento ni nuevas generaciones mediante este cierre documental.
 
-Próximo gate: Lote 2 — orientación y accesibilidad básica (F01/F11/F12), no implementado y con autorización separada. Primero auditar, después implementar; conservar la protección de borradores. No incluye microcopy integral, ayuda, espaciado general ni rediseño y no declara accesibilidad integral. Alcance en [`../contexto.md`](../contexto.md).
+Lote 2 (F01/F11/F12) implementado y verificado dentro de la cobertura registrada, sin rediseño ni declaración de accesibilidad integral. El siguiente incremento funcional está pendiente de definición y autorización de Iván. Este cierre es exclusivamente documental; su push requiere autorización separada y no habilita otro incremento. Estado en [`../contexto.md`](../contexto.md).
 
 ## Tecnología
 

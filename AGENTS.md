@@ -11,7 +11,7 @@ Construir y documentar el Trabajo Final Integrador individual de la Diplomatura 
 - Usuario inicial: Iván, trabajando individualmente.
 - Simulación limitada a un proyecto demo separado e identificado; los proyectos nuevos empiezan sin propuestas genéricas precargadas.
 - Preservar la base multiproyecto, la persistencia vigente `v0.3` y sus antecedentes `v0.1`/`v0.2`, además de la corrección responsive.
-- Versión funcional publicada y comprobada: `e2befd6`, Lote 1 de control e integridad integrado por fast-forward en main. Conserva el hotfix responsive/foco `08853c5` como antecedente; ramas conservadas. Un cierre exclusivamente documental no representa otra versión funcional. IA pública deshabilitada.
+- Versión funcional publicada y comprobada: `3835117bf6abd9a5d247b3cdc26dbbc5c26dc096`, Lote 2 de navegación y foco, verificado en GitHub Pages y Vercel dentro de la cobertura registrada. Lote 1 `e2befd6` y el hotfix responsive/foco `08853c5` permanecen como antecedentes; ramas conservadas. El cierre documental posterior no representa otra versión funcional. IA pública deshabilitada.
 
 El estado detallado y sus límites se mantienen en `contexto.md` y `docs/verification-2026-10-07.md`; no duplicarlos aquí.
 
@@ -39,7 +39,7 @@ Reservar tiempo para pruebas, documentación y entrega académica. Las ampliacio
 
 ## Próximo paso
 
-Lote 2 — orientación y accesibilidad básica: F01 (regreso explícito a Projects), F11 (idioma/título) y F12 (orientación del foco). Requiere autorización separada: primero auditar el comportamiento y después implementar, respetando la protección de borradores publicada. No incluye microcopy integral, ayuda, espaciado general ni rediseño; no está implementado ni declara accesibilidad integral. Responsive previo cerrado en su cobertura. El incremento protegido de IA sigue como objetivo posterior separado; contador conocido 3/5, halted y permisos consumidos, sin nuevas generaciones autorizadas. Detalles y límites en contexto y registro canónico.
+Lote 2 implementado, publicado y verificado dentro de la cobertura registrada: F01 (regreso explícito a Projects), F11 (idioma/título) y F12 (orientación del foco), conservando la protección de borradores. Las pruebas directas, la instrumentación ficticia y los intentos inválidos del arnés se distinguen en el registro; no hubo lector de pantalla ni se declara accesibilidad integral. El siguiente incremento funcional está pendiente de definición y autorización de Iván; no se inicia otro lote por este cierre documental. IA pública deshabilitada; contador conocido 3/5, halted y permisos consumidos, sin nuevas generaciones autorizadas. El push documental requiere autorización separada. Detalles y límites en contexto y registro canónico.
 
 ## Autoridades
 

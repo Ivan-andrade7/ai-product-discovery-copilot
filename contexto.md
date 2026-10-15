@@ -4,7 +4,15 @@
 
 15 de octubre de 2026.
 
-## Estado publicado — Lote 1 UX
+## Estado publicado — Lote 2 UX, 15/10/2026
+
+Versión funcional publicada: `3835117bf6abd9a5d247b3cdc26dbbc5c26dc096`, commit `fix: improve project navigation and focus recovery`, con exactamente los 16 archivos autorizados. Push normal y fast-forward de main desde `06045764f397a330d980f3e9e71fb827d629b962`, sin cambios concurrentes. Main, origin/main local y main remoto se comprobaron en 3835117. GitHub Actions 38755371460 completed/success; despliegue Vercel Production 7095993122 success y asociado al mismo SHA.
+
+Ambos alias públicos sirvieron HTTP 200 y los mismos assets del build probado: index-DVPkSybh.js e index-TIaxFCsK.css, con SHA-256 idénticos. Retest público independiente por alojamiento: F01/F11/F12, borradores, reintentos sin duplicación, F08 mínimo, F09, recuperación y conflicto con datos ficticios aislados. En cada sitio: 36 casos con nombres largos a 320/390/901/1024/1025/1280 px sin superposición/desbordamiento, foco/contorno/scroll del Sidebar conservados. Recuperación, conflicto y fallo de escritura se distinguieron como instrumentación; no se generó IA ni se accedió al registro económico. Sin errores/advertencias de consola ni intentos ajenos al origen en los recorridos monitorizados. No hubo lector de pantalla ni declaración de accesibilidad integral.
+
+El registro detallado, estados, enlaces, hashes y límites están en docs/verification-2026-10-07.md, sección "Publicación y retest público del Lote 2". El cierre documental posterior concilia AGENTS.md, README.md, app/README.md, contexto.md y el registro canónico, sin representar otra versión funcional ni aportar nuevas pruebas. Su commit local está autorizado; su push requiere autorización separada. El siguiente incremento funcional está pendiente de definición y autorización de Iván. IA pública permanece deshabilitada.
+
+## Antecedente publicado — Lote 1 UX
 
 El Lote 1 fue implementado desde `c4efe0a` en `fix/workflow-integrity`, versionado en `e2befd6a9d1e7046a5af73d7b80d6427e05aa841`, integrado por fast-forward y publicado mediante push normal. Main y origin/main quedaron en `e2befd6` al publicar el lote; su rama se conserva. GitHub Pages y Vercel sirvieron los mismos assets verificados. El cierre exclusivamente documental posterior no constituye una nueva versión funcional.
 
@@ -43,7 +51,7 @@ F02, F03, F09 y F08 mínimo pasaron en ambos alojamientos, por separado de las p
 - Los rótulos de pendientes y decisiones flexionan correctamente cero, uno y varios en los escenarios comprobados.
 - La recuperación de un respaldo fue comprobada programáticamente. Todavía no existe una acción de importación desde la interfaz.
 - Iván autorizó publicar la adaptación local el 10/10/2026. El commit de implementación `d758512658138cbe86b6e59c9fef1bb42975deb8` fue enviado a main junto con los dos commits anteriores pendientes, incluyendo preparación de IA con generaciones deshabilitadas.
-- Antecedentes: b56d9e6, 61704e7, 73df887 y el hotfix publicado 08853c5. La versión funcional vigente es e2befd6 (Lote 1), integrada por fast-forward y push normal; main y origin/main quedaron sincronizados al publicarla. Ramas conservadas. Sources/grillas y foco móvil siguen cerrados en su cobertura; fallos y pruebas anteriores se conservan como históricos. Un cierre exclusivamente documental no cambia esa versión funcional.
+- Antecedentes: b56d9e6, 61704e7, 73df887, hotfix 08853c5 y Lote 1 e2befd6. La versión funcional vigente es 3835117 (Lote 2), publicada por push normal y comprobada en ambos alojamientos. Ramas conservadas. Los fallos y retests anteriores permanecen como históricos. Los cambios documentales posteriores no representan otra versión funcional.
 - Los proyectos nuevos empiezan sin propuestas; el contenido simulado permanece en un proyecto demo separado.
 - El contrato incluye la solicitud vigente y sólo las fuentes seleccionadas. El adaptador separa instrucciones del sistema, solicitud y fuentes tratadas como contenido no confiable.
 - Un cambio de solicitud o de una fuente seleccionada vuelve obsoleto el resultado en curso e impide incorporarlo silenciosamente.
@@ -96,21 +104,21 @@ Se conserva la base v0.3 y los estados históricos. El único caso real mínimo 
 - simulaciones y limitaciones declaradas;
 - material suficiente para redactar honestamente metodología, resultados y análisis AIBPS.
 
-## Próximo gate
+## Estado del cierre y próximo gate
 
 ### Lote 2 — orientación y accesibilidad básica
 
 Alcance: F01 (regreso explícito desde un proyecto al listado de Projects), F11 (idioma correcto del documento y título identificable) y F12 (orientación predecible del foco al cambiar de pantalla).
 
-Implementado localmente por Abacus y revisado por Codex (15/10/2026), sin cambiar código, staging, commit, fetch, push ni publicación. Base real: main, HEAD y referencia local origin/main en `06045764f397a330d980f3e9e71fb827d629b962`; índice vacío y 14 archivos modificados previstos. Los dos elementos no seguidos fuera de alcance permanecieron sin leer/modificar.
+Antecedente anterior a versionar: implementación local por Abacus y revisión de Codex el 15/10/2026 desde 06045764, inicialmente con 14 archivos modificados. Los elementos no seguidos fuera de alcance permanecieron sin leer/modificar. Las correcciones, pruebas y documentación completaron los 16 archivos del commit 3835117, posteriormente autorizado y publicado.
 
-Dictamen actualizado tras autorización de Iván: **candidato local listo para autorización expresa de versionado**, sin staging. Las tres correcciones de cabecera, navegación lateral y carga externa están verificadas. Se cerró además la advertencia del efecto de recuperación de Work, perteneciente a F12 del Lote 2: se comprueba selected?.id en lugar del objeto selected, manteniendo la dependencia y el permiso de foco de un solo uso. No se modificó selección/F09 ni se desactivaron reglas. El recorrido de navegador añade recuperación real en App con destinos inexistentes/ajenos, regreso a Sources, primera propuesta explícita y ausencia de foco repetido al editar. No se modificaron IA, backend, persistencia ni pruebas de separadores.
+Estado actualizado tras autorización de Iván: **Lote 2 publicado y verificado**, commit 3835117. Las tres correcciones de cabecera, navegación lateral y carga externa están verificadas. Se cerró la advertencia del efecto de recuperación de Work, perteneciente a F12: se comprueba selected?.id en lugar del objeto selected, manteniendo la dependencia y el permiso de foco de un solo uso. No se modificó selección/F09 ni se desactivaron reglas. Los retests locales y públicos distinguen sus fixtures y límites. No se modificaron IA, backend, persistencia ni pruebas de separadores.
 
 Resultados finales del cierre de lint: **lint PASS, cero errores y cero advertencias; build PASS; suite con navegador habilitado: 114 aprobadas, cero fallidas y una omitida**. La omitida sigue siendo el opt-in histórico UI_TESTS de storage.test.mjs; no equivale a una prueba fallida. Los dos fallos de separadores reproducidos en base/candidato se conservan como antecedente separado; no se repitieron ni alteraron esas pruebas. Sin instalaciones adicionales ni cambios de manifiesto, lockfile o configuración.
 
 Reparación acotada autorizada: README y lockfile confirman pnpm como gestor canónico. El intento pnpm install con lockfile congelado no restauró el faltante; se descargó sólo zod@4.6.5, se verificó SHA-512 contra el lock y se restituyó íntegro en su directorio ya instalado. Manifiesto, lockfile, versiones y configuración permanecen idénticos. Sin limpieza global ni borrado de carpetas del proyecto.
 
-Retests anteriores de cabecera, foco lateral y conflicto se conservan; este cierre no repitió una matriz independiente de layout, sólo ejecutó la suite pedida y las nuevas comprobaciones focalizadas. No hubo lector de pantalla ni auditoría integral. Detalles y lista completa de los 16 archivos previstos en el registro canónico, sección "Cierre de la advertencia de lint del Lote 2". Siguiente gate: revisión de GuIA/Iván y autorización expresa de versionado. No se prepararon archivos en Git ni se hizo commit o publicación; sin nuevas generaciones ni acceso al registro económico privado.
+Los retests locales anteriores se conservan en "Cierre de la advertencia de lint del Lote 2"; el smoke público posterior está separado en "Publicación y retest público del Lote 2". Sin lector de pantalla ni auditoría integral. El gate de commit/push funcional del Lote 2 fue autorizado y completado. El cierre documental abarca los cinco archivos autorizados, con commit exclusivamente local y push sujeto a otra autorización. El siguiente incremento funcional está pendiente de definición y autorización de Iván. No hubo nuevas generaciones ni acceso al registro económico privado.
 
 El responsive y foco están publicados y cerrados en la cobertura probada; no volver a pedir su versionado como gate vigente. La plataforma pública sigue siendo estática, con IA pública deshabilitada. Antes de exponer IA a Iván o clientes debe definirse un incremento protegido con autenticación, backend, secretos, persistencia y controles de uso/costo; todavía no está implementado ni autorizado. El único recorrido real mínimo no demuestra calidad general. Contador conocido 3/5, halted: true y permisos consumidos, sin autorización para nuevas generaciones; sin acceso ni modificación del registro económico durante este cierre. Conversión oficial, reconciliación y presupuesto condicionado de 140 créditos siguen pendientes para futuras pruebas. Todo incremento funcional, llamada de IA, infraestructura o publicación futura requiere alcance y autorización propios.
 
@@ -139,7 +147,7 @@ Antecedente: el retest de cabecera encontró después un desbordamiento distinto
 
 La autoridad detallada es [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md). Distingue pruebas locales simuladas, navegador/layout y un caso real mínimo exitoso; las cifras históricas no se suman ni sustituyen el retest vigente. No acreditan calidad general, resistencia adversarial ni costo máximo.
 
-La comprobación pública vigente de e2befd6 pasó en ambos alojamientos con Edge headless y datos ficticios aislados: F02/F03/F09/F08 mínimo, vistas, estado confirmado persistente y pruebas focalizadas de layout y foco. Sus resultados están en el registro canónico y no se suman a la suite local. Antecedente conservado: el smoke de 08853c5 cubrió ocho vistas, creación/apertura, persistencia, 112 mediciones de layout y 96 de foco por alojamiento. Los puntos siguientes resumen lotes anteriores; no acreditan otros motores, lector de pantalla o accesibilidad integral.
+La comprobación pública vigente corresponde a `3835117bf6abd9a5d247b3cdc26dbbc5c26dc096`, Lote 2, y pasó en ambos alojamientos con Edge headless y datos ficticios aislados: F01/F11/F12, regresiones acotadas de borradores, reintentos, F08 mínimo y F09, y pruebas focalizadas de layout/foco. El registro separa acciones directas, instrumentación ficticia e intentos inválidos del arnés; sus resultados no se suman a la suite local. Los smokes de Lote 1 e2befd6 y 08853c5 se conservan como antecedentes; el de 08853c5 cubrió ocho vistas, creación/apertura, persistencia, 112 mediciones de layout y 96 de foco por alojamiento. Los puntos siguientes resumen lotes anteriores; no acreditan otros motores, lector de pantalla o accesibilidad integral.
 
 - Navegador local con datos ficticios: PASS para crear dos proyectos, abrir cada tarjeta, conservar estados independientes, mostrar el nombre activo y representar una fuente aportada como “Aportada · sin revisar”.
 - Navegador local: PASS para aceptar, editar y aceptar, rechazar, mantener pendiente, reabrir, actualizar contadores, conservar historial, derivar entregables y registrar actividad.

@@ -1,5 +1,71 @@
 # Registro de verificación interna
 
+## Cierre documental reconciliado del Lote 2 — 15/10/2026
+
+Versión funcional publicada y verificada vigente: `3835117bf6abd9a5d247b3cdc26dbbc5c26dc096`, Lote 2 (F01/F11/F12) dentro de la cobertura documentada. Lote 1 e2befd6 y los hotfixes anteriores permanecen como antecedentes. La publicación exitosa en GitHub Pages y Vercel, enlaces, assets y resultados por alojamiento se conservan en "Publicación y retest público del Lote 2", inmediatamente debajo. Las pruebas directas, instrumentación ficticia e intentos inválidos se mantienen separados; los intentos inválidos no se acreditan como PASS. IA pública deshabilitada y cero generaciones durante Lote 2, sin lector de pantalla ni declaración de accesibilidad integral.
+
+Iván amplió la autorización documental a AGENTS.md, README.md, app/README.md, contexto.md y este registro. Precondiciones comprobadas sin consultas públicas: main, HEAD y origin/main local en 3835117, índice vacío y únicamente contexto.md/registro canónico modificados. Se conciliaron sólo afirmaciones vigentes sobre versión y gate en los cinco documentos; no se cambiaron los registros históricos fechados que siguen debajo. Los estados "pendiente", "local" o "no publicado" de esos cortes describen su momento histórico, no el gate vigente.
+
+Este cierre es exclusivamente documental y tiene autorización para un único commit local `docs: reconcile navigation and focus release status`; no representa otra versión funcional ni nuevas pruebas. No se repitieron pruebas funcionales ni consultas públicas, ni se modificaron código, dependencias, configuración o servicios. Su push requiere autorización separada. El siguiente incremento funcional está pendiente de definición y autorización de Iván; no se crea ni se inicia otro lote mediante esta conciliación.
+
+## Publicación y retest público del Lote 2 — 15/10/2026
+
+### Precondiciones, commit y push
+
+Iván autorizó un único push normal de main y la verificación de sus despliegues, con actualización exclusivamente documental sin otro commit. Antes de preparar la publicación: main/HEAD en `3835117bf6abd9a5d247b3cdc26dbbc5c26dc096`, archivos seguidos limpios e índice vacío; el commit incluía exactamente los 16 archivos del candidato probado. Las huellas previas y el contenido preparado/confirmado se contrastaron sin diferencias. No se repitieron las pruebas locales completas. Las comprobaciones de firmas de secretos sobre el candidato no detectaron coincidencias; no se accedió a almacenes de credenciales.
+
+git ls-remote confirmó main remoto en `06045764f397a330d980f3e9e71fb827d629b962`, igual al padre del commit autorizado: avance fast-forward sin divergencia. `git push origin main` completó normalmente `0604576..3835117`. Sin fetch, merge, rebase, force push, ramas, worktrees ni commits adicionales. Después se verificó main remoto y origin/main local en 3835117, diferencia 0/0 respecto de HEAD.
+
+### Despliegues y assets
+
+| Alojamiento | Evidencia y asociación | Resultado |
+| --- | --- | --- |
+| GitHub Pages | [Workflow 38755371460](https://github.com/Ivan-andrade7/ai-product-discovery-copilot/actions/runs/38755371460), head_sha 3835117bf6abd9a5d247b3cdc26dbbc5c26dc096; deployment 7095998310, environment github-pages | completed/success; alias [GitHub Pages](https://ivan-andrade7.github.io/ai-product-discovery-copilot/) HTTP 200 |
+| Vercel | [Despliegue 5KzNtn9rtWj3yZ6rzeiWqXMoPQ6v](https://vercel.com/ivan-andrade/ai-product-discovery-copilot/5KzNtn9rtWj3yZ6rzeiWqXMoPQ6v); GitHub deployment 7095993122, environment Production, mismo SHA | success; [alias Production](https://ai-product-discovery-copilot.vercel.app/) HTTP 200; environment URL ai-product-discovery-copilot-ko0bwrcu6-ivan-andrade.vercel.app |
+
+La asociación del commit se verificó mediante metadatos públicos de GitHub Actions/deployments/statuses. Ambos alias cargaron los mismos nombres y bytes del build local ya probado de ese commit:
+
+| Asset | SHA-256 local y de cada alojamiento |
+| --- | --- |
+| assets/index-DVPkSybh.js | e60cc1d4650343b730296b248e45bfad1ab0450318d3127ff8cf4c519ecbc6a2 |
+| assets/index-TIaxFCsK.css | 9e9285f0f208a107349a9754a3f297546ba616eeb09b4c4d6426f914d3b531e3 |
+
+Se comprobaron nombre en HTML, HTTP 200 y hash del contenido servido por cada alias, sin asumir equivalencia sólo por la URL. No se cambió configuración, infraestructura, conexiones o dependencias.
+
+### Smoke público, separado por alojamiento
+
+Edge headless ya instalado, contextos descartables independientes por origen, sin datos personales ni sesiones de Abacus. Se cargaron fixtures ficticios de v0.3 y referencias explícitas para probar destinos de Sources; no son evidencia de un modelo ni datos reales. La instrumentación se ejecutó sólo en la memoria del navegador aislado, sin escribir en el producto o servidor.
+
+| Comprobación | GitHub Pages | Vercel Production |
+| --- | --- | --- |
+| F01: regreso visible en las seis secciones; regreso directo sin borrador, sin aviso y con foco en Tus proyectos | PASS | PASS |
+| F01: borrador entre secciones, aviso con cambios, Continuar/Descartar por teclado y foco de destino | PASS | PASS |
+| F11: lang es y título estático AI Discovery Copilot | PASS | PASS |
+| F12: abrir/crear proyecto enfoca Overview; New Project enfoca Nombre y cancelar devuelve a Nuevo proyecto | PASS | PASS |
+| F12: 36 transiciones laterales por teclado, foco en control activado, aria-current, scroll y contorno completo | PASS | PASS |
+| Recuperación instrumentada: destino inexistente/ajeno, sin alternativa silenciosa; Volver a Sources enfoca h1 y primera selección explícita enfoca h2 | PASS | PASS |
+| Conflicto instrumentado con evento storage real entre dos pestañas ficticias: Continuar conserva borrador/bloqueo; Descartar carga externo y enfoca Tus proyectos | PASS | PASS |
+| Fallo de escritura ficticio: doble envío/reintento, respaldo con un candidato, posterior guardado del mismo ID y foco Overview, sin duplicación | PASS | PASS |
+| F08 mínimo: blancos rechazados; solicitud válida conservada literalmente | PASS | PASS |
+| F09: primero/segundo destino exacto desde Sources con referencias ficticias explícitas | PASS | PASS |
+| Layout: 36 casos con nombres largos y seis anchos, cabecera sin colisión/desbordamiento y foco completo | PASS | PASS |
+| IA pública deshabilitada antes/después de comprobar servicio; cero generaciones | PASS | PASS |
+| Assets idénticos, errores/advertencias de consola e intentos ajenos al origen de la app monitorizados | Hashes iguales; cero errores/advertencias; cero intentos externos | Hashes iguales; cero errores/advertencias; cero intentos externos |
+
+Anchos: 320, 390, 901, 1024, 1025 y 1280 px. Los 36 casos por origen corresponden a seis secciones de proyecto con nombre largo sin espacios por seis anchos. Se comprobaron colisiones entre marca/regreso/título y scrollWidth/clientWidth, no sólo desbordamiento. Tab/Shift+Tab/Enter comprobaron foco, aria-current, contorno y scroll antes/después de cada transición del Sidebar; el contorno del regreso también quedó íntegro dentro del viewport.
+
+Los recorridos de abrir, crear, cancelar, regresar, editar y pulsar destinos válidos son acciones directas de la interfaz con fixtures ficticios. En cambio, destinos inválidos se indujeron mediante el callback real de Sources localizado en su componente React; el producto no publica un enlace inválido para acceder a ellos. El conflicto usó otra pestaña aislada escribiendo una revisión externa ficticia y se verificó el estado cargado; el fallo de guardado se provocó temporalmente en Storage.setItem. Ninguno representa un fallo real de almacenamiento o proveedor ni autoriza usar datos económicos.
+
+Dos ejecuciones preliminares del arnés no completaron todas sus comprobaciones: una buscó un proyecto que el propio fixture externo había reemplazado, y otra comparó objetos de distintos contextos de JavaScript con igualdad estricta de prototipos. Se corrigió únicamente el arnés temporal y se completaron las secciones afectadas en contextos descartables, comparando el contenido serializado exacto del candidato. Una operación de generación dinámica de funciones del arnés fue rechazada por el runtime y no aportó evidencia; se continuó con funciones explícitas permitidas. Sólo se consideran PASS las comprobaciones finales completadas, no esos intentos preliminares. No se confirmó un fallo del producto ni se modificó código para completar el smoke.
+
+### Límites y estado final
+
+No se utilizó lector de pantalla ni se comprobaron sus anuncios; tampoco zoom, otros motores, todas las terminaciones de sesión o accesibilidad integral. No se repitió una auditoría UX completa, evaluación de calidad de IA ni la suite local de 114 pruebas en producción. Esa suite y su omisión opcional pertenecen a la verificación local anterior; los dos fallos históricos de separadores se mantienen separados y no se presentan como pruebas públicas. No quedaron comprobaciones solicitadas bloqueadas en este smoke final; los límites citados no se declaran PASS.
+
+Los contextos de prueba se cerraron. La evidencia temporal local está en `%TEMP%/copilot-lote2-public-UZiErp/public-results.json`, sin incorporarse al repositorio. Las lecturas de metadatos de publicación y descarga de assets se distinguen del tráfico monitorizado de la app. No hubo credenciales, registro económico privado, generaciones, cambios de IA/backend/persistencia, dependencias, Notion, Figma o Pizarra. Los elementos no seguidos excluidos no se leyeron ni modificaron.
+
+**Resultado:** Lote 2 publicado y verificado en ambos alojamientos, commit 3835117. Después de la publicación sólo se actualizaron contexto.md y este registro, sin staging ni segundo commit. HEAD/main/origin/main local y main remoto permanecen en el commit publicado, sin divergencia. Siguiente gate: revisión de los dos cambios documentales pendientes; su eventual versionado y cualquier otro incremento requieren autorización separada. No se declara otra versión funcional por estas notas.
+
 ## Cierre de la advertencia de lint del Lote 2 — 15/10/2026
 
 Control inicial: main, HEAD y referencia local origin/main en `06045764f397a330d980f3e9e71fb827d629b962`, índice vacío y exactamente los 16 archivos modificados esperados. Sin fetch, cambios concurrentes ni otros archivos seguidos inesperados. Los dos elementos no seguidos fuera de alcance continuaron sin lectura/modificación. Se conservaron huellas SHA-256 de los 46 archivos seguidos de app y documentación correspondiente antes de editar.
