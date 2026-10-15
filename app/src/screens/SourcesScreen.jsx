@@ -42,7 +42,7 @@ export function SourcesScreen({ project, proposals, sources, onHome, onNavigate,
               <p>Aportada no significa procesada ni validada. Un vínculo comprueba procedencia, no calidad de la interpretación.</p>
               <div className="linked-proposals">
                 <strong>Propuestas vinculadas directamente</strong>
-                {linked.length ? linked.map((proposal) => <button key={proposal.id} type="button" onClick={() => onNavigate('work')}>{proposal.title}<span>{proposal.type}</span></button>) : <p>No hay vínculos por identificador comprobados. Los textos de referencia históricos se conservan en cada propuesta.</p>}
+                {linked.length ? linked.map((proposal) => <button key={proposal.id} type="button" onClick={() => onNavigate('work', { projectId: project.id, proposalId: proposal.id })}>{proposal.title}<span>{proposal.type}</span></button>) : <p>No hay vínculos por identificador comprobados. Los textos de referencia históricos se conservan en cada propuesta.</p>}
               </div>
             </section>
           </div>}

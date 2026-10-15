@@ -2,7 +2,15 @@
 
 ## Fecha de corte
 
-14 de octubre de 2026.
+15 de octubre de 2026.
+
+## Candidato local — Lote 1 UX
+
+Rama `fix/workflow-integrity`, basada en `c4efe0ac91a36b8130ca5625cbb5eea51b421282`, con cambios locales todavía sin commit ni publicación. La versión pública previa continúa en ese cierre documental sobre la versión funcional `08853c5`; no se reconsultó en este lote.
+
+Se corrigieron F02 (borradores por proyecto/propuesta durante la sesión, aviso antes de salir), F03 (candidato único por intento de creación/reintento), F09 (destino exacto Sources → Work, con recuperación explícita si no existe) y F08 mínimo (rechazo de solicitud sólo en blanco, conservando literalmente una solicitud válida). No cambia `v0.3`: los borradores no se guardan ni exportan; recargar/cerrar los pierde y el navegador puede advertir. Ante escritura fallida, el candidato sigue en memoria/exportable y el reintento usa su identidad original.
+
+Pruebas y límites en el registro canónico: suite local, navegador aislado, dos pestañas y mediciones focalizadas satisfactorias. Sin IA, credenciales ni acceso al registro económico. No se implementaron otros hallazgos de la auditoría ni cambios generales de navegación, copy o visuales.
 
 ## Estado observado
 
@@ -89,6 +97,8 @@ Se conserva la base v0.3 y los estados históricos. El único caso real mínimo 
 - material suficiente para redactar honestamente metodología, resultados y análisis AIBPS.
 
 ## Próximo gate
+
+Inmediato: revisión del Lote 1 UX local y autorización independiente si se decide versionarlo. No hay staging, commit ni publicación de estas correcciones. El incremento protegido siguiente sigue siendo un objetivo separado, no una tarea iniciada automáticamente.
 
 El responsive y foco están publicados y cerrados en la cobertura probada; no volver a pedir su versionado como gate vigente. La plataforma pública sigue siendo estática, con IA pública deshabilitada. Antes de exponer IA a Iván o clientes debe definirse un incremento protegido con autenticación, backend, secretos, persistencia y controles de uso/costo; todavía no está implementado ni autorizado. El único recorrido real mínimo no demuestra calidad general. Contador conocido 3/5, halted: true y permisos consumidos, sin autorización para nuevas generaciones; sin acceso ni modificación del registro económico durante este cierre. Conversión oficial, reconciliación y presupuesto condicionado de 140 créditos siguen pendientes para futuras pruebas. Todo incremento funcional, llamada de IA, infraestructura o publicación futura requiere alcance y autorización propios.
 

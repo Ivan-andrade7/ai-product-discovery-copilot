@@ -12,6 +12,7 @@ import { SourcesScreen } from './screens/SourcesScreen'
 import { WorkScreen } from './screens/WorkScreen'
 import { createBackup, LEGACY_STORAGE_KEY, PREVIOUS_STORAGE_KEY, loadWorkspace, parseWorkspace, persistWorkspace, STORAGE_KEY } from './storage'
 import './App.css'
+import { applyCreationAttempt, hasMeaningfulRequest, pendingDrafts, setReviewDraft } from './workflow'
 
 function downloadJson(filename, value) {
   const blob = new Blob([JSON.stringify(value, null, 2)], { type: 'application/json' })
@@ -35,6 +36,22 @@ function App() {
   const [connection, setConnection] = useState({ available: false, code: 'disconnected' })
   const [operation, setOperation] = useState(null)
   const inFlight = useRef(null)
+  const [drafts, setDrafts] = useState({})
+  const draftsRef = useRef({})
+  const [selections, setSelections] = useState({})
+  const [pendingExit, setPendingExit] = useState(null)
+  const creationAttempt = useRef(null)
+
+  useEffect(() => {
+    if (!Object.keys(drafts).some((id) => pendingDrafts(drafts, id).length)) return
+    function warnBeforeUnload(event) {
+      if (!Object.keys(draftsRef.current).some((id) => pendingDrafts(draftsRef.current, id).length)) return
+      event.preventDefault()
+      event.returnValue = ''
+    }
+    window.addEventListener('beforeunload', warnBeforeUnload)
+    return () => window.removeEventListener('beforeunload', warnBeforeUnload)
+  }, [drafts])
 
   useEffect(() => { storageStateRef.current = storageState }, [storageState])
 
@@ -122,9 +139,13 @@ function App() {
     })
   }
 
-  function createProject(input) {
-    const created = createLocalProject(input)
-    const saved = commitWorkspace((current) => ({ ...current, activeProjectId: created.id, projects: [...current.projects, created] }))
+  function createProject(input, attemptId) {
+    if (!hasMeaningfulRequest(input.objective)) return false
+    if (creationAttempt.current?.id !== attemptId) creationAttempt.current = { id: attemptId, created: createLocalProject(input), completed: false }
+    const attempt = creationAttempt.current
+    if (attempt.completed) return true
+    const saved = commitWorkspace((current) => applyCreationAttempt(current, attempt.created))
+    attempt.completed = saved
     if (saved) setScreen('overview')
     return saved
   }
@@ -137,7 +158,56 @@ function App() {
   }
 
   function updateProposal(id, changes, action, expectedStatus) {
-    return updateActiveProject((currentProject) => decideProposal(currentProject, id, changes, action, expectedStatus))
+    const projectId = workspaceRef.current.activeProjectId
+    const before = workspaceRef.current.projects.find((p) => p.id === projectId)
+    const saved = updateActiveProject((currentProject) => decideProposal(currentProject, id, changes, action, expectedStatus))
+    const after = workspaceRef.current.projects.find((p) => p.id === projectId)
+    if (before !== after) changeDraft(projectId, id, null)
+    return saved
+  }
+
+  function changeDraft(projectId, proposalId, draft) {
+    draftsRef.current = setReviewDraft(draftsRef.current, projectId, proposalId, draft)
+    setDrafts(draftsRef.current)
+  }
+
+  function navigate(destination, selection) {
+    const projectId = workspaceRef.current.activeProjectId
+    if (destination === 'work') {
+      const currentProject = workspaceRef.current.projects.find((item) => item.id === projectId)
+      const first = currentProject.proposals.find((item) => item.status === 'pending') ?? currentProject.proposals[0]
+      setSelections((current) => ({ ...current, [projectId]: selection ?? current[projectId] ?? (first ? { projectId, proposalId: first.id } : undefined) }))
+    }
+    setPendingExit(null)
+    setScreen(destination)
+  }
+
+  function requestExit(action) {
+    const projectId = workspaceRef.current.activeProjectId
+    if (pendingDrafts(draftsRef.current, projectId).length) setPendingExit({ ...action, projectId })
+    else performExit(action)
+  }
+
+  function performExit(action) {
+    if (action.kind === 'external') loadExternal()
+    else if (action.kind === 'reload') window.location.reload()
+    else if (action.kind === 'open') openProject(action.id)
+    else setScreen('projects')
+  }
+
+  function continueEditing() {
+    const proposalId = pendingDrafts(draftsRef.current, pendingExit.projectId)[0]?.[0]
+    if (proposalId) setSelections((current) => ({ ...current, [pendingExit.projectId]: { projectId: pendingExit.projectId, proposalId } }))
+    setPendingExit(null)
+    setScreen('work')
+  }
+
+  function discardAndExit() {
+    const action = pendingExit
+    draftsRef.current = { ...draftsRef.current, [action.projectId]: {} }
+    setDrafts(draftsRef.current)
+    setPendingExit(null)
+    performExit(action)
   }
 
   function selectSource(id, selected) {
@@ -186,6 +256,10 @@ function App() {
       inFlight.current.controller.abort()
     }
     workspaceRef.current = storageState.external
+    // requestExit protects modified drafts before replacing the confirmed copy.
+    draftsRef.current = {}
+    setDrafts({})
+    creationAttempt.current = null
     setWorkspace(storageState.external)
     storageStateRef.current = { type: 'ready', external: null, raw: null }
     setStorageState(storageStateRef.current)
@@ -197,25 +271,28 @@ function App() {
       <span>{storageState.message ?? (storageState.type === 'migrated' ? 'Estado migrado a v0.3. Las claves anteriores permanecen intactas.' : 'Estado local preparado.')}</span>
       <div>
         {initialLoad.status !== 'recovery-required' && <button className="button" type="button" onClick={exportCurrent}>Exportar respaldo</button>}
-        {['recovery-required', 'read-error'].includes(storageState.type) && <button className="button" type="button" onClick={() => window.location.reload()}>Reintentar lectura (exportá antes)</button>}
-        {storageState.type === 'conflict' && storageState.external && <button className="button primary" type="button" onClick={loadExternal}>Cargar cambios externos</button>}
+        {['recovery-required', 'read-error'].includes(storageState.type) && <button className="button" type="button" onClick={() => requestExit({ kind: 'reload' })}>Reintentar lectura (exportá antes)</button>}
+        {storageState.type === 'conflict' && storageState.external && <button className="button primary" type="button" onClick={() => requestExit({ kind: 'external' })}>Cargar cambios externos</button>}
         {storageState.raw && <button className="button" type="button" onClick={() => downloadJson('discovery-copilot-datos-originales.json', { raw: storageState.raw })}>Rescatar original</button>}
       </div>
     </div>
   ) : null
 
-  const shared = { project, proposals: project.proposals, onHome: () => setScreen('projects'), onNavigate: setScreen }
+  const shared = { project, proposals: project.proposals, onHome: () => requestExit({ kind: 'home' }), onNavigate: navigate }
   let content
   if (screen === 'new-project') content = <NewProjectScreen onCancel={() => setScreen('projects')} onCreate={createProject} disabled={isReadOnly} />
   else if (screen === 'overview') content = <OverviewScreen {...shared} />
-  else if (screen === 'work') content = <WorkScreen key={project.id} {...shared} onUpdateProposal={updateProposal} readOnly={isReadOnly} connection={connection} operation={operation?.projectId === project.id ? operation : null} onCheckConnection={inspectConnection} onAnalyze={runAnalysis} onCancelAnalysis={cancelAnalysis} onSelectSource={selectSource} canSave={storageState.type !== 'write-error'} />
+  else if (screen === 'work') content = <WorkScreen key={project.id} {...shared} selection={selections[project.id]} onSelectProposal={(proposalId) => setSelections((current) => ({ ...current, [project.id]: { projectId: project.id, proposalId } }))} drafts={drafts[project.id] ?? {}} onDraftChange={(proposalId, draft) => changeDraft(project.id, proposalId, draft)} onUpdateProposal={updateProposal} readOnly={isReadOnly} connection={connection} operation={operation?.projectId === project.id ? operation : null} onCheckConnection={inspectConnection} onAnalyze={runAnalysis} onCancelAnalysis={cancelAnalysis} onSelectSource={selectSource} canSave={storageState.type !== 'write-error'} />
   else if (screen === 'decisions') content = <DecisionsScreen {...shared} decisions={project.decisions} />
   else if (screen === 'sources') content = <SourcesScreen key={project.id} {...shared} sources={project.sources} onSelectSource={selectSource} readOnly={isReadOnly} />
   else if (screen === 'deliverables') content = <DeliverablesScreen {...shared} />
   else if (screen === 'activity') content = <ActivityScreen {...shared} decisions={project.decisions} />
-  else content = <ProjectsScreen projects={workspace.projects} activeProjectId={workspace.activeProjectId} onNewProject={() => setScreen('new-project')} onOpenProject={openProject} disabled={isReadOnly} />
+  else content = <ProjectsScreen projects={workspace.projects} activeProjectId={workspace.activeProjectId} onNewProject={() => { creationAttempt.current = null; setScreen('new-project') }} onOpenProject={(id) => requestExit({ kind: 'open', id })} disabled={isReadOnly} />
 
-  return <>{banner}{initialLoad.status === 'recovery-required' && storageState.type === 'recovery-required' ? <main className="form-page"><h1>Recuperación requerida</h1><p>Los datos originales no se reemplazaron por un demo. Rescatá el original disponible o reintentá la lectura. No hay importación por interfaz en este lote.</p></main> : content}</>
+  return <>{banner}{pendingExit && <section className="storage-banner" aria-label="Borradores pendientes">
+    <span role="alert">Hay ediciones sin confirmar en este proyecto. Se conservan al cambiar de sección, pero se perderán al salir. No son decisiones ni forman parte del respaldo. Al recargar o cerrar también se pierden; el navegador puede mostrar su propia advertencia.</span>
+    <div><button className="button primary" type="button" onClick={continueEditing}>Continuar editando</button><button className="button" type="button" onClick={discardAndExit}>Descartar y salir</button></div>
+  </section>}{initialLoad.status === 'recovery-required' && storageState.type === 'recovery-required' ? <main className="form-page"><h1>Recuperación requerida</h1><p>Los datos originales no se reemplazaron por un demo. Rescatá el original disponible o reintentá la lectura. No hay importación por interfaz en este lote.</p></main> : content}</>
 }
 
 export default App

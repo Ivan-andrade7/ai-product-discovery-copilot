@@ -45,6 +45,15 @@ Abrir la dirección local informada por Vite, normalmente `http://localhost:5173
 
 ## Verificaciones técnicas
 
+### Lote 1 UX — sólo candidato local, sin publicar
+
+- Editar en Work conserva un borrador por proyecto y propuesta al cambiar de sección. No es una decisión hasta confirmar; puede descartarse individualmente. Salir del proyecto con cambios pendientes exige elegir continuar o descartar.
+- Los borradores viven sólo durante la sesión: no están en `v0.3` ni en el respaldo. Recargar o cerrar los pierde; se solicita la advertencia nativa, sin garantizar su presentación en todos los cierres.
+- Tras un fallo de creación, **Reintentar guardado** conserva el mismo candidato y los campos originales bloqueados. La exportación existente rescata la copia en memoria; recargar sin guardar/exportar la pierde. No hay importación por interfaz. Cancelar y comenzar otra creación es una intención nueva, no un reintento.
+- Sources abre la propuesta vinculada exacta; un destino inválido se explica sin seleccionar otra automáticamente. Solicitudes sólo de espacios/tabs/saltos se rechazan sin reescribir las válidas.
+
+Detalle de cobertura y antecedentes: [`../docs/verification-2026-10-07.md`](../docs/verification-2026-10-07.md). La versión pública descrita más abajo no incluye este lote.
+
 ```bash
 pnpm lint
 pnpm build

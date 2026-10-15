@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { ProjectSidebar } from '../components/ProjectSidebar'
 import { TopBar } from '../components/TopBar'
 import { analysisMessages, originLabel, selectedContext } from '../ai/contracts'
+import { resolveReviewSelection } from '../workflow'
 
 const decisionLabels = {
   accepted: 'Aceptada',
@@ -10,12 +11,11 @@ const decisionLabels = {
   pending: 'Pendiente',
 }
 
-export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdateProposal, readOnly, connection, operation, onCheckConnection, onAnalyze, onCancelAnalysis, onSelectSource, canSave }) {
-  const [selectedId, setSelectedId] = useState(proposals.find((proposal) => proposal.status === 'pending')?.id ?? proposals[0]?.id)
-  const [isEditing, setIsEditing] = useState(false)
-  const [draft, setDraft] = useState('')
+export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdateProposal, readOnly, connection, operation, onCheckConnection, onAnalyze, onCancelAnalysis, onSelectSource, canSave, selection, onSelectProposal, drafts, onDraftChange }) {
   const actionLock = useRef(false)
-  const selected = proposals.find((proposal) => proposal.id === selectedId) ?? proposals[0]
+  const { proposal: selected, missing } = resolveReviewSelection(project, selection)
+  const draft = drafts[selected?.id]
+  const isEditing = !!draft && selected?.status === 'pending'
   const selectedIndex = proposals.findIndex((proposal) => proposal.id === selected?.id)
   const analysisStatus = operation?.code ?? connection.code
   const selectedSources = selectedContext(project)
@@ -36,8 +36,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
 
   function selectProposal(index) {
     actionLock.current = false
-    setSelectedId(proposals[index]?.id)
-    setIsEditing(false)
+    onSelectProposal(proposals[index]?.id)
   }
 
   function resolve(status, content) {
@@ -46,7 +45,6 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
     const action = status === 'edited' ? 'edited-and-accepted' : status
     const saved = onUpdateProposal(selected.id, { status, ...(content ? { content } : {}) }, action, 'pending')
     if (!saved) actionLock.current = false
-    setIsEditing(false)
   }
 
   function reopen() {
@@ -57,8 +55,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
   }
 
   function beginEdit() {
-    setDraft(selected.content)
-    setIsEditing(true)
+    if (!draft) onDraftChange(selected.id, { text: selected.content, baseContent: selected.content })
   }
 
   return (
@@ -102,7 +99,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
             </> : <p>Este contenido no se enviará a un proveedor ni se reclasificará como IA real. Para preparar un análisis, creá un proyecto nuevo.</p>}
           </section>
 
-          {!selected ? <section className="empty-state"><h2>Sin propuestas todavía</h2><p>Este proyecto no contiene propuestas precargadas. Para analizarlo se necesita una conexión real habilitada con autorización; sin conexión no se generan propuestas ficticias.</p></section> :
+          {!selected ? <section className="empty-state"><h2>{missing ? 'Propuesta no disponible' : 'Sin propuestas todavía'}</h2>{missing ? <><p>El destino no corresponde a una propuesta disponible de este proyecto. No se seleccionó otra automáticamente.</p><button className="button" type="button" onClick={() => onNavigate('sources')}>Volver a Sources</button>{proposals.length > 0 && <button className="button" type="button" onClick={() => onSelectProposal(proposals[0].id)}>Seleccionar la primera propuesta disponible</button>}</> : <p>Este proyecto no contiene propuestas precargadas. Para analizarlo se necesita una conexión real habilitada con autorización; sin conexión no se generan propuestas ficticias.</p>}</section> :
           <div className="work-grid">
             <section className="proposal-queue" aria-label="Cola de propuestas">
               <h2>Cola de revisión</h2>
@@ -132,7 +129,8 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
               {isEditing ? (
                 <label className="edit-field">
                   Editar propuesta antes de aceptar
-                  <textarea value={draft} onChange={(event) => setDraft(event.target.value)} />
+                  <textarea value={draft.text} disabled={readOnly} onChange={(event) => onDraftChange(selected.id, { ...draft, text: event.target.value })} />
+                  <span>El borrador no es una decisión. Se conserva entre secciones durante esta sesión, no al recargar o cerrar la pestaña.</span>
                 </label>
               ) : (
                 <p className="proposal-content">{selected.content}</p>
@@ -154,10 +152,10 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
                 <div className="decision-actions" onKeyDown={(event) => { if (event.repeat && ['Enter', ' '].includes(event.key)) event.preventDefault() }}>
                   {isEditing ? (
                     <>
-                      <button className="button primary" type="button" onClick={() => resolve('edited', draft.trim())} disabled={!draft.trim() || readOnly}>
+                      <button className="button primary" type="button" onClick={() => resolve('edited', draft.text)} disabled={!draft.text.trim() || readOnly}>
                         Guardar y aceptar
                       </button>
-                      <button className="button" type="button" onClick={() => setIsEditing(false)}>Cancelar edición</button>
+                      <button className="button" type="button" onClick={() => onDraftChange(selected.id, null)}>Descartar borrador</button>
                     </>
                   ) : (
                     <>
