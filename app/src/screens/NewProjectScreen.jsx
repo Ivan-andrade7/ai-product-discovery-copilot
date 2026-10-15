@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { TopBar } from '../components/TopBar'
 import { hasMeaningfulRequest } from '../workflow'
 
@@ -11,6 +11,11 @@ export function NewProjectScreen({ onCancel, onCreate, disabled }) {
   const [requestError, setRequestError] = useState('')
   const [attemptStarted, setAttemptStarted] = useState(false)
   const attempt = useRef(null)
+  const nameRef = useRef(null)
+
+  useEffect(() => {
+    nameRef.current?.focus()
+  }, [])
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -46,6 +51,7 @@ export function NewProjectScreen({ onCancel, onCreate, disabled }) {
           <label>
             <span>Nombre</span>
             <input
+              ref={nameRef}
               value={name}
               onChange={(event) => setName(event.target.value)}
               disabled={attemptStarted}

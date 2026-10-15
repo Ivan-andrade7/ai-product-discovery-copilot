@@ -8,7 +8,7 @@ export function DeliverablesScreen({ project, proposals, onHome, onNavigate }) {
 
   return (
     <div className="screen">
-      <TopBar title={project.name} onHome={onHome}>
+      <TopBar title={project.name} onHome={onHome} showBack>
         <span className="tag">Borrador derivado</span>
       </TopBar>
       <div className="project-layout">

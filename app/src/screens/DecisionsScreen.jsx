@@ -27,7 +27,7 @@ export function DecisionsScreen({ project, proposals, decisions, onHome, onNavig
 
   return (
     <div className="screen">
-      <TopBar title={project.name} onHome={onHome}>
+      <TopBar title={project.name} onHome={onHome} showBack>
         <span className="tag">Historial trazable</span>
       </TopBar>
       <div className="project-layout">

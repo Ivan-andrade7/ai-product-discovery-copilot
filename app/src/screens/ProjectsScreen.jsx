@@ -6,8 +6,8 @@ export function ProjectsScreen({ projects, activeProjectId, onNewProject, onOpen
       <TopBar title="Projects" onHome={() => {}} />
       <main className="projects-page page-padding">
         <div className="page-heading-row">
-          <div><h1>Tus proyectos</h1><p className="page-description">Retomá cada proyecto desde su estado local real.</p></div>
-          <button className="button primary" type="button" onClick={onNewProject} disabled={disabled}>Nuevo proyecto</button>
+          <div><h1 tabIndex="-1">Tus proyectos</h1><p className="page-description">Retomá cada proyecto desde su estado local real.</p></div>
+          <button className="button primary" type="button" data-autofocus="new-project" onClick={onNewProject} disabled={disabled}>Nuevo proyecto</button>
         </div>
         <section className="project-grid" aria-label="Proyectos locales">
           {projects.map((project) => {

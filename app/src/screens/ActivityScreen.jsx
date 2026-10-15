@@ -19,7 +19,7 @@ export function ActivityScreen({ project, proposals, decisions, onHome, onNaviga
 
   return (
     <div className="screen">
-      <TopBar title={project.name} onHome={onHome}>
+      <TopBar title={project.name} onHome={onHome} showBack>
         <span className="tag">Actividad verificable</span>
       </TopBar>
       <div className="project-layout">

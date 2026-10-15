@@ -47,6 +47,14 @@
   font-weight: 700;
 }
 
+.topbar-start {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
 .brand-button {
   display: inline-flex;
   align-items: center;
@@ -56,6 +64,19 @@
   background: transparent;
   text-align: left;
   cursor: pointer;
+}
+
+.topbar-back {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-ink);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
 }
 
 .brand-mark {
@@ -1045,6 +1066,16 @@ blockquote {
 
   .topbar-center {
     display: none;
+  }
+
+  .topbar-start {
+    flex-wrap: wrap;
+    row-gap: 6px;
+  }
+
+  .topbar-back {
+    padding: 4px 8px;
+    font-size: 12px;
   }
 
   .demo-label {

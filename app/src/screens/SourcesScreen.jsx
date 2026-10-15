@@ -9,7 +9,7 @@ export function SourcesScreen({ project, proposals, sources, onHome, onNavigate,
 
   return (
     <div className="screen">
-      <TopBar title={project.name} onHome={onHome}>
+      <TopBar title={project.name} onHome={onHome} showBack>
         <span className="tag">Contexto visible</span>
       </TopBar>
       <div className="project-layout">
@@ -17,7 +17,7 @@ export function SourcesScreen({ project, proposals, sources, onHome, onNavigate,
         <main className="sources-page">
           <header className="work-heading">
             <div>
-              <h1>Sources</h1>
+              <h1 tabIndex="-1">Sources</h1>
               <p>Contenido aportado, referencias e interpretaciones permanecen diferenciados.</p>
             </div>
             <div className="review-count"><strong>{sources.length} fuentes</strong><span>{proposals.length} propuestas vinculables</span></div>

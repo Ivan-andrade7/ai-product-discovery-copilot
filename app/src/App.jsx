@@ -41,6 +41,39 @@ function App() {
   const [selections, setSelections] = useState({})
   const [pendingExit, setPendingExit] = useState(null)
   const creationAttempt = useRef(null)
+  const pendingFocusRef = useRef(null)
+  const exitTriggerRef = useRef(null)
+  const [focusToken, setFocusToken] = useState(0)
+
+  function requestFocus(action) {
+    pendingFocusRef.current = action
+    setFocusToken((token) => token + 1)
+  }
+
+  useEffect(() => {
+    const action = pendingFocusRef.current
+    pendingFocusRef.current = null
+    if (!action) return
+    if (action.type === 'navigation') {
+      const nav = document.querySelector('.project-nav')
+      if (nav) {
+        nav.scrollLeft = action.scrollLeft
+        nav.querySelector('[aria-current="page"]')?.focus({ preventScroll: true })
+      }
+      return
+    }
+    if (action.type === 'selector') {
+      document.querySelector(action.selector)?.focus()
+      return
+    }
+    if (action.type === 'restore') {
+      const el = action.element
+      if (el && document.body.contains(el) && !el.disabled && el.offsetParent !== null) el.focus()
+      else document.querySelector('main h1[tabindex="-1"]')?.focus()
+      return
+    }
+    document.querySelector('main h1[tabindex="-1"]')?.focus()
+  }, [focusToken])
 
   useEffect(() => {
     if (!Object.keys(drafts).some((id) => pendingDrafts(drafts, id).length)) return
@@ -146,14 +179,14 @@ function App() {
     if (attempt.completed) return true
     const saved = commitWorkspace((current) => applyCreationAttempt(current, attempt.created))
     attempt.completed = saved
-    if (saved) setScreen('overview')
+    if (saved) { requestFocus({ type: 'heading' }); setScreen('overview') }
     return saved
   }
 
   function openProject(id) {
-    if (id === workspaceRef.current.activeProjectId) { setScreen('overview'); return true }
+    if (id === workspaceRef.current.activeProjectId) { requestFocus({ type: 'heading' }); setScreen('overview'); return true }
     const saved = commitWorkspace((current) => ({ ...current, activeProjectId: id }))
-    if (saved) setScreen('overview')
+    if (saved) { requestFocus({ type: 'heading' }); setScreen('overview') }
     return saved
   }
 
@@ -171,7 +204,7 @@ function App() {
     setDrafts(draftsRef.current)
   }
 
-  function navigate(destination, selection) {
+  function navigate(destination, selection, focusAction) {
     const projectId = workspaceRef.current.activeProjectId
     if (destination === 'work') {
       const currentProject = workspaceRef.current.projects.find((item) => item.id === projectId)
@@ -179,20 +212,23 @@ function App() {
       setSelections((current) => ({ ...current, [projectId]: selection ?? current[projectId] ?? (first ? { projectId, proposalId: first.id } : undefined) }))
     }
     setPendingExit(null)
+    if (focusAction) requestFocus(focusAction)
     setScreen(destination)
   }
 
   function requestExit(action) {
     const projectId = workspaceRef.current.activeProjectId
-    if (pendingDrafts(draftsRef.current, projectId).length) setPendingExit({ ...action, projectId })
-    else performExit(action)
+    if (pendingDrafts(draftsRef.current, projectId).length) {
+      exitTriggerRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null
+      setPendingExit({ ...action, projectId })
+    } else performExit(action)
   }
 
   function performExit(action) {
     if (action.kind === 'external') loadExternal()
     else if (action.kind === 'reload') window.location.reload()
     else if (action.kind === 'open') openProject(action.id)
-    else setScreen('projects')
+    else { requestFocus({ type: 'heading' }); setScreen('projects') }
   }
 
   function continueEditing() {
@@ -200,6 +236,9 @@ function App() {
     if (proposalId) setSelections((current) => ({ ...current, [pendingExit.projectId]: { projectId: pendingExit.projectId, proposalId } }))
     setPendingExit(null)
     setScreen('work')
+    const trigger = exitTriggerRef.current
+    exitTriggerRef.current = null
+    requestFocus({ type: 'restore', element: trigger })
   }
 
   function discardAndExit() {
@@ -207,6 +246,7 @@ function App() {
     draftsRef.current = { ...draftsRef.current, [action.projectId]: {} }
     setDrafts(draftsRef.current)
     setPendingExit(null)
+    exitTriggerRef.current = null
     performExit(action)
   }
 
@@ -263,6 +303,7 @@ function App() {
     setWorkspace(storageState.external)
     storageStateRef.current = { type: 'ready', external: null, raw: null }
     setStorageState(storageStateRef.current)
+    requestFocus({ type: 'heading' })
     setScreen('projects')
   }
 
@@ -280,7 +321,7 @@ function App() {
 
   const shared = { project, proposals: project.proposals, onHome: () => requestExit({ kind: 'home' }), onNavigate: navigate }
   let content
-  if (screen === 'new-project') content = <NewProjectScreen onCancel={() => setScreen('projects')} onCreate={createProject} disabled={isReadOnly} />
+  if (screen === 'new-project') content = <NewProjectScreen onCancel={() => { requestFocus({ type: 'selector', selector: '[data-autofocus="new-project"]' }); setScreen('projects') }} onCreate={createProject} disabled={isReadOnly} />
   else if (screen === 'overview') content = <OverviewScreen {...shared} />
   else if (screen === 'work') content = <WorkScreen key={project.id} {...shared} selection={selections[project.id]} onSelectProposal={(proposalId) => setSelections((current) => ({ ...current, [project.id]: { projectId: project.id, proposalId } }))} drafts={drafts[project.id] ?? {}} onDraftChange={(proposalId, draft) => changeDraft(project.id, proposalId, draft)} onUpdateProposal={updateProposal} readOnly={isReadOnly} connection={connection} operation={operation?.projectId === project.id ? operation : null} onCheckConnection={inspectConnection} onAnalyze={runAnalysis} onCancelAnalysis={cancelAnalysis} onSelectSource={selectSource} canSave={storageState.type !== 'write-error'} />
   else if (screen === 'decisions') content = <DecisionsScreen {...shared} decisions={project.decisions} />

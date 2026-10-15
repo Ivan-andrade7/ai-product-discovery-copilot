@@ -40,11 +40,24 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
   const click = (page, name) => button(page, name).click()
   const home = (page) => page.locator('.brand-button').click()
   const workspace = (page) => page.evaluate((key) => JSON.parse(localStorage.getItem(key)), STORAGE_KEY)
+  const visibleNavFocus = (el) => {
+    const nav = el.closest('nav'), r = el.getBoundingClientRect(), n = nav.getBoundingClientRect(), style = getComputedStyle(el)
+    const margin = parseFloat(style.outlineWidth) + parseFloat(style.outlineOffset)
+    const clipping = nav.scrollWidth > nav.clientWidth
+    return el === document.activeElement && style.outlineStyle === 'solid' && parseFloat(style.outlineWidth) >= 3 && r.left - margin >= (clipping ? n.left + nav.clientLeft : 0) - 1 && r.right + margin <= (clipping ? n.left + nav.clientLeft + nav.clientWidth : innerWidth) + 1
+  }
   async function fit(page, state) {
     for (const width of [320, 390, 901, 1024, 1025, 1280]) {
       await page.setViewportSize({ width, height: 844 })
       const size = await page.evaluate(() => ({ viewport: document.documentElement.clientWidth, document: document.documentElement.scrollWidth }))
       assert.ok(size.document <= size.viewport, `${state} ${width}: ${JSON.stringify(size)}`)
+      const overlap = await page.evaluate(() => {
+        const back = document.querySelector('.topbar-back'), title = document.querySelector('.topbar-title')
+        if (!back || !title) return false
+        const a = back.getBoundingClientRect(), b = title.getBoundingClientRect()
+        return Math.min(a.right, b.right) > Math.max(a.left, b.left) && Math.min(a.bottom, b.bottom) > Math.max(a.top, b.top)
+      })
+      assert.equal(overlap, false, `header overlap ${state} ${width}`)
       measurements.push({ state, width, ...size })
     }
     await page.setViewportSize({ width: 390, height: 844 })
@@ -124,6 +137,7 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
     assert.equal(await button(page, 'Guardar y aceptar').isDisabled(), true)
     await click(page, 'Cargar cambios externos'); await click(page, 'Descartar y salir')
     await page.getByRole('heading', { name: 'Tus proyectos' }).waitFor()
+    assert.equal(await page.getByRole('heading', { name: 'Tus proyectos' }).evaluate((el) => el === document.activeElement), true)
 
     // New project validation preserves meaningful original literally.
     const fresh = await isolated()
@@ -234,16 +248,16 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
       for (const name of destinations) {
         await button(review.page, name).focus()
         await review.page.keyboard.press('Tab'); await review.page.keyboard.press('Shift+Tab')
-        const visible = await button(review.page, name).evaluate((el) => {
-          const nav = el.closest('nav'), r = el.getBoundingClientRect(), n = nav.getBoundingClientRect(), style = getComputedStyle(el)
-          const margin = parseFloat(style.outlineWidth) + parseFloat(style.outlineOffset)
-          const clipping = nav.scrollWidth > nav.clientWidth
-          return el === document.activeElement && style.outlineStyle === 'solid' && parseFloat(style.outlineWidth) >= 3 && r.left - margin >= (clipping ? n.left + nav.clientLeft : 0) - 1 && r.right + margin <= (clipping ? n.left + nav.clientLeft + nav.clientWidth : innerWidth) + 1
-        })
+        const visible = await button(review.page, name).evaluate(visibleNavFocus)
         assert.equal(visible, true, `focus ${name} at ${width}`)
         focusChecks++
+        const scrollBefore = await review.page.evaluate(() => ({ left: document.querySelector('.project-nav').scrollLeft, top: scrollY }))
         await review.page.keyboard.press('Enter')
         await review.page.getByRole('heading', { name, exact: true }).waitFor()
+        assert.equal(await button(review.page, name).getAttribute('aria-current'), 'page')
+        assert.equal(await button(review.page, name).evaluate(visibleNavFocus), true, `focus after transition ${name} at ${width}`)
+        const scrollAfter = await review.page.evaluate(() => ({ left: document.querySelector('.project-nav').scrollLeft, top: scrollY }))
+        assert.ok(Math.abs(scrollAfter.left - scrollBefore.left) <= 1 && Math.abs(scrollAfter.top - scrollBefore.top) <= 1, `scroll after transition ${name} at ${width}`)
       }
     }
 
@@ -262,6 +276,51 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
       await harness.page.getByRole('heading', { name: 'Propuesta no disponible' }).waitFor()
       assert.equal(await harness.page.locator('.proposal-review').count(), 0)
       await fit(harness.page, 'unavailable-target')
+    }
+    // Recovery uses explicit destinations and consumes its focus request once.
+    const recoveryFlow = await isolated()
+    await recoveryFlow.page.getByRole('button', { name: /Discovery v0.1/ }).click()
+    await recoveryFlow.page.evaluate(() => {
+      const focus = HTMLElement.prototype.focus
+      window.workflowRecoveryFocusCount = 0
+      HTMLElement.prototype.focus = function (...args) {
+        if (this.matches('.proposal-review h2')) window.workflowRecoveryFocusCount++
+        return focus.apply(this, args)
+      }
+    })
+    async function unavailable(selection) {
+      await click(recoveryFlow.page, 'Sources')
+      await recoveryFlow.page.evaluate((selection) => {
+        const control = document.querySelector('.linked-proposals button')
+        let fiber = control[Object.keys(control).find((key) => key.startsWith('__reactFiber$'))]
+        while (fiber && fiber.type?.name !== 'SourcesScreen') fiber = fiber.return
+        if (!fiber) throw new Error('SourcesScreen callback unavailable in test')
+        fiber.memoizedProps.onNavigate('work', selection)
+      }, selection)
+      await recoveryFlow.page.getByRole('heading', { name: 'Propuesta no disponible' }).waitFor()
+      assert.equal(await recoveryFlow.page.locator('.proposal-review').count(), 0)
+    }
+    for (const selection of [{ projectId: seed.projects[0].id, proposalId: 'missing' }, { projectId: 'foreign', proposalId: seed.projects[0].proposals[0].id }]) {
+      await unavailable(selection)
+      await button(recoveryFlow.page, 'Volver a Sources').focus()
+      await recoveryFlow.page.keyboard.press('Enter')
+      assert.equal(await recoveryFlow.page.getByRole('heading', { name: 'Sources', exact: true }).evaluate((el) => el === document.activeElement), true)
+      await unavailable(selection)
+      const countBefore = await recoveryFlow.page.evaluate(() => window.workflowRecoveryFocusCount)
+      await button(recoveryFlow.page, 'Seleccionar la primera propuesta disponible').focus()
+      await recoveryFlow.page.keyboard.press('Enter')
+      const heading = recoveryFlow.page.locator('.proposal-review h2')
+      assert.equal(await heading.textContent(), titles[0])
+      assert.equal(await heading.evaluate((el) => el === document.activeElement), true)
+      assert.equal(await recoveryFlow.page.evaluate(() => window.workflowRecoveryFocusCount), countBefore + 1)
+      await click(recoveryFlow.page, 'Editar')
+      const editor = recoveryFlow.page.getByLabel('Editar propuesta antes de aceptar')
+      await editor.fill('Borrador ficticio después de recuperar')
+      await recoveryFlow.page.keyboard.type(' sin saltos de foco')
+      assert.equal(await editor.evaluate((el) => el === document.activeElement), true)
+      assert.equal(await editor.inputValue(), 'Borrador ficticio después de recuperar sin saltos de foco')
+      assert.equal(await recoveryFlow.page.evaluate(() => window.workflowRecoveryFocusCount), countBefore + 1)
+      await click(recoveryFlow.page, 'Descartar borrador')
     }
     assert.deepEqual(external, [])
     assert.deepEqual(errors, [])

@@ -13,6 +13,8 @@ const decisionLabels = {
 
 export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdateProposal, readOnly, connection, operation, onCheckConnection, onAnalyze, onCancelAnalysis, onSelectSource, canSave, selection, onSelectProposal, drafts, onDraftChange }) {
   const actionLock = useRef(false)
+  const recoveryFocusRef = useRef(false)
+  const proposalHeadingRef = useRef(null)
   const { proposal: selected, missing } = resolveReviewSelection(project, selection)
   const draft = drafts[selected?.id]
   const isEditing = !!draft && selected?.status === 'pending'
@@ -25,6 +27,18 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
   useEffect(() => {
     actionLock.current = false
   }, [selected?.id, selected?.status])
+
+  useEffect(() => {
+    if (recoveryFocusRef.current && selected?.id) {
+      recoveryFocusRef.current = false
+      proposalHeadingRef.current?.focus()
+    }
+  }, [selected?.id])
+
+  function selectFirstFromRecovery() {
+    recoveryFocusRef.current = true
+    onSelectProposal(proposals[0].id)
+  }
 
   function nextPendingIndex() {
     for (let step = 1; step <= proposals.length; step += 1) {
@@ -60,7 +74,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
 
   return (
     <div className="screen">
-      <TopBar title={project.name} onHome={onHome}>
+      <TopBar title={project.name} onHome={onHome} showBack>
         <span className="tag">Revisión humana</span>
       </TopBar>
       <div className="project-layout">
@@ -68,7 +82,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
         <main className="work-page">
           <header className="work-heading">
             <div>
-              <h1>Work</h1>
+              <h1 tabIndex="-1">Work</h1>
               <p>Revisá cada propuesta. La IA no decide por vos.</p>
             </div>
             <div className="review-count" aria-live="polite">
@@ -99,7 +113,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
             </> : <p>Este contenido no se enviará a un proveedor ni se reclasificará como IA real. Para preparar un análisis, creá un proyecto nuevo.</p>}
           </section>
 
-          {!selected ? <section className="empty-state"><h2>{missing ? 'Propuesta no disponible' : 'Sin propuestas todavía'}</h2>{missing ? <><p>El destino no corresponde a una propuesta disponible de este proyecto. No se seleccionó otra automáticamente.</p><button className="button" type="button" onClick={() => onNavigate('sources')}>Volver a Sources</button>{proposals.length > 0 && <button className="button" type="button" onClick={() => onSelectProposal(proposals[0].id)}>Seleccionar la primera propuesta disponible</button>}</> : <p>Este proyecto no contiene propuestas precargadas. Para analizarlo se necesita una conexión real habilitada con autorización; sin conexión no se generan propuestas ficticias.</p>}</section> :
+          {!selected ? <section className="empty-state"><h2>{missing ? 'Propuesta no disponible' : 'Sin propuestas todavía'}</h2>{missing ? <><p>El destino no corresponde a una propuesta disponible de este proyecto. No se seleccionó otra automáticamente.</p><button className="button" type="button" onClick={() => onNavigate('sources', undefined, { type: 'heading' })}>Volver a Sources</button>{proposals.length > 0 && <button className="button" type="button" onClick={selectFirstFromRecovery}>Seleccionar la primera propuesta disponible</button>}</> : <p>Este proyecto no contiene propuestas precargadas. Para analizarlo se necesita una conexión real habilitada con autorización; sin conexión no se generan propuestas ficticias.</p>}</section> :
           <div className="work-grid">
             <section className="proposal-queue" aria-label="Cola de propuestas">
               <h2>Cola de revisión</h2>
@@ -124,7 +138,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
                 <span className={`status-pill ${selected.status}`}>{decisionLabels[selected.status]}</span>
               </div>
               <p className="proposal-type">{selected.type}</p>
-              <h2>{selected.title}</h2>
+              <h2 ref={proposalHeadingRef} tabIndex="-1">{selected.title}</h2>
 
               {isEditing ? (
                 <label className="edit-field">

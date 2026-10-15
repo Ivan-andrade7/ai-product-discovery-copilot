@@ -41,7 +41,10 @@ export function ProjectSidebar({ active = 'Overview', onNavigate, projectName })
             className={item.label === active ? 'nav-item active' : 'nav-item'}
             key={item.screen}
             onFocus={(event) => revealControl(event.currentTarget)}
-            onClick={() => onNavigate?.(item.screen)}
+            onClick={() => onNavigate?.(item.screen, undefined, {
+              type: 'navigation',
+              scrollLeft: navigation.current?.scrollLeft ?? 0,
+            })}
             type="button"
           >
             {item.label}

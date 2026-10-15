@@ -1,5 +1,150 @@
 # Registro de verificación interna
 
+## Cierre de la advertencia de lint del Lote 2 — 15/10/2026
+
+Control inicial: main, HEAD y referencia local origin/main en `06045764f397a330d980f3e9e71fb827d629b962`, índice vacío y exactamente los 16 archivos modificados esperados. Sin fetch, cambios concurrentes ni otros archivos seguidos inesperados. Los dos elementos no seguidos fuera de alcance continuaron sin lectura/modificación. Se conservaron huellas SHA-256 de los 46 archivos seguidos de app y documentación correspondiente antes de editar.
+
+### Advertencia, causa y corrección mínima
+
+Advertencia reproducida en el app canónico: app/src/screens/WorkScreen.jsx:36:6, `React Hook useEffect has a missing dependency: 'selected'. Either include it or remove the dependency array`, regla react-hooks/exhaustive-deps. Pertenece al efecto de recuperación introducido por F12 del Lote 2; estaba recibido desde Abacus y preservado por el correctivo anterior, pero no existía en la base 06045764. No es una advertencia de Lote 1 ni de la instalación de dependencias ya reparada.
+
+El cuerpo leía el objeto selected mientras declaraba únicamente `[selected?.id]`. El efecto sólo necesita comprobar la existencia del identificador seleccionado. Se sustituyó la condición `recoveryFocusRef.current && selected` por `recoveryFocusRef.current && selected?.id`; se conservaron la dependencia por id, el reset del permiso antes de focus y la referencia al h2. No se agregó selected como dependencia amplia, no se silenciaron reglas ni se añadieron excepciones. La recuperación sigue sin seleccionar alternativas silenciosamente y el foco se consume sólo después de la selección explícita. No cambia la selección, F09, contenido ni persistencia.
+
+### Pruebas y resultado
+
+- Lint final en app: **PASS, código 0, cero errores y cero advertencias**.
+- Build final: PASS, 33 módulos; assets `index-DVPkSybh.js` y `index-TIaxFCsK.css`.
+- Suite con WORKFLOW_UI_TESTS=1 y el runtime de navegador ya disponible: **114 aprobadas, cero fallidas y una omitida**, 115 registradas. No se instalaron más dependencias. La omisión es el opt-in histórico de storage.test.mjs, UI_TESTS no activado, y permanece separada de los dos fallos de separadores históricos.
+- app/tests/workflow-browser.test.mjs se amplió sin quitar aserciones anteriores: dos escenarios de destino inválido (id inexistente y proyecto ajeno) invocan el callback real de Sources dentro de App aislada. Ambos muestran Propuesta no disponible sin revisión alternativa. Enter en Volver a Sources enfoca su h1. Al repetir la recuperación y activar por teclado Seleccionar la primera propuesta disponible, se selecciona exactamente la primera y el h2 recibe foco una sola vez.
+- Se instrumentaron sólo en cada página ficticia las llamadas a focus sobre el h2: el contador aumenta exactamente una vez por recuperación explícita y no aumenta al abrir el editor, modificar el borrador y escribir mediante teclado. El textarea mantiene el foco y el contenido esperado en ambos escenarios. Sin backdoor en el producto ni cambio de lógica para facilitar el test.
+- La suite pertinente conservó PASS de F08 mínimo, F09, borradores, creación/reintento, regresiones laterales y conflicto. Sus 60 mediciones integradas y 36 transiciones de foco siguen pasando; no se ejecutó otra matriz independiente de layout porque el cambio es una guarda de efecto y no modifica geometría. Los resultados de nombres largos del correctivo anterior se conservan sin presentarlos como repetidos.
+- Cero intentos externos y cero errores/advertencias de consola en el recorrido controlado. Datos ficticios y contextos descartables; sin claves, registro económico, IA ni servicios externos. No se dispone de lector de pantalla para este cierre, no hay afirmación de conformidad integral.
+
+Los fallos de separadores de ruta reproducidos anteriormente en base y candidato permanecen como antecedente separado; one-shot.test.mjs y trial-ledger.test.mjs no se modificaron ni se ocultaron sus hooks. En el entorno ordinario pasaron con la suite de este cierre. Manifiesto, lockfile, configuración y resto del código conservan sus huellas; sólo se editaron WorkScreen.jsx, workflow-browser.test.mjs y los dos documentos autorizados respecto del candidato recibido.
+
+### Alcance completo previsto para eventual commit
+
+Revisión del diff contra 06045764: exclusivamente F01/F11/F12 del Lote 2, sus correcciones, pruebas y documentación. Sin cambios de IA, backend, servicios, esquema de persistencia, dependencias o configuraciones. Lista completa de archivos previstos, todavía sin staging:
+
+1. app/index.html
+2. app/src/App.css
+3. app/src/App.jsx
+4. app/src/components/ProjectSidebar.jsx
+5. app/src/components/TopBar.jsx
+6. app/src/screens/ActivityScreen.jsx
+7. app/src/screens/DecisionsScreen.jsx
+8. app/src/screens/DeliverablesScreen.jsx
+9. app/src/screens/NewProjectScreen.jsx
+10. app/src/screens/OverviewScreen.jsx
+11. app/src/screens/ProjectsScreen.jsx
+12. app/src/screens/SourcesScreen.jsx
+13. app/src/screens/WorkScreen.jsx
+14. app/tests/workflow-browser.test.mjs
+15. contexto.md
+16. docs/verification-2026-10-07.md
+
+Propuesta de commit, no ejecutada: `fix: improve project navigation and focus recovery`. Descripción: agrega regreso explícito a Projects, idioma/título del documento y foco por intención para apertura, creación, recuperación y navegación; conserva borradores y scroll, evita la superposición de cabecera y orienta el foco tras cargar cambios externos. Valida el recorrido con lint sin advertencias, build y 114 pruebas aprobadas, una opcional omitida; no habilita IA ni cambia persistencia.
+
+**Dictamen final:** candidato local listo para autorización expresa de versionado de Iván, con revisión de GuIA. Índice vacío; main, HEAD y origin/main local sin movimiento. No hubo staging, commit, ramas, worktrees, fetch, push, merge, deploy ni publicación. El versionado no está ejecutado ni autorizado por este dictamen.
+
+## Correcciones autorizadas del Lote 2 — 15/10/2026, candidato local
+
+### Control inicial y cambios
+
+Iván autorizó las tres correcciones propuestas y la reparación acotada de dependencias para lint. Antes de modificar se verificaron main, HEAD y referencia local origin/main en `06045764f397a330d980f3e9e71fb827d629b962`, índice vacío y exactamente los 14 archivos locales previstos. `.abacusai/` y `contexto-Ivan.md` continuaron ajenos, sin lectura/modificación ni cambios de exclusión. Se preservaron copias/huellas de 46 archivos seguidos dentro de un directorio temporal fuera del repositorio. No se detectaron cambios concurrentes o inesperados.
+
+Cambios realizados por Codex en este correctivo, sobre el diff recibido:
+
+- app/src/App.css: `.topbar-start` admite wrap también fuera del breakpoint móvil, manteniendo la grilla existente y el contenido completo. Marca y regreso se distribuyen dentro de la misma celda; sin recortes globales, cambios de tipografía ni rediseño.
+- app/src/components/ProjectSidebar.jsx: sólo la activación de un control lateral transmite la intención navigation y el scrollLeft de origen. No se solicita foco al escribir o por un render ordinario.
+- app/src/App.jsx: el consumidor de intención restaura scrollLeft en el nav montado y enfoca su control aria-current=page con preventScroll. El onFocus/revealControl existente conserva la holgura del contorno. Al completar loadExternal se solicita el foco heading de Projects; no cambia su lógica de datos, descartes o persistencia.
+- app/tests/workflow-browser.test.mjs: se añaden aserciones observables de colisión de cabecera, foco al cargar cambios externos y foco/aria-current/scroll después de cada transición lateral; se conserva la comprobación de contorno previa. No se modificaron one-shot.test.mjs ni trial-ledger.test.mjs ni sus hooks de limpieza.
+- contexto.md y este registro: estado, reparación, resultados y límites actualizados. Los otros cambios anteriores del Lote 2 se preservaron byte a byte.
+
+### Reparación exacta del entorno de lint
+
+README de app indica pnpm; manifiesto conserva sus scripts y pnpm-lock.yaml, formato 9, fija eslint-plugin-react-hooks 7.1.1 y zod 4.6.5. Se usó pnpm 11.25.0 disponible en este equipo con `pnpm install --frozen-lockfile --force --ignore-scripts --prefer-offline`; respondió Already up to date y no restituyó el archivo ausente. No se alteró configuración para forzarlo.
+
+Se descargó únicamente el paquete exacto mediante `npm pack zod@4.6.5 --ignore-scripts --pack-destination <TEMP-del-correctivo> --json`, fuera del repositorio. npm se usó como transporte puntual del paquete, no para instalar el proyecto ni generar otro lock. Se verificó el SHA-512 completo del tarball contra la integridad fijada en pnpm-lock.yaml:
+
+`sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==`
+
+Tras comprobar que las 840 entradas pertenecían a package/ y no contenían segmentos de escape, se extrajo con tar --strip-components 1 en el directorio instalado `app/node_modules/.pnpm/zod@4.6.5/node_modules/zod`. Esto restituyó el paquete íntegro y json-schema.cjs sin parchear código de terceros, actualizar versiones ni agregar dependencias. Los SHA-256 de app/package.json y app/pnpm-lock.yaml permanecieron idénticos. No se borraron carpetas del proyecto ni se limpiaron cachés globales; no se leyeron credenciales. El único acceso externo fue la obtención del paquete necesario.
+
+`npm run lint`: finalizó con código 0, **cero errores y una advertencia** react-hooks/exhaustive-deps en app/src/screens/WorkScreen.jsx:36, por selected en el efecto de recuperación. Ese efecto ya estaba en el código recibido y no se modificó bajo estas tres correcciones. Se deja visible para la revisión de versionado, sin desactivar reglas ni atribuir un PASS sin advertencias.
+
+### Verificación final
+
+- Build: PASS, 33 módulos; assets index-Cwu_RGRH.js e index-TIaxFCsK.css.
+- Suite con WORKFLOW_UI_TESTS=1: **114 aprobadas, cero fallidas, una omitida**, 115 registradas. Se usó el navegador Edge ya instalado y el puente temporal de ruta del ejecutable documentado en el dictamen anterior; no se instaló un navegador. La omitida es el recorrido opt-in histórico de storage.test.mjs (UI_TESTS no activado).
+- El recorrido de workflow, pertinente por los cambios de navegación y conflicto, mantuvo PASS para borradores por proyecto/propuesta, continuidad/descarte, creación y reintento sin duplicación, solicitud literal, F08 mínimo y selección exacta F09. Registra 60 medidas de layout sin desbordamiento, cero colisiones de cabecera en esos estados y 36 transiciones laterales en los seis anchos, ahora con aserciones adicionales posteriores a Enter: foco en el control activado, aria-current conservado, contorno completo y scroll horizontal/vertical preservado (tolerancia de 1 px).
+- Retest focalizado independiente de cabecera: seis pantallas de proyecto con nombre largo sin espacios a 320, 390, 901, 1024, 1025 y 1280 px, **36/36 casos sin superposición entre marca/regreso/título ni desbordamiento**, con contorno completo del regreso dentro del viewport. Se inspeccionó captura a 1025 px. No se ocultó contenido.
+- Teclado de Sidebar: Tab/Shift+Tab/Enter comprobados antes y después de cada transición. No se mueve el foco al h1. Edición adicional de un borrador mediante teclado mantuvo el foco en textarea durante los re-renders, sin restauraciones laterales repetidas.
+- Conflicto entre dos pestañas de un contexto ficticio: la segunda guardó revisión y texto externo distintos, generando el evento storage real. Continuar mediante teclado conservó literalmente el borrador, mantuvo Guardar y aceptar deshabilitado y restauró el foco al disparador Cargar cambios externos. Tras volver a solicitar carga y Descartar y salir con Enter, Projects mostró el estado externo, desapareció el conflicto y el h1 Tus proyectos recibió foco con contorno sólido. Al reabrir Work no quedaba un editor/borrador. El arreglo no cambió el raw externo ni la lógica de persistencia.
+- Navegadores/contextos descartables, datos ficticios, tráfico de la aplicación restringido a loopback, cero intentos externos y cero errores/advertencias de consola en el recorrido automatizado. Sin servicios de IA, credenciales, registro económico privado, Notion, Figma o Pizarra. No hay lector de pantalla en esta verificación; tampoco se probaron zoom, otros motores ni conformidad integral de accesibilidad.
+
+Los dos fallos de separadores de ruta se conservan como **antecedente independiente**, reproducidos en base y candidato durante el dictamen anterior. No se repitió esa reproducción porque las correcciones no tocan esos archivos ni su comportamiento; no se alteraron pruebas o entorno para ocultarlos. El entorno ordinario y la suite actual pasaron sus hooks de limpieza.
+
+Evidencia temporal local: `%TEMP%/copilot-lote2-fix-MMcmRx/` contiene copia previa/huellas, tarball verificado, header-results.json, keyboard-conflict-results.json y header-fixed-1025.png. No es una nueva fuente canónica ni parte del candidato Git. El Vite existente de 127.0.0.1:5183 se conservó; el servidor efímero del test se cerró por la propia prueba.
+
+**Dictamen:** las tres correcciones autorizadas están comprobadas; candidato listo para revisión de versionado de GuIA/Iván, con la advertencia de lint explícita. El Lote 2 continúa local y sin publicar. El diff total ahora incluye los 14 archivos previos más ProjectSidebar.jsx y workflow-browser.test.mjs; sólo seis archivos fueron editados en este correctivo. Índice vacío, HEAD/main/origin/main local sin movimiento. No hubo staging, ramas, worktrees, commit, fetch, push, merge, deploy o publicación. La revisión/decisión de versionado es el siguiente gate; este dictamen no la ejecuta.
+
+## Dictamen Codex anterior del Lote 2 — 15/10/2026, previo a las correcciones
+
+### Restauración, alcance y preservación
+
+Raíz local verificada: `C:/Users/Ivan/OneDrive`. Se consultaron AGENTS global, mapa transversal, AGENTS del TP, README, app/README, contexto y este registro. Git se verificó sin fetch: rama main, HEAD y referencia local origin/main en `06045764f397a330d980f3e9e71fb827d629b962`; índice vacío. La versión funcional publicada sigue siendo documentalmente `e2befd6a9d1e7046a5af73d7b80d6427e05aa841`; no se consultaron alojamientos ni servicios externos.
+
+El diff recibido comprende exactamente 14 archivos: app/index.html; app/src/App.css; app/src/App.jsx; app/src/components/TopBar.jsx; las ocho pantallas Activity, Decisions, Deliverables, Overview, Sources, Work, NewProject y Projects; contexto.md y este registro. Antes de esta revisión: 144 inserciones y 38 eliminaciones. No se leyó contenido ni se modificaron `.abacusai/` o `contexto-Ivan.md`, tampoco exclusiones. Se preservó el diff de Abacus. Codex sólo actualizó los dos documentos autorizados; no editó código, estilos, pruebas, manifiesto ni lockfile, ni reparó dependencias. SHA-256 de los 41 archivos seguidos de código/configuración/pruebas inspeccionados se mantuvo idéntico durante la revisión. No se detectaron cambios concurrentes.
+
+Se verificó la correspondencia del Vite existente en 127.0.0.1:5183, PID 11772: su línea de comando apunta al vite.js del app canónico. Se contrastaron idioma/título y fuente servida del lote. Se utilizaron contextos nuevos con datos ficticios; no se dependió del almacenamiento o sesión de Abacus ni se detuvo su proceso. El recorrido opcional existente abrió y cerró además su propio servidor en un puerto efímero.
+
+### Hallazgos y correcciones propuestas, no implementadas
+
+| Prioridad / hallazgo | Ubicación | Reproducción y resultado | Corrección mínima propuesta |
+| --- | --- | --- | --- |
+| P2 — cabecera nueva se superpone | app/src/App.css:35, :50 y :68; TopBar.jsx:4 | Abrir un proyecto y enfocar el regreso a 901, 1024, 1025 o 1280 px. La marca y el nuevo botón comparten una columna fija de 220 px sin wrap fuera del breakpoint móvil. El botón llega a x=303,06 y el título comienza en x=272: solapamiento de 31,06 px con nombre normal. Captura inspeccionada a 1025 px confirma texto y contorno invadiendo el título. También se reproduce en las seis secciones con nombre largo. No hay desbordamiento del documento. Es una regresión del Lote 2. | Permitir wrap dentro de `.topbar-start` también en escritorio para mantener marca/regreso íntegramente en su celda, sin cambiar la grilla ni ocultar contenido. Retestar altura, nombre largo, botones y contorno en los seis anchos. |
+| P2 — foco lateral cae a body | app/src/components/ProjectSidebar.jsx:44; app/src/App.jsx:199 | Enfocar Work en Overview y pulsar Enter: Work se muestra, pero activeElement es BODY. Cada Screen desmonta/remonta su Sidebar y navigate no recibe acción de foco. El problema es preexistente, confirmado ahora, y contradice la premisa de que el control permanece montado. Los 36 checks existentes de foco evalúan el control antes de activarlo; no prueban la conservación tras la transición. | Pasar una intención de foco sólo desde el click lateral y, después del montaje, enfocar el control activo de la nueva `.project-nav` con preventScroll. Capturar/restaurar el scroll horizontal del nav de origen y reutilizar revealControl para conservar la holgura de 6 px del contorno, sin desplazamiento vertical innecesario. No mover todos los cambios de sección al h1 ni alterar la selección de F09. |
+| P2 — descarte para cargar cambios externos no orienta el foco | app/src/App.jsx:219 y :284–298 | Borrador modificado, conflicto de almacenamiento ficticio, Cargar cambios externos, Descartar y salir mediante Enter. Projects aparece y el borrador se descarta, pero activeElement es BODY. performExit deriva a loadExternal y esa ruta omite requestFocus. El descarte por regreso normal sí enfoca Tus proyectos. Es una omisión de cobertura de F12, no pérdida de datos nueva. | Solicitar la intención heading al completar loadExternal antes de mostrar Projects, reutilizando el consumidor existente. Mantener la limpieza de borradores y el estado externo; probar con y sin borrador y comprobar foco en Tus proyectos. |
+
+No se implementó ninguna de estas propuestas. No se amplió el alcance a copy, ayuda, persistencia, backend ni diseño general.
+
+### Pruebas ejecutadas y resultados separados
+
+| Capa / condiciones | Aprobadas | Fallidas | Omitidas | Resultado |
+| --- | --- | --- | --- | --- |
+| npm test estándar, entorno actual | 113 | 0 | 2 | PASS; ambos recorridos opt-in omitidos |
+| npm test con WORKFLOW_UI_TESTS=1 | 114 | 0 | 1 | PASS; workflow-browser existente ejecutado; storage.test UI_TESTS no activado |
+| Base 06045764 extraída, entorno normal | 113 | 0 | 2 | PASS |
+| Base 06045764 extraída, TEMP/TMP con `/` | 113 | 2 | 2 | Fallos de cleanup reproducidos |
+| Candidato, mismo TEMP/TMP con `/` | 113 | 2 | 2 | Mismos dos fallos de cleanup |
+| npm run build | — | — | — | PASS, 33 módulos; assets index-CkeTiTcO.js e index-AXkqAuJp.css |
+| npm run lint | — | — | — | BLOQUEADO antes del análisis por dependencia incompleta |
+
+No se suman ejecuciones repetidas ni mediciones de layout como si fueran pruebas unitarias diferentes. Los 117 del informe de Abacus incluyen los dos hooks fallidos; cuando esos hooks no fallan el runner informa 115 casos, no dos tests desaparecidos.
+
+La reproducción de base se realizó con git ls-tree y git show para extraer únicamente archivos seguidos del app a un directorio temporal fuera del repositorio; sin checkout, worktree, ramas, instalaciones ni cambios de pruebas. En ambos árboles, los fallos son `test.after` de app/tests/one-shot.test.mjs:19, aserción :23, y app/tests/trial-ledger.test.mjs:28, aserción :32. path.dirname(dir) entrega backslashes y os.tmpdir() conserva las barras de TEMP/TMP. Se reprodujo modificando sólo el entorno de esos procesos temporales. Las pruebas y dependencias implicadas no forman parte del diff del Lote 2; los archivos de la base provienen de 06045764. Propuesta opcional para otro cambio autorizado: comparar rutas normalizadas/resueltas en las guardas de limpieza, manteniendo la comprobación del prefijo del directorio; no suprimir el hook ni ocultar fallos.
+
+Lint: el manifiesto declara eslint-plugin-react-hooks ^7.1.1; el lock fija 7.1.1 y su dependencia zod 4.6.5. La instalación disponible se identifica como Zod 4.6.5, pero `v4/core/index.cjs:51` requiere `./json-schema.cjs`, ausente en disco. ESLint 10.12.0 falla durante la carga del plugin antes de revisar fuentes. No es un diagnóstico del código del lote. Paso mínimo pendiente de autorización: restaurar/reinstalar las dependencias de desarrollo completas con el lockfile congelado, sin actualizar versiones, y repetir lint. No se ejecutó instalación, reparación manual ni cambio de configuración para eludirlo.
+
+### Navegador, teclado y layout
+
+Edge instalado en Program Files (x86), headless mediante Playwright ya disponible en el runtime del equipo. La resolución channel msedge de Playwright buscaba una ruta inexistente en AppData; se proporcionó la ruta real del ejecutable en un puente temporal fuera del repo. Las pruebas originales quedaron intactas; el puente sólo resuelve el runtime del navegador. No se instaló software. El recorrido workflow-browser produjo PASS con 60 mediciones de layout, 36 comprobaciones de foco antes de activación, un diálogo beforeunload, cero intentos externos y cero errores/advertencias de consola. Se mantuvieron sus bloqueos de red por origen. No se intentó eludir la denegación de herramientas de la sesión anterior de Abacus: se usó la herramienta independiente disponible en esta sesión.
+
+Cobertura funcional verificada sin repetir la auditoría integral:
+
+- Crear, fallo de escritura/reintento con el mismo candidato, doble clic/Enter repetido, respaldo y recarga sin duplicación; F08 mínimo conserva texto literal significativo y rechaza sólo blancos: PASS.
+- Borradores por proyecto/propuesta, navegación entre secciones, descarte individual, aviso al salir, conservación literal al continuar y limpieza al descartar: PASS. Fuera de v0.3/backup, con pérdida prevista al recargar; no cambia la persistencia.
+- F09: primera, segunda, pendiente/resuelta y nueva selección desde Sources; destino inexistente o ajeno sin sustitución silenciosa: PASS. F01: regreso visible desde las seis secciones y protección de borradores: PASS funcional, con defecto de cabecera indicado.
+- F11: lang es y título AI Discovery Copilot: PASS. F12 se probó mediante Tab, Shift+Tab y Enter enviados por page.keyboard, no mediante dispatchEvent o clic de JavaScript: apertura/creación enfoca Overview; New Project enfoca Nombre; cancelar enfoca Nuevo proyecto; regreso normal/descarte a home enfoca Tus proyectos; recuperación a Sources enfoca su h1; selección explícita desde recuperación enfoca el h2 de la primera propuesta.
+- Continuar mediante teclado desde Work restaura el disparador visible; al venir desde Overview remonta Work y usa el fallback h1 conservando el texto. Tab/Shift+Tab entre Continuar y Descartar conserva el contorno sólido. Continuar ante conflicto conserva borrador y bloqueo, con foco en Cargar cambios externos. Descartar ante conflicto y navegación lateral fallan la orientación del foco, según hallazgos.
+- Los destinos inválidos de recuperación se indujeron invocando el callback real de Sources desde su componente en memoria, con datos ficticios; los pasos de recuperación y selección se ejecutaron por teclado sobre App real. Una prueba preliminar de creación posterior a un evento storage sintético que no se había persistido quedó contaminada por el desfase de revisión y se descartó; repetida en un contexto independiente, creó un solo proyecto y enfocó Overview. No se atribuye ese conflicto artificial al producto.
+- Comprobación adicional: 48 mediciones de ocho pantallas a 320, 390, 901, 1024, 1025 y 1280 px con nombres de proyecto largos sin espacios; cero desbordamientos de página. En las seis vistas de proyecto, el regreso mantuvo su contorno dentro del viewport. Se detectó colisión con el título en 24 casos (seis secciones por cuatro anchos desktop), pese a scrollWidth correcto. Las seis mediciones con nombre normal confirman el mismo defecto desde 901 px. Layout no se declara PASS global.
+
+Evidencia temporal local del 15/10: `%TEMP%/copilot-lote2-review-SWs3P5/` conserva copia aislada de base, salidas base-normal/base-slash/current-slash, review-results.json, long-layout.json y header-1025.png inspeccionado. Es evidencia temporal del equipo, no una nueva fuente canónica ni parte del versionado. No se accedió a credenciales, registro económico privado, sesiones personales ni IA. No hubo llamadas a servicios externos, Notion/Figma/Pizarra, staging, commit, fetch, push, merge, despliegue o publicación. El Vite original sigue ajeno a la gestión de esta revisión.
+
+**Dictamen y siguiente gate:** Lote 2 local, no cerrado y no listo para versionar. Revisión de GuIA y autorización de Iván para la corrección mínima de cabecera, foco lateral y foco al cargar cambios externos; por separado, restauración de dependencias para completar lint y decisión sobre las guardas de cleanup. Después, retest focalizado de esos defectos sin repetir indiscriminadamente lo ya suficiente. Lector de pantalla, zoom, otros motores y accesibilidad integral no se verificaron. No se modificó el estado económico ni se autorizan generaciones.
+
 ## Estado vigente — Lote 1 publicado y cierre documental, 15/10/2026
 
 Versión funcional publicada: `e2befd6a9d1e7046a5af73d7b80d6427e05aa841`. Este cierre sólo concilia documentación; no cambia código, estilos, pruebas, configuración ni assets y no repite el smoke funcional. Los apartados siguientes distinguen la auditoría, implementación local, commit, publicación, smoke y límites; los estados locales anteriores quedan como antecedentes, no pendientes vigentes.
@@ -50,6 +195,27 @@ Se comprobó además un conflicto real entre dos pestañas ficticias: cargar cam
 IA pública deshabilitada; sin nuevas generaciones, credenciales ni acceso al registro económico. Estado conocido histórico: 3/5, halted y permisos consumidos, sin modificación/reconciliación en estos lotes. Un único recorrido real mínimo previo no demuestra calidad general; corpus de cuatro casos sin ejecutar. Sin login, multiusuario, adjuntos, portal ni monetización operativa. Persisten los límites de almacenamiento local, concurrencia, navegador único, falta de lector de pantalla/zoom y ausencia de conformidad integral de accesibilidad o seguridad.
 
 Próximo gate: **Lote 2 — orientación y accesibilidad básica** (F01 regreso explícito a Projects, F11 idioma/título y F12 orientación del foco), no implementado y con autorización separada. Primero auditar el comportamiento y después implementar, respetando la protección de borradores publicada. No incluye microcopy integral, ayuda, espaciado general ni rediseño y no declara accesibilidad integral. El incremento protegido de IA sigue siendo otro objetivo posterior, no iniciado.
+
+## Antecedente — implementación local del Lote 2 antes de versionar, 15/10/2026
+
+Base comprobada antes de modificar: main en 06045764f397a330d980f3e9e71fb827d629b962, archivos seguidos limpios e índice vacío (`.abacusai/.gitignore` y `contexto-Ivan.md` quedaron no seguidos y ajenos, sin leer ni modificar). Alcance: F01, F11 y F12. Este lote quedó sin staging, commit, push ni publicación; HEAD permaneció en 0604576 durante toda la sesión.
+
+### Implementación
+
+- F01: `TopBar.jsx` admite la prop `showBack`; las seis pantallas de proyecto (Overview, Work, Sources, Decisions, Deliverables, Activity) la activan y muestran "← Volver a proyectos" junto a la marca, reutilizando el mismo `onHome`/`requestExit` sin tocar su lógica. Projects y New Project no la reciben. CSS nuevo (`.topbar-start`, `.topbar-back`) envuelve ambos botones en la celda existente de la grilla para no alterar `grid-template-columns`; se agregó una variante compacta dentro del `@media (max-width: 900px)` ya existente.
+- F11: `index.html` pasó a `lang="es"` y título estático `AI Discovery Copilot`. Sin título dinámico ni traducción general del resto de la interfaz.
+- F12: se agregó en `App.jsx` una infraestructura explícita de foco por intención (`requestFocus` + `focusToken` + un único `useEffect` consumidor), invocada sólo en los sitios acordados: crear proyecto y abrir proyecto mueven el foco al `<h1 tabIndex="-1">` de la pantalla destino (selector genérico `main h1[tabindex="-1"]`, único por ser la única pantalla montada en `<main>`); cancelar New Project devuelve el foco al botón "Nuevo proyecto" (`data-autofocus="new-project"`); "Volver a Sources" desde la recuperación de Work mueve el foco al `<h1>` de Sources; seleccionar la primera propuesta desde la recuperación mueve el foco al `<h2>` de la propuesta mostrada (`selectFirstFromRecovery`, preservando la selección exacta de F09); "Continuar editando" restaura el foco al control que disparó la salida si sigue montado y visible, o cae al `<h1>` de Work si no; "Descartar y salir" reutiliza los mismos destinos de `performExit`. New Project enfoca "Nombre" una sola vez al montar. La navegación lateral (`ProjectSidebar`) no recibe ningún `focusAction` y no se tocó: no hay movimiento de foco agregado por este lote en esa ruta. El aviso de borradores conserva su comportamiento no modal, sin captura de foco; sólo se agregó la captura del elemento disparador (`exitTriggerRef`) para la restauración posterior.
+
+### Verificación realizada
+
+- `npm run build` (vite): PASS, sin errores.
+- `npm test` (`node --test tests/*.test.mjs`): 117 casos, 113 aprobados, 2 fallidos, 2 omitidos. Los dos fallos (`one-shot.test.mjs`, `trial-ledger.test.mjs`) son una comparación de separador de ruta (`\\` vs `/`) sobre `os.tmpdir()` en Windows, ajena a los archivos modificados en este lote (no tocan `src/App.jsx` ni las pantallas) y preexistente al margen de este cambio. La prueba opcional `workflow-browser.test.mjs` quedó omitida por no tener Playwright instalado en este entorno (`WORKFLOW_UI_TESTS` no se activó), igual que antes de este lote. No se instalaron dependencias nuevas; las pruebas verificaron cero llamadas de red externas (`assert.equal(network, 0)`).
+- `npm run lint` (eslint) no pudo ejecutarse: la instalación local de `eslint-plugin-react-hooks`/`zod` en `node_modules` tiene un módulo faltante (`zod/v4/core/json-schema.cjs`) ajeno a este lote; no se reinstalaron ni agregaron paquetes para no incumplir la restricción de dependencias. **Lint queda sin verificar en este entorno**, no declarado como PASS.
+- Verificación manual en navegador (Edge vía MCP) contra `vite` local en `127.0.0.1`, con el workspace demo ficticio existente: confirmado por evidencia de herramienta — `document.documentElement.lang === "es"`; título "AI Discovery Copilot"; botón "← Volver a proyectos" visible en la TopBar de un proyecto; abrir el proyecto demo deja el foco en `<h1 tabindex="-1">Overview</h1>`; montar New Project deja el foco en el input "Nombre" (placeholder "Ej. Discovery v0.1"). Navegación lateral (Overview→Work): el foco no fue movido por código nuevo; al desmontarse la pantalla (cada pantalla monta su propia instancia de `ProjectSidebar`, arquitectura preexistente no tocada en este lote) el foco cae de forma nativa del navegador a `<body>`, no al `<h1>` de la pantalla siguiente. Esto no es una regresión de este lote ni estaba dentro del alcance acordado de F12 corregirlo.
+- **No se pudo completar** la verificación en navegador de: foco al cancelar New Project (vuelta a "Nuevo proyecto"), foco en la recuperación de Work (Sources y encabezado de propuesta), restauración de foco en "Continuar editando"/"Descartar y salir", Tab/Shift+Tab/Enter sobre el aviso de borradores, y las mediciones de layout en 320/390/901/1024/1025/1280 px. La herramienta de navegador del entorno denegó de forma intermitente las acciones de interacción (clicks/ejecución) durante la sesión ("Browser permission was not granted"), impidiendo continuar esas comprobaciones; no es un resultado de prueba fallido, es una comprobación no realizada. Estos puntos quedan pendientes de un reintento con la herramienta de navegador disponible.
+- No hay lector de pantalla disponible en este entorno: el foco comprobado mediante `document.activeElement` no equivale a anuncio verificado por un lector de pantalla ni a accesibilidad integral.
+
+Dictamen: F01 y F11 verificados en código, build y navegador. F12 verificado parcialmente (dos de seis destinos de foco comprobados en navegador; el resto implementado y revisado en código pero no ejercitado en navegador por la limitación de herramienta señalada). Lote local no declarado como publicado, pendiente de revisión de GuIA y de completar la verificación interrumpida antes de cualquier decisión de versionado.
 
 ## Antecedente — implementación local del Lote 1 antes de versionar, 15/10/2026
 

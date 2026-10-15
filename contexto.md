@@ -100,13 +100,17 @@ Se conserva la base v0.3 y los estados históricos. El único caso real mínimo 
 
 ### Lote 2 — orientación y accesibilidad básica
 
-Alcance previsto, todavía no implementado y sujeto a autorización separada:
+Alcance: F01 (regreso explícito desde un proyecto al listado de Projects), F11 (idioma correcto del documento y título identificable) y F12 (orientación predecible del foco al cambiar de pantalla).
 
-- F01: regreso explícito desde un proyecto al listado de Projects.
-- F11: idioma correcto del documento y título identificable.
-- F12: orientación predecible del foco al cambiar de pantalla.
+Implementado localmente por Abacus y revisado por Codex (15/10/2026), sin cambiar código, staging, commit, fetch, push ni publicación. Base real: main, HEAD y referencia local origin/main en `06045764f397a330d980f3e9e71fb827d629b962`; índice vacío y 14 archivos modificados previstos. Los dos elementos no seguidos fuera de alcance permanecieron sin leer/modificar.
 
-Primero se auditará el comportamiento vigente y después se implementará el recorte autorizado. El regreso debe respetar la protección de borradores publicada en el Lote 1. No incluye microcopy integral, ayuda, espaciado general ni rediseño; no declara accesibilidad integral. Este cierre documental no inicia su auditoría ni implementación.
+Dictamen actualizado tras autorización de Iván: **candidato local listo para autorización expresa de versionado**, sin staging. Las tres correcciones de cabecera, navegación lateral y carga externa están verificadas. Se cerró además la advertencia del efecto de recuperación de Work, perteneciente a F12 del Lote 2: se comprueba selected?.id en lugar del objeto selected, manteniendo la dependencia y el permiso de foco de un solo uso. No se modificó selección/F09 ni se desactivaron reglas. El recorrido de navegador añade recuperación real en App con destinos inexistentes/ajenos, regreso a Sources, primera propuesta explícita y ausencia de foco repetido al editar. No se modificaron IA, backend, persistencia ni pruebas de separadores.
+
+Resultados finales del cierre de lint: **lint PASS, cero errores y cero advertencias; build PASS; suite con navegador habilitado: 114 aprobadas, cero fallidas y una omitida**. La omitida sigue siendo el opt-in histórico UI_TESTS de storage.test.mjs; no equivale a una prueba fallida. Los dos fallos de separadores reproducidos en base/candidato se conservan como antecedente separado; no se repitieron ni alteraron esas pruebas. Sin instalaciones adicionales ni cambios de manifiesto, lockfile o configuración.
+
+Reparación acotada autorizada: README y lockfile confirman pnpm como gestor canónico. El intento pnpm install con lockfile congelado no restauró el faltante; se descargó sólo zod@4.6.5, se verificó SHA-512 contra el lock y se restituyó íntegro en su directorio ya instalado. Manifiesto, lockfile, versiones y configuración permanecen idénticos. Sin limpieza global ni borrado de carpetas del proyecto.
+
+Retests anteriores de cabecera, foco lateral y conflicto se conservan; este cierre no repitió una matriz independiente de layout, sólo ejecutó la suite pedida y las nuevas comprobaciones focalizadas. No hubo lector de pantalla ni auditoría integral. Detalles y lista completa de los 16 archivos previstos en el registro canónico, sección "Cierre de la advertencia de lint del Lote 2". Siguiente gate: revisión de GuIA/Iván y autorización expresa de versionado. No se prepararon archivos en Git ni se hizo commit o publicación; sin nuevas generaciones ni acceso al registro económico privado.
 
 El responsive y foco están publicados y cerrados en la cobertura probada; no volver a pedir su versionado como gate vigente. La plataforma pública sigue siendo estática, con IA pública deshabilitada. Antes de exponer IA a Iván o clientes debe definirse un incremento protegido con autenticación, backend, secretos, persistencia y controles de uso/costo; todavía no está implementado ni autorizado. El único recorrido real mínimo no demuestra calidad general. Contador conocido 3/5, halted: true y permisos consumidos, sin autorización para nuevas generaciones; sin acceso ni modificación del registro económico durante este cierre. Conversión oficial, reconciliación y presupuesto condicionado de 140 créditos siguen pendientes para futuras pruebas. Todo incremento funcional, llamada de IA, infraestructura o publicación futura requiere alcance y autorización propios.
 

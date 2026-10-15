@@ -14,14 +14,14 @@ export function OverviewScreen({ project, proposals, onHome, onNavigate }) {
   ]
   return (
     <div className="screen">
-      <TopBar title={project.name} onHome={onHome}>
+      <TopBar title={project.name} onHome={onHome} showBack>
         <span className="tag">Estado del proyecto</span>
       </TopBar>
       <div className="project-layout">
         <ProjectSidebar onNavigate={onNavigate} projectName={project.name} />
         <main className="overview-page">
           <section>
-            <h1>Overview</h1>
+            <h1 tabIndex="-1">Overview</h1>
             <span className="tag">En exploración</span>
           </section>
 
