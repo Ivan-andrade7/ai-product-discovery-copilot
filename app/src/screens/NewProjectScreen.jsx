@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { TopBar } from '../components/TopBar'
 import { hasMeaningfulRequest } from '../workflow'
 
-export function NewProjectScreen({ onCancel, onCreate, disabled }) {
+export function NewProjectScreen({ onCancel, onCreate, disabled, e1Enabled = false }) {
   const [name, setName] = useState('')
   const [objective, setObjective] = useState('')
   const [sources, setSources] = useState('')
@@ -12,12 +12,14 @@ export function NewProjectScreen({ onCancel, onCreate, disabled }) {
   const [attemptStarted, setAttemptStarted] = useState(false)
   const attempt = useRef(null)
   const nameRef = useRef(null)
+  const [stageObjective, setStageObjective] = useState('')
+  const [constraints, setConstraints] = useState('')
 
   useEffect(() => {
     nameRef.current?.focus()
   }, [])
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
     if (!hasMeaningfulRequest(objective)) {
       setRequestError('Escribí qué necesitás resolver; la solicitud no puede contener sólo espacios.')
@@ -26,12 +28,13 @@ export function NewProjectScreen({ onCancel, onCreate, disabled }) {
     if (attempt.current?.completed) return
     attempt.current ??= { id: crypto.randomUUID(), completed: false }
     setAttemptStarted(true)
-    const saved = onCreate({
+    const saved = await onCreate({
       name: name.trim() || 'Proyecto sin título',
       objective,
       sources,
       sourceName,
       reference,
+      ...(e1Enabled ? { stageObjective, constraints } : {}),
     }, attempt.current.id)
     attempt.current.completed = saved
   }
@@ -90,6 +93,7 @@ export function NewProjectScreen({ onCancel, onCreate, disabled }) {
           <label><span>Referencia o URL (no se consulta automáticamente)</span><input disabled={attemptStarted} maxLength={2000} value={reference} onChange={(event) => setReference(event.target.value)} /></label>
           <p>PDFs e imágenes todavía no admitidos. La fuente quedará aportada y sin revisar; podés seleccionarla en Work o Sources.</p>
 
+          {e1Enabled && <><label>Resultado esperado, si ya lo conocés<input value={stageObjective} disabled={attemptStarted} onChange={(e) => setStageObjective(e.target.value)} /></label><label>Restricciones conocidas, si existen<input value={constraints} disabled={attemptStarted} onChange={(e) => setConstraints(e.target.value)} /></label></>}
           <p className="method-warning">No hace falta elegir todas las etapas E1–E18.</p>
           {attemptStarted && <p role="status">El candidato conserva los campos originales en esta pestaña. Reintentar guarda el mismo proyecto; no crea otro. Si recargás antes de guardarlo o exportarlo, la copia en memoria se pierde.</p>}
 

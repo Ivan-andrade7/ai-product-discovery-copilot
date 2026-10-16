@@ -2,7 +2,78 @@
 
 ## Fecha de corte
 
-15 de octubre de 2026.
+16 de octubre de 2026.
+
+## Candidato local correctivo — 16/10/2026
+
+Base `main`/HEAD y referencia local `origin/main`: `71dd149`; cambios existentes conservados, sin staging/commit/push. Producción funcional documentada `3835117`, Lotes 1/2 cerrados. El Preview corregido anterior sigue separado del candidato local posterior; no se modificaron servicios ni datos remotos en este lote.
+
+Evidencia recibida de GuIA: primer ingreso con la identidad carp desde escritorio; segundo con `ivanandradeuxui@gmail.com` desde notebook. La segunda recuperó el mismo espacio y `Ensayo Preview E1 · identidad corregida`, solicitud, fuente, decisión, brief, dos pendientes y próxima acción; persistencia tras recarga, sin otra ejecución ni modificación. No se repitió aquí el ingreso. Continuidad y conflicto entre dos computadoras pendientes por falta del escritorio, no fallidos ni sustituidos por pestañas.
+
+Correcciones locales: salida protegida para Work/E1, formularios E1 de sesión fuera de persistencia/respaldo, estilos privados incluidos, recuperación de edición sólo con confirmación del mismo guardado, selección coherente de aportes y validación de procedencia frente al run. El recorrido protegido continúa con orientación simulada; no acredita IA real nueva. El fallo posterior de doble activación se diagnosticó y corrigió con autorización específica: selección implícita avanzaba al siguiente pendiente; ahora se fija el ID revisado y se rechaza el clic repetido del gesto, sin temporizador. Suite completa con navegador 162/162, lint y ambos builds aprobados; incidentes anteriores conservados en el registro único. Próximo gate: revisión de selección y posible commit local con autorización separada; sin promoción ni publicación automática.
+
+Los apartados fechados que siguen son antecedentes del corte anterior, no el estado vigente de las dos identidades ni de este lote local.
+
+## Antecedente: Preview corregido — ingreso inicial y segunda identidad pendiente, 15/10/2026
+
+Corrección mínima autorizada aplicada al contrato JSON de identidad: identities[].id contiene el subject Google; user.id e identity_id son UUID distintos. API conserva comprobaciones exactas de usuario/proveedor/subject, sin fallback. Dobles oficiales saneados y regresiones: 23 pruebas focalizadas aprobadas, lint y ambos builds correctos. Intento fallido anterior conservado, no PASS.
+
+Alias https://ai-discovery-copilot-private-test-ivan-andrade.vercel.app/private actualizado exclusivamente al Preview Ready dpl_A2wdpitMC4npEZj6anPmFxSqrDVc. Vercel Authentication y configuración sólo del despliegue conservados; sin variables compartidas, callbacks/SQL/permisos nuevos, IA real ni cambios de Production/Pages (assets/hashes públicos intactos). Respaldo previo no modificado.
+
+Iván completó un ingreso Google real: Tus proyectos y APIs 200 confirmados. E1 ficticio nuevo completado hasta decisión/brief/próxima acción y recuperado tras recarga sin otro análisis; conflicto de copia obsoleta bloqueado sin sobrescritura. Logout y rechazo posterior de datos observados. Pendiente distinguir el correo del primer ingreso y completar segunda cuenta; no se acredita todavía ambas identidades ni dos computadoras. Controles negativos completos de cookies/CSRF/renovación/expiración e idempotencia incierta conservan evidencia local con dobles, no PASS remoto. Chrome no respondió al control; se usó navegador integrado. Detalle de contrato, pruebas, despliegue y límites en registro canónico. Sin staging/commit/push; main/HEAD71dd149, índice vacío; metodología/candidato previo preservados y Lotes 1/2 cerrados. Los cortes siguientes son antecedentes.
+
+## Preview protegido — desplegado con bloqueo, 15/10/2026
+
+Origen de prueba: https://ai-discovery-copilot-private-test-ivan-andrade.vercel.app/private. Preview Ready dpl_2xfeBMeAAuugvss7pL7fG3KSR4bX, Vercel Authentication conservado, variables sólo del despliegue (ninguna variable compartida de proyecto). SQL protegido aplicado en Supabase dedicado lkzgydnglkrcmztviqsf y UUID/identificadores Google fijados para ambas cuentas confirmadas de Iván. Datos e historial idénticos al respaldo privado; RPC antiguas revocadas, runner loopback anterior ya no accede a datos. Callback HTTPS exacto agregado, retorno local conservado y callback Google intacto. Cero IA real.
+
+Primer ingreso Google real con carp regresó denegado. Defecto del candidato: API y doble buscan provider_id en el objeto JSON de identidad, donde Supabase entrega id. Reproducción aislada confirma rechazo del formato oficial. No se modificó código ni se repitió ingreso: Preview queda bloqueado, no listo. Pruebas autenticadas remotas y dos computadoras pendientes, no PASS; pruebas locales previas no las sustituyen.
+
+Respaldo y recuperación documentados en el localizador privado lógico `AI-Discovery-Copilot/backups/pre-protected-preview-2026-10-15`, fuera de Git y OneDrive, sin secretos Auth. Restauración no ensayada; datos sólo en destino vacío y revisión de permisos antes de restaurar funciones anteriores. Detalle de recursos/configuración, hashes públicos sin cambios, pruebas y límites en docs/verification-2026-10-07.md, sección Preview protegido. Production y Pages no reemplazados. Sin staging/commit/push, sin cambios de código, metodología previa preservada y Lotes 1/2 cerrados.
+
+Gate: autorizar corrección mínima del contrato de identidad/fixture, pruebas focalizadas y reemplazo exclusivamente Preview, luego verificaciones reales y prueba guiada desde dos computadoras. Los cortes siguientes son antecedentes anteriores a este despliegue parcial.
+
+## Preparación HTTPS/Vercel — candidato local, 15/10/2026
+
+Autorizada la preparación, no el despliegue ni cambios remotos. Se conservan ambas identidades de Iván (ivanandradeuxui@gmail.com e ivanandradecarp@gmail.com) y el mismo espacio personal; la API preparada exige además fijar UUID de Supabase y subject Google de cada una. Esos identificadores todavía no se consultaron para esta configuración: sin ellos el nuevo entorno no se habilita.
+
+Entradas Vercel Node y build privado independientes del build habitual. Sesiones/PKCE/revocación/renovación e idempotencia de análisis pasan a almacenamiento duradero preparado en remote/protected-schema.sql, sin memoria compartida entre funciones. Cookies Secure/HttpOnly/Lax, CSRF ligado a sesión, expiración propia, tokens cifrados y dos secretos técnicos de alcance acotado por configurar en otro gate; no claves administrativas ni de IA. E1/v0.3/revisión e historial se reutilizan. El logout incierto no anuncia éxito y permite reintento explícito, sin revelar trabajo.
+
+Comprobación local: 23 pruebas focalizadas de dominio/API/dobles/TLS y dos de navegador aprobadas, lint sin errores/advertencias y ambos builds correctos. TLS real local con CA ficticia confiada sólo por el cliente de prueba; no acredita cookies del navegador en Vercel. SQL nuevo revisado pero no ejecutado: no hay motor PostgreSQL local ni se autorizó aplicarlo remotamente en este tramo. Ingreso Google ajeno sigue sin probarse. Artefactos públicos idénticos al candidato anterior, privado separado; no producción modificada. Sin instalaciones, configuración externa, nuevas llamadas Auth/Supabase/IA, staging, commits, push ni deploy. Detalle, incidentes y límites en el registro canónico.
+
+Destino propuesto: Preview exclusivo del proyecto Vercel existente, sin promoción ni cambios de alias públicos. Alias HTTPS exacto pendiente de verificar; callbacks/variables y secretos sin valores en app/README.md. El SQL revoca RPC antiguas y retiraría el acceso del runner loopback anterior al aplicarse, sin borrar datos; preparar y verificar el reemplazo forma parte del gate externo. Lotes 1 y 2 cerrados y actualización metodológica previa conservada. Detener para revisión del candidato antes de autorizar recursos/configuración y despliegue de prueba con dos computadoras.
+
+## Conexión privada local — infraestructura autorizada, 15/10/2026
+
+Tramo en curso posterior a la revisión E1 cerrada: Supabase dedicado ai-product-discovery-copilot (lkzgydnglkrcmztviqsf, Free) y Google Cloud AI Discovery Copilot TP (ai-discovery-copilot-tp) creados sin facturación/pruebas de pago. Iván confirmó uso académico/personal no comercial, límites Free y dos identidades Google para el mismo espacio: ivanandradeuxui@gmail.com e ivanandradecarp@gmail.com. Proyectos anteriores intactos.
+
+API local protegida en loopback 5182, PKCE/sesión HttpOnly, datos remotos vía JWT de usuario, RLS sin acceso directo y funciones con lista autorizada/revisión/idempotencia. Proveedor exclusivamente simulado. Configuración técnica fuera de OneDrive/Git, sin clave administrativa ni clave de IA. Google habilitado, email/anónimo deshabilitados, hook de altas restrictivo y callbacks locales exactos. Sin lectura/migración de proyectos personales.
+
+Google real y Supabase comprobados desde dos sesiones independientes (Chrome e in-app browser) en esta computadora: proyecto ficticio, selección de fuente, aporte humano, orientación simulada, revisión/decisión, brief, pendientes, próxima acción y cierre E1 recuperados tras recarga. Ambas identidades autorizadas recuperaron el mismo espacio. Conflicto real bloqueado sin sobrescritura; logout rechaza lectura posterior y conserva la otra sesión; sesiones usadas cerradas al finalizar. No se acredita todavía continuidad entre dos computadoras. Rechazo de identidad ajena verificado con dobles y eventos SQL ficticios, sin iniciar sesión con una cuenta ajena.
+
+La prueba real detectó y corrigió comparación sensible al orden de campos JSONB: comparación estructural sin alterar instantáneas y conservando rechazo de contenido obsoleto. Cierre humano explícito de intentos simulados interrumpidos/inciertos conserva solicitud/historial, sin reenvío ni propuestas; no resuelve intentos reales. Resultados, incidentes y límites en docs/verification-2026-10-07.md. El servidor de desarrollo no está listo para publicarse; HTTPS y sesiones aptas para Vercel requieren preparación y otro gate. Sin staging/commit/push/despliegue, cero IA real. Lotes 1 y 2 cerrados; bloque metodológico previo conservado.
+
+## E1 integrado en el proyecto — correcciones locales, 15/10/2026
+
+Implementación local autorizada: E1 usa el mismo App, Projects, New Project, Overview, Work, Sources, Decisions, Deliverables, constructor de proyectos y repositorio. El workspace paralelo se retiró; el wrapper sólo simula identidad y usa claves de prueba prefijadas, sin leer/migrar/borrar proyectos personales ni el sandbox anterior. Extensión explícita opcional stageWork.E1.version=1 dentro de v0.3; propuestas/referencias/ejecuciones/decisiones canónicas, con procedencia simulation separada de modelo e históricos. Lectura de fixtures v0.3 previos sin escritura; no se promete lectura de E1 nuevo por binarios antiguos.
+
+Corregidos: identidad de creación estable ante confirmación perdida, reenvío exacto sin duplicación y nueva identidad para otra intención; aportes humanos pertinentes en humanContext, separados de instrucciones/fuentes, con procedencia declarativa y filtro de proyecto/fuentes seleccionadas. Revisión e historial se comparten, brief y próxima acción se recuperan sin generaciones al abrir/continuar.
+
+Verificación final: lint cero errores/advertencias y build correcto; 14 pruebas E1 aprobadas (13 de dominio y una de navegador), 60 regresiones afectadas aprobadas y una opcional histórica omitida, ejecutadas por grupos sin sumar repeticiones. Panel E1 y Deliverables a 320/390/1280 sin desbordamiento; exclusión de wrapper/dobles en producción y rutas directas comprobada. Iteraciones y límites reales en el registro canónico. Sin lector de pantalla ni accesibilidad integral; fallos históricos de separadores separados.
+
+Sólo integración local con dobles: no Google, autorización remota, continuidad entre equipos, IA real ni controles económicos operativos. Repositorio local síncrono; API real requiere orquestación asíncrona y transacciones/autorización de servidor. Pendientes: confirmar plan/rol/uso elegible en Vercel, plan/cupo de Supabase y administración/recuperación de identidad Google antes de autorizar recursos externos. Custodia de clave, consumo y publicación son gates separados. Main/HEAD 71dd149; sin staging ni commit. Lotes 1 y 2 cerrados.
+
+Los cortes siguientes documentan el candidato previo: sus modelos y cifras no sustituyen este estado integrado.
+
+
+## Antecedente del primer tramo E1 — implementación local simulada autorizada
+
+Dirección confirmada por Iván: espacio personal privado remoto, Google exclusivo, E1 pedido → brief revisado → próxima acción; evaluar Supabase Free sin contratar. Elegibilidad de Vercel Hobby, planes/cupos, aceptación final de pausas/recuperación y custodia de secretos todavía no comprobados/autorizados. Portal posterior; Lotes 1 y 2 cerrados.
+
+Recorte autorizado: recorrido E1 en desarrollo local con identidad, persistencia y proveedor simulados, separados del workspace v0.3 existente y sin migraciones. Criterio de cierre: acceso autorizado/denegado representado, pedido/fuentes conservados, ausencia de envío sin fuente, síntesis/hipótesis/preguntas simuladas, revisión y aportes humanos separados, brief derivado y recuperación con adaptador de prueba. La entrada de prueba debe quedar fuera del build de producción. No demuestra Google, continuidad remota, seguridad real ni calidad de un modelo. Resultados y límites del tramo se registran en docs/verification-2026-10-07.md.
+
+Implementado y comprobado localmente: entrada loopback de desarrollo `?e1`, contratos asíncronos y dobles sin red, fuentes explícitas, salida determinista rotulada como simulada, revisión, respuestas humanas separadas, brief/pendientes/próxima acción y recuperación desde la clave exclusiva de prueba. Objetivo/restricciones conocidos o respondidos no se vuelven a preguntar; no hay comprensión semántica real. La entrada y adaptadores no se incluyen en producción. Lint sin errores/advertencias, build correcto; E1 12 pruebas aprobadas, regresiones afectadas 34 aprobadas y una opcional histórica omitida. Sin lector de pantalla; fallos históricos de separadores conservados aparte.
+
+Tramo local listo para revisión, sin staging/commit/publicación. Siguiente paso: confirmar elegibilidad, planes/cupos y límites de Free antes de autorizar configuración externa de Google/API/persistencia. Custodia y uso de la clave, consumo real y publicación siguen separados. Las menciones siguientes a “próximo incremento pendiente de definición/autorización” corresponden a los cortes previos: la dirección y este tramo simulado ya están autorizados; no lo están los servicios reales ni su publicación. Los prompts de método consultados por el agente no se atribuyen al historial previo del producto. La instrucción E1 de esta prueba es una integración local nueva y limitada, no E1–E18 completo.
 
 ## Estado publicado — Lote 2 UX, 15/10/2026
 
@@ -11,6 +82,35 @@ Versión funcional publicada: `3835117bf6abd9a5d247b3cdc26dbbc5c26dc096`, commit
 Ambos alias públicos sirvieron HTTP 200 y los mismos assets del build probado: index-DVPkSybh.js e index-TIaxFCsK.css, con SHA-256 idénticos. Retest público independiente por alojamiento: F01/F11/F12, borradores, reintentos sin duplicación, F08 mínimo, F09, recuperación y conflicto con datos ficticios aislados. En cada sitio: 36 casos con nombres largos a 320/390/901/1024/1025/1280 px sin superposición/desbordamiento, foco/contorno/scroll del Sidebar conservados. Recuperación, conflicto y fallo de escritura se distinguieron como instrumentación; no se generó IA ni se accedió al registro económico. Sin errores/advertencias de consola ni intentos ajenos al origen en los recorridos monitorizados. No hubo lector de pantalla ni declaración de accesibilidad integral.
 
 El registro detallado, estados, enlaces, hashes y límites están en docs/verification-2026-10-07.md, sección "Publicación y retest público del Lote 2". El cierre documental posterior concilia AGENTS.md, README.md, app/README.md, contexto.md y el registro canónico, sin representar otra versión funcional ni aportar nuevas pruebas. Su commit local está autorizado; su push requiere autorización separada. El siguiente incremento funcional está pendiente de definición y autorización de Iván. IA pública permanece deshabilitada.
+
+## Referencia metodológica vigente y aplicación al TP — 15/10/2026
+
+Iván pidió actualizar el contexto del TP porque se apoya parcialmente en su proceso UX/UI y Product Design. Este ajuste incorpora referencias e instrucciones de trabajo; no modifica la consigna, el alcance integral confirmado el 14/10, la aplicación ni su versión publicada. E1–E18 sirve como método proporcional, no como recorrido obligatorio ni lista de funcionalidades a implementar.
+
+### Referencias canónicas y qué cambia al trabajar
+
+- [Manual E1–E18](../UX%20UI%20y%20Product%20Design/PROCESO-END-TO-END-UX-UI-PRODUCT-DESIGN.md): aplicar el contrato de trabajo con IA, autonomía dentro del pedido autorizado y comprobaciones proporcionales. Precisar objetivo, estado, fuentes, alcance y criterio de cierre usando el registro existente; no crear fichas duplicadas. Cerrar el alcance comprobado y reabrir sólo ante un problema concreto, evidencia nueva o cambio solicitado. Esto no sustituye los permisos específicos del TP para consumo, infraestructura o publicación.
+- [Guía de prompts por etapa](../UX%20UI%20y%20Product%20Design/PROMPTS-POR-ETAPA-UX-UI-PRODUCT-DESIGN.md): al ejecutar una tarea autorizada del TP, consultar y adaptar la instrucción base y el bloque pertinente a su pregunta/etapa. No exigir que Iván copie los prompts, recorrer las 18 etapas ni generar todos sus entregables. Estos prompts son una referencia disponible desde el 15/10; no se presentan como prompts ya usados históricamente en el TP.
+- [Catálogo T00–T34](../UX%20UI%20y%20Product%20Design/PLANTILLAS-END-TO-END-UX-UI-PRODUCT-DESIGN.md): T01 permite aclarar quién usa, paga o financia y qué capacidad operativa sostiene el servicio, sólo cuando cambie una decisión. T12 ofrece un service blueprint opcional si hace falta conectar experiencia y operación interna. Son preguntas y métodos disponibles; no acreditan un modelo comercial, blueprint, portal o investigación ejecutados ni obligan a producirlos.
+- [SOP Figma, §13](../UX%20UI%20y%20Product%20Design/SOP-FIGMA-END-TO-END-GOBERNANZA-DESIGNOPS.md#13-handoff-técnico-proporcional), E16 y T30: para un handoff autorizado, identificar consumidor —incluida implementación propia—, fuentes, reglas, criterios comprobables y pendientes. Distinguir acceso comprobado, informado o no comprobado; el acceso de diseño no demuestra el del destinatario. El ejemplo ficticio de §13.2 ayuda a convertir una anotación ambigua en comportamiento verificable. Propiedades, variables y Auto Layout no definen por sí solos el contrato en código. No exigir Dev Mode, nuevos asientos, reuniones ni otra checklist maestra.
+
+Las fuentes se enlazan aquí, sin copiar sus prompts, plantillas o reglas completas al TP. Ante diferencias, prevalecen la consigna original para requisitos académicos y las decisiones, autorizaciones y evidencias vigentes del TP para su ejecución.
+
+### Lo documentado realmente y lo que no se puede atribuir
+
+El TP ya documenta la separación entre solicitud/fuentes, propuesta de IA, decisión humana y entregable trazable; conserva un demo simulado identificado, historial de decisiones y límites de pruebas. Su estado funcional y el ensayo real mínimo están registrados arriba y en [verificación canónica](docs/verification-2026-10-07.md). Esta actualización no añade pruebas, uso de prompts, handoff comprobado ni validación con usuarios.
+
+El [inventario de herramientas y prompts](docs/tools-and-prompts-inventory.md), pendiente mínimo 3, y la [matriz académica](docs/academic-compliance-matrix.md), riesgo 10, todavía describen el Lote 2 como no implementado. Esas referencias son anteriores a su cierre: para estado funcional y próximo gate prevalecen «Estado publicado — Lote 2 UX» de este contexto y la verificación canónica. No reactivar ese lote por dichos pendientes históricos ni asumir sincronización completa del material académico; ambos documentos quedan fuera de esta actualización.
+
+El [registro académico de prompts](docs/prompt-log.md) conserva sólo intervenciones realmente utilizadas, con su procedencia y límites. No incorporar retroactivamente la guía E1–E18 como uso histórico ni completar el informe con actividades inexistentes. Para usos futuros efectivos, registrar las intervenciones representativas según ese criterio y mantener visible fuente → propuesta → decisión → entregable; aceptar una propuesta no convierte su contenido en evidencia.
+
+Que el método inspire al producto no significa que su automatización esté implementada: integrar prompts por etapa, agregar nuevas categorías o convertir estas referencias en comportamiento del sistema son posibles propuestas futuras, no cambios ejecutados, requisitos docentes ni un nuevo lote autorizado. La automatización completa de E1–E18 sigue excluida de la base. El contrato conserva Afirmación/evidence, Hipótesis/hypothesis y Pregunta/question; no incorpora `inference`.
+
+### Límites de esta actualización
+
+Sólo se actualiza documentación local de contexto e instrucciones. Se conserva la versión funcional `3835117bf6abd9a5d247b3cdc26dbbc5c26dc096`, el alcance integral del 14/10 y el próximo incremento pendiente de definición y autorización. No se modifica código, informe académico, matriz de cobertura, registro histórico de prompts, Notion, Figma ni producción; tampoco se crean tareas o roadmap adicionales.
+
+La IA pública permanece deshabilitada. Se conserva el estado conocido 3/5, `halted: true` y permisos consumidos, sin consultar registros privados ni autorizar o ejecutar nuevas generaciones, consumo, costos, infraestructura, commit o push.
 
 ## Antecedente publicado — Lote 1 UX
 

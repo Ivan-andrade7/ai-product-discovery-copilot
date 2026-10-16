@@ -17,7 +17,7 @@ const statusLabels = {
   pending: 'Pendiente',
 }
 
-export function DecisionsScreen({ project, proposals, decisions, onHome, onNavigate }) {
+export function DecisionsScreen({ project, proposals, decisions, onHome, onNavigate, remote = false }) {
   const latestFirst = useMemo(() => [...decisions].reverse(), [decisions])
   const [selectedId, setSelectedId] = useState(latestFirst[0]?.id ?? null)
   const selected = decisions.find((decision) => decision.id === selectedId) ?? latestFirst[0]
@@ -54,7 +54,7 @@ export function DecisionsScreen({ project, proposals, decisions, onHome, onNavig
           ) : (
             <div className="decisions-grid">
               <section className="decision-log" aria-label="Historial de decisiones">
-                <h2>Historial local</h2>
+                <h2>{remote ? 'Historial del espacio privado' : 'Historial local'}</h2>
                 {latestFirst.map((decision) => (
                   <button
                     aria-pressed={selected?.id === decision.id}
@@ -97,7 +97,7 @@ export function DecisionsScreen({ project, proposals, decisions, onHome, onNavig
                     ? 'La decisión anterior se conserva en el historial y la propuesta vuelve a la cola.'
                     : 'Esta acción modifica el estado vigente sin borrar la propuesta original.'}</p>
                 </article>
-                <p className="session-note">Secuencia local persistente en este navegador · sin fecha inventada.</p>
+                <p className="session-note">{remote ? 'Secuencia guardada en el espacio privado remoto · sin fecha inventada.' : 'Secuencia local persistente en este navegador · sin fecha inventada.'}</p>
               </section>
             </div>
           )}

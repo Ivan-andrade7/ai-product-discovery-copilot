@@ -11,7 +11,12 @@ const decisionLabels = {
   pending: 'Pendiente',
 }
 
-export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdateProposal, readOnly, connection, operation, onCheckConnection, onAnalyze, onCancelAnalysis, onSelectSource, canSave, selection, onSelectProposal, drafts, onDraftChange }) {
+// A second click in the same pointer gesture must not activate a newly rendered action.
+function stopRepeatedClick(event) {
+  if (event.detail > 1) { event.preventDefault(); event.stopPropagation() }
+}
+
+export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdateProposal, readOnly, connection, operation, onCheckConnection, onAnalyze, onCancelAnalysis, onSelectSource, canSave, selection, onSelectProposal, drafts, onDraftChange, simulated = false, remote = false }) {
   const actionLock = useRef(false)
   const recoveryFocusRef = useRef(false)
   const proposalHeadingRef = useRef(null)
@@ -53,18 +58,22 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
     onSelectProposal(proposals[index]?.id)
   }
 
-  function resolve(status, content) {
+  async function resolve(status, content) {
     if (readOnly || actionLock.current || !selected || selected.status !== 'pending') return
     actionLock.current = true
+    // Pin the item being reviewed before mutation. An implicit "first pending"
+    // selection otherwise advances when this proposal becomes resolved.
+    onSelectProposal(selected.id)
     const action = status === 'edited' ? 'edited-and-accepted' : status
-    const saved = onUpdateProposal(selected.id, { status, ...(content ? { content } : {}) }, action, 'pending')
+    const saved = await onUpdateProposal(selected.id, { status, ...(content ? { content } : {}) }, action, 'pending')
     if (!saved) actionLock.current = false
   }
 
-  function reopen() {
+  async function reopen() {
     if (readOnly || actionLock.current || !selected || selected.status === 'pending') return
     actionLock.current = true
-    const saved = onUpdateProposal(selected.id, { status: 'pending' }, 'reopened', selected.status)
+    onSelectProposal(selected.id)
+    const saved = await onUpdateProposal(selected.id, { status: 'pending' }, 'reopened', selected.status)
     if (!saved) actionLock.current = false
   }
 
@@ -94,7 +103,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
           <section className="activity-notice" aria-label="Preparación del análisis">
             <h2>{project.mode === 'personal' ? 'Análisis del proyecto' : 'Proyecto demo o histórico preservado'}</h2>
             <p role="status" aria-live="polite">{analysisMessages[analysisStatus] ?? analysisMessages.disconnected}</p>
-            <p>La versión pública no tiene un servicio de IA. El arranque local normal mantiene las generaciones deshabilitadas; habilitar un ensayo requiere autorización separada. Comprobar el servicio local no envía fuentes. Los resultados anteriores conservan su procedencia.</p>
+            <p>{simulated ? 'Proveedor simulado de E1. Sin servicio externo ni consumo. Las propuestas se revisan con los mismos controles del proyecto.' : 'La versión pública no tiene un servicio de IA. El arranque local normal mantiene las generaciones deshabilitadas; habilitar un ensayo requiere autorización separada. Comprobar el servicio local no envía fuentes. Los resultados anteriores conservan su procedencia.'}</p>
             {project.mode === 'personal' ? <>
               <fieldset>
                 <legend>Contenido seleccionado para el análisis</legend>
@@ -106,8 +115,8 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
               <p>{selectedSources.length} fuentes seleccionadas. Sólo su texto sería enviado; los enlaces no se consultan.</p>
               {selectedSources.map((source) => <details key={source.id}><summary>{source.name} · ver texto seleccionado</summary><p className="analysis-text">{source.content}</p></details>)}
               <div className="decision-actions">
-                <button className="button" type="button" onClick={onCheckConnection} disabled={connection.code === 'checking' || analysisStatus === 'analyzing'}>Comprobar servicio local</button>
-                <button className="button primary" type="button" onClick={onAnalyze} disabled={!connection.available || readOnly || !canSave || !selectedSources.length || analysisStatus === 'analyzing'}>Analizar contenido seleccionado</button>
+                <button className="button" type="button" onClick={onCheckConnection} disabled={connection.code === 'checking' || analysisStatus === 'analyzing'}>{simulated ? 'Comprobar simulador local' : 'Comprobar servicio local'}</button>
+                <button className="button primary" type="button" onClick={onAnalyze} disabled={!connection.available || readOnly || !canSave || !selectedSources.length || analysisStatus === 'analyzing'}>{simulated ? 'Obtener orientación simulada' : 'Analizar contenido seleccionado'}</button>
                 {analysisStatus === 'analyzing' && <button className="button" type="button" onClick={onCancelAnalysis}>Cancelar análisis</button>}
               </div>
             </> : <p>Este contenido no se enviará a un proveedor ni se reclasificará como IA real. Para preparar un análisis, creá un proyecto nuevo.</p>}
@@ -163,7 +172,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
               </article>
 
               {selected.status === 'pending' ? (
-                <div className="decision-actions" onKeyDown={(event) => { if (event.repeat && ['Enter', ' '].includes(event.key)) event.preventDefault() }}>
+                <div className="decision-actions" onClickCapture={stopRepeatedClick} onKeyDown={(event) => { if (event.repeat && ['Enter', ' '].includes(event.key)) event.preventDefault() }}>
                   {isEditing ? (
                     <>
                       <button className="button primary" type="button" onClick={() => resolve('edited', draft.text)} disabled={!draft.text.trim() || readOnly}>
@@ -181,8 +190,8 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
                   )}
                 </div>
               ) : (
-                <div className="resolved-panel">
-                  <span>Decisión local registrada. Aceptar no valida la evidencia ni cambia su procedencia.</span>
+                <div className="resolved-panel" onClickCapture={stopRepeatedClick}>
+                  <span>{remote ? 'Decisión guardada en el espacio privado remoto.' : 'Decisión local registrada.'} Aceptar no valida la evidencia ni cambia su procedencia.</span>
                   <button className="button" type="button" onKeyDown={(event) => { if (event.repeat) event.preventDefault() }} onClick={reopen} disabled={readOnly}>
                     Reabrir decisión
                   </button>

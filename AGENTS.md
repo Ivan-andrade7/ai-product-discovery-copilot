@@ -12,8 +12,11 @@ Construir y documentar el Trabajo Final Integrador individual de la Diplomatura 
 - Simulación limitada a un proyecto demo separado e identificado; los proyectos nuevos empiezan sin propuestas genéricas precargadas.
 - Preservar la base multiproyecto, la persistencia vigente `v0.3` y sus antecedentes `v0.1`/`v0.2`, además de la corrección responsive.
 - Versión funcional publicada y comprobada: `3835117bf6abd9a5d247b3cdc26dbbc5c26dc096`, Lote 2 de navegación y foco, verificado en GitHub Pages y Vercel dentro de la cobertura registrada. Lote 1 `e2befd6` y el hotfix responsive/foco `08853c5` permanecen como antecedentes; ramas conservadas. El cierre documental posterior no representa otra versión funcional. IA pública deshabilitada.
+- Candidato local sobre `71dd149`: E1 y acceso privado/persistencia remota preparados, con orientación explícitamente simulada; Preview previo separado de las correcciones locales sin publicar. Dos identidades recuperaron el mismo espacio según evidencia de GuIA; continuidad/conflicto entre dos computadoras todavía pendiente. Estado y retest del lote correctivo en el registro canónico.
 
 El estado detallado y sus límites se mantienen en `contexto.md` y `docs/verification-2026-10-07.md`; no duplicarlos aquí.
+
+Para aplicar el proceso UX E1–E18 al trabajo del TP, consultar [Referencia metodológica vigente y aplicación al TP — 15/10/2026](contexto.md#referencia-metodológica-vigente-y-aplicación-al-tp--15102026). Es una referencia de ejecución proporcional, no una integración implementada en el producto ni un requisito académico adicional.
 
 ## Extensiones posteriores
 
@@ -39,7 +42,7 @@ Reservar tiempo para pruebas, documentación y entrega académica. Las ampliacio
 
 ## Próximo paso
 
-Lote 2 implementado, publicado y verificado dentro de la cobertura registrada: F01 (regreso explícito a Projects), F11 (idioma/título) y F12 (orientación del foco), conservando la protección de borradores. Las pruebas directas, la instrumentación ficticia y los intentos inválidos del arnés se distinguen en el registro; no hubo lector de pantalla ni se declara accesibilidad integral. El siguiente incremento funcional está pendiente de definición y autorización de Iván; no se inicia otro lote por este cierre documental. IA pública deshabilitada; contador conocido 3/5, halted y permisos consumidos, sin nuevas generaciones autorizadas. El push documental requiere autorización separada. Detalles y límites en contexto y registro canónico.
+Lote 2 cerrado. Candidato local correctivo y doble activación retesteados; próximo gate: revisión de selección y posible commit local con autorización separada. No publicar ni equiparar el Preview anterior con cambios locales posteriores. Mantener pendiente la comprobación entre dos computadoras hasta disponer del escritorio. IA pública deshabilitada; contador conocido 3/5, halted y permisos consumidos, sin nuevas generaciones autorizadas. No se declara accesibilidad integral. Detalles y límites en contexto y registro canónico.
 
 ## Autoridades
 

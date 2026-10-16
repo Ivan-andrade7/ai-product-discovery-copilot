@@ -1,0 +1,18 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "node scripts/build-private.mjs",
+  "outputDirectory": "dist-private",
+  "functions": {"api/**/*.mjs": {"maxDuration": 30}},
+  "rewrites": [
+    {"source": "/", "destination": "/protected.html"},
+    {"source": "/private", "destination": "/protected.html"}
+  ],
+  "headers": [{"source": "/(.*)", "headers": [
+    {"key": "Cache-Control", "value": "no-store"},
+    {"key": "Referrer-Policy", "value": "no-referrer"},
+    {"key": "X-Content-Type-Options", "value": "nosniff"},
+    {"key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data:; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"}
+  ]}]
+}

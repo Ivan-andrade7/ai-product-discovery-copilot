@@ -1,15 +1,15 @@
 import { TopBar } from '../components/TopBar'
 
-export function ProjectsScreen({ projects, activeProjectId, onNewProject, onOpenProject, disabled }) {
+export function ProjectsScreen({ projects, activeProjectId, onNewProject, onOpenProject, disabled, remote = false }) {
   return (
     <div className="screen">
       <TopBar title="Projects" onHome={() => {}} />
       <main className="projects-page page-padding">
         <div className="page-heading-row">
-          <div><h1 tabIndex="-1">Tus proyectos</h1><p className="page-description">Retomá cada proyecto desde su estado local real.</p></div>
+          <div><h1 tabIndex="-1">Tus proyectos</h1><p className="page-description">{remote ? 'Proyectos del espacio privado remoto. Sólo datos ficticios durante esta prueba.' : 'Retomá cada proyecto desde su estado local real.'}</p></div>
           <button className="button primary" type="button" data-autofocus="new-project" onClick={onNewProject} disabled={disabled}>Nuevo proyecto</button>
         </div>
-        <section className="project-grid" aria-label="Proyectos locales">
+        <section className="project-grid" aria-label={remote ? "Proyectos privados" : "Proyectos locales"}>
           {projects.map((project) => {
             const pending = project.proposals.filter((proposal) => proposal.status === 'pending').length
             return (
@@ -22,7 +22,7 @@ export function ProjectsScreen({ projects, activeProjectId, onNewProject, onOpen
             )
           })}
         </section>
-        <p className="method-warning">Los proyectos se conservan por separado en este navegador.</p>
+        <p className="method-warning">{remote ? 'Los cambios confirmados se guardan en el espacio privado remoto.' : 'Los proyectos se conservan por separado en este navegador.'}</p>
       </main>
     </div>
   )

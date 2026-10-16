@@ -1,0 +1,8 @@
+.e1-panel {margin:20px 0; padding:20px; overflow-wrap:anywhere;}
+.e1-panel form {display:grid;gap:12px;margin:16px 0;}
+.e1-panel label {display:grid;gap:8px;}
+.e1-panel input:not([type="checkbox"]),.e1-panel textarea,.e1-panel select {width:100%;min-width:0;padding:12px;background:var(--color-surface);color:var(--color-ink);border:1px solid var(--color-control-border);border-radius:8px;font:inherit;}
+.e1-panel textarea {min-height:90px;resize:vertical;}
+.e1-panel input[type="checkbox"] {width:20px;height:20px;min-height:20px;}
+.e1-panel button {max-width:100%;white-space:normal;overflow-wrap:anywhere;}
+.e1-panel :focus-visible {outline:3px solid var(--color-focus);outline-offset:3px;}

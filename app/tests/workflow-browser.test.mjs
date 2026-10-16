@@ -322,6 +322,33 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
       assert.equal(await recoveryFlow.page.evaluate(() => window.workflowRecoveryFocusCount), countBefore + 1)
       await click(recoveryFlow.page, 'Descartar borrador')
     }
+    // Gesture boundaries: the repeat cannot reach another item/action; deliberate
+    // selection and a later reopening remain available without a timeout gate.
+    const repeated = (await isolated()).page
+    await repeated.getByRole('button',{name:/Discovery v0.1/}).click()
+    await click(repeated,'Work')
+    const initial=(await workspace(repeated)).projects[0], firstId=initial.proposals[0].id, secondId=initial.proposals[1].id
+    const base=initial.decisions.length
+    await button(repeated,'Aceptar').dblclick()
+    let reviewed=(await workspace(repeated)).projects[0]
+    assert.equal(reviewed.decisions.length,base+1)
+    assert.equal(reviewed.decisions.at(-1).proposalId,firstId)
+    assert.equal(reviewed.proposals[1].status,'pending')
+    await button(repeated,'Reabrir decisión').dispatchEvent('click',{detail:2})
+    assert.equal((await workspace(repeated)).projects[0].decisions.length,base+1)
+    await click(repeated,'Reabrir decisión')
+    assert.equal((await workspace(repeated)).projects[0].decisions.length,base+2)
+    await button(repeated,'Aceptar').focus()
+    await repeated.keyboard.down('Enter');await repeated.keyboard.down('Enter');await repeated.keyboard.up('Enter')
+    reviewed=(await workspace(repeated)).projects[0]
+    assert.equal(reviewed.decisions.length,base+3)
+    assert.equal(reviewed.proposals[1].status,'pending')
+    await repeated.locator('.proposal-queue button').nth(1).click()
+    await click(repeated,'Aceptar')
+    reviewed=(await workspace(repeated)).projects[0]
+    assert.equal(reviewed.decisions.length,base+4)
+    assert.equal(reviewed.decisions.at(-1).proposalId,secondId)
+    assert.equal(reviewed.proposals[1].status,'accepted')
     assert.deepEqual(external, [])
     assert.deepEqual(errors, [])
     console.log(JSON.stringify({ workflowBrowser: 'PASS', layout: measurements, focusChecks, unloadDialogs, externalAttempts: external.length, consoleErrors: errors.length }))

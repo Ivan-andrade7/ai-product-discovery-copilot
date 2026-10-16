@@ -2,8 +2,8 @@ import { ProjectSidebar } from '../components/ProjectSidebar'
 import { TopBar } from '../components/TopBar'
 import { originLabel } from '../ai/contracts'
 
-export function DeliverablesScreen({ project, proposals, onHome, onNavigate }) {
-  const included = proposals.filter((proposal) => ['accepted', 'edited'].includes(proposal.status))
+export function DeliverablesScreen({ project, proposals, onHome, onNavigate, e1Brief, remote = false }) {
+  const included = e1Brief ? e1Brief.blocks : proposals.filter((proposal) => ['accepted', 'edited'].includes(proposal.status))
   const includedSummary = `${included.length} ${included.length === 1 ? 'bloque incluido' : 'bloques incluidos'}`
 
   return (
@@ -21,7 +21,7 @@ export function DeliverablesScreen({ project, proposals, onHome, onNavigate }) {
             </div>
             <div className="review-count">
               <strong>{includedSummary}</strong>
-              <span>Derivado del estado local</span>
+              <span>{remote ? 'Derivado del espacio privado remoto' : 'Derivado del estado local'}</span>
             </div>
           </header>
 
@@ -44,9 +44,9 @@ export function DeliverablesScreen({ project, proposals, onHome, onNavigate }) {
                 <div className="document-heading">
                   <div>
                     <span>AI Product Discovery Copilot</span>
-                    <h2>Problem framing · borrador</h2>
+                    <h2>{e1Brief ? 'Brief E1 · revisado' : 'Problem framing · borrador'}</h2>
                   </div>
-                  <span className="tag">Borrador local</span>
+                  <span className="tag">{remote ? 'Borrador privado' : 'Borrador local'}</span>
                 </div>
                 <section className="document-original">
                   <strong>Solicitud original</strong>
@@ -65,6 +65,7 @@ export function DeliverablesScreen({ project, proposals, onHome, onNavigate }) {
                     {proposal.sourceRefs.map((ref, index) => <blockquote key={index}>{project.sources.find((s) => s.id === ref.sourceId)?.name ?? ref.sourceId}: “{ref.quote}”</blockquote>)}
                   </section>
                 ))}
+                {e1Brief && <section><h3>Aportes humanos · no son evidencia independiente</h3>{e1Brief.humanInputs.map(i => <p key={i.id}>{i.content}</p>)}<h3>Pendientes</h3><ul>{e1Brief.pending.map(p => <li key={p.id}>{p.content}</li>)}</ul><h3>Próxima acción</h3><p>{e1Brief.nextAction || 'Pendiente de definir por Iván'}</p><p>{e1Brief.closed ? 'E1 cerrado con pendientes visibles' : 'E1 en trabajo'}</p></section>}
                 <footer>Derivado de decisiones humanas. La aceptación no acredita validación; la procedencia de cada bloque se conserva.</footer>
               </article>
             </div>

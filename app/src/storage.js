@@ -1,12 +1,13 @@
 import { isAnalysisRequest, nonEmpty } from './ai/contracts.js'
+import { validE1Stage } from './e1/service.js'
 
 export const LEGACY_STORAGE_KEY = 'ai-product-discovery-copilot:v0.1'
 export const PREVIOUS_STORAGE_KEY = 'ai-product-discovery-copilot:v0.2'
 export const STORAGE_KEY = 'ai-product-discovery-copilot:v0.3'
 export const SCHEMA_VERSION = 3
 const statuses = new Set(['pending', 'accepted', 'edited', 'rejected'])
-const origins = new Set(['demo', 'unknown', 'model'])
-const runStatuses = new Set(['analyzing', 'complete', 'quota', 'rate_limit', 'permission', 'error', 'incomplete', 'invalid', 'stale', 'cancelled', 'disconnected', 'interrupted', 'cost_pending', 'budget_blocked', 'reconciliation_pending', 'busy'])
+const origins = new Set(['demo', 'unknown', 'model', 'simulation'])
+const runStatuses = new Set(['analyzing', 'complete', 'quota', 'rate_limit', 'permission', 'error', 'incomplete', 'invalid', 'stale', 'cancelled', 'disconnected', 'interrupted', 'uncertain', 'cost_pending', 'budget_blocked', 'reconciliation_pending', 'busy'])
 const unique = (items) => new Set(items.map((item) => item.id)).size === items.length
 const sourceV2 = (s) => s && ['id', 'name', 'kind', 'status'].every((key) => nonEmpty(s[key])) && typeof s.detail === 'string'
 const proposalV2 = (p) => p && ['id', 'type', 'title'].every((key) => nonEmpty(p[key])) && ['content', 'source', 'evidence', 'reasoning'].every((key) => typeof p[key] === 'string') && statuses.has(p.status)
@@ -24,14 +25,15 @@ function normalizedStoredRequest(request) {
     return isAnalysisRequest(normalized) ? normalized : null
   } catch { return null }
 }
-const isRun = (r) => r && nonEmpty(r.id) && runStatuses.has(r.status) && r.provider === 'abacus' && nonEmpty(r.modelRequested) && normalizedStoredRequest(r.request) && r.id === r.request.requestId && typeof r.externalAttempted === 'boolean'
+const isRun = (r) => r && nonEmpty(r.id) && runStatuses.has(r.status) && (r.provider === 'abacus' || (r.provider === 'simulation' && r.modelRequested === 'simulation-e1' && r.request?.stage === 'E1' && r.externalAttempted === false)) && nonEmpty(r.modelRequested) && normalizedStoredRequest(r.request) && r.id === r.request.requestId && typeof r.externalAttempted === 'boolean'
 const normalizeWorkspaceRequests = (workspace) => ({ ...workspace, projects: workspace.projects.map((project) => ({ ...project, runs: project.runs.map((run) => ({ ...run, request: normalizedStoredRequest(run.request) })) })) })
 export function isProject(project) {
   if (!projectV2(project) || !['demo', 'personal', 'historical'].includes(project.mode) || !Array.isArray(project.runs) || !project.runs.every(isRun) || !unique(project.runs)) return false
+  if (project.stageWork !== undefined && (!project.stageWork || Object.keys(project.stageWork).some((k) => k !== 'E1') || !validE1Stage(project.stageWork.E1, project))) return false
   if (!unique(project.sources) || !unique(project.proposals) || !unique(project.decisions)) return false
   if (!project.sources.every((s) => typeof s.content === 'string' && typeof s.selected === 'boolean' && typeof s.reference === 'string')) return false
   if (!project.runs.every((r) => r.request.projectId === project.id)) return false
-  return project.proposals.every((p) => origins.has(p.origin) && (typeof p.originalContent === 'string' || p.originalContent === null) && Array.isArray(p.sourceRefs) && p.sourceRefs.every((ref) => ref && nonEmpty(ref.sourceId) && nonEmpty(ref.quote) && project.sources.some((s) => s.id === ref.sourceId)) && (p.origin !== 'model' || (typeof p.originalContent === 'string' && project.runs.some((r) => r.id === p.runId && r.status === 'complete'))))
+  return project.proposals.every((p) => origins.has(p.origin) && (typeof p.originalContent === 'string' || p.originalContent === null) && Array.isArray(p.sourceRefs) && p.sourceRefs.every((ref) => ref && nonEmpty(ref.sourceId) && nonEmpty(ref.quote) && project.sources.some((s) => s.id === ref.sourceId)) && (!['model', 'simulation'].includes(p.origin) || (typeof p.originalContent === 'string' && project.runs.some((r) => r.id === p.runId && r.status === 'complete' && r.provider === (p.origin === 'simulation' ? 'simulation' : 'abacus')))))
 }
 export function isWorkspace(workspace) {
   return workspaceShape(workspace, 3, isProject) && workspace.predecessors && [LEGACY_STORAGE_KEY, PREVIOUS_STORAGE_KEY].every((key) => workspace.predecessors[key] === null || typeof workspace.predecessors[key] === 'string')
@@ -95,20 +97,24 @@ export function loadWorkspace({ createDefaultWorkspace, migrateLegacy, storage }
 }
 export function persistWorkspace(candidate, expectedRevision, writerId, storage) {
   if (!isWorkspace(candidate)) return { ok: false, type: 'validation-error' }
+  const workspace = { ...normalizeWorkspaceRequests(candidate), revision: expectedRevision + 1, writerId }
+  const serialized = JSON.stringify(workspace)
+  let alreadySaved = false
   try {
     storage ??= window.localStorage
     const raw = storage.getItem(STORAGE_KEY)
     if (raw !== null) {
       const parsed = parseWorkspace(raw)
       if (!parsed.ok) return { ok: false, type: 'recovery-required', raw }
-      if (parsed.workspace.revision !== expectedRevision || parsed.workspace.writerId !== candidate.writerId) return { ok: false, type: 'conflict', workspace: parsed.workspace, raw }
+      alreadySaved = raw === serialized
+      if (!alreadySaved && (parsed.workspace.revision !== expectedRevision || parsed.workspace.writerId !== candidate.writerId)) return { ok: false, type: 'conflict', workspace: parsed.workspace, raw }
     } else if (expectedRevision !== 0) return { ok: false, type: 'conflict', raw: null }
     for (const key of [LEGACY_STORAGE_KEY, PREVIOUS_STORAGE_KEY]) {
       if (storage.getItem(key) !== candidate.predecessors[key]) return { ok: false, type: 'recovery-required', raw: storage.getItem(key), message: 'Una versión anterior cambió sus datos. Exportá ambas copias; no se fusionarán automáticamente.' }
     }
   } catch { return { ok: false, type: 'read-error' } }
-  const workspace = { ...normalizeWorkspaceRequests(candidate), revision: expectedRevision + 1, writerId }
-  try { storage.setItem(STORAGE_KEY, JSON.stringify(workspace)); return { ok: true, workspace } }
+  if (alreadySaved) return { ok: true, workspace }
+  try { storage.setItem(STORAGE_KEY, serialized); return { ok: true, workspace } }
   catch { return { ok: false, type: 'write-error' } }
 }
 export function createBackup(workspace) {

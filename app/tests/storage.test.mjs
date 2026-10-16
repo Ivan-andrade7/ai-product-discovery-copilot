@@ -169,12 +169,13 @@ test('v2 programmatic backup recovery preserves legacy original', () => {
 // Optional browser retest uses an already-installed Playwright runtime.
 // UI_TESTS=1, PLAYWRIGHT_MODULE=file:///.../playwright/index.mjs; no install.
 // All browser contexts are disposable. Non-loopback requests are blocked.
-test('browser: isolated functional, migration, recovery, concurrency and layout retest', { skip: process.env.UI_TESTS !== '1', timeout: 180000 }, async () => {
+test('browser: isolated functional, migration, recovery, concurrency and layout retest', { skip: process.env.UI_TESTS !== '1', timeout: 180000 }, async (t) => {
   const { chromium } = await import(process.env.PLAYWRIGHT_MODULE)
   const browser = await chromium.launch({ channel: 'msedge', headless: true })
   const contexts = []
   const external = []
   const consoleErrors = []
+  const failedRequests = []
   const layout = []
   let mockedCalls = 0
   async function isolated(seed, fault) {
@@ -195,6 +196,7 @@ test('browser: isolated functional, migration, recovery, concurrency and layout 
     }, { seed, fault })
     const page = await context.newPage()
     page.on('pageerror', (error) => consoleErrors.push(error.message))
+    page.on('requestfailed',request=>failedRequests.push({url:request.url(),error:request.failure()?.errorText}))
     page.on('console', (message) => { if (['error', 'warning'].includes(message.type())) consoleErrors.push(message.text()) })
     await page.goto('http://127.0.0.1:5173')
     return { page, context }
@@ -224,6 +226,9 @@ test('browser: isolated functional, migration, recovery, concurrency and layout 
     await expectText(page, 'Sin propuestas todavía')
     assert.equal((await workspace(page)).projects[1].proposals.length, 0)
     assert.equal(await page.getByRole('button', { name: 'Analizar contenido seleccionado' }).isDisabled(), true)
+    // Deterministic disconnected-service fixture. Do not probe a developer's
+    // real port or count the deliberately refused connection as a UI defect.
+    await context.route('http://127.0.0.1:4010/session',route=>route.fulfill({json:{available:false,externalEnabled:false,code:'disconnected'},headers:{'Access-Control-Allow-Origin':'http://127.0.0.1:5173'}}))
     await nav(page, 'Comprobar servicio local')
     await expectText(page, 'Análisis no disponible.')
     assert.equal((await workspace(page)).projects[1].runs.length, 0)
@@ -270,6 +275,7 @@ test('browser: isolated functional, migration, recovery, concurrency and layout 
     assert.equal((await workspace(page)).projects[1].proposals.length, 2)
     await page.getByRole('button', { name: 'Aceptar', exact: true }).dblclick()
     let w = await workspace(page)
+    t.diagnostic(JSON.stringify({doubleAccept:w.projects[1].decisions.map(d=>({proposalId:d.proposalId,action:d.action})),proposalStates:w.projects[1].proposals.map(p=>({id:p.id,status:p.status}))}))
     assert.equal(w.projects[1].decisions.length, 1)
     assert.equal(w.projects[1].proposals[1].status, 'pending')
     await nav(page, 'Deliverables')
@@ -415,6 +421,7 @@ test('browser: isolated functional, migration, recovery, concurrency and layout 
     assert.equal(recovered.workspace.projects[1].name, 'No persistido ficticio')
     for (const width of [320, 360, 390, 430, 1280]) { await writePage.setViewportSize({ width, height: 844 }); await fit(writePage, 'write-error') }
     assert.deepEqual(external, [])
+    t.diagnostic(JSON.stringify({failedRequests}))
     assert.deepEqual(consoleErrors, [])
     console.log('Browser evidence:', JSON.stringify({ browser: browser.version(), layoutChecks: layout.length, mockProviderCalls: mockedCalls, externalRequests: external.length, consoleErrors: consoleErrors.length }))
   } finally {

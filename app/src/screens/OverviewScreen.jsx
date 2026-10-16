@@ -1,7 +1,7 @@
 import { ProjectSidebar } from '../components/ProjectSidebar'
 import { TopBar } from '../components/TopBar'
 
-export function OverviewScreen({ project, proposals, onHome, onNavigate }) {
+export function OverviewScreen({ project, proposals, onHome, onNavigate, stagePanel }) {
   const pendingCount = proposals.filter((proposal) => proposal.status === 'pending').length
   const acceptedCount = proposals.filter((proposal) => ['accepted', 'edited'].includes(proposal.status)).length
   const decidedCount = proposals.filter((proposal) => ['accepted', 'edited', 'rejected'].includes(proposal.status)).length
@@ -25,6 +25,7 @@ export function OverviewScreen({ project, proposals, onHome, onNavigate }) {
             <span className="tag">En exploración</span>
           </section>
 
+          {stagePanel}
           <section className="overview-feature-grid">
             <article className="card decision-card">
               <strong>Próxima decisión</strong>

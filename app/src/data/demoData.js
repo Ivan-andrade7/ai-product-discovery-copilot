@@ -1,3 +1,5 @@
+import { newE1Stage } from '../e1/service.js'
+
 export const defaultProject = {
   id: 'discovery-v01',
   name: 'Discovery v0.1',
@@ -44,9 +46,9 @@ export function migrateLegacyWorkspace(legacy) {
   return { schemaVersion: 2, revision: 0, writerId: 'unpersisted', activeProjectId: project.id, projects: [project] }
 }
 
-export function createLocalProject(input) {
+export function createLocalProject(input, { e1 = false } = {}) {
   const id = `project-${crypto.randomUUID()}`
   const sources = [{ id: `original-${id}`, name: 'Solicitud original preservada', kind: 'Entrada original', status: 'Aportada · sin revisar', detail: 'Texto original conservado sin reescritura.', content: input.objective, reference: '', selected: true }]
   if (input.sources?.trim() || input.reference?.trim()) sources.push({ id: `contributed-${id}`, name: input.sourceName?.trim() || 'Fuente aportada al crear el proyecto', kind: 'Fuente aportada', status: 'Aportada · sin revisar', detail: 'Sólo el texto seleccionado puede enviarse; la referencia no se consulta.', content: input.sources ?? '', reference: input.reference ?? '', selected: false })
-  return { id, name: input.name, objective: input.objective, originalRequest: input.objective, mode: 'personal', runs: [], sources, proposals: [], decisions: [] }
+  return { id, name: input.name, objective: input.objective, originalRequest: input.objective, mode: 'personal', runs: [], sources: e1 ? sources.filter(s => s.kind !== 'Entrada original') : sources, proposals: [], decisions: [], ...(e1 ? { stageWork: { E1: newE1Stage({ objective: input.stageObjective, constraints: input.constraints }) } } : {}) }
 }
