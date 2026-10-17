@@ -36,7 +36,9 @@ test('stored provenance cannot turn a simulation into real AI, preserving histor
  assert.equal(isWorkspace(w),true)
  const original=JSON.stringify(w);w.projects.at(-1).proposals[0].origin='model';const bad=JSON.stringify(w)
  assert.equal(isWorkspace(w),false);assert.equal(JSON.stringify(w),bad)
- const real=JSON.parse(original);const target=real.projects.at(-1);target.runs[0].provider='abacus';target.proposals.forEach(p=>p.origin='model');assert.equal(isWorkspace(real),true)
+ const real=JSON.parse(original);const target=real.projects.at(-1);target.runs[0].provider='abacus';target.proposals.forEach(p=>p.origin='model');assert.equal(isWorkspace(real),false)
+ // A separate real-provider fixture needs a non-simulation model, not relabelling alone.
+ target.runs[0].modelRequested='fixture-real-model';target.runs[0].request.model='fixture-real-model';target.runs[0].modelReported='fixture-real-model';target.runs[0].externalAttempted=true;assert.equal(isWorkspace(real),true)
  target.proposals[0].origin='simulation';assert.equal(isWorkspace(real),false)
  assert.equal(isWorkspace(createDefaultWorkspace()),true)
 })

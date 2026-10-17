@@ -23,7 +23,7 @@ import {createPrivateEnvironment,loadPrivateEnvironment} from '../src/remote/cli
 function fixture({userTransform=user=>user,identityIndex=0}={}){
  let clock=Date.now(),workspace=null,calls=0,refreshes=0,holdRefresh
  const rows=new Map(),attempts=new Map(),commands=new Map(),challenges=new Set()
- const config={origin:'https://private.example.test',url:'https://fixture.supabase.co',publicKey:'fixture-only',encryptionKey:randomBytes(32).toString('hex'),
+ const config={ai:{mode:'simulation',model:'simulation-e1'},origin:'https://private.example.test',url:'https://fixture.supabase.co',publicKey:'fixture-only',encryptionKey:randomBytes(32).toString('hex'),
   identities:[{email:'ivanandradecarp@gmail.com',userId:'11111111-1111-4111-8111-111111111111',googleSubject:'111111111111111111111'},
   {email:'ivanandradeuxui@gmail.com',userId:'22222222-2222-4222-8222-222222222222',googleSubject:'222222222222222222222'}]}
  const identity=config.identities[identityIndex],authId='aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa'

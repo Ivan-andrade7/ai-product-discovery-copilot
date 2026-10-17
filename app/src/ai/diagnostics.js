@@ -12,4 +12,4 @@ export function safeDiagnostic(value) {
   return value && reasons[value.stage]?.includes(value.reason) ? { stage: value.stage, reason: value.reason } : null
 }
 export const invalidResult = (stage, reason) => ({ ok: false, code: 'invalid', diagnostic: safeDiagnostic({ stage, reason }) })
-export const safeFinishReason = (value) => value == null ? null : ['stop', 'length', 'content_filter', 'tool_calls', 'function_call', 'error'].includes(value) ? value : 'other'
+export const safeFinishReason = (value) => value == null ? null : ['stop', 'length', 'content_filter', 'tool_calls', 'function_call', 'error', 'STOP', 'MAX_TOKENS', 'SAFETY', 'RECITATION', 'OTHER', 'BLOCKLIST', 'PROHIBITED_CONTENT', 'SPII', 'MALFORMED_FUNCTION_CALL', 'UNEXPECTED_TOOL_CALL'].includes(value) ? value : 'other'

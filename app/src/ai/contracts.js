@@ -52,14 +52,17 @@ export function sameContext(left, right) {
   catch { return false }
 }
 
-export function makeRequest(project, model, requestId = crypto.randomUUID(), stage) {
-  const request = { requestId, projectId: project.id, contextVersion: contextVersion(project, stage), userRequest: project.originalRequest, sources: selectedContext(project), model, ...(stage === 'E1' ? { stage, instructionVersion: 'e1-intake-v1', humanContext: e1HumanContext(project) } : {}) }
+export function makeRequest(project, model, requestId = crypto.randomUUID(), stage, provider) {
+  const request = { requestId, projectId: project.id, contextVersion: contextVersion(project, stage), userRequest: project.originalRequest, sources: selectedContext(project), model, ...(provider !== undefined ? {provider} : {}), ...(stage === 'E1' ? { stage, instructionVersion: 'e1-intake-v1', humanContext: e1HumanContext(project) } : {}) }
   if (!isAnalysisRequest(request)) throw new Error('invalid-request')
   return request
 }
 
 export function isAnalysisRequest(value) {
   if (!value || !['requestId', 'projectId', 'contextVersion', 'userRequest', 'model'].every((key) => nonEmpty(value[key]))) return false
+  if (value.provider !== undefined && !['abacus','gemini','simulation'].includes(value.provider)) return false
+  if (value.provider === 'simulation' && (value.model !== 'simulation-e1' || value.stage !== 'E1')) return false
+  if (value.model === 'simulation-e1' && value.provider !== undefined && value.provider !== 'simulation') return false
   if (value.requestId.length > 100 || value.projectId.length > 100 || value.model.length > 100 || value.model === 'route-llm') return false
   if (!Array.isArray(value.sources) || !value.sources.length || value.sources.length > LIMITS.sources) return false
   if (!value.sources.every((source) => source && Object.keys(source).length === 3 && ['id', 'name', 'content'].every((key) => nonEmpty(source[key])))) return false
@@ -99,7 +102,7 @@ export function validateResult(value, request) {
 export function startAnalysis(project, request) {
   if (project.mode !== 'personal' || !isAnalysisRequest(request) || request.projectId !== project.id || !sameContext(request.contextVersion, contextVersion(project, request.stage))) return { ok: false, code: 'stale' }
   if (project.runs.some((run) => run.status === 'analyzing' || run.id === request.requestId)) return { ok: false, code: 'busy' }
-  const run = { id: request.requestId, status: 'analyzing', provider: request.model === 'simulation-e1' && request.stage === 'E1' ? 'simulation' : 'abacus', modelRequested: request.model, request, startedAt: new Date().toISOString(), externalAttempted: false }
+  const run = { id: request.requestId, status: 'analyzing', provider: request.provider ?? (request.model === 'simulation-e1' && request.stage === 'E1' ? 'simulation' : 'abacus'), modelRequested: request.model, request, startedAt: new Date().toISOString(), externalAttempted: false }
   return { ok: true, project: { ...project, ...(request.stage === 'E1' ? { stageWork: { ...project.stageWork, E1: { ...project.stageWork.E1, closed: false } } } : {}), runs: [...project.runs, run] } }
 }
 

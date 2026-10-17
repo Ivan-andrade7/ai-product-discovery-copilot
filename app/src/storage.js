@@ -25,7 +25,11 @@ function normalizedStoredRequest(request) {
     return isAnalysisRequest(normalized) ? normalized : null
   } catch { return null }
 }
-const isRun = (r) => r && nonEmpty(r.id) && runStatuses.has(r.status) && (r.provider === 'abacus' || (r.provider === 'simulation' && r.modelRequested === 'simulation-e1' && r.request?.stage === 'E1' && r.externalAttempted === false)) && nonEmpty(r.modelRequested) && normalizedStoredRequest(r.request) && r.id === r.request.requestId && typeof r.externalAttempted === 'boolean'
+const isRun = (r) => r && nonEmpty(r.id) && runStatuses.has(r.status) &&
+  (['abacus','gemini'].includes(r.provider) ? r.modelRequested !== 'simulation-e1' && (r.provider !== 'gemini' || r.request?.provider === 'gemini') :
+    r.provider === 'simulation' && r.modelRequested === 'simulation-e1' && r.request?.stage === 'E1' && r.externalAttempted === false) &&
+  (r.request?.provider === undefined || r.request.provider === r.provider) && nonEmpty(r.modelRequested) &&
+  normalizedStoredRequest(r.request) && r.modelRequested === r.request.model && r.id === r.request.requestId && typeof r.externalAttempted === 'boolean'
 const normalizeWorkspaceRequests = (workspace) => ({ ...workspace, projects: workspace.projects.map((project) => ({ ...project, runs: project.runs.map((run) => ({ ...run, request: normalizedStoredRequest(run.request) })) })) })
 export function isProject(project) {
   if (!projectV2(project) || !['demo', 'personal', 'historical'].includes(project.mode) || !Array.isArray(project.runs) || !project.runs.every(isRun) || !unique(project.runs)) return false
@@ -33,7 +37,7 @@ export function isProject(project) {
   if (!unique(project.sources) || !unique(project.proposals) || !unique(project.decisions)) return false
   if (!project.sources.every((s) => typeof s.content === 'string' && typeof s.selected === 'boolean' && typeof s.reference === 'string')) return false
   if (!project.runs.every((r) => r.request.projectId === project.id)) return false
-  return project.proposals.every((p) => origins.has(p.origin) && (typeof p.originalContent === 'string' || p.originalContent === null) && Array.isArray(p.sourceRefs) && p.sourceRefs.every((ref) => ref && nonEmpty(ref.sourceId) && nonEmpty(ref.quote) && project.sources.some((s) => s.id === ref.sourceId)) && (!['model', 'simulation'].includes(p.origin) || (typeof p.originalContent === 'string' && project.runs.some((r) => r.id === p.runId && r.status === 'complete' && r.provider === (p.origin === 'simulation' ? 'simulation' : 'abacus')))))
+  return project.proposals.every((p) => origins.has(p.origin) && (typeof p.originalContent === 'string' || p.originalContent === null) && Array.isArray(p.sourceRefs) && p.sourceRefs.every((ref) => ref && nonEmpty(ref.sourceId) && nonEmpty(ref.quote) && project.sources.some((s) => s.id === ref.sourceId)) && (!['model', 'simulation'].includes(p.origin) || (typeof p.originalContent === 'string' && project.runs.some((r) => r.id === p.runId && r.status === 'complete' && (p.origin === 'simulation' ? r.provider === 'simulation' : ['abacus','gemini'].includes(r.provider))))))
 }
 export function isWorkspace(workspace) {
   return workspaceShape(workspace, 3, isProject) && workspace.predecessors && [LEGACY_STORAGE_KEY, PREVIOUS_STORAGE_KEY].every((key) => workspace.predecessors[key] === null || typeof workspace.predecessors[key] === 'string')

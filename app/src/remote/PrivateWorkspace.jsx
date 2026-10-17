@@ -6,7 +6,7 @@ export default function PrivateWorkspace(){
  const [state,setState]=useState({loading:true}),[reload,setReload]=useState(0)
  useEffect(()=>{let active=true;loadPrivateEnvironment().then(environment=>{if(active)setState({environment})}).catch(error=>{if(active)setState({error:error.message})});return()=>{active=false}},[reload])
  async function logout(){state.environment?.deactivate();setState({loading:true});try{await callPrivate('logout',{});setState({error:'signed-out'})}catch{setState({error:'logout-uncertain'})}}
- if(state.environment)return <><aside className="storage-banner"><strong>PRUEBA PRIVADA · Google real y persistencia remota · IA SIMULADA</strong></aside><App environment={state.environment} onLogout={logout}/></>
+ if(state.environment)return <><aside className="storage-banner"><strong>PRUEBA PRIVADA · Google real y persistencia remota · proveedor según configuración del servidor</strong></aside><App environment={state.environment} onLogout={logout}/></>
  return <main className="form-page access-page"><section className="access-card">
   <h1>Espacio privado de Iván</h1>
   {state.loading?<p role="status">Comprobando sesión y datos remotos…</p>:<>

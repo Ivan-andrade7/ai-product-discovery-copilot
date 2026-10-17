@@ -5,7 +5,7 @@ import { deriveBrief, closeInterruptedSimulation } from './service'
 import { ContextHelp } from '../components/ContextHelp'
 import { conceptHelp } from '../components/help-content'
 
-export function E1Panel({ project, busy, disabled, operation, onAnalyze, onReview, onSave, onStart, onContribute, onNext, remote = false, draft = {}, onDraftChange }) {
+export function E1Panel({ project, busy, disabled, operation, onAnalyze, onReview, onSave, onStart, onContribute, onNext, remote = false, simulated = true, available = true, onCheckConnection, draft = {}, onDraftChange }) {
   const [message, setMessage] = useState('')
   const stage = project.stageWork?.E1
   if (!stage) return <section className="e1-panel card"><h2>Trabajo de etapa</h2><div className="action-group"><button className="button" disabled={disabled} onClick={onStart}>Trabajar E1 en este proyecto</button></div></section>
@@ -19,7 +19,7 @@ export function E1Panel({ project, busy, disabled, operation, onAnalyze, onRevie
   return <section className="e1-panel card" aria-label="Trabajo E1">
     <header className="e1-heading">
     <h2>Aclarar el pedido y preparar el brief</h2>
-    <div className="help-label"><p>{remote ? 'PRUEBA PRIVADA · datos remotos e IA SIMULADA.' : 'SIMULACIÓN LOCAL · proveedor ficticio.'} Recuperar lo conocido → revisar en Revisión → decidir → continuar.</p><ContextHelp title="Simulación e IA real">{conceptHelp.analysis}</ContextHelp></div>
+    <div className="help-label"><p>{simulated ? remote ? 'PRUEBA PRIVADA · datos remotos e IA SIMULADA.' : 'SIMULACIÓN LOCAL · proveedor ficticio.' : available ? 'IA privada disponible · requiere envío explícito y revisión humana.' : 'IA privada no disponible · podés continuar manualmente.'} Recuperar lo conocido → revisar en Revisión → decidir → continuar.</p><ContextHelp title="Simulación e IA real">{conceptHelp.analysis}</ContextHelp></div>
     </header>
     <div className="e1-context">
     <p>Resultado esperado: {context.known.objective || 'No registrado'}</p><p>Restricciones: {context.known.constraints || 'No registradas'}</p>
@@ -44,9 +44,10 @@ export function E1Panel({ project, busy, disabled, operation, onAnalyze, onRevie
     </form>
     </div>
     <div className="e1-section">
-    <p>{selected.length} fuentes seleccionadas. Sin fuente podés guardar y continuar manualmente, pero no ejecutar el simulador.</p>
+    <p>{selected.length} fuentes seleccionadas. Sin fuente podés guardar y continuar manualmente, pero no ejecutar {simulated ? 'el simulador' : 'el análisis'}.</p>
     <div className="action-group">
-    <button className="button primary" disabled={busy || disabled || !selected.length} onClick={() => { setMessage(''); onAnalyze() }}>Obtener orientación simulada</button>
+    {!simulated && <button className="button" disabled={busy} onClick={onCheckConnection}>Comprobar disponibilidad</button>}
+    <button className="button primary" disabled={busy || disabled || !selected.length || !available} onClick={() => { setMessage(''); onAnalyze() }}>{simulated ? 'Obtener orientación simulada' : 'Analizar fuentes seleccionadas'}</button>
     <button className="button" onClick={onReview}>Revisar propuestas</button>
     </div>
     </div>

@@ -112,7 +112,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
             <details className="analysis-details">
               <summary>{project.mode === 'personal' ? 'Fuentes y opciones de análisis' : 'Cómo funciona esta demostración'}</summary>
               <div className="analysis-options">
-            <p>{simulated ? 'Proveedor simulado de E1. Sin servicio externo ni consumo. Las propuestas se revisan con los mismos controles del proyecto.' : 'La versión pública no tiene un servicio de IA. El arranque local normal mantiene las generaciones deshabilitadas; habilitar un ensayo requiere autorización separada. Comprobar el servicio local no envía fuentes. Los resultados anteriores conservan su procedencia.'}</p>
+            <p>{simulated ? 'Proveedor simulado de E1. Sin servicio externo ni consumo. Las propuestas se revisan con los mismos controles del proyecto.' : remote ? 'El servidor privado controla el modelo y los límites. Comprobar disponibilidad no envía fuentes al proveedor. Analizar requiere un envío explícito; una ejecución incierta queda bloqueada sin reintento automático.' : 'La versión pública no tiene un servicio de IA. El arranque local normal mantiene las generaciones deshabilitadas; habilitar un ensayo requiere autorización separada. Comprobar el servicio local no envía fuentes. Los resultados anteriores conservan su procedencia.'}</p>
             {project.mode === 'personal' ? <>
               <fieldset>
                 <legend>Contenido seleccionado para el análisis</legend>
@@ -124,7 +124,7 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
               <p>{selectedSources.length} fuentes seleccionadas. Sólo su texto sería enviado; los enlaces no se consultan.</p>
               {selectedSources.map((source) => <details key={source.id}><summary>{source.name} · ver texto seleccionado</summary><p className="analysis-text">{source.content}</p></details>)}
               <div className="decision-actions">
-                <button className="button" type="button" onClick={onCheckConnection} disabled={connection.code === 'checking' || analysisStatus === 'analyzing'}>{simulated ? 'Comprobar simulador local' : 'Comprobar servicio local'}</button>
+                <button className="button" type="button" onClick={onCheckConnection} disabled={connection.code === 'checking' || analysisStatus === 'analyzing'}>{simulated ? 'Comprobar simulador local' : remote ? 'Comprobar conexión privada' : 'Comprobar servicio local'}</button>
                 <button className="button primary" type="button" onClick={onAnalyze} disabled={!connection.available || readOnly || !canSave || !selectedSources.length || analysisStatus === 'analyzing'}>{simulated ? 'Obtener orientación simulada' : 'Analizar contenido seleccionado'}</button>
               </div>
             </> : <p>Este contenido no se enviará a un proveedor ni se reclasificará como IA real. Para preparar un análisis, creá un proyecto nuevo.</p>}

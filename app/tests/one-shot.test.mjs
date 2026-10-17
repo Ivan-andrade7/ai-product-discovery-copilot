@@ -79,7 +79,8 @@ for (const success of [true, false]) test('mock one-shot ' + (success ? 'success
     req.end = (payload) => {
       const wire = JSON.parse(payload)
       assert.equal(wire.model, TRIAL_MODEL); assert.equal(wire.max_tokens, 500); assert.equal(wire.stream, false)
-      assert.deepEqual(Object.keys(wire).sort(), ['max_tokens', 'messages', 'model', 'stream'])
+      assert.deepEqual(Object.keys(wire).sort(), ['max_tokens', 'messages', 'model', 'response_format', 'stream'])
+      assert.equal(wire.response_format.type,'json_schema'); assert.equal(wire.response_format.json_schema.strict,true)
       assert.equal(JSON.parse(wire.messages[1].content).request, request.userRequest)
       assert.deepEqual(JSON.parse(wire.messages[2].content).sources, request.sources)
       queueMicrotask(() => {

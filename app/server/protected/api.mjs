@@ -1,12 +1,14 @@
 import {opaque,digest,challenge,seal,unseal} from './crypto.mjs'
 import {isDeepStrictEqual} from 'node:util'
 import {isAnalysisRequest,contextVersion,sameContext} from '../../src/ai/contracts.js'
-import {createSimulatedProvider} from '../../src/e1/test-adapters.js'
+import {describeProtectedAi,executeProtectedAnalysis} from './analysis.mjs'
+import {matchesServerSelection} from '../providers/registry.mjs'
 
 const SESSION='__Host-tp_session', LOGIN='__Host-tp_login'
 const cookie=(req,name)=>new RegExp('(?:^|; )'+name+'=([A-Za-z0-9_-]{43})(?:;|$)').exec(req.headers.cookie??'')?.[1]
-export function createServerlessApi(config,store,{fetcher=fetch,now=Date.now,provider=createSimulatedProvider()}={}) {
+export function createServerlessApi(config,store,{fetcher=fetch,now=Date.now,provider,transportFactory}={}) {
   const {origin,url,publicKey,encryptionKey,identities}=config
+  const ai=config.ai ?? {mode:'disabled',model:null}
   const pack=(value,id)=>seal(value,encryptionKey,id),unpack=(value,id)=>unseal(value,encryptionKey,id)
   async function auth(path,token,body){
     const response=await fetcher(url+'/auth/v1/'+path,{method:body?'POST':'GET',headers:{apikey:publicKey,'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})},...(body?{body:JSON.stringify(body)}:{}),signal:AbortSignal.timeout(10000)})
@@ -87,22 +89,17 @@ export function createServerlessApi(config,store,{fetcher=fetch,now=Date.now,pro
       }
       const session=await authenticate(req)
       if(req.method==='POST'&&req.headers['x-tp-csrf']!==session.record.csrf){send(403,{code:'permission'});return}
-      if(path==='session'&&req.method==='GET'){send(200,{authorized:true,email:session.user.email,csrf:session.record.csrf,simulatedProvider:true});return}
+      if(path==='session'&&req.method==='GET'){const capability=await describeProtectedAi(ai,store,session.credentials.token,session.id);send(200,{authorized:true,email:session.user.email,csrf:session.record.csrf,simulatedProvider:ai.mode==='simulation',ai:capability});return}
       if(path==='workspace'&&req.method==='GET'){send(200,{workspace:await store.load(session.credentials.token,session.id)});return}
       if(path==='workspace'&&req.method==='POST'){send(200,await store.save(session.credentials.token,session.id,await body(req)));return}
       if(path==='analysis'&&req.method==='POST'){
         const request=await body(req)
-        if(!isAnalysisRequest(request)||request.stage!=='E1'||request.model!=='simulation-e1'){send(400,{code:'invalid'});return}
+        if(ai.mode==='disabled'){send(200,{ok:false,code:'disconnected',externalAttempted:false});return}
+        if(!isAnalysisRequest(request)||request.stage!=='E1'||!matchesServerSelection(ai,request)){send(400,{code:'invalid'});return}
         const workspace=await store.load(session.credentials.token,session.id),project=workspace?.projects.find(p=>p.id===request.projectId),run=project?.runs.find(r=>r.id===request.requestId)
-        if(project?.mode!=='personal'||!run||run.status!=='analyzing'||!isDeepStrictEqual(run.request,request)||!sameContext(contextVersion(project,'E1'),request.contextVersion)){send(409,{code:'stale'});return}
-        const lease=opaque(),claim=await store.analysis(session.credentials.token,session.id,request,'claim',lease)
-        if(claim?.status==='complete'){send(200,claim.result);return}
-        if(claim?.status!=='claimed'){send(409,{code:'uncertain'});return}
-        const result=await provider.analyze(request)
-        await authenticate(req)
-        const completed=await store.analysis(session.credentials.token,session.id,request,'finish',lease,result)
-        if(completed?.status!=='complete')throw Error('uncertain')
-        send(200,completed.result);return
+        if(project?.mode!=='personal'||!run||!isDeepStrictEqual(run.request,request)||!sameContext(contextVersion(project,'E1'),request.contextVersion)){send(409,{code:'stale'});return}
+        const result=await executeProtectedAnalysis({ai,store,token:session.credentials.token,sid:session.id,request,reauthenticate:()=>authenticate(req),provider,transportFactory})
+        send(['busy','uncertain'].includes(result.code)?409:200,result);return
       }
       send(404,{code:'not-found'})
     }catch(error){

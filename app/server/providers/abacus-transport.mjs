@@ -1,6 +1,8 @@
 import https from 'node:https'
 import { ABACUS_ENDPOINT } from './abacus.mjs'
 import { LIMITS } from '../../src/ai/contracts.js'
+import {proposalResponseFormat} from './structured-output.mjs'
+import {isDeepStrictEqual} from 'node:util'
 
 export const TRIAL_MODEL = 'claude-sonnet-4-6'
 export const TRIAL_MAX_OUTPUT = 1800
@@ -8,25 +10,26 @@ const MAX_RESPONSE_BYTES = 262144
 
 // An explicit, private process-memory credential and trial admission are required.
 // No environment lookup, logs, redirects, retries, proxy or provider fallback.
-export function createAbacusTransport({ apiKey, admission, requestImpl = https.request, singleUse = false } = {}) {
+export function createAbacusTransport({ apiKey, admission, requestImpl = https.request, singleUse = false, model = TRIAL_MODEL, maxOutputTokens = singleUse ? 500 : TRIAL_MAX_OUTPUT, timeoutMs = 25000, maxSourceChars = 6000, maxInputChars = LIMITS.inputChars } = {}) {
   let credential = typeof apiKey === 'string' && apiKey.trim() === apiKey && !/\s/.test(apiKey) ? apiKey : null
   const transport = async ({ url, method, body, signal }) => {
     const blocked = (code) => ({ status: 0, code, externalAttempted: false })
     if (!admission || !admission.status().available) return blocked(admission?.status().code ?? 'cost_pending')
     if (!credential) return blocked('disconnected')
     if (signal?.aborted) return blocked('cancelled')
-    if (url !== ABACUS_ENDPOINT || method !== 'POST' || body?.model !== TRIAL_MODEL || body.stream !== false || body.max_tokens !== (singleUse ? 500 : TRIAL_MAX_OUTPUT)) return blocked('invalid')
-    if (Object.keys(body).some((key) => !['model', 'stream', 'max_tokens', 'messages'].includes(key))) return blocked('invalid')
+    if (url !== ABACUS_ENDPOINT || method !== 'POST' || body?.model !== model || body.stream !== false || body.max_tokens !== maxOutputTokens) return blocked('invalid')
+    if (Object.keys(body).some((key) => !['model', 'stream', 'max_tokens', 'messages', 'response_format'].includes(key))) return blocked('invalid')
     if (!Array.isArray(body.messages) || body.messages.length !== 3 || body.messages[0]?.role !== 'system' || body.messages[1]?.role !== 'user' || body.messages[2]?.role !== 'user' || body.messages.some((m) => typeof m.content !== 'string')) return blocked('invalid')
     let requestContext
     let sourceContext
     try { requestContext = JSON.parse(body.messages[1].content); sourceContext = JSON.parse(body.messages[2].content) } catch { return blocked('invalid') }
-    if (!requestContext || Object.keys(requestContext).length !== 1 || typeof requestContext.request !== 'string' || !requestContext.request.trim()) return blocked('invalid')
+    if (!requestContext || Object.keys(requestContext).some(k=>!['request','humanContext'].includes(k)) || typeof requestContext.request !== 'string' || !requestContext.request.trim()) return blocked('invalid')
     if (!sourceContext || Object.keys(sourceContext).length !== 1 || !Array.isArray(sourceContext.sources) || !sourceContext.sources.length) return blocked('invalid')
     if (sourceContext.sources.some((s) => !s || Object.keys(s).length !== 3 || ['id', 'name', 'content'].some((key) => typeof s[key] !== 'string' || !s[key].trim()))) return blocked('invalid')
+    if (!isDeepStrictEqual(body.response_format,proposalResponseFormat(sourceContext.sources.map(source=>source.id)))) return blocked('invalid')
     const sourceChars = sourceContext.sources.reduce((n, s) => n + s.content.length, 0)
     if (singleUse && (sourceContext.sources.length !== 1 || sourceChars > 1000 || requestContext.request.length > 1000)) return blocked('invalid')
-    if (sourceChars > 6000 || requestContext.request.length + sourceChars > LIMITS.inputChars) return blocked('invalid')
+    if (sourceChars > maxSourceChars || requestContext.request.length + sourceChars + (requestContext.humanContext ? JSON.stringify(requestContext.humanContext).length : 0) > maxInputChars) return blocked('invalid')
     const payload = JSON.stringify(body)
     if (Buffer.byteLength(payload) > 40000) return blocked('invalid')
     // Admission receives sizes only. Request/source text is never handed to the
@@ -84,8 +87,8 @@ export function createAbacusTransport({ apiKey, admission, requestImpl = https.r
           })
         })
         req.on('error', () => done({ status: 0, code: signal?.aborted ? 'cancelled' : 'error' }))
-        req.setTimeout(25000, () => { done({ status: 0, code: 'error' }); req.destroy() })
-        deadline = setTimeout(() => { done({ status: 0, code: 'error' }); req.destroy() }, 25000)
+        req.setTimeout(timeoutMs, () => { done({ status: 0, code: 'error', diagnostic: {stage:'transport',reason:'timeout'} }); req.destroy() })
+        deadline = setTimeout(() => { done({ status: 0, code: 'error', diagnostic: {stage:'transport',reason:'timeout'} }); req.destroy() }, timeoutMs)
         signal?.addEventListener('abort', abort, { once: true })
         if (signal?.aborted) { abort(); return }
         req.end(payload)

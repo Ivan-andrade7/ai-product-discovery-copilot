@@ -37,7 +37,7 @@ function App({ environment, onLogout }) {
   const storageStateRef = useRef(storageState)
   const writerIdRef = useRef(crypto.randomUUID())
   const initialPersistAttempted = useRef(false)
-  const [connection, setConnection] = useState({ available: false, code: 'disconnected' })
+  const [connection, setConnection] = useState(() => environment?.connection ?? (environment?.simulated ? {available:true,model:'simulation-e1',simulated:true,code:'ready'} : {available:false,code:'disconnected'}))
   const [operation, setOperation] = useState(null)
   const inFlight = useRef(null)
   const [drafts, setDrafts] = useState({})
@@ -319,11 +319,11 @@ function App({ environment, onLogout }) {
   }
 
   async function runAnalysis() {
-    if (inFlight.current || (!environment && !connection.available) || isReadOnly || storageState.type === 'write-error') return
+    if (inFlight.current || !connection.available || isReadOnly || storageState.type === 'write-error') return
  if(environment && workspaceRef.current.projects.some(p=>p.runs.some(r=>['analyzing','uncertain','interrupted'].includes(r.status)))){setOperation({projectId:workspaceRef.current.activeProjectId,code:'uncertain'});return}
     const current = workspaceRef.current.projects.find((item) => item.id === workspaceRef.current.activeProjectId)
     let request
-    try { request = makeRequest(current, environment ? 'simulation-e1' : connection.model, crypto.randomUUID(), environment && current.stageWork?.E1 ? 'E1' : undefined) } catch { setOperation({ projectId: current.id, code: 'invalid' }); return }
+    try { request = makeRequest(current, connection.model, crypto.randomUUID(), environment && current.stageWork?.E1 ? 'E1' : undefined, connection.provider) } catch { setOperation({ projectId: current.id, code: 'invalid' }); return }
     const started = startAnalysis(current, request)
     if (!started.ok) { setOperation({ projectId: current.id, code: 'stale' }); return }
     const controller = new AbortController()
@@ -394,8 +394,8 @@ function App({ environment, onLogout }) {
   const shared = { project, proposals: project.proposals, onHome: () => requestExit({ kind: 'home' }), onNavigate: navigate }
   let content
   if (screen === 'new-project') content = <NewProjectScreen e1Enabled={!!environment} onCancel={() => { requestFocus({ type: 'selector', selector: '[data-autofocus="new-project"]' }); setScreen('projects') }} onCreate={createProject} disabled={isReadOnly} />
-  else if (screen === 'overview') content = <OverviewScreen {...shared} stagePanel={environment && project.mode==='personal' ? <E1Panel key={project.id} draft={e1Drafts[project.id] ?? {}} onDraftChange={patch=>changeE1Draft(project.id,patch)} remote={!!environment.remote} project={project} busy={operation?.projectId===project.id && operation?.code==='analyzing'} disabled={isReadOnly || storageState.type==='write-error'} operation={operation?.projectId===project.id?operation:null} onAnalyze={runAnalysis} onReview={()=>navigate('work')} onSave={transform=>updateActiveProject(transform)} onStart={()=>updateActiveProject(p=>({...p,stageWork:{E1:newE1Stage()}}))} onContribute={input=>updateActiveProject(p=>addHumanInput(p,input))} onNext={(text,closed)=>updateActiveProject(p=>saveE1Next(p,text,closed))}/> : null}/>
-  else if (screen === 'work') content = <WorkScreen remote={!!environment?.remote} simulated={!!environment} key={project.id} {...shared} selection={selections[project.id]} onSelectProposal={(proposalId) => setSelections((current) => ({ ...current, [project.id]: { projectId: project.id, proposalId } }))} drafts={drafts[project.id] ?? {}} onDraftChange={(proposalId, draft) => changeDraft(project.id, proposalId, draft)} onUpdateProposal={updateProposal} readOnly={isReadOnly} connection={connection} operation={operation?.projectId === project.id ? operation : null} onCheckConnection={inspectConnection} onAnalyze={runAnalysis} onCancelAnalysis={cancelAnalysis} onSelectSource={selectSource} canSave={storageState.type !== 'write-error'} />
+  else if (screen === 'overview') content = <OverviewScreen {...shared} stagePanel={environment && project.mode==='personal' ? <E1Panel simulated={!!environment.simulated} available={connection.available} onCheckConnection={inspectConnection} key={project.id} draft={e1Drafts[project.id] ?? {}} onDraftChange={patch=>changeE1Draft(project.id,patch)} remote={!!environment.remote} project={project} busy={operation?.projectId===project.id && operation?.code==='analyzing'} disabled={isReadOnly || storageState.type==='write-error'} operation={operation?.projectId===project.id?operation:null} onAnalyze={runAnalysis} onReview={()=>navigate('work')} onSave={transform=>updateActiveProject(transform)} onStart={()=>updateActiveProject(p=>({...p,stageWork:{E1:newE1Stage()}}))} onContribute={input=>updateActiveProject(p=>addHumanInput(p,input))} onNext={(text,closed)=>updateActiveProject(p=>saveE1Next(p,text,closed))}/> : null}/>
+  else if (screen === 'work') content = <WorkScreen remote={!!environment?.remote} simulated={!!environment?.simulated} key={project.id} {...shared} selection={selections[project.id]} onSelectProposal={(proposalId) => setSelections((current) => ({ ...current, [project.id]: { projectId: project.id, proposalId } }))} drafts={drafts[project.id] ?? {}} onDraftChange={(proposalId, draft) => changeDraft(project.id, proposalId, draft)} onUpdateProposal={updateProposal} readOnly={isReadOnly} connection={connection} operation={operation?.projectId === project.id ? operation : null} onCheckConnection={inspectConnection} onAnalyze={runAnalysis} onCancelAnalysis={cancelAnalysis} onSelectSource={selectSource} canSave={storageState.type !== 'write-error'} />
   else if (screen === 'decisions') content = <DecisionsScreen {...shared} remote={!!environment?.remote} decisions={project.decisions} />
   else if (screen === 'sources') content = <SourcesScreen key={project.id} {...shared} sources={project.sources} onSelectSource={selectSource} readOnly={isReadOnly} />
   else if (screen === 'deliverables') content = <DeliverablesScreen {...shared} remote={!!environment?.remote} e1Brief={deriveBrief(project)} />

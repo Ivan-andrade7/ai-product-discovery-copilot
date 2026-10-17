@@ -40,7 +40,7 @@ function fixture() {
   const reply = { model: TRIAL_MODEL, choices: [{ finish_reason: 'stop', message: { content: JSON.stringify({ proposals }) } }], usage: { prompt_tokens: 50, completion_tokens: 100, total_tokens: 150, private_field: fakeKey } }
   return { project, request, reply }
 }
-function fakeHttp(reply, { status = 200, raw, hang = false, timeout = false, throwOnRequest = false } = {}) {
+function fakeHttp(reply, { status = 200, raw, hang = false, timeout = false, throwOnRequest = false, expectedModel = TRIAL_MODEL } = {}) {
   const calls = []
   const impl = (url, options, callback) => {
     calls.push({ url, method: options.method })
@@ -50,7 +50,7 @@ function fakeHttp(reply, { status = 200, raw, hang = false, timeout = false, thr
     req.setTimeout = (delay, fn) => { if (timeout && delay) queueMicrotask(fn); return req }
     req.destroy = () => { req.destroyed = true }
     req.end = (payload) => {
-      assert.equal(JSON.parse(payload).model, TRIAL_MODEL)
+      assert.equal(JSON.parse(payload).model, expectedModel)
       assert.equal(payload.includes('No seleccionado'), false)
       if (hang || timeout) return
       queueMicrotask(() => {
@@ -66,6 +66,21 @@ function fakeHttp(reply, { status = 200, raw, hang = false, timeout = false, thr
   }
   return { calls, impl }
 }
+
+test('protected configurable transport carries E1 human context without historic trial admission', async () => {
+  const model='fixture-configured-model'
+  const project=createLocalProject({name:'E1 ficticio',objective:'Aclarar el pedido.',sources:'Hay tres reservas.'},{e1:true})
+  project.sources[0].selected=true
+  const request=makeRequest(project,model,'protected-wire-fixture','E1')
+  const reply={model,choices:[{finish_reason:'stop',message:{content:'{"proposals":[]}'}}]}
+  const http=fakeHttp(reply,{expectedModel:model})
+  let reserved=0
+  const transport=createAbacusTransport({apiKey:fakeKey,model,maxOutputTokens:500,timeoutMs:100,maxInputChars:6000,maxSourceChars:1000,requestImpl:http.impl,
+    admission:{status:()=>({available:reserved===0}),async reserve(){reserved++;return {ok:true}},complete(){},stop(){}}})
+  const result=await createAbacusAdapter(transport,{maxOutputTokens:500}).analyze(request)
+  assert.equal(result.ok,true);assert.equal(result.modelReported,model);assert.equal(reserved,1);assert.equal(http.calls.length,1)
+  transport.close()
+})
 
 test('transport default closed even with a fake credential; no socket or fetch', async () => {
   const trial = createAbacusTrial({ apiKey: fakeKey })

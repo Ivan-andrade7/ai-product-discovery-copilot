@@ -1,3 +1,4 @@
+import {protectedAiConfig} from './ai-config.mjs'
 const emails = ['ivanandradeuxui@gmail.com', 'ivanandradecarp@gmail.com']
 export function protectedConfig(env) {
   if (env.TP_DEPLOYMENT_TARGET !== 'protected-test' || env.VERCEL_ENV !== 'preview') throw Error('disabled')
@@ -11,5 +12,5 @@ export function protectedConfig(env) {
   for (const name of ['TP_SESSION_ENCRYPTION_KEY', 'TP_SESSION_STORE_KEY']) if (!/^[\da-f]{64}$/.test(env[name] ?? '')) throw Error('invalid-config')
   if (env.TP_SESSION_STORE_KEY === env.TP_SESSION_ENCRYPTION_KEY) throw Error('invalid-config')
   return {origin: origin.origin, url: env.TP_SUPABASE_URL, publicKey: env.TP_SUPABASE_PUBLISHABLE_KEY,
-    encryptionKey: env.TP_SESSION_ENCRYPTION_KEY, storeKey: env.TP_SESSION_STORE_KEY, identities}
+    encryptionKey: env.TP_SESSION_ENCRYPTION_KEY, storeKey: env.TP_SESSION_STORE_KEY, identities, ai: protectedAiConfig(env)}
 }

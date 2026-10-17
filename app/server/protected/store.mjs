@@ -13,5 +13,6 @@ export function createDurableStore({url,publicKey,storeKey}, fetcher=fetch) {
       return rpc('tp_protected_save',{p_sid:sid,p_candidate:c.candidate,p_revision:c.revision,p_writer:c.writerId,p_operation:c.operationId},token)
     },
     analysis:(token,sid,request,action,lease='',result=null)=>rpc('tp_protected_analysis',{p_sid:sid,p_request:request,p_action:action,p_lease:lease,p_result:result},token),
+    aiAnalysis:(token,sid,request,action,lease='',result=null,policy={})=>rpc(policy.provider==='gemini'?'tp_protected_gemini_analysis':'tp_protected_ai_analysis',{p_key:storeKey,p_sid:sid,p_request:request,p_action:action,p_lease:lease,p_result:result,p_policy:policy},token),
   }
 }

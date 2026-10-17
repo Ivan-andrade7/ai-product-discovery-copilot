@@ -26,7 +26,7 @@ test('private UI with intercepted fictitious API: async save, lost ack, two cont
    if(req.method()==='POST')assert.equal(req.headers()['x-tp-csrf'],'fixture-csrf')
    if(url.pathname==='/api/logout'){logoutAttempts++;if(logoutAttempts===1){await send({code:'uncertain'},503);return};active=false;await send({ok:true});return}
    if(!active){await send({code:'permission'},403);return}
-   if(url.pathname==='/api/session'){await send({authorized:true,csrf:'fixture-csrf'});return}
+   if(url.pathname==='/api/session'){await send({authorized:true,csrf:'fixture-csrf',simulatedProvider:true});return}
    if(url.pathname==='/api/workspace'&&req.method()==='GET'){await send({workspace});return}
    const body=req.postDataJSON()
    if(url.pathname==='/api/analysis'){analyses++;await send(await createSimulatedProvider().analyze(body));return}
