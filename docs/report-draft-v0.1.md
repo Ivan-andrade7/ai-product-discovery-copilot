@@ -4,6 +4,12 @@
 
 Estado: borrador documental v0.1. No es todavía el PDF final.
 
+Corte documental 17/10/2026: último commit técnico local `c4f8ef8`, rama
+`codex/visual-system-layout`; incluye visual/ayuda `b210b45` y preparación protegida
+Abacus/Gemini. Público funcional comprobado `3835117` y Preview anterior separados;
+no se afirma publicación de c4f8ef8. El cierre documental actual está pendiente de
+revisión/versionado. [Estado y próximo gate](../contexto.md#cierre-local-vigente-y-próximo-gate--17102026).
+
 ## a. Introducción
 
 ### Justificación
@@ -22,7 +28,7 @@ El objetivo del trabajo es demostrar, mediante una maqueta HTML navegable, cómo
 
 El ensayo privado local completó una respuesta real válida de claude-sonnet-4-6 sobre un único caso ficticio controlado: solicitud y fuente seleccionada → propuesta con cita e incertidumbre → revisión y aceptación de prueba por el asistente → decisión → entregable persistente. Su cierre técnico está versionado; la publicación estática no expone el servicio ni los datos privados del ensayo. Un primer intento permanece fallido. Generaciones deshabilitadas; el caso no prueba calidad general ni evaluación independiente con usuarios.
 
-La maqueta sigue siendo compatible con el Nivel 2 admitido por la consigna. El código público conserva la preparación y cierre del recorrido real mínimo mediante un servicio privado local, sin backend remoto ni IA pública habilitada. El candidato separado 9001b12 prepara acceso privado y persistencia remota, con orientación E1 simulada; no demuestra un E1 protegido conectado al modelo real. La compatibilidad de nivel no acredita cumplimiento académico completo.
+La maqueta sigue siendo compatible con el Nivel 2 admitido por la consigna. El código público conserva el cierre del ensayo real mínimo mediante servicio privado local, sin backend remoto ni IA pública habilitada. El candidato local c4f8ef8 incluye la preparación privada iniciada en 9001b12 y la frontera Abacus/Gemini, sin generaciones reales habilitadas. Las pruebas ficticias no demuestran E1 protegido conectado a una cuenta real de Gemini. La compatibilidad de nivel no acredita cumplimiento académico completo.
 
 ## b. Marco conceptual
 
@@ -50,7 +56,7 @@ Figma Make y UXPilot no mostraron para Iván un modelo identificable. La explora
 
 El proyecto comenzó recuperando la consigna, las notas existentes y el contexto de una idea inicialmente muy amplia: asistir las etapas E1–E18 del proceso UX/Product de punta a punta. Esa visión incluía investigación, definición, wireframes, prototipos y posibles usos futuros con clientes.
 
-Se separó la base académica de las extensiones futuras. El contrato, transporte y registro local permitieron dos intentos reales autorizados individualmente: uno fallido y uno exitoso en un caso mínimo ficticio. La versión pública no incluye el servicio privado ni sus datos. El candidato 9001b12 agrega preparación de acceso privado y persistencia remota para un espacio personal, no un servicio multiusuario validado. PDF/imágenes, leads, portal y monetización siguen fuera del candidato. Lotes 1 y 2 publicados; no se confunde su alcance con la evolución privada.
+Se separó la base académica de las extensiones futuras. El contrato, transporte y registro local permitieron dos intentos reales autorizados individualmente: uno fallido y uno exitoso en un caso mínimo ficticio. La versión pública no incluye el servicio privado ni sus datos. El antecedente 9001b12 agregó preparación privada personal; c4f8ef8 la conserva y desacopla proveedores, sin demostrar un servicio multiusuario validado. PDF/imágenes, leads, portal y monetización siguen fuera del candidato. Lotes 1 y 2 publicados; no se confunde su alcance con la evolución privada.
 
 ### 2. Exploración visual
 
@@ -130,7 +136,24 @@ La última versión publicada comprobada puede recorrerse sin instalación en:
 
 https://ivan-andrade7.github.io/ai-product-discovery-copilot/
 
-Antecedentes publicados: b56d9e6, 61704e7, 73df887, hotfix 08853c5 y Lote 1 e2befd6, conservados con sus fallos y retests. La versión funcional pública vigente es 3835117, Lote 2; 71dd149 es cierre documental. Ambos alojamientos fueron verificados dentro de la cobertura del registro, con IA pública deshabilitada. El candidato local 9001b12 está un commit por delante del origin/main comprobado, sin promoción. El Preview anterior es distinto; el intento de desplegar el commit exacto falló por configuración privada de build ausente. No se acredita como publicación exitosa. Enlaces, evidencia y límites en el registro canónico.
+Antecedentes publicados: b56d9e6, 61704e7, 73df887, hotfix 08853c5 y Lote 1 e2befd6, conservados con fallos y retests. Público funcional comprobado 3835117, Lote 2; 71dd149 es cierre documental. Los alojamientos fueron verificados en la cobertura histórica del registro, con IA pública deshabilitada; no se reconsultan aquí. El candidato técnico local actual es c4f8ef8, no publicado. El Preview anterior y el intento exacto fallido de 9001b12 se conservan como antecedentes separados; no acreditan un despliegue de c4f8ef8.
+
+### Resultado técnico local posterior — preparación, no ejecución real
+
+c4f8ef8 conserva Abacus y prepara Gemini con selección de modo/proveedor/modelo
+exclusiva del servidor, disabled por defecto y sin fallback. Gemini fue contrastado
+con documentación oficial y respuestas ficticias; no se comprobaron cuenta de Iván,
+cuota/elegibilidad, latencia/calidad ni tratamiento efectivo de una solicitud. Las
+nuevas migraciones SQL están preparadas, no aplicadas ni verificadas en PostgreSQL/RLS.
+No hay claves, credenciales ni resultados privados incluidos según la revisión acotada.
+
+Verificación del candidato: **237/237 pruebas**, lint y builds público/privado aprobados,
+sin llamadas externas a proveedores. Estas cifras proceden del retest existente, no
+de pruebas nuevas de este cierre ni de sumar suites anteriores. El corpus conserva
+cuatro casos ficticios sin ejecutar: Gemini/Sol base conceptual, Claude opcional,
+Groq pendiente y Astra excepcional, sin ganador ni consumo autorizado. Las pruebas
+de contrato/interfaz con dobles y el ensayo histórico real Abacus son evidencias
+diferentes. Detalles, fallos iniciales y límites en [el registro canónico](verification-2026-10-07.md#cierre-vigente-del-candidato-local-c4f8ef8--17102026).
 
 ### Evidencia visual seleccionada
 
@@ -214,7 +237,7 @@ El trabajo permitió transformar una visión amplia en un producto demostrable y
 
 También resultó valioso trabajar mediante incrementos pequeños y verificables. Las pruebas revelaron errores que no eran visibles en el diseño estático, como la duplicación del historial y la relación entre reapertura y entregable. Esto mostró la diferencia entre imaginar un flujo y comprobar su comportamiento.
 
-El recorrido real mínimo quedó demostrado, pero requiere evaluación adicional antes de uso general. Contador 3/5, permisos consumidos y halted: true. Tokens no disponibles; saldo 13.897 → 13.889 y panel con 21,3 créditos API diarios del 13/10 no permiten atribución individual. La reconciliación sigue pendiente; futuras llamadas requieren nueva autorización. Leads, portal y monetización siguen como visión futura.
+El recorrido real mínimo histórico de Abacus quedó demostrado, pero requiere evaluación adicional antes de uso general. Su contador 3/5, permisos consumidos y halted: true no autorizan Gemini. Tokens no disponibles; saldo 13.897 → 13.889 y panel con 21,3 créditos API diarios del 13/10 no permiten atribución individual. La reconciliación sigue pendiente; futuras llamadas requieren nueva autorización. Leads, portal y monetización siguen como visión futura.
 
 ## Pendientes para convertir este borrador en entrega
 
@@ -226,4 +249,4 @@ El recorrido real mínimo quedó demostrado, pero requiere evaluación adicional
 
 ### Pendientes de producto separados del cierre académico
 
-Lote 2 (F01/F11/F12) cerrado y publicado en su cobertura, sin accesibilidad integral. Resolver la configuración del Preview exacto, comprobar continuidad/conflicto entre dos computadoras y evaluar IA requieren alcances/autorizaciones propios. La conversión oficial, reconciliación del catálogo y cálculo conservador siguen pendientes para futuras pruebas; no son requisitos docentes adicionales ni autorización de consumo. Los cuatro casos del corpus continúan sin ejecutar. Un ensayo real histórico no valida el E1 protegido actual; portal, leads y monetización permanecen como visión futura. La IA real sigue siendo requisito personal del producto, no exigencia docente automática para Nivel 2.
+Lote 2 publicado en su cobertura, sin accesibilidad integral. Primero corresponde revisar/versionar este cierre documental y decidir aparte si se sincronizan commits locales. Antes de una prueba Gemini real: cuenta/cuota, política de datos, clave segura, migraciones/transacciones/RLS y límites, con corpus ficticio y autorización específica. Preview exacto y continuidad/conflicto entre equipos siguen como pendientes separados. Conversión, reconciliación y presupuesto condicionado de Abacus pertenecen al antecedente 3/5/halted: no autorizan Gemini. El ensayo histórico no valida el E1 protegido actual; portal, leads y monetización siguen como visión futura. IA real es requisito personal del producto, no exigencia docente automática para Nivel 2.

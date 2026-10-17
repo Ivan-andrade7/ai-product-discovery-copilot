@@ -1,5 +1,97 @@
 # Registro de verificación interna
 
+## Cierre vigente del candidato local c4f8ef8 — 17/10/2026
+
+**Corte técnico versionado:** `c4f8ef84ba55de0bfd91cda1a9e31b26998f84c2`, rama
+`codex/visual-system-layout`, mensaje `feat: prepare provider-neutral AI evaluation`.
+35 archivos; selección preparada individualmente, lista y blobs comparados antes y
+después del commit, diff-check y búsqueda específica aprobados. Padre `b210b45`
+(visual/ayudas) incluido en la cadena con `2a601d1` y `9001b12`. Este cierre documental
+posterior aún no está versionado. origin/main **local** `71dd149`, cuatro commits por
+detrás de la rama y ninguno por delante; sin fetch ni comprobación remota nueva.
+
+**Entornos separados:** última versión funcional pública comprobada `3835117`, Lote 2,
+en Pages/Vercel dentro de la cobertura histórica registrada. c4f8ef8 NO se declara
+en origin/main, Pages, Vercel ni Preview; no hubo push/despliegue. El Preview privado
+anterior y su intento exacto fallido siguen separados. La UI pública permanece sin
+IA operativa; generaciones reales deshabilitadas.
+
+**Implementado localmente:** frontera común para Abacus/Gemini, modo/proveedor/modelo
+de autoridad servidor, disabled por defecto, simulation explícita, compatibilidad
+legacy Abacus, sin router/fallback/reintentos. Solicitud y fuentes seleccionadas
+separadas, validación estricta local y revisión humana. v0.3 conserva históricos y
+admite procedencia Gemini explícita. El diagnóstico conserva metadatos observados
+ante una confirmación perdida sin inventar envíos. Se rechaza reclasificar
+simulation-e1 como proveedor real o guardar modelos solicitados inconsistentes.
+
+Gemini sólo tiene contraste documental oficial y pruebas con respuestas ficticias:
+**no** se verificaron cuenta de Iván, cuota/elegibilidad, latencia/calidad ni tratamiento
+efectivo de una solicitud. Las nuevas migraciones `2026-10-17-protected-ai.sql` y
+`2026-10-17-provider-boundary.sql` están preparadas, no aplicadas ni verificadas en
+PostgreSQL/RLS real. No confundirlas con el esquema privado histórico. Detalle técnico
+e inventario del commit: [AI-PREPARATION](../app/server/protected/AI-PREPARATION.md),
+conservado como evidencia de aquel candidato, no actualizado en este cierre.
+
+**Verificación vigente del candidato:** **237/237**, cero fallos/omisiones, cuatro
+opciones UI/build habilitadas; lint y builds público/privado aprobados. Se conserva la
+pasada focal de 106 aprobadas y una opcional omitida como evidencia diferente; esa
+opcional se ejecutó en la suite completa. Los dos casos nuevos fallaron primero
+reproduciendo defectos y pasaron después. Las cifras de suites anteriores no son acumulables:
+235/235 fue el corte anterior a esas dos pruebas; no describe el candidato final.
+No se ejecutan pruebas en este lote documental.
+
+Navegador del retest: selección → respuesta ficticia → revisión/aceptación → entregable
+→ recarga → reapertura → disabled, por separado para Abacus/Gemini; ocho anchos
+320/390/768/901/902/1024/1280/1440 sin overflow en esos recorridos. Cero solicitudes
+externas a proveedores instrumentadas; las lecturas de documentación web se separan
+de las pruebas. Los 503/403/errores de red provocados del arnés privado histórico
+siguen como casos negativos, no se afirma consola globalmente limpia. No se acredita
+calidad del modelo, resistencia adversarial real, seguridad o accesibilidad integral.
+
+**Evaluación y economía:** cuatro casos ficticios intactos y no ejecutados; cero intentos
+autorizados y sin ganador. Gemini/Sol base conceptual, Claude opcional, Groq pendiente,
+Astra excepcional. Probar un transporte con dobles no es ejecutar el corpus ni el modelo.
+Abacus histórico 3/5, halted y ambos permisos consumidos, con 21,3 créditos agregados
+sin atribución individual; no se leyó/modificó el ledger. Ese antecedente y el presupuesto
+condicionado no autorizan Gemini. Sin credenciales/claves/resultados privados versionados
+según selección y búsqueda acotada; no es una garantía global.
+
+### Clasificación de referencias y conciliación documental
+
+| Clase | Coincidencias encontradas | Tratamiento |
+| --- | --- | --- |
+| Vigente a corregir | AGENTS/README/app README/contexto describían adaptación sin commit, HEAD/gate anteriores y cifras 162/165 como últimas | Se actualiza c4f8ef8 y se enlaza este corte; b210b45 queda como antecedente incluido |
+| Vigente a corregir | Matriz/inventario/informe identificaban 9001b12 o main anterior como candidato actual, o pedían definir una preparación aún inexistente | Se distingue preparación local multiproveedor ya versionada de habilitación/publicación pendientes |
+| Vigente a corregir | Inventario agrupaba Gemini con herramientas sólo mencionadas | Se registra adaptador/documentación/dobles, sin atribuir uso real de Gemini API |
+| Histórico a conservar | Registros fechados: HEAD antiguos, sin commit, PASS 162/165 y gates de visual/Preview/Lotes 1–2; primer intento real fallido | Entradas originales conservadas literalmente debajo de este cierre, sin reemplazar evidencia |
+| Histórico a conservar | b210b45 visual incluido; AI-PREPARATION/corpus conservan el corte de preparación y la prioridad anterior de Astra delimitada como antecedente | No se editan esos dos documentos; el plan vigente no tiene ganador y Astra sólo es escalamiento excepcional |
+| Pendiente legítimo | Gemini sin cuenta/cuota/calidad reales comprobadas; SQL sin aplicar; corpus no ejecutado; Abacus sin reconciliación individual | Permanece explícito; no se vuelve requisito docente ni permiso de consumo |
+| Pendiente legítimo | Público 3835117, Preview exacto, continuidad entre equipos, PDF final, datos/modelos históricos desconocidos | No se inventa actualización de alojamientos ni resolución de pendientes |
+
+No apareció otra contradicción activa fuera de los ocho documentos conciliados en la
+búsqueda de Markdown versionable; archivos privados/ajenos excluidos de la búsqueda.
+Este cierre sólo modifica AGENTS.md, README.md, app/README.md, contexto.md, este registro,
+academic-compliance-matrix.md, tools-and-prompts-inventory.md y report-draft-v0.1.md.
+
+### Próximo gate
+
+1. Revisar y versionar este cierre documental con autorización separada.
+2. Decidir aparte si se sincronizan commits locales; este cierre no publica.
+3. Antes de una prueba Gemini real: cuenta/cuota, política de datos, clave segura,
+   migraciones/transacciones/RLS y límites comprobados en el entorno autorizado.
+4. Sólo corpus ficticio y autorización específica, sin billing ni fallback pago inferidos.
+
+No se modifican código, pruebas, configuración, SQL, corpus o AI-PREPARATION, ni se usan
+credenciales. Los apartados siguientes son antecedentes literales de sus fechas, aun
+cuando dentro de ellos se use la palabra vigente o un gate que después fue superado.
+
+Control de este cierre documental: diff limitado a esos ocho Markdown, 16 tablas sin
+inconsistencias de columnas, diff-check aprobado, cero patrones específicos de claves
+o rutas personales en el texto añadido. Comparación programática confirmó que todo el
+registro previo permanece literal y que los archivos fuera del lote no difieren de HEAD.
+No son pruebas funcionales. Sin staging, commit, consultas externas ni publicación;
+documentación lista para revisión y posible commit separado, no autorización para hacerlo.
+
 ## Claridad y ayuda contextual — cierre documental 17/10/2026
 
 **Corte vigente local:** rama `codex/visual-system-layout`, HEAD `2a601d1e4bcfcf6e59459b80b440b7d2d77a5d6d`; cambios posteriores sin commit, índice vacío. Público funcional documentado `3835117`, cierre documental remoto conocido `71dd149` y Preview anterior separados; no se consultaron alojamientos ni remoto en este cierre. No se repiten pruebas: se contrastan código, tests y salidas disponibles de los lotes anteriores. Los conteos/builds/capturas siguientes pertenecen a sus cortes históricos.

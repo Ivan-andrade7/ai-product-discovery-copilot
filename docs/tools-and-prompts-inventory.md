@@ -1,6 +1,6 @@
 # Inventario de herramientas, modelos y prompts
 
-Fecha de conciliación documental: 16 de octubre de 2026. El corte inicial del 7 de octubre se conserva como antecedente en los registros enlazados. No se vuelven a verificar versiones instaladas ni se ejecutan pruebas en este lote.
+Fecha de conciliación documental: 17 de octubre de 2026, posterior a c4f8ef8 local. Los cortes anteriores se conservan como antecedentes en el registro. No se verifican versiones instaladas ni se ejecutan pruebas en este lote.
 
 ## Regla de lectura
 
@@ -16,12 +16,13 @@ Este inventario distingue uso verificado, función en el proceso y datos todaví
 | UXPilot | Exploración de variantes visuales | Capturas aportadas por Iván | Iván no tuvo acceso a un nombre de modelo identificable |
 | Abacus.AI | Exploración de otra versión generada | Conversación enlazada por Iván | Modalidad gratuita; modelo/agente exacto no identificado |
 | Abacus API / Basic | Dos generaciones personales autorizadas: primera fallida, segunda válida en un caso ficticio mínimo | Recorrido real mínimo, decisión, entregable y persistencia; generaciones cerradas después | claude-sonnet-4-6 solicitado e informado; tokens no disponibles; no valida calidad general |
-| Codex | Lectura de fuentes, implementación React, revisión, correcciones y documentación | Lotes 1/2 publicados; candidato protegido 9001b12 separado, con orientación simulada | Identificador exacto del modelo histórico pendiente de recuperar desde una fuente verificable |
+| Codex | Lectura de fuentes, implementación React, revisión, correcciones y documentación | Lotes 1/2 públicos; c4f8ef8 local incorpora visual/ayudas y preparación Abacus/Gemini, sin habilitarla | Identificador exacto del modelo histórico pendiente de recuperar desde una fuente verificable |
+| Gemini API, preparación local | Lectura documental oficial y adaptador/transporte con dobles ficticios | Preparado en c4f8ef8; sin cuenta/cuota, latencia/calidad ni solicitud real comprobadas | gemini-3.8-flash documentado como candidato; no usado en una generación real |
 | React | Construcción de la interfaz por componentes | Aplicación navegable | No es IA; versión declarada en el manifiesto, no reconfirmada aquí como versión instalada |
 | Vite | Entorno de desarrollo y build local | Build local verificado | No es IA; versión declarada en el manifiesto, no reconfirmada aquí como versión instalada |
 | ESLint | Revisión estática | Verificación local PASS | No es IA; versión declarada en el manifiesto, no reconfirmada aquí como versión instalada |
-| Git | Historial y comparación entre estado publicado y candidato | Público funcional 3835117; cierre 71dd149; main local 9001b12 un commit por delante de origin/main comprobado, ramas conservadas | No es IA |
-| GitHub Actions y Pages / Vercel | Alojamiento público y Preview privado separado | Público 3835117 verificado; Preview anterior distinto del candidato, cuyo intento exacto falló por configuración privada de build ausente | No son IA; IA pública deshabilitada; detalles en registro canónico |
+| Git | Historial y comparación entre estado publicado y candidato | Público comprobado 3835117; HEAD local c4f8ef8 en codex/visual-system-layout, incluye b210b45; no se consultó remoto en este cierre | No es IA |
+| GitHub Actions y Pages / Vercel | Alojamiento público y Preview privado separado | Público 3835117 comprobado; Preview anterior separado e intento exacto de 9001b12 fallido por configuración privada de build ausente; no despliegue de c4f8ef8 | No son IA; IA pública deshabilitada; detalles en registro canónico |
 | Google / Supabase / API Node protegida | Acceso privado y persistencia remota del espacio personal de prueba | Dos identidades de Iván recuperaron el mismo espacio según evidencia registrada; continuidad/conflicto entre dos computadoras pendientes | No son modelos de IA; no acreditan aislamiento entre clientes ni uso general |
 | Simulador E1 | Orientación determinista del candidato protegido | Flujo de revisión/brief con procedencia simulation | No es un modelo real ni prueba calidad de IA |
 | Navegador local | Pruebas funcionales y visuales | Recorridos y estados inspeccionados | No es IA |
@@ -30,8 +31,10 @@ Este inventario distingue uso verificado, función en el proceso y datos todaví
 ## Herramientas mencionadas, sin uso acreditado en el producto
 
 - Los videos de YouTube compartidos fueron inspiración; su contenido no está resumido ni atribuido como decisión técnica verificable.
-- Gemini, Google AI Studio, NotebookLM, n8n y otras herramientas aparecen en la consigna o en posibilidades previas; no se declaran usadas sin evidencia. Claude Sonnet 4.6 sí figura en los dos intentos API registrados, no como validación de otros usos.
+- Google AI Studio, NotebookLM, n8n y otras posibilidades no se declaran usadas sin evidencia. Gemini tiene preparación documental/local con dobles, no uso real de API. Google AI Pro no acredita cuota API. Claude Sonnet 4.6 sí figura en los dos intentos históricos, no como validación de otros modelos.
 - La aplicación pública no tiene backend remoto ni autenticación. El candidato protegido sí prepara acceso privado y persistencia remota para el espacio personal; no demuestra aislamiento multiusuario ni continuidad completa entre equipos. El ensayo histórico de IA mediante servicio local permanece separado de E1 simulado: 3/5, halted: true y ambos permisos consumidos, sin autorización nueva. IA pública deshabilitada; 21,3 créditos agregados no permiten atribución individual. Detalle en el registro.
+
+Preparación de modelos, no generaciones: proveedor/modelo sólo del servidor; Abacus conservado y Gemini deshabilitado por defecto. El plan no declara ganador: Gemini/Sol base conceptual, Claude opcional, Groq pendiente y Astra excepcional. Cuatro casos ficticios sin ejecutar y cero intentos autorizados. 237/237, lint y ambos builds pertenecen al retest local del candidato, sin llamadas externas a proveedores; nuevas migraciones SQL sin aplicar/verificar en PostgreSQL/RLS. Los identificadores de candidatos no son modelos usados en los dos intentos históricos. [Corpus](ai-evaluation-corpus.md), [registro vigente](verification-2026-10-07.md#cierre-vigente-del-candidato-local-c4f8ef8--17102026).
 
 ## Familias de prompts verificables
 

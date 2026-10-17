@@ -2,7 +2,15 @@
 
 Prototipo local del Trabajo Final Integrador de la Diplomatura en IA Aplicada a Entornos Digitales de Gestión.
 
-## Interfaz local vigente — 17/10/2026
+## Candidato técnico local vigente — 17/10/2026
+
+`c4f8ef8`, rama `codex/visual-system-layout`, incluye visual/ayuda `b210b45` y preparación protegida Abacus/Gemini. Modo, proveedor y modelo pertenecen al servidor; arranque disabled por defecto, simulation explícita y ningún fallback. Gemini sólo tiene contraste documental y respuestas ficticias locales: no acceso de cuenta, cuota, latencia, calidad ni solicitud real comprobados. Las nuevas migraciones de reservas están preparadas, no aplicadas ni verificadas en PostgreSQL/RLS. No activar variables, credenciales o servicios siguiendo este cierre.
+
+Verificación vigente del candidato: **237/237**, lint y ambos builds aprobados; cero llamadas de IA. No se repiten aquí las pruebas. Corpus: cuatro casos ficticios sin ejecutar y cero intentos autorizados. No hay claves ni resultados privados incluidos en el commit según la revisión acotada. Público funcional comprobado: `3835117`, no c4f8ef8; Preview anterior separado y generaciones reales deshabilitadas. Detalle único en [el registro](../docs/verification-2026-10-07.md#cierre-vigente-del-candidato-local-c4f8ef8--17102026); configuración y restricciones técnicas en [AI-PREPARATION](server/protected/AI-PREPARATION.md). Próximo gate en [contexto](../contexto.md#cierre-local-vigente-y-próximo-gate--17102026).
+
+## Antecedente de interfaz incluido en b210b45 — 17/10/2026
+
+Los párrafos fechados de este corte conservan el estado previo a versionarlo; no son el HEAD ni el próximo gate actuales.
 
 Sobre `2a601d1`, rama `codex/visual-system-layout`, sin commit/publicación. Navegación visible: Resumen, Revisión, Fuentes, Decisiones, Entregables y Actividad de IA; las claves internas siguen intactas. El nombre del proyecto aparece en la cabecera y se conserva en el nombre accesible de la navegación, sin repetición visible lateral. Crear proyecto agrupa datos, fuente inicial opcional y contexto adicional opcional. En Revisión/Actividad, los detalles técnicos se despliegan a petición; indisponibilidad, procedencia simulada y cancelación activa no quedan ocultas.
 
@@ -18,7 +26,7 @@ Rama `codex/visual-system-layout`, base `2a601d1` (cierre documental del candida
 
 Retest final registrado: suite completa 162/162, lint y ambos builds aprobados; comprobación adicional de composición en ocho vistas y estados seleccionados. No se repiten pruebas durante este cierre documental ni se suman mediciones al conteo de tests. Incidencias, tamaños efectivos, capturas externas y límites en [el corte visual del registro canónico](../docs/verification-2026-10-07.md#adaptación-visual-local--cierre-documental-17102026). Este árbol no está en producción ni en el Preview anterior. Revisión/aprobación visual y eventual commit requieren autorización; IA real sigue bloqueada.
 
-## Candidato privado local — 16/10/2026
+## Antecedente del candidato privado local — 16/10/2026
 
 Versionado en `9001b12`, sobre `71dd149`, sin promoción a producción: protección de borradores de Work al cerrar sesión, formularios E1 temporales por proyecto con advertencia antes de abandonar, estilos E1 incluidos por el propio panel y confirmación remota exacta antes de limpiar una edición. Formularios y borradores no forman parte de `v0.3`, decisiones ni respaldos y se pierden al recargar/cerrar. La próxima acción confirmada sí pertenece al workspace.
 
@@ -57,7 +65,7 @@ pnpm dev
 
 Abrir la dirección local informada por Vite, normalmente `http://localhost:5173/`.
 
-### Prueba privada con servicios reales e IA simulada
+### Antecedente: prueba privada con servicios reales e IA simulada
 
 Corte vigente: el Preview anterior `dpl_A2wdpitMC4npEZj6anPmFxSqrDVc` no contiene las correcciones posteriores de `9001b12`. El intento exacto `dpl_CCtDTRaAtpbzzvYpVWKiN39cuFmM` falló (`BUILD_UTILS_SPAWN_1`, `private-build-disabled`); faltaba `TP_BUILD_TARGET` en la configuración de ese despliegue. No se movió el alias ni se alteró producción. GuIA informó recuperación con ambas identidades de Iván en el mismo espacio; no equivale a aislamiento de clientes ni a prueba completa entre dos computadoras. E1 sigue simulado y separado del ensayo histórico de IA. Los párrafos siguientes son antecedentes de preparación y despliegue, no instrucciones para activar servicios ahora.
 
@@ -108,6 +116,8 @@ Verificado con Google/Supabase reales desde Chrome e in-app browser independient
 
 ### E1 integrado — sólo desarrollo local con dobles de prueba
 
+Esta sección describe el arnés de desarrollo simulado, no el servidor multiproveedor del candidato c4f8ef8. Sus límites y requisitos de conexión inicial se conservan como antecedente; no activan servicios ni sustituyen el gate vigente.
+
 Con pnpm dev limitado a loopback, abrir http://127.0.0.1:5173/?e1 (o el puerto informado). E1 usa Projects, New Project, Overview, Work, Sources, Decisions y Deliverables, el mismo constructor, repositorio, propuestas e historial. El wrapper de desarrollo sólo simula acceso autorizado/denegado. El workspace paralelo anterior se retiró; su antigua clave de prueba no se lee, migra ni borra.
 
 Crear un proyecto con pedido literal, objetivo de etapa/restricciones opcionales y fuente opcional. E1 no crea una fuente desde el pedido. La fuente aportada al crear requiere selección explícita en Work/Sources; también puede agregarse una fuente desde Overview. Sin fuente seleccionada con texto se guarda, pero no se ejecuta el simulador. El reintento mantiene identidad y campos; otra creación intencional recibe otra identidad. Si el guardado se aplicó y se perdió la confirmación, el repositorio sólo lo reconoce al reenviar el contenido exacto con escritor/revisión coincidentes; otras versiones siguen siendo conflicto.
@@ -157,7 +167,7 @@ pnpm build
 pnpm preview
 ```
 
-## Alcance y límites vigentes
+## Alcance y límites de la versión pública comprobada
 
 - Nivel 2: maqueta HTML navegable.
 - Datos ficticios en el demo; los proyectos nuevos no reciben propuestas genéricas.
@@ -175,11 +185,11 @@ Versión funcional publicada: `3835117bf6abd9a5d247b3cdc26dbbc5c26dc096`, Lote 2
 
 El código publicado usa `v0.3` y conserva la preparación que transmite solicitud y sólo fuentes seleccionadas en mensajes separados y bloquea resultados obsoletos; no habilita IA pública. Un caso ficticio privado previo completó el recorrido con una respuesta real de `claude-sonnet-4-6`, decisión de prueba, entregable y persistencia. La calidad general y la resistencia adversarial no están validadas. Nuevas respuestas requieren type Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question; los tipos históricos se conservan literalmente.
 
-La cobertura y el consumo se registran en [`../docs/verification-2026-10-07.md`](../docs/verification-2026-10-07.md). Estado económico: 3/5, ambas autorizaciones consumidas, halted y generaciones deshabilitadas. El consumo agregado no permite atribución individual. El corpus de cuatro casos permanece sin ejecutar. Login, multiusuario, PDF/imágenes, leads, portal y monetización no están implementados.
+La cobertura y el consumo se registran en [`../docs/verification-2026-10-07.md`](../docs/verification-2026-10-07.md). Antecedente económico Abacus: 3/5, ambas autorizaciones consumidas, halted y generaciones deshabilitadas; no autoriza Gemini. El agregado no permite atribución individual. Cuatro casos del corpus sin ejecutar. Login, multiusuario, PDF/imágenes, leads, portal y monetización no están implementados en esta versión pública.
 
-Antes de exponer IA a Iván o clientes se requiere definir un incremento protegido de autenticación, backend, secretos, persistencia y controles de uso/costo, con autorización propia. No se habilita ese incremento ni nuevas generaciones mediante este cierre documental.
+El incremento protegido y la frontera multiproveedor ya están preparados localmente en c4f8ef8, sin habilitación ni publicación. Antes de una prueba real se requieren las comprobaciones de cuenta, datos, custodia, migraciones y límites indicadas en contexto y autorización específica. No se habilitan nuevas generaciones mediante este cierre documental.
 
-Lote 2 (F01/F11/F12) implementado y verificado dentro de la cobertura registrada, sin rediseño ni declaración de accesibilidad integral. El siguiente incremento funcional está pendiente de definición y autorización de Iván. Este cierre es exclusivamente documental; su push requiere autorización separada y no habilita otro incremento. Estado en [`../contexto.md`](../contexto.md).
+Lote 2 (F01/F11/F12) publicado y verificado dentro de su cobertura, sin accesibilidad integral. La preparación local posterior no sustituye ese corte público. Corresponde revisar/versionar este cierre documental y decidir aparte cualquier sincronización o prueba real; no iniciar otro incremento. Estado en [`../contexto.md`](../contexto.md).
 
 ## Tecnología
 

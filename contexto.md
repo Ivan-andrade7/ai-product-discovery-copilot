@@ -4,7 +4,26 @@
 
 17 de octubre de 2026.
 
-## Adaptación visual local y próximo gate — 17/10/2026
+## Cierre local vigente y próximo gate — 17/10/2026
+
+Último commit funcional/técnico local: `c4f8ef84ba55de0bfd91cda1a9e31b26998f84c2`, rama `codex/visual-system-layout`. Incluye `b210b45` (visual/ayuda), `2a601d1` y `9001b12`; éstos son antecedentes, no el HEAD actual. El cierre documental presente todavía no tiene commit. La referencia local origin/main sigue en `71dd149`, cuatro commits por detrás de esta rama y ninguno por delante; no se consultó el remoto. La última versión funcional pública comprobada sigue siendo `3835117`: no se afirma que c4f8ef8 esté en origin/main, Pages, Vercel o Preview.
+
+c4f8ef8 conserva Abacus y añade frontera común y adaptador/transporte Gemini preparados, con modo/proveedor/modelo de autoridad servidor. Disabled por defecto, sin fallback, reintentos automáticos ni credenciales en frontend. Gemini sólo fue contrastado con documentación oficial y respuestas ficticias locales: no se comprobaron cuenta de Iván, cuota/elegibilidad, latencia/calidad ni tratamiento efectivo de una solicitud. La UI pública no ofrece IA operativa y las generaciones reales siguen deshabilitadas. El registro no contiene claves ni resultados privados versionados según la búsqueda acotada registrada, no una garantía global.
+
+Las nuevas migraciones protected-ai/provider-boundary están preparadas, no aplicadas ni verificadas en PostgreSQL/RLS real; no confundirlas con la infraestructura privada histórica ya registrada. Persistencia v0.3 e históricos conservados. Cuatro casos ficticios del corpus sin ejecutar; plan con cero intentos autorizados y sin ganador: Gemini/Sol base conceptual, Claude opcional, Groq pendiente y Astra escalamiento premium excepcional. El estado económico conocido Abacus 3/5, halted y permisos consumidos es antecedente, no autorización ni cuota para Gemini.
+
+Verificación vigente del candidato: **237/237 pruebas**, lint y builds público/privado aprobados, cero llamadas externas a proveedores; documentación web consultada por separado. No se repiten pruebas en este cierre ni se suman suites anteriores. Autoridad de cobertura, incidentes y límites: [registro canónico](docs/verification-2026-10-07.md#cierre-vigente-del-candidato-local-c4f8ef8--17102026). Es preparación, no IA operativa ni accesibilidad/seguridad integrales.
+
+Próximo gate real:
+
+1. Revisar y versionar este cierre documental mediante autorización separada.
+2. Decidir después, por separado, si se sincronizan los commits locales; no hay publicación autorizada.
+3. Antes de una prueba real de Gemini, comprobar cuenta/cuota, política de datos, clave segura, migraciones/transacciones/RLS y límites.
+4. Ejecutar únicamente con corpus ficticio y autorización específica; sin billing ni fallback pago por inferencia.
+
+Cierre académico (capturas/enlaces, informe y PDF final), Preview exacto y continuidad/conflicto entre computadoras siguen pendientes separados. Los apartados que siguen son antecedentes fechados: sus HEAD, cifras, “sin commit” y gates no describen el candidato vigente.
+
+## Antecedente: adaptación visual local y próximo gate de aquel corte — 17/10/2026
 
 Rama `codex/visual-system-layout`, HEAD `2a601d1e4bcfcf6e59459b80b440b7d2d77a5d6d`, cierre documental posterior al candidato protegido `9001b12`. La referencia local origin/main permanece en `71dd149`: dos commits por delante, sin consulta nueva del remoto en este cierre. Versión pública funcional documentada `3835117`, sin publicación de esta adaptación ni reemplazo del Preview anterior.
 

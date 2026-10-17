@@ -28,7 +28,7 @@ La versión pública demuestra una maqueta navegable con datos ficticios y prepa
 
 ## Estado
 
-Adaptación local vigente — 17/10/2026: sobre el cierre documental `2a601d1`, la rama `codex/visual-system-layout` conserva foundations, composición, regreso y monograma; añade navegación en español, avisos técnicos desplegables, formulario agrupado y ayuda contextual con íconos mínimos de 16 px (área interactiva invisible de 44 px), además de una guía general. Sin commit ni publicación: no cambia la versión pública ni habilita IA. La suite completa de 165 pruebas corresponde al sistema de ayuda previo al último ajuste del ícono; después del ajuste se repitieron las tres pruebas focalizadas, lint y ambos builds. Detalle único, incidentes y límites en [el registro canónico](docs/verification-2026-10-07.md#claridad-y-ayuda-contextual--cierre-documental-17102026).
+Último commit técnico local — 17/10/2026: `c4f8ef8`, rama `codex/visual-system-layout`. Incluye el antecedente visual/ayuda `b210b45` y añade preparación protegida multiproveedor Abacus/Gemini, selección exclusiva del servidor y generaciones deshabilitadas por defecto. Gemini tiene compatibilidad documental y pruebas con respuestas ficticias, no acceso ni calidad reales comprobados. Las nuevas migraciones SQL no están aplicadas. Verificación vigente del candidato: **237/237**, lint y builds público/privado aprobados, sin llamadas a proveedores; no se repiten en este cierre documental. Los cuatro casos del corpus siguen sin ejecutar, sin ganador: Gemini/Sol como base conceptual, Claude opcional, Groq pendiente y Astra excepcional. No se publicó este candidato ni se equipara con Pages, Vercel o el Preview anterior. Evidencia y límites únicos en [el registro canónico](docs/verification-2026-10-07.md#cierre-vigente-del-candidato-local-c4f8ef8--17102026); próximo gate en [contexto](contexto.md#cierre-local-vigente-y-próximo-gate--17102026).
 
 Antecedente de conciliación — 16/10/2026: versión funcional pública `3835117`, con cierre documental `71dd149`. El candidato protegido `9001b12` quedó versionado localmente; su cierre documental posterior es `2a601d1`, sin promoción a producción. Su E1 usa orientación simulada; el ensayo histórico real de IA no demuestra una integración real de ese E1. El Preview anterior permanece separado; el intento de desplegar el candidato exacto falló por falta de configuración privada de build. Evidencia y límites en el registro canónico.
 
@@ -63,7 +63,7 @@ Las pruebas locales con respuestas simuladas comprueban contrato, mensaje, almac
 
 Para nuevas respuestas, `type` exige Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question. El valor histórico `string` se conserva sin normalización. No está implementada la categoría `inference`.
 
-Control económico vigente: 3/5, ambas autorizaciones consumidas y `halted: true`. Tokens no disponibles; saldo observado 13.897 → 13.889 y 21,3 créditos API agregados del 13/10, sin atribución individual ni reconciliación inventada. No hay permiso ni habilitación para otra generación.
+Antecedente económico Abacus conservado: 3/5, ambas autorizaciones consumidas y `halted: true`. Tokens no disponibles; saldo observado 13.897 → 13.889 y 21,3 créditos API agregados del 13/10, sin atribución individual ni reconciliación inventada. No autoriza Gemini ni otra generación.
 
 ## Cómo probar la solución
 
