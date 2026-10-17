@@ -2,7 +2,21 @@
 
 ## Fecha de corte
 
-16 de octubre de 2026.
+17 de octubre de 2026.
+
+## Adaptación visual local y próximo gate — 17/10/2026
+
+Rama `codex/visual-system-layout`, HEAD `2a601d1e4bcfcf6e59459b80b440b7d2d77a5d6d`, cierre documental posterior al candidato protegido `9001b12`. La referencia local origin/main permanece en `71dd149`: dos commits por delante, sin consulta nueva del remoto en este cierre. Versión pública funcional documentada `3835117`, sin publicación de esta adaptación ni reemplazo del Preview anterior.
+
+Estado local posterior: foundations, composición, regreso y monograma conservados; navegación visible en español, nombre de proyecto sin duplicación, detalles técnicos secundarios desplegables y formulario agrupado. Ayuda global y contextual sin hover obligatorio, con teclado, cierre y retorno de foco; íconos finales de 16 px sin caja, conservando objetivos interactivos de 44 px. Sin cambios de contratos, persistencia ni habilitación de IA. Suite completa 165/165 antes del ajuste final del ícono; después, tres pruebas focalizadas de ayuda, lint y ambos builds aprobados. No se acredita suite completa repetida después de ese ajuste. Detalle único e incidentes en [el registro canónico](docs/verification-2026-10-07.md#claridad-y-ayuda-contextual--cierre-documental-17102026). Este cierre documental no ejecuta pruebas ni consulta servicios.
+
+Correctivo posterior autorizado: Volver a proyectos se separa de la marca, se coloca encima del título y comparte la receta de botón secundario con hover, pulsación y foco. Ya era un button conectado a onHome; se corrigen presentación/ubicación sin sustituir su handler ni la protección de borradores. Nueve archivos de UI acumulados por la incorporación de TopBar.jsx; retest final posterior 162/162, lint y ambos builds aprobados. 42 comprobaciones adicionales de cabecera sin overflow/superposición, separadas de las 59 del corte anterior; detalle y capturas nuevas en el registro.
+
+Identidad autorizada posteriormente: logo vigente de Marca personal, cuya autoridad visual remite a Portfolio, aplicado sin redibujar en cabecera y favicon público/privado. Dos SVG idénticos a la fuente; favicon con variantes por tema. Retest posterior 162/162, lint/builds aprobados y fixture privado actualizado para servir SVG sin 404; fuentes, hashes y límites en el registro.
+
+Los conteos de nueve archivos UI/19 acumulados y las cifras 162 de los párrafos anteriores corresponden al corte previo a claridad/ayudas, no a la selección actual ampliada. Todo el candidato sigue sin staging/commit/push. Próximo gate: revisión visual de los íconos minimalistas y del diff/selección; un commit requiere autorización separada. Pendientes académicos: seleccionar evidencia y verificar PDF final. Pendientes de producto separados: IA real operativa en el recorrido objetivo, Preview exacto y continuidad/conflicto entre computadoras. IA pública deshabilitada, E1 simulado, contador conocido 3/5, halted y permisos consumidos; no se leyó el registro económico ni se autorizan generaciones nuevas. La IA operativa sigue siendo un bloqueante de la entrega objetivo del producto por decisión de Iván, no una exigencia docente adicional inferida.
+
+Los apartados siguientes conservan cortes anteriores: sus estados de rama/HEAD, cifras y gates describen esos momentos, no reemplazan este corte vigente.
 
 ## Candidato local correctivo — 16/10/2026
 

@@ -1,15 +1,17 @@
 import { useEffect, useRef } from 'react'
+import { ContextHelp } from './ContextHelp'
+import { conceptHelp, sectionHelp } from './help-content'
 
 const items = [
-  { label: 'Overview', screen: 'overview' },
-  { label: 'Work', screen: 'work' },
-  { label: 'Sources', screen: 'sources' },
-  { label: 'Decisions', screen: 'decisions' },
-  { label: 'Deliverables', screen: 'deliverables' },
-  { label: 'AI Activity', screen: 'activity' },
+  { label: 'Resumen', screen: 'overview' },
+  { label: 'Revisión', screen: 'work' },
+  { label: 'Fuentes', screen: 'sources' },
+  { label: 'Decisiones', screen: 'decisions' },
+  { label: 'Entregables', screen: 'deliverables' },
+  { label: 'Actividad de IA', screen: 'activity' },
 ]
 
-export function ProjectSidebar({ active = 'Overview', onNavigate, projectName }) {
+export function ProjectSidebar({ active = 'Resumen', onNavigate, projectName }) {
   const navigation = useRef(null)
 
   function revealControl(control) {
@@ -32,9 +34,8 @@ export function ProjectSidebar({ active = 'Overview', onNavigate, projectName })
 
   return (
     <aside className="project-sidebar" aria-label="Navegación del proyecto">
-      <p className="eyebrow">PROYECTO</p>
-      <p className="project-name">{projectName}</p>
-      <nav className="project-nav" ref={navigation}>
+      <p className="eyebrow">SECCIONES</p>
+      <nav className="project-nav" ref={navigation} aria-label={`Secciones de ${projectName}`}>
         {items.map((item) => (
           <button
             aria-current={item.label === active ? 'page' : undefined}
@@ -51,8 +52,9 @@ export function ProjectSidebar({ active = 'Overview', onNavigate, projectName })
           </button>
         ))}
       </nav>
+      <div className="section-help"><span>Sobre {active}</span><ContextHelp title={active}>{sectionHelp[active]}</ContextHelp></div>
       <div className="method-note">
-        <strong>Método E1–E18</strong>
+        <div className="help-label"><strong>Proceso de trabajo</strong><ContextHelp title="Proceso de trabajo E1–E18">{conceptHelp.process}</ContextHelp></div>
         <span>Referencia adaptable, no secuencia obligatoria.</span>
       </div>
     </aside>

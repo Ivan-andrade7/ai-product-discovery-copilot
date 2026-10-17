@@ -13,6 +13,7 @@ Construir y documentar el Trabajo Final Integrador individual de la Diplomatura 
 - Preservar la base multiproyecto, la persistencia vigente `v0.3` y sus antecedentes `v0.1`/`v0.2`, además de la corrección responsive.
 - Versión funcional publicada y comprobada: `3835117bf6abd9a5d247b3cdc26dbbc5c26dc096`, Lote 2 de navegación y foco, verificado en GitHub Pages y Vercel dentro de la cobertura registrada. Lote 1 `e2befd6` y el hotfix responsive/foco `08853c5` permanecen como antecedentes; ramas conservadas. El cierre documental posterior no representa otra versión funcional. IA pública deshabilitada.
 - Candidato local `9001b12`, sobre `71dd149`: E1 y acceso privado/persistencia remota preparados, con orientación explícitamente simulada; no promovido a producción. El Preview anterior no equivale a este commit; el intento de desplegarlo falló por configuración privada de build ausente. Dos identidades de Iván recuperaron el mismo espacio según evidencia de GuIA; continuidad/conflicto entre dos computadoras todavía pendiente. Estado y retest en el registro canónico.
+- Adaptación visual local posterior a `2a601d1`, rama `codex/visual-system-layout`: foundations, composición, agrupación E1, correctivo del botón de regreso y monograma vigente en cabecera/favicon implementados y retesteados, todavía sin commit ni publicación. No equiparar este árbol con el candidato versionado ni con el Preview anterior; evidencia y límites en el registro canónico.
 
 El estado detallado y sus límites se mantienen en `contexto.md` y `docs/verification-2026-10-07.md`; no duplicarlos aquí.
 
@@ -42,7 +43,7 @@ Reservar tiempo para pruebas, documentación y entrega académica. Las ampliacio
 
 ## Próximo paso
 
-Lote 2 cerrado y candidato protegido conservado en `9001b12`. Próximo gate académico: conciliar evidencia, seleccionar capturas/enlaces y verificar el PDF final; no exige completar portal, leads o monetización. Resolver el Preview exacto y comprobar continuidad/conflicto entre computadoras son pendientes de producto separados, sujetos a autorización. No publicar ni equiparar el Preview anterior con el candidato. IA pública deshabilitada; contador conocido 3/5, halted y permisos consumidos, sin nuevas generaciones autorizadas. No se declara accesibilidad integral. Detalles en contexto y registro canónico.
+Revisar selección y aprobación visual del lote local, con posible commit sujeto a autorización separada. Lote 2 cerrado; candidato protegido conservado en `9001b12` y cierre documental en `2a601d1`. Cierre académico pendiente: seleccionar capturas/enlaces y verificar el PDF final; no exige completar portal, leads o monetización. Preview exacto y continuidad/conflicto entre computadoras son pendientes separados. No publicar ni equiparar entornos. IA pública deshabilitada; contador conocido 3/5, halted y permisos consumidos, sin nuevas generaciones autorizadas. No se declara accesibilidad integral. Detalles en contexto y registro canónico.
 
 ## Autoridades
 

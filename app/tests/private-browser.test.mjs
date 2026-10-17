@@ -19,8 +19,8 @@ test('private UI with intercepted fictitious API: async save, lost ack, two cont
    if(!url.pathname.startsWith('/api/')){
     if(!built){await route.continue();return}
     const file=['/','/private'].includes(url.pathname)?'protected.html':url.pathname.slice(1)
-    if(!/^(protected\.html|assets\/[\w.-]+\.(js|css))$/.test(file)){await route.fulfill({status:404,body:''});return}
-    await route.fulfill({body:await readFile(new URL('../dist-private/'+file,import.meta.url)),contentType:file.endsWith('.js')?'application/javascript':file.endsWith('.css')?'text/css':'text/html'});return
+    if(!/^(protected\.html|assets\/[\w.-]+\.(js|css|svg))$/.test(file)){await route.fulfill({status:404,body:''});return}
+    await route.fulfill({body:await readFile(new URL('../dist-private/'+file,import.meta.url)),contentType:file.endsWith('.js')?'application/javascript':file.endsWith('.css')?'text/css':file.endsWith('.svg')?'image/svg+xml':'text/html'});return
    }
    const send=(value,status=200)=>route.fulfill({status,contentType:'application/json',body:JSON.stringify(value)})
    if(req.method()==='POST')assert.equal(req.headers()['x-tp-csrf'],'fixture-csrf')
@@ -55,11 +55,11 @@ test('private UI with intercepted fictitious API: async save, lost ack, two cont
   await page.getByRole('button',{name:'Resolver el mismo guardado'}).click()
   const panel=page.getByRole('region',{name:'Trabajo E1'});await panel.waitFor()
   // Empty forms and unchanged action do not warn; real form content does.
-  await page.getByRole('button',{name:'Sources',exact:true}).click()
+  await page.getByRole('button',{name:'Fuentes',exact:true}).click()
   assert.equal(await page.getByRole('region',{name:'Borradores pendientes'}).count(),0)
-  await page.getByRole('button',{name:'Overview',exact:true}).click()
+  await page.getByRole('button',{name:'Resumen',exact:true}).click()
   await panel.getByLabel('Nombre de fuente',{exact:true}).fill('Nombre todavía sin guardar')
-  await page.getByRole('button',{name:'Sources',exact:true}).click()
+  await page.getByRole('button',{name:'Fuentes',exact:true}).click()
   await page.getByRole('region',{name:'Borradores pendientes'}).waitFor()
   await page.getByRole('button',{name:'Continuar editando',exact:true}).click()
   assert.equal(await panel.getByLabel('Nombre de fuente',{exact:true}).inputValue(),'Nombre todavía sin guardar')
@@ -95,7 +95,7 @@ test('private UI with intercepted fictitious API: async save, lost ack, two cont
   await panel.getByRole('button',{name:'Obtener orientación simulada'}).click()
   await panel.getByRole('status').filter({hasText:'Respuesta completa'}).waitFor()
   assert.equal(analyses,1)
-  await panel.getByRole('button',{name:'Revisar propuestas en Work'}).click()
+  await panel.getByRole('button',{name:'Revisar propuestas'}).click()
   await page.getByRole('button',{name:'Aceptar',exact:true}).dblclick()
   await page.waitForTimeout(100)
   assert.equal(workspace.projects.at(-1).decisions.length,1)
@@ -103,7 +103,7 @@ test('private UI with intercepted fictitious API: async save, lost ack, two cont
   await page.getByRole('button',{name:'Reabrir decisión',exact:true}).click()
   await page.getByRole('button',{name:'Editar',exact:true}).click()
   await page.getByLabel('Editar propuesta antes de aceptar').fill('Edición ficticia cuya confirmación se pierde')
-  for(const width of [320,390,901,1024,1280]){await page.setViewportSize({width,height:900});const measurement=await page.evaluate(()=>({viewport:document.documentElement.clientWidth,document:document.documentElement.scrollWidth}));assert.ok(measurement.document<=measurement.viewport,JSON.stringify({width,...measurement}));measurements.push({view:'Work edit',width,...measurement})}
+  for(const width of [320,390,901,1024,1280]){await page.setViewportSize({width,height:900});const measurement=await page.evaluate(()=>({viewport:document.documentElement.clientWidth,document:document.documentElement.scrollWidth}));assert.ok(measurement.document<=measurement.viewport,JSON.stringify({width,...measurement}));measurements.push({view:'Revisión edit',width,...measurement})}
   await page.getByRole('button',{name:'Guardar y aceptar',exact:true}).dblclick()
   await page.getByRole('button',{name:'Resolver el mismo guardado'}).waitFor()
   await page.getByRole('button',{name:'Resolver el mismo guardado'}).click()
@@ -111,7 +111,7 @@ test('private UI with intercepted fictitious API: async save, lost ack, two cont
   await page.locator('.brand-button').click()
   assert.equal(await page.getByRole('region',{name:'Borradores pendientes'}).count(),0)
   await page.getByRole('button').filter({hasText:'Recorrido remoto ficticio'}).click()
-  await page.getByRole('button',{name:'Overview',exact:true}).click()
+  await page.getByRole('button',{name:'Resumen',exact:true}).click()
   await panel.getByLabel('Próxima acción humana',{exact:true}).fill('Revisar el brief ficticio')
   await panel.getByRole('button',{name:'Cerrar E1 con pendientes visibles'}).click()
   await page.waitForTimeout(100)
@@ -127,12 +127,12 @@ test('private UI with intercepted fictitious API: async save, lost ack, two cont
   await b.page.getByRole('button').filter({hasText:'Recorrido remoto ficticio'}).click()
   await b.page.getByRole('region',{name:'Trabajo E1'}).waitFor()
   assert.equal(analyses,1)
-  await b.page.getByRole('button',{name:'Deliverables',exact:true}).click()
-  await b.page.getByRole('heading',{name:'Deliverables',exact:true}).waitFor()
+  await b.page.getByRole('button',{name:'Entregables',exact:true}).click()
+  await b.page.getByRole('heading',{name:'Entregables',exact:true}).waitFor()
   await b.page.reload();await b.page.getByRole('heading',{name:'Tus proyectos',exact:true}).waitFor()
   assert.equal(analyses,1)
   await b.page.getByRole('button').filter({hasText:'Recorrido remoto ficticio'}).click()
-  await b.page.getByRole('button',{name:'Work',exact:true}).click()
+  await b.page.getByRole('button',{name:'Revisión',exact:true}).click()
   await b.page.locator('.proposal-queue button').last().click()
   await b.page.getByRole('button',{name:'Editar',exact:true}).click()
   await b.page.getByLabel('Editar propuesta antes de aceptar').fill('Borrador antes de logout')
@@ -149,6 +149,7 @@ test('private UI with intercepted fictitious API: async save, lost ack, two cont
   await b.page.reload();await b.page.getByRole('alert').waitFor()
   assert.equal(external.length,0);assert.deepEqual(errors,[])
   // Aborted acknowledgements and the intentional 503 are expected console network errors, not silent omissions.
+  assert.equal(consoleIssues.some(issue=>issue.includes('404')),false,'Build assets, including logo/favicons, must be served by the fixture')
   assert.equal(consoleIssues.filter(s=>!s.includes('Failed to load resource')&&!s.includes('net::ERR_FAILED')).length,0,JSON.stringify(consoleIssues))
   t.diagnostic(JSON.stringify({built,analyses,external:external.length,errors,consoleIssues,measurements}))
  }finally{await browser.close()}

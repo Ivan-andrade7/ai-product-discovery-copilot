@@ -20,8 +20,8 @@ export function OverviewScreen({ project, proposals, onHome, onNavigate, stagePa
       <div className="project-layout">
         <ProjectSidebar onNavigate={onNavigate} projectName={project.name} />
         <main className="overview-page">
-          <section>
-            <h1 tabIndex="-1">Overview</h1>
+          <section className="overview-heading">
+            <h1 tabIndex="-1">Resumen</h1>
             <span className="tag">En exploración</span>
           </section>
 
@@ -35,13 +35,13 @@ export function OverviewScreen({ project, proposals, onHome, onNavigate, stagePa
               <strong>Pendientes</strong>
               <span>{proposals.length ? `${pendingCount} ${pendingCount === 1 ? 'propuesta requiere' : 'propuestas requieren'} revisión humana` : 'Sin propuestas. Análisis real todavía no disponible.'}</span>
               <button className="button primary compact" type="button" onClick={() => onNavigate('work')}>
-                Abrir Work
+                Abrir revisión
               </button>
             </article>
           </section>
 
           <section className="overview-content-grid">
-            <div>
+            <div className="overview-status">
               <h2>Estado verificable</h2>
               <div className="status-grid">
                 {statusCards.map(([title, detail]) => (

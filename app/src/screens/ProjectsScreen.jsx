@@ -3,7 +3,7 @@ import { TopBar } from '../components/TopBar'
 export function ProjectsScreen({ projects, activeProjectId, onNewProject, onOpenProject, disabled, remote = false }) {
   return (
     <div className="screen">
-      <TopBar title="Projects" onHome={() => {}} />
+      <TopBar title="Proyectos" onHome={() => {}} />
       <main className="projects-page page-padding">
         <div className="page-heading-row">
           <div><h1 tabIndex="-1">Tus proyectos</h1><p className="page-description">{remote ? 'Proyectos del espacio privado remoto. Sólo datos ficticios durante esta prueba.' : 'Retomá cada proyecto desde su estado local real.'}</p></div>

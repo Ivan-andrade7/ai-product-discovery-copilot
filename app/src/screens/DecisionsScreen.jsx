@@ -31,11 +31,11 @@ export function DecisionsScreen({ project, proposals, decisions, onHome, onNavig
         <span className="tag">Historial trazable</span>
       </TopBar>
       <div className="project-layout">
-        <ProjectSidebar active="Decisions" onNavigate={onNavigate} projectName={project.name} />
+        <ProjectSidebar active="Decisiones" onNavigate={onNavigate} projectName={project.name} />
         <main className="decisions-page">
           <header className="work-heading">
             <div>
-              <h1>Decisions</h1>
+              <h1>Decisiones</h1>
               <p>Registro de acciones humanas. Las entradas anteriores no se sobrescriben.</p>
             </div>
             <div className="review-count">
@@ -48,8 +48,8 @@ export function DecisionsScreen({ project, proposals, decisions, onHome, onNavig
             <section className="empty-state">
               <span className="tag">Sin decisiones todavía</span>
               <h2>La historia comenzará cuando revises una propuesta</h2>
-              <p>Aceptar, editar, rechazar o reabrir en Work creará una entrada verificable en el historial local.</p>
-              <button className="button primary" type="button" onClick={() => onNavigate('work')}>Ir a Work</button>
+              <p>Aceptar, editar, rechazar o reabrir en Revisión creará una entrada verificable en el historial local.</p>
+              <button className="button primary" type="button" onClick={() => onNavigate('work')}>Ir a Revisión</button>
             </section>
           ) : (
             <div className="decisions-grid">

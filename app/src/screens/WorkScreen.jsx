@@ -3,6 +3,8 @@ import { ProjectSidebar } from '../components/ProjectSidebar'
 import { TopBar } from '../components/TopBar'
 import { analysisMessages, originLabel, selectedContext } from '../ai/contracts'
 import { resolveReviewSelection } from '../workflow'
+import { ContextHelp } from '../components/ContextHelp'
+import { conceptHelp } from '../components/help-content'
 
 const decisionLabels = {
   accepted: 'Aceptada',
@@ -87,11 +89,11 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
         <span className="tag">Revisión humana</span>
       </TopBar>
       <div className="project-layout">
-        <ProjectSidebar active="Work" onNavigate={onNavigate} projectName={project.name} />
+        <ProjectSidebar active="Revisión" onNavigate={onNavigate} projectName={project.name} />
         <main className="work-page">
           <header className="work-heading">
             <div>
-              <h1 tabIndex="-1">Work</h1>
+              <h1 tabIndex="-1">Revisión</h1>
               <p>Revisá cada propuesta. La IA no decide por vos.</p>
             </div>
             <div className="review-count" aria-live="polite">
@@ -100,9 +102,16 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
             </div>
           </header>
 
-          <section className="activity-notice" aria-label="Preparación del análisis">
+          <section className="activity-notice review-notice" aria-label="Preparación del análisis">
+            <div className="notice-summary">
             <h2>{project.mode === 'personal' ? 'Análisis del proyecto' : 'Proyecto demo o histórico preservado'}</h2>
             <p role="status" aria-live="polite">{analysisMessages[analysisStatus] ?? analysisMessages.disconnected}</p>
+            <div className="help-label"><span className="tag">{simulated ? 'Simulación · no es IA real' : 'Revisar no ejecuta IA'}</span><ContextHelp title="Simulación e IA real">{conceptHelp.analysis}</ContextHelp></div>
+            {analysisStatus === 'analyzing' && <button className="button" type="button" onClick={onCancelAnalysis}>Cancelar análisis</button>}
+            </div>
+            <details className="analysis-details">
+              <summary>{project.mode === 'personal' ? 'Fuentes y opciones de análisis' : 'Cómo funciona esta demostración'}</summary>
+              <div className="analysis-options">
             <p>{simulated ? 'Proveedor simulado de E1. Sin servicio externo ni consumo. Las propuestas se revisan con los mismos controles del proyecto.' : 'La versión pública no tiene un servicio de IA. El arranque local normal mantiene las generaciones deshabilitadas; habilitar un ensayo requiere autorización separada. Comprobar el servicio local no envía fuentes. Los resultados anteriores conservan su procedencia.'}</p>
             {project.mode === 'personal' ? <>
               <fieldset>
@@ -117,12 +126,13 @@ export function WorkScreen({ project, proposals, onHome, onNavigate, onUpdatePro
               <div className="decision-actions">
                 <button className="button" type="button" onClick={onCheckConnection} disabled={connection.code === 'checking' || analysisStatus === 'analyzing'}>{simulated ? 'Comprobar simulador local' : 'Comprobar servicio local'}</button>
                 <button className="button primary" type="button" onClick={onAnalyze} disabled={!connection.available || readOnly || !canSave || !selectedSources.length || analysisStatus === 'analyzing'}>{simulated ? 'Obtener orientación simulada' : 'Analizar contenido seleccionado'}</button>
-                {analysisStatus === 'analyzing' && <button className="button" type="button" onClick={onCancelAnalysis}>Cancelar análisis</button>}
               </div>
             </> : <p>Este contenido no se enviará a un proveedor ni se reclasificará como IA real. Para preparar un análisis, creá un proyecto nuevo.</p>}
+              </div>
+            </details>
           </section>
 
-          {!selected ? <section className="empty-state"><h2>{missing ? 'Propuesta no disponible' : 'Sin propuestas todavía'}</h2>{missing ? <><p>El destino no corresponde a una propuesta disponible de este proyecto. No se seleccionó otra automáticamente.</p><button className="button" type="button" onClick={() => onNavigate('sources', undefined, { type: 'heading' })}>Volver a Sources</button>{proposals.length > 0 && <button className="button" type="button" onClick={selectFirstFromRecovery}>Seleccionar la primera propuesta disponible</button>}</> : <p>Este proyecto no contiene propuestas precargadas. Para analizarlo se necesita una conexión real habilitada con autorización; sin conexión no se generan propuestas ficticias.</p>}</section> :
+          {!selected ? <section className="empty-state"><h2>{missing ? 'Propuesta no disponible' : 'Sin propuestas todavía'}</h2>{missing ? <><p>El destino no corresponde a una propuesta disponible de este proyecto. No se seleccionó otra automáticamente.</p><button className="button" type="button" onClick={() => onNavigate('sources', undefined, { type: 'heading' })}>Volver a Fuentes</button>{proposals.length > 0 && <button className="button" type="button" onClick={selectFirstFromRecovery}>Seleccionar la primera propuesta disponible</button>}</> : <p>Este proyecto no contiene propuestas precargadas. Para analizarlo se necesita una conexión real habilitada con autorización; sin conexión no se generan propuestas ficticias.</p>}</section> :
           <div className="work-grid">
             <section className="proposal-queue" aria-label="Cola de propuestas">
               <h2>Cola de revisión</h2>

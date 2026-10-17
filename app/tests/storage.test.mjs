@@ -208,7 +208,14 @@ test('browser: isolated functional, migration, recovery, concurrency and layout 
     layout.push(label + ':' + size.width)
   }
   async function workspace(page) { return page.evaluate((key) => JSON.parse(localStorage.getItem(key)), STORAGE_KEY) }
-  async function nav(page, name) { await page.getByRole('button', { name, exact: true }).click() }
+  async function nav(page, name) {
+    await page.getByRole('button', { name, exact: true }).click()
+    if (name === 'Revisión') {
+      const details = page.locator('details.analysis-details')
+      assert.equal(await details.getAttribute('open'), null)
+      await details.locator('summary').first().press('Enter')
+    }
+  }
   async function create(page, name) {
     await nav(page, 'Nuevo proyecto')
     await page.getByLabel('Nombre', { exact: true }).fill(name)
@@ -222,7 +229,7 @@ test('browser: isolated functional, migration, recovery, concurrency and layout 
     const { page, context } = await isolated()
     for (const width of [320, 360, 390, 430, 1280]) { await page.setViewportSize({ width, height: 844 }); await fit(page, 'projects') }
     await create(page, 'Proyecto A ficticio')
-    await nav(page, 'Work')
+    await nav(page, 'Revisión')
     await expectText(page, 'Sin propuestas todavía')
     assert.equal((await workspace(page)).projects[1].proposals.length, 0)
     assert.equal(await page.getByRole('button', { name: 'Analizar contenido seleccionado' }).isDisabled(), true)
@@ -234,12 +241,12 @@ test('browser: isolated functional, migration, recovery, concurrency and layout 
     assert.equal((await workspace(page)).projects[1].runs.length, 0)
     await page.getByLabel(/Fuente ficticia/).check()
     assert.equal((await workspace(page)).projects[1].sources[1].selected, true)
-    await nav(page, 'Sources')
+    await nav(page, 'Fuentes')
     await page.getByRole('button', { name: /Fuente ficticia/ }).click()
     await expectText(page, 'Referencia no consultada')
     await page.reload()
     await page.getByRole('button', { name: /Proyecto A ficticio/ }).click()
-    await nav(page, 'Work')
+    await nav(page, 'Revisión')
     assert.equal(await page.getByLabel(/Fuente ficticia/).isChecked(), true)
     // Keyboard activation and visible focus of new controls.
     const checkbox = page.getByLabel(/Fuente ficticia/)
@@ -278,9 +285,9 @@ test('browser: isolated functional, migration, recovery, concurrency and layout 
     t.diagnostic(JSON.stringify({doubleAccept:w.projects[1].decisions.map(d=>({proposalId:d.proposalId,action:d.action})),proposalStates:w.projects[1].proposals.map(p=>({id:p.id,status:p.status}))}))
     assert.equal(w.projects[1].decisions.length, 1)
     assert.equal(w.projects[1].proposals[1].status, 'pending')
-    await nav(page, 'Deliverables')
+    await nav(page, 'Entregables')
     await expectText(page, '1 bloque incluido')
-    await nav(page, 'Work')
+    await nav(page, 'Revisión')
     await page.getByRole('button', { name: /Propuesta ficticia de prueba 1/ }).click()
     await nav(page, 'Reabrir decisión')
     await nav(page, 'Editar')
@@ -299,23 +306,23 @@ test('browser: isolated functional, migration, recovery, concurrency and layout 
     await page.getByRole('button', { name: /Propuesta ficticia de prueba 2/ }).click()
     await nav(page, 'Mantener pendiente')
     assert.equal((await workspace(page)).projects[1].decisions.length, 5)
-    await nav(page, 'Decisions')
+    await nav(page, 'Decisiones')
     await expectText(page, '5 acciones')
-    await nav(page, 'Deliverables')
+    await nav(page, 'Entregables')
     await expectText(page, 'Todavía no hay decisiones aceptadas')
-    await nav(page, 'AI Activity')
+    await nav(page, 'Actividad de IA')
     await expectText(page, 'Operación local · sin envío externo registrado')
 
     // Layout coverage: real screens, long text; not evidence of recovery behavior.
     for (const width of [320, 360, 390, 430, 1280]) {
       await page.setViewportSize({ width, height: 844 })
-      for (const name of ['Overview', 'Work', 'Sources', 'Decisions', 'Deliverables', 'AI Activity']) {
+      for (const name of ['Resumen', 'Revisión', 'Fuentes', 'Decisiones', 'Entregables', 'Actividad de IA']) {
         await nav(page, name)
         await fit(page, name)
       }
     }
     // Error results injected only by this test; no changes to existing proposals.
-    await nav(page, 'Work')
+    await nav(page, 'Revisión')
     for (const code of ['quota', 'permission', 'error', 'incomplete', 'invalid']) {
       nextResult = code
       await nav(page, 'Analizar contenido seleccionado')
@@ -327,7 +334,7 @@ test('browser: isolated functional, migration, recovery, concurrency and layout 
     nextResult = 'delayed'
     await nav(page, 'Analizar contenido seleccionado')
     await expectText(page, 'Análisis en curso')
-    await nav(page, 'Sources')
+    await nav(page, 'Fuentes')
     await page.getByRole('button', { name: /Fuente ficticia/ }).click()
     await page.getByLabel('Seleccionar este texto para el análisis').uncheck()
     while (!delayedResolve) await new Promise((r) => setTimeout(r, 10))
@@ -339,14 +346,14 @@ test('browser: isolated functional, migration, recovery, concurrency and layout 
     const tab2 = await context.newPage()
     await tab2.goto('http://127.0.0.1:5173')
     await tab2.getByRole('button', { name: /Proyecto A ficticio/ }).click()
-    await nav(tab2, 'Sources')
+    await nav(tab2, 'Fuentes')
     await page.getByLabel('Seleccionar este texto para el análisis').check()
     await expectText(tab2, 'Hay cambios de otra pestaña')
     assert.equal(await tab2.getByLabel('Seleccionar este texto para el análisis').isDisabled(), true)
     for (const width of [320, 360, 390, 430, 1280]) { await tab2.setViewportSize({ width, height: 844 }); await fit(tab2, 'conflict') }
     await nav(tab2, 'Cargar cambios externos')
     await tab2.getByRole('button', { name: /Proyecto A ficticio/ }).click()
-    await nav(tab2, 'Sources')
+    await nav(tab2, 'Fuentes')
     // Reset stale page explicitly; two independent projects afterwards.
     await page.reload()
     await create(page, 'Proyecto B ficticio')

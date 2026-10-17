@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { TopBar } from '../components/TopBar'
 import { hasMeaningfulRequest } from '../workflow'
+import { ContextHelp } from '../components/ContextHelp'
+import { conceptHelp } from '../components/help-content'
 
 export function NewProjectScreen({ onCancel, onCreate, disabled, e1Enabled = false }) {
   const [name, setName] = useState('')
@@ -51,6 +53,8 @@ export function NewProjectScreen({ onCancel, onCreate, disabled, e1Enabled = fal
             </p>
           </div>
 
+          <div className="form-section">
+              <div className="help-label"><h2>Datos del proyecto</h2><ContextHelp title="Crear proyecto">{conceptHelp.creation}</ContextHelp></div>
           <label>
             <span>Nombre</span>
             <input
@@ -78,7 +82,10 @@ export function NewProjectScreen({ onCancel, onCreate, disabled, e1Enabled = fal
             />
             {requestError && <span id="request-error" role="alert">{requestError}</span>}
           </label>
+          </div>
 
+          <div className="form-section">
+          <h2>Fuente inicial (opcional)</h2>
           <label>
             <span>Texto de la fuente aportada (opcional)</span>
             <textarea
@@ -89,11 +96,14 @@ export function NewProjectScreen({ onCancel, onCreate, disabled, e1Enabled = fal
               placeholder="Pegá el contenido textual que querés poder seleccionar para el análisis"
             />
           </label>
+          <div className="form-section-fields">
           <label><span>Nombre de la fuente</span><input disabled={attemptStarted} maxLength={200} value={sourceName} onChange={(event) => setSourceName(event.target.value)} /></label>
           <label><span>Referencia o URL (no se consulta automáticamente)</span><input disabled={attemptStarted} maxLength={2000} value={reference} onChange={(event) => setReference(event.target.value)} /></label>
-          <p>PDFs e imágenes todavía no admitidos. La fuente quedará aportada y sin revisar; podés seleccionarla en Work o Sources.</p>
+          </div>
+          <p>PDFs e imágenes todavía no admitidos. La fuente quedará aportada y sin revisar; podés seleccionarla en Revisión o Fuentes.</p>
+          </div>
 
-          {e1Enabled && <><label>Resultado esperado, si ya lo conocés<input value={stageObjective} disabled={attemptStarted} onChange={(e) => setStageObjective(e.target.value)} /></label><label>Restricciones conocidas, si existen<input value={constraints} disabled={attemptStarted} onChange={(e) => setConstraints(e.target.value)} /></label></>}
+          {e1Enabled && <div className="form-section"><h2>Contexto adicional (opcional)</h2><label>Resultado esperado, si ya lo conocés<input value={stageObjective} disabled={attemptStarted} onChange={(e) => setStageObjective(e.target.value)} /></label><label>Restricciones conocidas, si existen<input value={constraints} disabled={attemptStarted} onChange={(e) => setConstraints(e.target.value)} /></label></div>}
           <p className="method-warning">No hace falta elegir todas las etapas E1–E18.</p>
           {attemptStarted && <p role="status">El candidato conserva los campos originales en esta pestaña. Reintentar guarda el mismo proyecto; no crea otro. Si recargás antes de guardarlo o exportarlo, la copia en memoria se pierde.</p>}
 

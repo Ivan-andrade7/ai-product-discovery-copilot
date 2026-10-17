@@ -66,15 +66,15 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
     browser = await chromium.launch({ channel: 'msedge', headless: true })
     const { page, context } = await isolated()
     await page.getByRole('button', { name: /Discovery v0.1/ }).click()
-    await click(page, 'Work')
+    await click(page, 'Revisión')
     const original = (await workspace(page)).projects[0].proposals[0].content
     const draft = '  Borrador ficticio exacto\n' + 'CadenaSinEspacios'.repeat(40)
     await click(page, 'Editar')
     await page.getByLabel('Editar propuesta antes de aceptar').fill(draft)
     const rawBeforeNavigation = await page.evaluate((key) => localStorage.getItem(key), STORAGE_KEY)
     await fit(page, 'draft')
-    for (const name of ['Sources', 'Overview', 'Decisions', 'Deliverables', 'AI Activity']) {
-      await click(page, name); await click(page, 'Work')
+    for (const name of ['Fuentes', 'Resumen', 'Decisiones', 'Entregables', 'Actividad de IA']) {
+      await click(page, name); await click(page, 'Revisión')
       assert.equal(await page.getByLabel('Editar propuesta antes de aceptar').inputValue(), draft)
     }
     assert.equal(await page.evaluate((key) => localStorage.getItem(key), STORAGE_KEY), rawBeforeNavigation)
@@ -95,25 +95,25 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
     assert.equal(await page.getByLabel('Editar propuesta antes de aceptar').inputValue(), 'Borrador independiente')
     await button(page, 'Guardar y aceptar').dblclick()
     assert.equal((await workspace(page)).projects[0].decisions.length, 1)
-    await click(page, 'Deliverables')
+    await click(page, 'Entregables')
     await page.getByText('Borrador independiente', { exact: true }).waitFor()
     await home(page)
     assert.equal(await page.getByRole('region', { name: 'Borradores pendientes' }).count(), 0)
-    await page.getByRole('button', { name: /Otro proyecto ficticio/ }).click(); await click(page, 'Work')
+    await page.getByRole('button', { name: /Otro proyecto ficticio/ }).click(); await click(page, 'Revisión')
     assert.equal(await page.getByLabel('Editar propuesta antes de aceptar').count(), 0)
     await click(page, 'Editar'); await home(page)
     assert.equal(await page.getByRole('region', { name: 'Borradores pendientes' }).count(), 0) // unchanged editor
     await page.getByRole('button', { name: /Discovery v0.1/ }).click()
     const titles = seed.projects[0].proposals.map((proposal) => proposal.title)
     for (const title of [titles[1], titles[0], titles[2], titles[1]]) {
-      await click(page, 'Sources')
+      await click(page, 'Fuentes')
       await page.locator('.linked-proposals button').filter({ hasText: title }).click()
       assert.equal(await page.locator('.proposal-review h2').textContent(), title)
     }
     await click(page, 'Reabrir decisión')
     await click(page, 'Editar'); await page.getByLabel('Editar propuesta antes de aceptar').fill('Pendiente de salir')
     await home(page); await click(page, 'Descartar y salir')
-    await page.getByRole('button', { name: /Discovery v0.1/ }).click(); await click(page, 'Work')
+    await page.getByRole('button', { name: /Discovery v0.1/ }).click(); await click(page, 'Revisión')
     assert.equal(await page.getByLabel('Editar propuesta antes de aceptar').count(), 0)
     // Reload warns through beforeunload (browser-controlled) and discards session draft, not confirmed data.
     await click(page, 'Editar'); await page.getByLabel('Editar propuesta antes de aceptar').fill('No durable')
@@ -122,12 +122,12 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
     const storedBeforeReload = await page.evaluate((key) => localStorage.getItem(key), STORAGE_KEY)
     await page.reload()
     assert.equal(await page.evaluate((key) => localStorage.getItem(key), STORAGE_KEY), storedBeforeReload)
-    await page.getByRole('button', { name: /Discovery v0.1/ }).click(); await click(page, 'Work')
+    await page.getByRole('button', { name: /Discovery v0.1/ }).click(); await click(page, 'Revisión')
     assert.equal(await page.getByLabel('Editar propuesta antes de aceptar').count(), 0)
     // Two tabs: external change cannot silently discard a pending session draft.
     await click(page, 'Editar'); await page.getByLabel('Editar propuesta antes de aceptar').fill('Borrador frente a conflicto')
     const second = await context.newPage(); await second.goto(origin)
-    await second.getByRole('button', { name: /Discovery v0.1/ }).click(); await click(second, 'Work'); await click(second, 'Aceptar')
+    await second.getByRole('button', { name: /Discovery v0.1/ }).click(); await click(second, 'Revisión'); await click(second, 'Aceptar')
     await page.getByText('Hay cambios de otra pestaña.', { exact: false }).waitFor()
     await click(page, 'Cargar cambios externos')
     await page.getByRole('region', { name: 'Borradores pendientes' }).waitFor()
@@ -152,10 +152,12 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
     await fresh.page.getByLabel('Solicitud original', { exact: true }).fill('  ¿Qué ocurrió? 日本語\n ')
     await button(fresh.page, 'Crear y continuar').focus(); await fresh.page.keyboard.press('Enter')
     assert.equal((await workspace(fresh.page)).projects[2].originalRequest, '  ¿Qué ocurrió? 日本語\n ')
-    await click(fresh.page, 'Work')
+    await click(fresh.page, 'Revisión')
+    assert.equal(await fresh.page.locator('details.analysis-details').getAttribute('open'), null)
+    await fresh.page.locator('details.analysis-details > summary').press('Enter')
     assert.equal(await button(fresh.page, 'Analizar contenido seleccionado').isDisabled(), true)
     assert.equal((await workspace(fresh.page)).projects[2].proposals.length, 0)
-    await click(fresh.page, 'Sources'); await fresh.page.getByText('Aportada · sin revisar').first().waitFor()
+    await click(fresh.page, 'Fuentes'); await fresh.page.getByText('Aportada · sin revisar').first().waitFor()
 
     // Repeated submit while write fails retains one exact candidate and existing rescue.
     const failing = await isolated()
@@ -209,24 +211,24 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
 
     // Unchanged review lifecycle: repeated actions cannot hit the next item.
     const review = await isolated()
-    await review.page.getByRole('button', { name: /Discovery v0.1/ }).click(); await click(review.page, 'Work')
+    await review.page.getByRole('button', { name: /Discovery v0.1/ }).click(); await click(review.page, 'Revisión')
     await button(review.page, 'Aceptar').dblclick()
     assert.equal((await workspace(review.page)).projects[0].decisions.length, 1)
     assert.equal((await workspace(review.page)).projects[0].proposals[1].status, 'pending')
     await click(review.page, 'Reabrir decisión'); await click(review.page, 'Editar')
     await review.page.getByLabel('Editar propuesta antes de aceptar').fill('Revisión confirmada ficticia')
     await button(review.page, 'Guardar y aceptar').focus(); await review.page.keyboard.press('Enter')
-    await click(review.page, 'Deliverables'); await review.page.getByText('Revisión confirmada ficticia', { exact: true }).waitFor()
-    await click(review.page, 'Work'); await click(review.page, 'Reabrir decisión')
+    await click(review.page, 'Entregables'); await review.page.getByText('Revisión confirmada ficticia', { exact: true }).waitFor()
+    await click(review.page, 'Revisión'); await click(review.page, 'Reabrir decisión')
     await button(review.page, 'Rechazar').focus()
     await review.page.keyboard.down('Enter'); await review.page.keyboard.down('Enter'); await review.page.keyboard.up('Enter')
     assert.equal((await workspace(review.page)).projects[0].decisions.length, 5)
     await review.page.getByRole('button', { name: /La decisión final debe permanecer/ }).click()
     await click(review.page, 'Mantener pendiente')
     assert.equal((await workspace(review.page)).projects[0].decisions.length, 5)
-    await click(review.page, 'Decisions'); await review.page.getByText('5 acciones', { exact: false }).waitFor()
-    await click(review.page, 'Deliverables'); await review.page.getByText('Todavía no hay decisiones aceptadas', { exact: false }).waitFor()
-    await click(review.page, 'AI Activity'); await review.page.getByText('Propuesta editada y aceptada', { exact: true }).waitFor()
+    await click(review.page, 'Decisiones'); await review.page.getByText('5 acciones', { exact: false }).waitFor()
+    await click(review.page, 'Entregables'); await review.page.getByText('Todavía no hay decisiones aceptadas', { exact: false }).waitFor()
+    await click(review.page, 'Actividad de IA'); await review.page.getByText('Propuesta editada y aceptada', { exact: true }).waitFor()
     await fit(review.page, 'reviewed-activity')
     const confirmedRaw = await review.page.evaluate((key) => localStorage.getItem(key), STORAGE_KEY)
     await review.page.reload()
@@ -242,7 +244,7 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
 
     // Existing project navigation still reveals the full outline in its internal scroller.
     await review.page.getByRole('button', { name: /Discovery v0.1/ }).click()
-    const destinations = ['Overview', 'Work', 'Sources', 'Decisions', 'Deliverables', 'AI Activity']
+    const destinations = ['Resumen', 'Revisión', 'Fuentes', 'Decisiones', 'Entregables', 'Actividad de IA']
     for (const width of [320, 390, 901, 1024, 1025, 1280]) {
       await review.page.setViewportSize({ width, height: 844 })
       for (const name of destinations) {
@@ -289,7 +291,7 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
       }
     })
     async function unavailable(selection) {
-      await click(recoveryFlow.page, 'Sources')
+      await click(recoveryFlow.page, 'Fuentes')
       await recoveryFlow.page.evaluate((selection) => {
         const control = document.querySelector('.linked-proposals button')
         let fiber = control[Object.keys(control).find((key) => key.startsWith('__reactFiber$'))]
@@ -302,9 +304,9 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
     }
     for (const selection of [{ projectId: seed.projects[0].id, proposalId: 'missing' }, { projectId: 'foreign', proposalId: seed.projects[0].proposals[0].id }]) {
       await unavailable(selection)
-      await button(recoveryFlow.page, 'Volver a Sources').focus()
+      await button(recoveryFlow.page, 'Volver a Fuentes').focus()
       await recoveryFlow.page.keyboard.press('Enter')
-      assert.equal(await recoveryFlow.page.getByRole('heading', { name: 'Sources', exact: true }).evaluate((el) => el === document.activeElement), true)
+      assert.equal(await recoveryFlow.page.getByRole('heading', { name: 'Fuentes', exact: true }).evaluate((el) => el === document.activeElement), true)
       await unavailable(selection)
       const countBefore = await recoveryFlow.page.evaluate(() => window.workflowRecoveryFocusCount)
       await button(recoveryFlow.page, 'Seleccionar la primera propuesta disponible').focus()
@@ -326,7 +328,7 @@ test('workflow browser: drafts, exact destinations, creation retries, keyboard a
     // selection and a later reopening remain available without a timeout gate.
     const repeated = (await isolated()).page
     await repeated.getByRole('button',{name:/Discovery v0.1/}).click()
-    await click(repeated,'Work')
+    await click(repeated,'Revisión')
     const initial=(await workspace(repeated)).projects[0], firstId=initial.proposals[0].id, secondId=initial.proposals[1].id
     const base=initial.decisions.length
     await button(repeated,'Aceptar').dblclick()

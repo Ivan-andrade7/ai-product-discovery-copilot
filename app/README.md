@@ -2,6 +2,22 @@
 
 Prototipo local del Trabajo Final Integrador de la Diplomatura en IA Aplicada a Entornos Digitales de Gestión.
 
+## Interfaz local vigente — 17/10/2026
+
+Sobre `2a601d1`, rama `codex/visual-system-layout`, sin commit/publicación. Navegación visible: Resumen, Revisión, Fuentes, Decisiones, Entregables y Actividad de IA; las claves internas siguen intactas. El nombre del proyecto aparece en la cabecera y se conserva en el nombre accesible de la navegación, sin repetición visible lateral. Crear proyecto agrupa datos, fuente inicial opcional y contexto adicional opcional. En Revisión/Actividad, los detalles técnicos se despliegan a petición; indisponibilidad, procedencia simulada y cancelación activa no quedan ocultas.
+
+Ayuda global en el contexto del proyecto y ayudas puntuales por concepto, sin onboarding obligatorio ni dependencia de hover. Abrir con clic/tap o teclado; cerrar con Escape, el mismo disparador o cierre explícito; retorno de foco y una ayuda contextual abierta a la vez. Guía general modal con título, cierre y foco contenido. Íconos de 16 px sin caja/fondo permanente; área interactiva de 44 px conservada. No ejecutan análisis ni guardan información adicional. Uso de Popover API y dialog nativos; otros motores y lectores de pantalla no comprobados.
+
+Evidencia más reciente: suite completa 165/165 antes del ajuste final del ícono; luego tres pruebas focalizadas de ayuda, lint y builds público/privado aprobados. No equivale a repetir toda la suite después del cambio visual. Resultados, fallos previos, mediciones y capturas sólo en [el registro canónico](../docs/verification-2026-10-07.md#claridad-y-ayuda-contextual--cierre-documental-17102026). IA real operativa sigue pendiente para la entrega objetivo del producto; el ensayo histórico controlado no la sustituye. Este cierre sólo documental no repite pruebas.
+
+### Antecedente de adaptación visual previo a claridad y ayudas — 17/10/2026
+
+Identidad incorporada después del correctivo de regreso: monograma vigente enlazado por Marca personal desde la guía canónica de Portfolio. Copias byte-idénticas de los SVG dark/light en src/assets; cabecera oscura usa dark y favicon usa light como fallback más dark para prefers-color-scheme:dark. Ambas entradas HTML lo incluyen y Vite produce rutas relativas. No se modifica la guía ni se redibuja el logo. El favicon genérico anterior queda sin referencia, sin borrarlo. Prueba privada ampliada únicamente para servir SVG del build y rechazar 404 de assets; detalle y límites en el registro.
+
+Rama `codex/visual-system-layout`, base `2a601d1` (cierre documental del candidato `9001b12`). El corte inicial modifica ocho archivos de UI: escala de espacio y roles tipográficos, contenedores/gutters, grillas, Overview compacto, agrupaciones de E1/formulario y acceso. El correctivo posterior autorizado de Volver a proyectos añade `TopBar.jsx`: nueve archivos de UI acumulados, sin commit/publicación. Conserva `onHome` y la protección de borradores; se agrupa el regreso con el título y se aplican estados de hover/pulsación/foco. Paleta, copy y contratos conservados. Se corrigió además el mínimo histórico del body que desbordaba con barra vertical visible a 320 px; no se oculta overflow.
+
+Retest final registrado: suite completa 162/162, lint y ambos builds aprobados; comprobación adicional de composición en ocho vistas y estados seleccionados. No se repiten pruebas durante este cierre documental ni se suman mediciones al conteo de tests. Incidencias, tamaños efectivos, capturas externas y límites en [el corte visual del registro canónico](../docs/verification-2026-10-07.md#adaptación-visual-local--cierre-documental-17102026). Este árbol no está en producción ni en el Preview anterior. Revisión/aprobación visual y eventual commit requieren autorización; IA real sigue bloqueada.
+
 ## Candidato privado local — 16/10/2026
 
 Versionado en `9001b12`, sobre `71dd149`, sin promoción a producción: protección de borradores de Work al cerrar sesión, formularios E1 temporales por proyecto con advertencia antes de abandonar, estilos E1 incluidos por el propio panel y confirmación remota exacta antes de limpiar una edición. Formularios y borradores no forman parte de `v0.3`, decisiones ni respaldos y se pierden al recargar/cerrar. La próxima acción confirmada sí pertenece al workspace.

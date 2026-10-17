@@ -12,11 +12,11 @@ export function DeliverablesScreen({ project, proposals, onHome, onNavigate, e1B
         <span className="tag">Borrador derivado</span>
       </TopBar>
       <div className="project-layout">
-        <ProjectSidebar active="Deliverables" onNavigate={onNavigate} projectName={project.name} />
+        <ProjectSidebar active="Entregables" onNavigate={onNavigate} projectName={project.name} />
         <main className="deliverables-page">
           <header className="work-heading">
             <div>
-              <h1>Deliverables</h1>
+              <h1>Entregables</h1>
               <p>Sólo incorpora propuestas aceptadas mediante revisión humana.</p>
             </div>
             <div className="review-count">

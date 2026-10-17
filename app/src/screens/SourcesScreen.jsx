@@ -13,11 +13,11 @@ export function SourcesScreen({ project, proposals, sources, onHome, onNavigate,
         <span className="tag">Contexto visible</span>
       </TopBar>
       <div className="project-layout">
-        <ProjectSidebar active="Sources" onNavigate={onNavigate} projectName={project.name} />
+        <ProjectSidebar active="Fuentes" onNavigate={onNavigate} projectName={project.name} />
         <main className="sources-page">
           <header className="work-heading">
             <div>
-              <h1 tabIndex="-1">Sources</h1>
+              <h1 tabIndex="-1">Fuentes</h1>
               <p>Contenido aportado, referencias e interpretaciones permanecen diferenciados.</p>
             </div>
             <div className="review-count"><strong>{sources.length} fuentes</strong><span>{proposals.length} propuestas vinculables</span></div>
