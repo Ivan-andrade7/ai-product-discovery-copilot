@@ -22,7 +22,7 @@ El objetivo del trabajo es demostrar, mediante una maqueta HTML navegable, cómo
 
 El ensayo privado local completó una respuesta real válida de claude-sonnet-4-6 sobre un único caso ficticio controlado: solicitud y fuente seleccionada → propuesta con cita e incertidumbre → revisión y aceptación de prueba por el asistente → decisión → entregable persistente. Su cierre técnico está versionado; la publicación estática no expone el servicio ni los datos privados del ensayo. Un primer intento permanece fallido. Generaciones deshabilitadas; el caso no prueba calidad general ni evaluación independiente con usuarios.
 
-La maqueta sigue siendo compatible con el Nivel 2 admitido por la consigna. El código publicado conserva la preparación y cierre del recorrido real mínimo mediante un servicio privado local; no existe backend remoto ni integración de IA habilitada para usuarios. La compatibilidad de nivel no acredita cumplimiento académico completo.
+La maqueta sigue siendo compatible con el Nivel 2 admitido por la consigna. El código público conserva la preparación y cierre del recorrido real mínimo mediante un servicio privado local, sin backend remoto ni IA pública habilitada. El candidato separado 9001b12 prepara acceso privado y persistencia remota, con orientación E1 simulada; no demuestra un E1 protegido conectado al modelo real. La compatibilidad de nivel no acredita cumplimiento académico completo.
 
 ## b. Marco conceptual
 
@@ -50,7 +50,7 @@ Figma Make y UXPilot no mostraron para Iván un modelo identificable. La explora
 
 El proyecto comenzó recuperando la consigna, las notas existentes y el contexto de una idea inicialmente muy amplia: asistir las etapas E1–E18 del proceso UX/Product de punta a punta. Esa visión incluía investigación, definición, wireframes, prototipos y posibles usos futuros con clientes.
 
-Se separó la base académica de las extensiones futuras. El contrato, transporte y registro local permitieron dos intentos reales autorizados individualmente: uno fallido y uno exitoso en un caso mínimo ficticio. Autenticación, persistencia remota, multiusuario, PDF/imágenes, leads, portal y monetización siguen fuera de la versión actual. La publicación estática no incluye el servicio privado ni sus datos; el Lote 1 e2befd6 sí está publicado.
+Se separó la base académica de las extensiones futuras. El contrato, transporte y registro local permitieron dos intentos reales autorizados individualmente: uno fallido y uno exitoso en un caso mínimo ficticio. La versión pública no incluye el servicio privado ni sus datos. El candidato 9001b12 agrega preparación de acceso privado y persistencia remota para un espacio personal, no un servicio multiusuario validado. PDF/imágenes, leads, portal y monetización siguen fuera del candidato. Lotes 1 y 2 publicados; no se confunde su alcance con la evolución privada.
 
 ### 2. Exploración visual
 
@@ -130,7 +130,7 @@ La última versión publicada comprobada puede recorrerse sin instalación en:
 
 https://ivan-andrade7.github.io/ai-product-discovery-copilot/
 
-Antecedentes publicados: b56d9e6, 61704e7, 73df887 y el hotfix responsive/foco 08853c5. La versión funcional vigente es e2befd6, Lote 1 integrado por fast-forward en main y push normal. Main y origin/main quedaron sincronizados al publicar el lote; GitHub Actions finalizó correctamente y ambos alojamientos pasaron el smoke delimitado con los mismos assets verificados. La plataforma sigue estática y con IA pública deshabilitada. Los cierres exclusivamente documentales no cambian esa versión funcional; enlaces y cobertura en el registro canónico.
+Antecedentes publicados: b56d9e6, 61704e7, 73df887, hotfix 08853c5 y Lote 1 e2befd6, conservados con sus fallos y retests. La versión funcional pública vigente es 3835117, Lote 2; 71dd149 es cierre documental. Ambos alojamientos fueron verificados dentro de la cobertura del registro, con IA pública deshabilitada. El candidato local 9001b12 está un commit por delante del origin/main comprobado, sin promoción. El Preview anterior es distinto; el intento de desplegar el commit exacto falló por configuración privada de build ausente. No se acredita como publicación exitosa. Enlaces, evidencia y límites en el registro canónico.
 
 ### Evidencia visual seleccionada
 
@@ -184,7 +184,7 @@ La maqueta también mantiene proporcionalidad: representa el recorrido necesario
 
 ### Limitaciones
 
-Las pruebas simuladas comprueban contrato y controles; una respuesta real exitosa demuestra el recorrido técnico mínimo en un caso ficticio. No demuestra calidad general, seguridad integral ni resistencia adversarial. No hay login, aislamiento multiusuario, PDF/imágenes, leads, portal ni monetización; persistencia sólo local. No hubo investigación primaria ni pruebas con usuarios, ni métricas de productividad.
+Las pruebas simuladas comprueban contrato y controles; una respuesta real exitosa demuestra el recorrido técnico mínimo en un caso ficticio. No demuestra calidad general, seguridad integral ni resistencia adversarial. La aplicación pública sólo tiene persistencia local y no login. El candidato privado prepara acceso y persistencia remota del mismo espacio de Iván, con E1 simulado; ambas identidades no prueban aislamiento entre clientes. Continuidad/conflicto entre dos computadoras pendientes. PDF/imágenes, leads, portal y monetización no implementados. No hubo investigación primaria ni pruebas con usuarios, ni métricas de productividad.
 
 La respuesta real devolvió type: string. El prompt ofrecía ese literal y el contrato aceptaba texto libre; el adaptador lo conservó sin normalización. Se corrigieron las nuevas respuestas para exigir Afirmación/evidence, Hipótesis/hypothesis o Pregunta/question, sin añadir inference. La respuesta histórica conserva string y su aceptación: no se presenta como salida del contrato revisado ni se modifica retroactivamente.
 
@@ -221,6 +221,9 @@ El recorrido real mínimo quedó demostrado, pero requiere evaluación adicional
 1. Revisar contenido, selección de capturas y extensión antes de retirar la marca de borrador.
 2. Reconfirmar la fecha contra cualquier aviso docente posterior.
 3. Registrar el modelo exacto de Codex si puede recuperarse; de lo contrario, mantener la limitación declarada.
-4. Resolver la conversión oficial, reconciliar el consumo desconocido de la consulta de catálogo y calcular conservadoramente el lote completo.
-5. Decidir futuras evaluaciones de IA mediante autorización separada; los cuatro casos del corpus continúan sin ejecutar. No confundirlas con el Lote 1 ya publicado.
-6. Próximo gate de producto: Lote 2 — orientación y accesibilidad básica (F01 regreso explícito a Projects, F11 idioma/título, F12 orientación del foco), todavía no implementado y con autorización separada. Primero auditar el comportamiento y después implementar, respetando la protección de borradores. Excluye microcopy integral, ayuda, espaciado general y rediseño; no declara accesibilidad integral. El incremento protegido de IA sigue como objetivo posterior independiente, sin habilitar nuevas llamadas.
+4. Verificar el PDF final: máximo recomendado de diez páginas, Arial o Calibri 11, interlineado 1,5 y secciones requeridas. Las capturas conservarán entorno/versión; no se presenta evidencia histórica como producción vigente.
+5. Preparar el envío autorizado conforme al PDF original: repositorio con README y PDF desde correo institucional a contacto@diegoparras.com; asunto sólo TP seguido de un espacio y el correo institucional. No se exige defensa en vivo ni una presentación adicional.
+
+### Pendientes de producto separados del cierre académico
+
+Lote 2 (F01/F11/F12) cerrado y publicado en su cobertura, sin accesibilidad integral. Resolver la configuración del Preview exacto, comprobar continuidad/conflicto entre dos computadoras y evaluar IA requieren alcances/autorizaciones propios. La conversión oficial, reconciliación del catálogo y cálculo conservador siguen pendientes para futuras pruebas; no son requisitos docentes adicionales ni autorización de consumo. Los cuatro casos del corpus continúan sin ejecutar. Un ensayo real histórico no valida el E1 protegido actual; portal, leads y monetización permanecen como visión futura. La IA real sigue siendo requisito personal del producto, no exigencia docente automática para Nivel 2.

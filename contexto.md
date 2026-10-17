@@ -6,11 +6,15 @@
 
 ## Candidato local correctivo — 16/10/2026
 
-Base `main`/HEAD y referencia local `origin/main`: `71dd149`; cambios existentes conservados, sin staging/commit/push. Producción funcional documentada `3835117`, Lotes 1/2 cerrados. El Preview corregido anterior sigue separado del candidato local posterior; no se modificaron servicios ni datos remotos en este lote.
+Estado conciliado: `main`/HEAD `9001b1239ae69456b6872d390b340947081e5ba5`, candidato protegido versionado; `origin/main` comprobado mediante fetch en `71dd149`, un commit por detrás y sin divergencia. Producción funcional documentada `3835117`, Lotes 1/2 cerrados; `71dd149` es cierre documental, no otra versión funcional. La rama remota de prueba conserva `9001b12`, sin push a main ni promoción. El Preview anterior sigue separado del candidato. Este cierre sólo documental no aporta nuevas pruebas ni cambios de servicios.
 
 Evidencia recibida de GuIA: primer ingreso con la identidad carp desde escritorio; segundo con `ivanandradeuxui@gmail.com` desde notebook. La segunda recuperó el mismo espacio y `Ensayo Preview E1 · identidad corregida`, solicitud, fuente, decisión, brief, dos pendientes y próxima acción; persistencia tras recarga, sin otra ejecución ni modificación. No se repitió aquí el ingreso. Continuidad y conflicto entre dos computadoras pendientes por falta del escritorio, no fallidos ni sustituidos por pestañas.
 
-Correcciones locales: salida protegida para Work/E1, formularios E1 de sesión fuera de persistencia/respaldo, estilos privados incluidos, recuperación de edición sólo con confirmación del mismo guardado, selección coherente de aportes y validación de procedencia frente al run. El recorrido protegido continúa con orientación simulada; no acredita IA real nueva. El fallo posterior de doble activación se diagnosticó y corrigió con autorización específica: selección implícita avanzaba al siguiente pendiente; ahora se fija el ID revisado y se rechaza el clic repetido del gesto, sin temporizador. Suite completa con navegador 162/162, lint y ambos builds aprobados; incidentes anteriores conservados en el registro único. Próximo gate: revisión de selección y posible commit local con autorización separada; sin promoción ni publicación automática.
+Correcciones conservadas en `9001b12`: salida protegida para Work/E1, formularios E1 de sesión fuera de persistencia/respaldo, estilos privados incluidos, recuperación de edición sólo con confirmación del mismo guardado, selección coherente de aportes y validación de procedencia frente al run. El recorrido protegido continúa con orientación simulada; no acredita IA real nueva. El fallo posterior de doble activación se diagnosticó y corrigió con autorización específica: selección implícita avanzaba al siguiente pendiente; ahora se fija el ID revisado y se rechaza el clic repetido del gesto, sin temporizador. Suite completa registrada con navegador 162/162, lint y ambos builds aprobados; incidentes conservados en el registro único. No se repiten pruebas en este cierre documental.
+
+El Preview previo `dpl_A2wdpitMC4npEZj6anPmFxSqrDVc` permanece separado. El intento de desplegar el commit exacto, `dpl_CCtDTRaAtpbzzvYpVWKiN39cuFmM`, falló con `BUILD_UTILS_SPAWN_1`/`private-build-disabled`; faltaba `TP_BUILD_TARGET` en su configuración. No se movió el alias ni se cambió producción. La configuración privada necesaria no quedó localizada; no se reconstruye ni se activa por inferencia.
+
+Próximo gate académico: seleccionar evidencia representativa, cerrar el relato y verificar el PDF final conforme a la consigna. Próximos gates de producto separados: resolver el Preview exacto y comprobar continuidad/conflicto entre dos computadoras, con autorización aplicable. El ensayo histórico de IA real no demuestra IA operativa en el E1 protegido. Contador conocido 3/5, halted y permisos consumidos; ninguna generación nueva autorizada.
 
 Los apartados fechados que siguen son antecedentes del corte anterior, no el estado vigente de las dos identidades ni de este lote local.
 
@@ -100,7 +104,7 @@ Las fuentes se enlazan aquí, sin copiar sus prompts, plantillas o reglas comple
 
 El TP ya documenta la separación entre solicitud/fuentes, propuesta de IA, decisión humana y entregable trazable; conserva un demo simulado identificado, historial de decisiones y límites de pruebas. Su estado funcional y el ensayo real mínimo están registrados arriba y en [verificación canónica](docs/verification-2026-10-07.md). Esta actualización no añade pruebas, uso de prompts, handoff comprobado ni validación con usuarios.
 
-El [inventario de herramientas y prompts](docs/tools-and-prompts-inventory.md), pendiente mínimo 3, y la [matriz académica](docs/academic-compliance-matrix.md), riesgo 10, todavía describen el Lote 2 como no implementado. Esas referencias son anteriores a su cierre: para estado funcional y próximo gate prevalecen «Estado publicado — Lote 2 UX» de este contexto y la verificación canónica. No reactivar ese lote por dichos pendientes históricos ni asumir sincronización completa del material académico; ambos documentos quedan fuera de esta actualización.
+Antecedente de desalineación: en el corte anterior, el inventario (pendiente 3) y la matriz académica (riesgo 10) aún describían el Lote 2 como no implementado. La conciliación documental del 16/10 corrige esas referencias sin borrar el historial: Lote 2 cerrado, público 3835117 y candidato protegido 9001b12 separado. Las autoridades siguen siendo el contexto y el registro canónico; no reactivar gates históricos.
 
 El [registro académico de prompts](docs/prompt-log.md) conserva sólo intervenciones realmente utilizadas, con su procedencia y límites. No incorporar retroactivamente la guía E1–E18 como uso histórico ni completar el informe con actividades inexistentes. Para usos futuros efectivos, registrar las intervenciones representativas según ese criterio y mantener visible fuente → propuesta → decisión → entregable; aceptar una propuesta no convierte su contenido en evidencia.
 
@@ -120,7 +124,7 @@ Se corrigieron F02 (borradores por proyecto/propuesta durante la sesión, aviso 
 
 F02, F03, F09 y F08 mínimo pasaron en ambos alojamientos, por separado de las pruebas locales. Cobertura, enlaces, assets y límites en [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md). Sin llamadas de IA, credenciales ni acceso al registro económico. No se implementaron otros hallazgos de la auditoría ni cambios generales de navegación, copy o visuales.
 
-## Estado observado
+## Estado de la base pública y antecedentes observados
 
 - El tema y el problema del TP están definidos de manera provisional.
 - La consigna fue contrastada con el PDF original local de cinco páginas.
@@ -204,7 +208,7 @@ Se conserva la base v0.3 y los estados históricos. El único caso real mínimo 
 - simulaciones y limitaciones declaradas;
 - material suficiente para redactar honestamente metodología, resultados y análisis AIBPS.
 
-## Estado del cierre y próximo gate
+## Antecedente: cierre y gate del Lote 2, 15/10/2026
 
 ### Lote 2 — orientación y accesibilidad básica
 

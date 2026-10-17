@@ -4,9 +4,9 @@ Prototipo local del Trabajo Final Integrador de la Diplomatura en IA Aplicada a 
 
 ## Candidato privado local — 16/10/2026
 
-Sobre `71dd149`, sin nuevo commit ni publicación: protección de borradores de Work al cerrar sesión, formularios E1 temporales por proyecto con advertencia antes de abandonar, estilos E1 incluidos por el propio panel y confirmación remota exacta antes de limpiar una edición. Formularios y borradores no forman parte de `v0.3`, decisiones ni respaldos y se pierden al recargar/cerrar. La próxima acción confirmada sí pertenece al workspace.
+Versionado en `9001b12`, sobre `71dd149`, sin promoción a producción: protección de borradores de Work al cerrar sesión, formularios E1 temporales por proyecto con advertencia antes de abandonar, estilos E1 incluidos por el propio panel y confirmación remota exacta antes de limpiar una edición. Formularios y borradores no forman parte de `v0.3`, decisiones ni respaldos y se pierden al recargar/cerrar. La próxima acción confirmada sí pertenece al workspace.
 
-Dictamen local: doble activación corregida fijando el ID revisado antes de mutar y rechazando el clic repetido del mismo gesto, sin temporizador. Reapertura y acción intencional posterior conservadas. Suite completa con navegador habilitado 162/162, lint y builds público/privado aprobados. Preparado para revisión y posible commit local autorizado; no implica publicación ni equivalencia con el Preview anterior. Incidentes y límites en el registro.
+Dictamen local: doble activación corregida fijando el ID revisado antes de mutar y rechazando el clic repetido del mismo gesto, sin temporizador. Reapertura y acción intencional posterior conservadas. Suite completa registrada con navegador habilitado 162/162, lint y builds público/privado aprobados; no repetidos en este cierre. El commit conserva el candidato, no acredita publicación ni equivalencia con el Preview anterior. Incidentes y límites en el registro.
 
 Brief y análisis aplican la misma selección a aportes vinculados a fuentes; los generales permanecen. La lectura/persistencia rechaza procedencia `model`/`simulation` incompatible con su run, sin reescribir originales. Las procedencias históricas demo/unknown y tipos históricos se conservan conforme al contrato anterior.
 
@@ -42,6 +42,8 @@ pnpm dev
 Abrir la dirección local informada por Vite, normalmente `http://localhost:5173/`.
 
 ### Prueba privada con servicios reales e IA simulada
+
+Corte vigente: el Preview anterior `dpl_A2wdpitMC4npEZj6anPmFxSqrDVc` no contiene las correcciones posteriores de `9001b12`. El intento exacto `dpl_CCtDTRaAtpbzzvYpVWKiN39cuFmM` falló (`BUILD_UTILS_SPAWN_1`, `private-build-disabled`); faltaba `TP_BUILD_TARGET` en la configuración de ese despliegue. No se movió el alias ni se alteró producción. GuIA informó recuperación con ambas identidades de Iván en el mismo espacio; no equivale a aislamiento de clientes ni a prueba completa entre dos computadoras. E1 sigue simulado y separado del ensayo histórico de IA. Los párrafos siguientes son antecedentes de preparación y despliegue, no instrucciones para activar servicios ahora.
 
 Estado posterior: defecto de campo JSON corregido (identities[].id, sin fallback) y Preview reemplazado por dpl_A2wdpitMC4npEZj6anPmFxSqrDVc en el mismo alias. 23 pruebas focalizadas, lint y ambos builds aprobados. Configuración/seguridad sin ampliar; un ingreso Google real y E1 remoto ficticio comprobados hasta decisión/brief/recuperación, con conflicto bloqueado y logout. Pendiente segunda identidad y controles remotos indicados en el registro; no se declara continuidad entre equipos. Detalle en registro canónico; el párrafo siguiente conserva el intento fallido anterior.
 

@@ -28,6 +28,8 @@ La versión pública demuestra una maqueta navegable con datos ficticios y prepa
 
 ## Estado
 
+Corte documental — 16/10/2026: versión funcional pública `3835117`, con cierre documental `71dd149`. El candidato protegido `9001b12` está versionado localmente, un commit por delante de `origin/main` comprobado, sin promoción a producción. Su E1 usa orientación simulada; el ensayo histórico real de IA no demuestra una integración real de ese E1. El Preview anterior permanece separado; el intento de desplegar el candidato exacto falló por falta de configuración privada de build. Evidencia y límites en el registro canónico, no nuevas pruebas de este cierre.
+
 El repositorio contiene una aplicación React + Vite navegable. Versión funcional publicada y comprobada en GitHub Pages y Vercel: `3835117bf6abd9a5d247b3cdc26dbbc5c26dc096`, Lote 2 de navegación y foco, publicado mediante push normal y fast-forward. F01, F11 y F12 están implementados y verificados dentro de la cobertura registrada; ambos alojamientos sirvieron los mismos assets del build probado. Lote 1 `e2befd6` y el hotfix `08853c5` se conservan como antecedentes. Las pruebas públicas directas y los casos con instrumentación ficticia están separados; los intentos inválidos del arnés no se acreditan como PASS. La plataforma sigue siendo estática y la IA pública permanece deshabilitada, con cero generaciones en este lote. El cierre documental posterior no representa otra versión funcional. No hubo lector de pantalla ni se declara accesibilidad integral. Resultados, enlaces, assets y límites: [`docs/verification-2026-10-07.md`](docs/verification-2026-10-07.md).
 
 El Lote 1 conserva borradores por proyecto/propuesta sólo durante la sesión, con descarte, confirmación y aviso antes de salir con cambios reales. No forman parte de `v0.3`, decisiones ni respaldos y se pierden al recargar/cerrar. Reintentar una creación reutiliza el mismo candidato; Sources abre el destino exacto o muestra recuperación; una solicitud sólo en blanco se rechaza sin reescribir las válidas. Instrucciones en [`app/README.md`](app/README.md).
@@ -105,7 +107,7 @@ Scripts disponibles dentro de `app/`:
 - Diseño vigente: Figma, archivo “AI Product Discovery Copilot — Wireframes consolidados”.
 - Código y documentación: GitHub, repositorio `Ivan-andrade7/ai-product-discovery-copilot`.
 
-## Límites actuales
+## Límites de la versión pública
 
 Está implementado el recorrido base completo: Projects, New Project, Overview, Work, Sources, Decisions, Deliverables y AI Activity.
 
@@ -115,4 +117,4 @@ Cada navegador conserva sus proyectos en `localStorage` mediante el formato `v0.
 
 La detección entre pestañas bloquea una copia desactualizada y permite cargar la versión externa, pero no es un sistema transaccional: queda un riesgo residual ante escrituras realmente simultáneas. Existe un servicio auxiliar local restringido a loopback, pero no un backend remoto de producto. El transporte y el registro económico duradero están preparados; las generaciones continúan deshabilitadas. No están implementados login, aislamiento multiusuario, adjuntos PDF/imágenes, sincronización remota, leads, portal ni monetización operativa.
 
-Lote 2 implementado y verificado en su cobertura: regreso explícito a Projects (F01), idioma/título (F11) y orientación del foco (F12), preservando los borradores. El siguiente incremento funcional está pendiente de definición y autorización de Iván. Este cierre sólo concilia documentación; su push requiere autorización separada y no inicia otro lote ni habilita IA pública. Estado y alcance en [`contexto.md`](contexto.md).
+Lote 2 implementado y verificado en su cobertura: regreso explícito a Projects (F01), idioma/título (F11) y orientación del foco (F12), preservando los borradores. El candidato protegido agrega acceso privado y persistencia remota preparados para un espacio personal, no aislamiento multiusuario comercial comprobado. PDF/imágenes, leads, portal y monetización siguen fuera del candidato. El cierre académico pendiente requiere conciliar el informe, seleccionar evidencia y verificar el PDF final; las ampliaciones y la resolución del Preview son gates separados. Este lote documental no autoriza commit, push ni publicación. Estado y alcance en [`contexto.md`](contexto.md).

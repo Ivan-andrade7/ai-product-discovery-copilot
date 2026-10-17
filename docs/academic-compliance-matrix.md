@@ -1,6 +1,10 @@
 # Matriz de cumplimiento académico
 
-Fecha de corte: 15 de octubre de 2026.
+Fecha de conciliación documental: 16 de octubre de 2026. No incorpora nuevas pruebas.
+
+## Versiones y cierre vigente
+
+Público funcional: `3835117` (Lotes 1/2 cerrados), con cierre documental `71dd149`. Candidato protegido local: `9001b12`, no promovido; E1 con orientación simulada. Preview anterior separado; el intento exacto falló por configuración privada de build ausente. El ensayo histórico de IA real es otra evidencia y no demuestra IA pública ni E1 real integrado. Detalle técnico único en el registro de verificación.
 
 ## Autoridad y límites
 
@@ -15,21 +19,21 @@ Fecha de corte: 15 de octubre de 2026.
 | --- | --- | --- |
 | Solución o contenido original con IA generativa o Vibe Coding | Compatible en estado local, cierre académico pendiente | Una ejecución real exitosa del recorrido mínimo con Claude Sonnet 4.6, en un único caso ficticio; generaciones cerradas después. No valida calidad general. |
 | Tema fundamentado y frase “Elegí este tema porque…” | Cumplido en borrador | La introducción abre su justificación con la frase requerida y explica el valor de la IA. |
-| Repositorio de GitHub | Público existente; Lote 1 publicado | e2befd6 integrado por fast-forward y publicado en ambos alojamientos; main y origin/main sincronizados al publicar el lote. |
-| README claro sobre qué hace, para qué sirve y cómo se usa | Disponible; cierre documental postpublicación | Distingue versión funcional publicada e2befd6, IA pública deshabilitada, simulación y único recorrido real mínimo; no declara calidad general. |
-| Mostrar evolución del proyecto | Historial publicado | Conserva 61704e7, 73df887, hotfix 08853c5 y Lote 1 e2befd6, con fallos y retests; cierres documentales separados del cambio funcional. |
+| Repositorio de GitHub | Público existente; Lotes 1/2 publicados | Funcional 3835117 y cierre documental 71dd149; candidato 9001b12 separado, sin promoción a main. |
+| README claro sobre qué hace, para qué sirve y cómo se usa | Disponible; conciliación documental actual | Separa público, candidato protegido simulado, Previews y ensayo real histórico; no declara calidad general. |
+| Mostrar evolución del proyecto | Historial conservado | Conserva 61704e7, 73df887, hotfix 08853c5 y Lotes 1/2, con fallos y retests; 9001b12 agrega preparación protegida sin confundir publicación. |
 | Nivel de entrega válido | Compatible localmente con Nivel 2 | La maqueta navegable sigue siendo compatible con un nivel admitido, pero esta matriz no declara cumplimiento académico definitivo ni sustituye la revisión final contra la fuente original. |
 | Contenido textual, gráfico, audiovisual o interactivo | Cumplido localmente | Interfaz interactiva y documentación textual. |
 | Identificar modelos y herramientas usadas en cada parte | Cumplido con limitación declarada | Figma Make, UXPilot y Abacus exploratorio no dejaron un modelo identificable. En los intentos API se solicitó e informó claude-sonnet-4-6. El modelo exacto de Codex continúa pendiente de recuperación. |
 | Informe PDF con introducción | Cumplido en borrador | Incluye tema, justificación y objetivo. |
 | Informe PDF con marco conceptual | Cumplido en borrador | Describe IA como asistencia, control humano, trazabilidad y herramientas utilizadas. |
-| Informe PDF con metodología | Parcial avanzado | Explica proceso, ajustes, decisiones, fallos y correcciones. Falta integrar una selección breve del registro de prompts. |
+| Informe PDF con metodología | Parcial avanzado | Explica proceso, ajustes, decisiones, fallos y correcciones; ya contiene ejemplos de prompts/intervenciones. Falta seleccionar y condensar para el PDF final. |
 | Informe PDF con resultados | Parcial avanzado | Borrador actualizado con un caso real exitoso, fallo anterior y límites. PDF final, selección de capturas y maquetación pendientes. |
 | Informe PDF con análisis crítico y AIBPS | Cumplido en borrador | Evalúa fortalezas, limitaciones y las cuatro dimensiones sin atribuir métricas inexistentes. |
 | Informe PDF con conclusiones | Cumplido en borrador | Incluye aprendizajes y recomendaciones futuras. |
 | Máximo recomendado de 10 páginas, Arial o Calibri 11, interlineado 1.5 | Pendiente de reconfirmación final | El PDF final no fue modificado ni vuelto a contrastar en este lote. No se reafirma extensión ni formato actuales sin revisar el artefacto final. |
 | Link al repositorio y PDF enviados por correo | Pendiente externo | No crear, publicar ni enviar sin autorización específica en la etapa de entrega. |
-| Correo y asunto según la consigna | Pendiente externo | Usar correo institucional; asunto `TP usuario@campus.economicas.uba.ar`. Confirmar dirección exacta al momento de enviar. |
+| Correo y asunto según la consigna | Pendiente externo | PDF original: enviar desde correo institucional a `contacto@diegoparras.com`; asunto sólo `TP ` seguido del correo institucional del estudiante. Comprobar avisos posteriores y autorizar envío. |
 
 ## No exigido por la consigna
 
@@ -46,12 +50,12 @@ Estas actividades pueden mejorar el proyecto si aportan a una decisión y hay ti
 ## Riesgos y próximos cierres
 
 1. Algunos proveedores no muestran un modelo identificable; esa limitación debe declararse en el informe.
-2. Falta integrar los prompts seleccionados, revisar el contenido y retirar la marca de borrador antes de generar el PDF final.
+2. Falta condensar los ejemplos de prompts ya presentes, seleccionar capturas/enlaces, revisar el contenido y verificar el PDF final antes de retirar la marca de borrador. La consigna no exige defensa en vivo ni otra presentación audiovisual.
 3. La fecha debe contrastarse con cualquier aviso docente posterior al PDF.
-4. La versión publicada usa localStorage v0.3; un ensayo privado previo completó un caso real mínimo, sin habilitar IA pública. No implementa backend remoto, login, multiusuario, PDF/imágenes, leads, portal ni monetización.
-5. Versión funcional pública comprobada: e2befd6 en ambos alojamientos. F02/F03/F09/F08 mínimo pasaron el smoke público; detalle y límites en [`verification-2026-10-07.md`](verification-2026-10-07.md). No se deduce cumplimiento académico definitivo. Las capturas anteriores siguen identificadas por su origen y corte histórico, no como capturas de producción vigente.
+4. La versión pública usa localStorage v0.3, sin backend remoto ni login; un ensayo privado previo completó un caso real mínimo. El candidato 9001b12 prepara acceso privado y persistencia remota para un espacio de Iván, con E1 simulado; no demuestra aislamiento multiusuario comercial ni IA pública.
+5. Versión funcional pública comprobada: 3835117 en ambos alojamientos; Lote 1 e2befd6 y su smoke F02/F03/F09/F08 mínimo son antecedentes conservados. Detalle y límites en [`verification-2026-10-07.md`](verification-2026-10-07.md). No se deduce cumplimiento académico definitivo. Las capturas anteriores conservan origen y corte, no se presentan como producción vigente.
 6. La simulación sólo prueba contrato e interfaz; no demuestra calidad, resistencia real a instrucciones adversariales ni costo.
 7. Contador 3/5, permisos consumidos, halted y generaciones deshabilitadas. Tokens no disponibles; saldo 13.897 → 13.889 y 21,3 créditos API diarios no permiten reconciliar una llamada individual. La excepción autorizada para esos intentos no habilita consumos futuros.
-8. Login, aislamiento multiusuario, PDF/imágenes, leads, portal y monetización son alcance futuro, no requisitos implementados ni exigencias académicas.
+8. Acceso privado y persistencia remota están preparados en el candidato separado; aislamiento multiusuario, PDF/imágenes, leads, portal y monetización no están implementados para uso general ni son exigencias académicas.
 9. Cabecera y Work se corrigieron en 73df887; Sources/grillas y foco móvil en 08853c5, publicado y con smoke satisfactorio. El responsive está cerrado en esa cobertura, no el cumplimiento académico definitivo. Antes de exponer IA se debe definir y autorizar un incremento protegido de autenticación, backend, secretos, persistencia y controles de uso/costo.
-10. Próximo gate de producto: Lote 2 — orientación y accesibilidad básica (F01/F11/F12), primero auditoría y después implementación con autorización separada, respetando borradores. No implementado; no incluye microcopy integral, ayuda, espaciado general ni rediseño, ni declara accesibilidad integral. No es una exigencia académica adicional; alcance en [`../contexto.md`](../contexto.md).
+10. Lote 2 (F01/F11/F12) cerrado y publicado en su cobertura, sin accesibilidad integral. Próximo cierre académico: evidencia coherente, PDF final y condiciones de envío. Resolver el Preview exacto, probar dos computadoras o autorizar futuras llamadas son gates de producto separados, no exigencias docentes adicionales. Alcance en [`../contexto.md`](../contexto.md).

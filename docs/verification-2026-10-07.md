@@ -1,5 +1,17 @@
 # Registro de verificación interna
 
+## Conciliación documental posterior a 9001b12 — 16/10/2026
+
+Este corte registra hechos ya comprobados; no repite pruebas ni verifica servicios nuevamente. Público funcional `3835117`, Lotes 1/2 cerrados; cierre documental `71dd149`. Git comprobado: main/HEAD `9001b1239ae69456b6872d390b340947081e5ba5`; origin/main tras fetch `71dd149e29f8488c6cf02bc6654dbe18b364e775`, un commit por detrás y sin divergencia. Candidato conservado también en rama remota de prueba, sin promoción a main. Este lote sólo modifica documentación y no autoriza staging/commit/push.
+
+Los 53 archivos del candidato quedaron versionados en 9001b12; las expresiones posteriores “sin commit”, “índice vacío” o “posible commit” describen el momento histórico de cada ensayo, no el gate vigente. Las 162/162 pruebas, lint y builds público/privado son resultados del retest anterior: no se suman con pasadas focales o mediciones de layout ni se presentan como nuevas pruebas de este cierre.
+
+Preview previo `dpl_A2wdpitMC4npEZj6anPmFxSqrDVc` separado del candidato. Intento del commit exacto: `dpl_CCtDTRaAtpbzzvYpVWKiN39cuFmM`, fallido con `BUILD_UTILS_SPAWN_1`/`private-build-disabled`. La configuración de ese despliegue carecía de `TP_BUILD_TARGET`, presente en el anterior; no se movió el alias ni se alteró producción. No quedó localizada la configuración privada para repetirlo, ni se acredita un nuevo Preview funcional. No se reprodujo el fallo en este cierre.
+
+E1 protegido utiliza orientación simulada, no el modelo del ensayo histórico. Dos identidades de Iván recuperaron el mismo espacio según evidencia registrada de GuIA; no prueba aislamiento entre clientes ni continuidad/conflicto completo entre dos computadoras, aún pendiente. El ensayo histórico conserva primer intento fallido y segundo válido, 3/5, halted, permisos consumidos, tokens no disponibles y 21,3 créditos diarios agregados sin atribución individual. No se leyó ni modificó el registro económico; no hay nuevas generaciones autorizadas.
+
+Gate académico: conciliar relato, seleccionar capturas/enlaces con versión/entorno y verificar el PDF final. Fuente original de cinco páginas: tres niveles válidos, sin defensa en vivo, plazo 8/11/2026 23:59 en esa copia; avisos docentes posteriores pendientes. Resolver Preview, dos computadoras o futuras evaluaciones son gates de producto separados. No se declara cumplimiento final, calidad general, seguridad ni accesibilidad integral. Los cortes siguientes conservan fallos, retests y gates históricos sin borrarlos.
+
 ## Corrección de activación repetida — retest final local, 16/10/2026
 
 Autorización posterior específica al fallo del apartado siguiente. Mismo candidato sobre main/HEAD `71dd149`; cambios previos preservados. Sin IA real, credenciales, registro económico, servicios/cuentas/datos remotos, staging, commit ni publicación. El Preview previo no contiene este hotfix local.
